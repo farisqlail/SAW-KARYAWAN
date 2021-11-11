@@ -31,6 +31,7 @@ Route::prefix('/lowongan')->group(function ()
     Route::post('/edit/{id}', 'LowonganController@update')->name('lowongan.update');
     Route::post('/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
 });
+
 Route::prefix('/kriteria')->group(function ()
 {
     Route::get('/{id}', 'KriteriaController@index')->name('kriteria.index');
@@ -40,6 +41,7 @@ Route::prefix('/kriteria')->group(function ()
     Route::post('/edit/{id}', 'KriteriaController@update')->name('kriteria.update');
     Route::post('/hapus/{id}', 'KriteriaController@destroy')->name('kriteria.hapus');
 });
+
 Route::prefix('/bobot_kriteria')->group(function ()
 {
     Route::get('/{id}', 'BobotKriteriaController@index')->name('bobot_kriteria.index');
@@ -49,6 +51,7 @@ Route::prefix('/bobot_kriteria')->group(function ()
     Route::post('/edit/{id}', 'BobotKriteriaController@update')->name('bobot_kriteria.update');
     Route::post('/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
 });
+
 Route::prefix('/daftar_soal')->group(function ()
 {
     Route::get('/', 'DaftarSoalController@index')->name('daftar_soal.index');
@@ -58,6 +61,7 @@ Route::prefix('/daftar_soal')->group(function ()
     Route::post('/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
     Route::post('/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
 });
+
 Route::prefix('/jadwal_tes')->group(function ()
 {
     Route::get('/', 'JadwalTesController@index')->name('jadwal_tes.index');

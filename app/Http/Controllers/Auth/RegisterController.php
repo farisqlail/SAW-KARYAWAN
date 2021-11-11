@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -46,6 +48,20 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+       // $this->guard()->login($user);
+    //this commented to avoid register user being auto logged in
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -69,5 +85,5 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'role' => 'customer'
         ]);
-    }
+    }   
 }
