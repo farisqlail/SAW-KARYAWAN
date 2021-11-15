@@ -24,7 +24,7 @@ class CreatePelamarTable extends Migration
             $table->string('cv');
             $table->string('ijazah');
             $table->string('pas_foto');
-            $table->integer('status_lamaran');
+            $table->integer('status_lamaran')->nullable();
             $table->timestamps();
             $table->foreign('id_user')
             ->references('id')

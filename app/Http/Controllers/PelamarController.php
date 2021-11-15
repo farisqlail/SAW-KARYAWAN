@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Storage;
 use App\lowongan;
 use App\Pelamar;
-use Illuminate\Support\Facades\Auth;
+
 
 class PelamarController extends Controller
 {
@@ -25,11 +29,11 @@ class PelamarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $lowongan = lowongan::all();
+        $lowongan = lowongan::find($id);
 
-        return view('pelamar.create', compact('lowongan'));
+        return view('pelamar.create', ['lowongan' => $lowongan]);
     }
 
     /**
@@ -40,44 +44,50 @@ class PelamarController extends Controller
      */
     public function store(Request $request)
     {
+        Alert::success('Berhasil Melamar', 'Tunggu informasi berikutnya!');
         
-        // 'nama_pelamar',
-        // 'tanggal_lahir',
-        // 'no_telepon',
-        // 'jenis_kelamin',
-        // 'cv',
-        // 'ijazah',
-        // 'pas_foto',
-        // 'status_lamaran',
-        // 'id_user',
-        // 'id_lowongan'
-
         $validator = Validator::make(request()->all(), [
             'nama_pelamar' => 'required',
             'tanggal_lahir' => 'required',
             'no_telepon' => 'required',
             'jenis_kelamin' => 'required',
-            'cv' => 'required',
-            'ijazah' => 'required',
-            'pas_foto' => 'requires',
+            'cv' => 'required|mimes:pdf|max:3024',
+            'ijazah' => 'required|mimes:pdf|max:3024',
+            'pas_foto' => 'required|mimes:jpeg,png,jpg|max:1024',
         ]);
 
         if ($validator->fails()) {
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
             $pelamar = new Pelamar();
 
             $pelamar->id_lowongan = $request->get('id_lowongan');
             $pelamar->id_user = $request->get(Auth::id());
             $pelamar->nama_pelamar = $request->get('nama_pelamar');
-            $pelamar->tanggal_lahir = $request->get('tanggal_lahor');
+            $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
             $pelamar->no_telepon = $request->get('no_telepon');
             $pelamar->jenis_kelamin = $request->get('jenis_kelamin');
-            $pelamar->cv = $request->get('cv');
-            $pelamar->ijazah = $request->get('ijazah');
-            $pelamar->pas_foto = $request->get('pas_foto');
-
+            if ($request->hasFile('cv')) {
+                $file = $request->file('cv');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $pelamar->cv = $filename;
+                Storage::putFileAs("public/file/cv", $file, $filename);
+            }
+            if ($request->hasFile('ijazah')) {
+                $file = $request->file('ijazah');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $pelamar->ijazah = $filename;
+                Storage::putFileAs("public/file/ijazah", $file, $filename);
+            }
+            if ($request->hasFile('pas_foto')) {
+                $file = $request->file('pas_foto');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $pelamar->pas_foto = $filename;
+                Storage::putFileAs("public/images/pas_foto", $file, $filename);
+            }
+            
             $pelamar->save();
 
             return redirect()->route('home');
