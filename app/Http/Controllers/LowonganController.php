@@ -19,6 +19,13 @@ class LowonganController extends Controller
         return view('lowongan.index', ['lowongan' => $lowongan]);
     }
 
+    public function home(){
+
+        $lowongan = lowongan::all();
+
+        return view('lowongan.home', compact('lowongan'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
