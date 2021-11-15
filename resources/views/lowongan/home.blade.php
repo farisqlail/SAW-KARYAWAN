@@ -138,7 +138,7 @@
                                 </p>
 
                                 <div class="button-group" align="right">
-                                    <button class="btn btn-outline-primary">Lamar</button>
+                                    <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}" class="btn btn-outline-primary">Lamar</a>
                                 </div>
                             </div>
                         </div>

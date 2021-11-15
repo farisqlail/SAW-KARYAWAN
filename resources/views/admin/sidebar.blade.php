@@ -44,7 +44,12 @@
       </li>
       @endif
       @if(Auth()->user()->role == "customer")
-
+      <li class="{{'lowongan' == request()->segment(1) ? 'active' : ''}}">
+        <a class="nav-link" href="{{route('lowongan.home')}}">
+          <i class="material-icons">insert_chart</i>
+          <p>Lihat Lowongan</p>
+        </a>
+      </li>
       @endif
       @endguest
 

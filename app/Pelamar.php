@@ -8,7 +8,18 @@ class Pelamar extends Model
 {
     protected $table        = 'pelamar';
     protected $primaryKey   = 'id_pelamar';
-    protected $fillable     = ['nama_pelamar','tanggal_lahir','no_telepon','jenis_kelamin','cv','ijazah','pas_foto','status_lamaran','id_user','id_lowongan'];
+    protected $fillable     = [
+        'nama_pelamar',
+        'tanggal_lahir',
+        'no_telepon',
+        'jenis_kelamin',
+        'cv',
+        'ijazah',
+        'pas_foto',
+        'status_lamaran',
+        'id_user',
+        'id_lowongan'
+    ];
     protected $hidden       = ['created_at','updated_at'];
 
     public function user() {
