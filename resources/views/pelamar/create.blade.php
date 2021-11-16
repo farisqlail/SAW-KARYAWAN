@@ -27,10 +27,12 @@
                                 class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id_user" class="form-control" value="{{Auth::id()}}" hidden>
+                                    <input type="text" name="id_user" class="form-control" value="{{ Auth::id() }}"
+                                        hidden>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="id_lowongan" class="form-control" value="{{$lowongan->id_lowongan}}" hidden>
+                                    <input type="text" name="id_lowongan" class="form-control"
+                                        value="{{ $lowongan->id_lowongan }}" hidden>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -47,23 +49,35 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-                                    <select name="jenis_kelamin" class="form-control">
-                                        <option value="">Pilih Jenis Kemalin</option>
-                                        <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Kriteria <span class="text-danger">*</span></label>
-                                    <select name="id_kriteria" class="form-control">
-                                        <option value="">Pilih Kriteria</option>
-                                        @foreach ($kriteria as $item)
-                                            <option value="{{ $item->id_kriteria }}">{{ $item->nama_kriteria }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Jenis Kelamin <span class="text-danger">*</span></label>
+                                            <select name="jenis_kelamin" class="form-control">
+                                                <option value="">Pilih Jenis Kemalin</option>
+                                                <option value="Laki-laki">Laki-laki</option>
+                                                <option value="Perempuan">Perempuan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @foreach ($kriteria as $kriteria)
+                                                <label for="{{ $kriteria->kode }}">{{ $kriteria->nama_kriteria }}</label>
+                                                <select name="id_bobot_kriteria" class="form-control">
+                                                    <option value="">-- Pilih {{ $kriteria->nama_kriteria }}--</option>
+                                                    @foreach ($bobotKriteria as $bobot)
+                                                        @if ($kriteria->id_kriteria == $bobot->id_kriteria)
+                                                            <option value="{{ $bobot->id_bobot_kriteria }}">
+                                                                {{ $bobot->nama_bobot }}</option>
+                                                        @else
+        
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row mt-3">

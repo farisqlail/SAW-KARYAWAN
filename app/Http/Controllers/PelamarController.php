@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BobotKriteria;
 use App\Kriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -36,8 +37,9 @@ class PelamarController extends Controller
     {
         $lowongan = lowongan::find($id);
         $kriteria = Kriteria::all();
+        $bobotKriteria = BobotKriteria::all();
 
-        return view('pelamar.create', ['lowongan' => $lowongan, 'kriteria' => $kriteria]);
+        return view('pelamar.create', ['lowongan' => $lowongan, 'kriteria' => $kriteria, 'bobotKriteria' => $bobotKriteria]);
     }
 
     /**
@@ -68,7 +70,7 @@ class PelamarController extends Controller
             $pelamar = new Pelamar();
 
             $pelamar->id_lowongan = $request->get('id_lowongan');
-            $pelamar->id_kriteria = $request->get('id_kriteria');
+            $pelamar->id_bobot_kriteria = $request->get('id_bobot_kriteria');
             $pelamar->id_user = $request->get(Auth::id());
             $pelamar->nama_pelamar = $request->get('nama_pelamar');
             $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
