@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>CV.Lintas Nusa | Lowongan</title>
+    <title>CV.Lintas Nusa</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    {{-- <link href="{{ asset('user-template/assets/img/favicon.png') }}" rel="icon"> --}}
-    <link href="{{ asset('user-template/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -47,10 +47,8 @@
                             <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i
                                         class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                                                                document.getElementById('logout-form').submit();">Logout</a>
-                                    </li>
+                                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">Logout</a></li>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         style="display: none;">
@@ -70,38 +68,28 @@
         </div>
     </header><!-- End Header -->
 
-    <main id="main">
-        <div class="container mt-5 mb-5">
-            <h1 style="margin-top: 100px;" align="center">Daftar Lowongan Pekerjaan</h1>
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
 
-            <div class="row" style="margin-top: 50px">
-                @foreach ($lowongan as $data)
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>{{ $data->posisi_lowongan }}</h4>
-                                <span class="text-muted">Kuota {{ $data->kuota }} - <i
-                                        class="text-danger">{{ $data->berlaku_sampai }}</i></span>
-                                <p class="mt-3">
-                                    {{ $data->keterangan }}
-                                </p>
-                                @if (Auth::guest())
-                                    <div class="button-group" align="right">
-                                        <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
-                                    </div>
-                                @else
-                                    <div class="button-group" align="right">
-                                        <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}"
-                                            class="btn-get-started">Lamar</a>
-                                    </div>
-                                @endif
-
-                            </div>
-                        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h1>CV.Lintas Nusa</h1>
+                    <h2>Aplikasi Rekrutmen dan Seleksi Karyawan dengan menggunakan metode SAW</h2>
+                    <div class="d-flex">
+                        <a href="{{ route('lowongan.home') }}" class="btn-get-started scrollto">Cari Lowongan!</a>
+                        {{-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i
+                                class="bi bi-play-circle"></i><span>Watch Video</span></a> --}}
                     </div>
-                @endforeach
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                    <img src="{{ asset('user-template/assets/img/hero-img.png') }}" class="img-fluid animated"
+                        alt="">
+                </div>
             </div>
-    </main>
+        </div>
+
+    </section><!-- End Hero -->
 
 
 

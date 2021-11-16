@@ -97,7 +97,7 @@ class PelamarController extends Controller
             
             $pelamar->save();
 
-            return redirect()->route('home');
+            return redirect()->route('lowongan.home');
         }
 
     }
