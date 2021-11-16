@@ -17,6 +17,7 @@ class Pelamar extends Model
         'ijazah',
         'pas_foto',
         'status_lamaran',
+        'id_kriteria',
         'id_user',
         'id_lowongan'
     ];
@@ -36,5 +37,9 @@ class Pelamar extends Model
     
     public function hasil_tes() {
         return $this->hasMany(HasilTes::class,'id_pelamar', 'id_pelamar');
+    }
+
+    public function kriteria() {
+        return $this->hasMany(Kriteria::class,'id_lowongan', 'id_lowongan');
     }
 }

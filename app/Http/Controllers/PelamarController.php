@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Kriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,9 @@ class PelamarController extends Controller
      */
     public function index()
     {
-        //
+        $pelamar = Pelamar::all();
+
+        return view('pelamar.index', ['pelamar' => $pelamar]);
     }
 
     /**
@@ -32,8 +35,9 @@ class PelamarController extends Controller
     public function create($id)
     {
         $lowongan = lowongan::find($id);
+        $kriteria = Kriteria::all();
 
-        return view('pelamar.create', ['lowongan' => $lowongan]);
+        return view('pelamar.create', ['lowongan' => $lowongan, 'kriteria' => $kriteria]);
     }
 
     /**
@@ -64,6 +68,7 @@ class PelamarController extends Controller
             $pelamar = new Pelamar();
 
             $pelamar->id_lowongan = $request->get('id_lowongan');
+            $pelamar->id_kriteria = $request->get('id_kriteria');
             $pelamar->id_user = $request->get(Auth::id());
             $pelamar->nama_pelamar = $request->get('nama_pelamar');
             $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
@@ -137,6 +142,8 @@ class PelamarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pelamar = Pelamar::find($id);
+        $pelamar->delete();
+        return redirect(route('pelamar.index'));
     }
 }

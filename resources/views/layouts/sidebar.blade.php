@@ -24,8 +24,8 @@
           <p>Lowongan</p>
         </a>
       </li>
-      <li class="">
-        <a class="nav-link" href="">
+      <li class="{{'pelamar' == request()->segment(1) ? 'active' : ''}}">
+        <a class="nav-link" href="{{ route('pelamar.index') }}">
           <i class="fas fa-users"></i>
           <p>Pelamar</p>
         </a>

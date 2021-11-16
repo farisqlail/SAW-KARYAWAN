@@ -80,7 +80,7 @@ Route::prefix('/jadwal_tes')->group(function ()
 Route::prefix('/pelamar')->group(function ()
 {
     Route::get('/', 'PelamarController@index')->name('pelamar.index');
-   
     Route::get('/{id}/melamar', 'PelamarController@create')->name('pelamar.tambah');
     Route::post('/melamar', 'PelamarController@store')->name('pelamar.simpan');
+    Route::post('/hapus/{id}', 'PelamarController@destroy')->name('pelamar.hapus');
 });

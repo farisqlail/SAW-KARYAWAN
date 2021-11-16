@@ -56,6 +56,16 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="">Kriteria <span class="text-danger">*</span></label>
+                                    <select name="id_kriteria" class="form-control">
+                                        <option value="">Pilih Kriteria</option>
+                                        @foreach ($kriteria as $item)
+                                            <option value="{{ $item->id_kriteria }}">{{ $item->nama_kriteria }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="row mt-3">
                                     <div class="col-md-6">
                                         <div class="form-group">
