@@ -84,3 +84,8 @@ Route::prefix('/pelamar')->group(function ()
     Route::post('/melamar', 'PelamarController@store')->name('pelamar.simpan');
     Route::post('/hapus/{id}', 'PelamarController@destroy')->name('pelamar.hapus');
 });
+
+Route::prefix('/perhitungan')->group(function ()
+{
+    Route::get('/', 'PerhitunganController@index')->name('perhitungan.index');
+});

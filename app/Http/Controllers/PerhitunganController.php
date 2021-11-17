@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Alternatif;
+use App\BobotKriteria;
 use App\Kriteria;
 use Illuminate\Http\Request;
 
@@ -11,14 +11,14 @@ class PerhitunganController extends Controller
     public function index()
     {
         $kriteria = Kriteria::all();
-        $alternatif = Alternatif::all();
+        $bobotKriteria = BobotKriteria::all();
         $kode_krit = [];
         foreach ($kriteria as $krit)
         {
             $kode_krit[$krit->id] = [];
-            foreach ($alternatif as $al)
+            foreach ($bobotKriteria as $bk)
             {
-                foreach ($al->crip as $crip)
+                foreach ($bk->crip as $crip)
                 {
                         if ($crip->kriteria->id == $krit->id)
                         {
@@ -38,7 +38,7 @@ class PerhitunganController extends Controller
 //        return json_encode($kode_krit);
         return view('perhitungan.index',[
             'kriteria'      => $kriteria,
-            'alternatif'    => $alternatif,
+            'bobotKriteria' => $bobotKriteria,
             'kode_krit'     => $kode_krit
         ]);
     }
