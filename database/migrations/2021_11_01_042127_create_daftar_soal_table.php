@@ -15,10 +15,16 @@ class CreateDaftarSoalTable extends Migration
     {
         Schema::create('daftar_soal', function (Blueprint $table) {
             $table->increments('id_soal');
+            $table->bigInteger('id_jadwal_tes')->index()->nullable();
             $table->string('soal');
             $table->string('file_soal');
             $table->integer('bobot_soal');
             $table->timestamps();
+            $table->foreign('id_jadwal_tes')
+            ->references('id_jadwal_tes')
+            ->on('jadwal_tes')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

@@ -36,10 +36,12 @@ class PelamarController extends Controller
     public function create($id)
     {
         $lowongan = lowongan::find($id);
-        $kriteria = Kriteria::all();
-        $bobotKriteria = BobotKriteria::all();
+        $kriteria = DB::table('kriteria')
+        ->where('id_lowongan', '=', $id)
+        ->get();
+        $bobot_kriteria= BobotKriteria::all();
 
-        return view('pelamar.create', ['lowongan' => $lowongan, 'kriteria' => $kriteria, 'bobotKriteria' => $bobotKriteria]);
+        return view('pelamar.create', ['lowongan' => $lowongan, 'kriteria' => $kriteria,'bobot_kriteria'=>$bobot_kriteria]);
     }
 
     /**
@@ -70,8 +72,8 @@ class PelamarController extends Controller
             $pelamar = new Pelamar();
 
             $pelamar->id_lowongan = $request->get('id_lowongan');
-            $pelamar->id_bobot_kriteria = $request->get('id_bobot_kriteria');
-            $pelamar->id_user = $request->get(Auth::id());
+            $pelamar->id_user = $request->get('id_user');
+            // $pelamar->id_bobot_kriteria = $request->get('id_bobot_kriteria');
             $pelamar->nama_pelamar = $request->get('nama_pelamar');
             $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
             $pelamar->no_telepon = $request->get('no_telepon');
@@ -96,6 +98,18 @@ class PelamarController extends Controller
             }
             
             $pelamar->save();
+
+            $bobot_kriteria= BobotKriteria::all();
+            
+            $kriteria = DB::table('kriteria')
+            ->where('id_lowongan', '=', $request->get('id_lowongan'))
+            ->get();
+            foreach($kriteria as $kriteria){
+                $nilai_alternatif = new NilaiAlternatif();
+                $nilai_alternatif->id_pelamar=$pelamar->id_pelamar;
+                $nilai_alternatif->id_bobot_kriteria=$request->get($kriteria->id_kriteria);
+                $nilai_alternatif->save();
+            }
 
             return redirect()->route('lowongan.home');
         }

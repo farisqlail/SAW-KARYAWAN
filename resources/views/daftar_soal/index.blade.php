@@ -8,7 +8,7 @@
                     <div class="card-header">
                         <h2 class="float-left">Daftar Soal</h2>
                         <div class="float-right">
-                                <a href="{{route('daftar_soal.tambah')}}" class="btn btn-success">Tambah</a>
+                                <a href="{{route('daftar_soal.tambah',['id' => $jadwaltes->id_jadwal_tes])}}" class="btn btn-success">Tambah</a>
                         </div>
                     </div>
 

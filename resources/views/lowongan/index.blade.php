@@ -9,9 +9,9 @@
                 <div class="card-header">
                     <h2 class="float-left">Lowongan</h2>
                     <div class="float-right">
-                        @if(Auth()->user()->role == "admin")
+                        
                         <a href="{{route('lowongan.tambah')}}" class="btn btn-success">Tambah</a>
-                        @endif
+                        
                     </div>
                 </div>
 

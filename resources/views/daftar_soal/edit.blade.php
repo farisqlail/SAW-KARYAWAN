@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label for="file_soal">File Soal<span class="text-danger">*</span></label>
                             </div>
-                            <input name="file_soal" class="form-control" type="file" required />
+                            <input name="file_soal" class="form-control" type="file"/>
                             <br>
                             <div class="float-right">
                                 <button type="submit" class="btn btn-success">Edit</button>

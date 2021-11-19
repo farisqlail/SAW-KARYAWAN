@@ -37,7 +37,7 @@
                                                 <form action="{{route('jadwal_tes.hapus',['id' => $data->id_jadwal_tes])}}" method="POST">
                                                     @csrf
                                                     
-                                                    <a href="{{route('jadwal_tes.pilihsoal',['id' => $data->id_jadwal_tes])}}" class="btn btn-sm btn-info">Pilih soal</a>
+                                                    <a href="{{route('daftar_soal.index',['id' => $data->id_jadwal_tes])}}" class="btn btn-sm btn-info">Daftar Soal</a>
                                                     <a href="" class="btn btn-sm btn-info">Nilai</a>
                                                     <a href="{{route('jadwal_tes.ubah',['id' => $data->id_jadwal_tes])}}"class="btn btn-sm btn-warning">Edit</a>
                                                     <button type="submit" class="btn btn-sm btn-danger">Hapus</button>

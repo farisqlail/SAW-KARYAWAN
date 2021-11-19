@@ -15,14 +15,14 @@ class CreateHasilTesTable extends Migration
     {
         Schema::create('hasil_tes', function (Blueprint $table) {
             $table->increments('id_hasil_tes');
-            $table->unsignedInteger('id_soal_tes')->index()->nullable();
+            $table->unsignedInteger('id_soal')->index()->nullable();
             $table->unsignedInteger('id_pelamar')->index()->nullable();
             $table->string('jawaban');
             $table->integer('nilai');
-            $table->timestamps();
-            $table->foreign('id_soal_tes')
-            ->references('id_soal_tes')
-            ->on('soal_tes')
+            $table->timestamps(); 
+            $table->foreign('id_soal')
+            ->references('id_soal')
+            ->on('daftar_soal')
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->foreign('id_pelamar')

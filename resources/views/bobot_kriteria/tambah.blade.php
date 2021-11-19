@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Tambah Nilai Kriteria</h2>
+                        <h2 class="float-left">Tambah Bobot Kriteria</h2>
                         </form>
                     </div>
 

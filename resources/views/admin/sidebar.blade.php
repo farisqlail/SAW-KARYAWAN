@@ -30,12 +30,6 @@
           <p>Pelamar</p>
         </a>
       </li>
-      <li class="{{'daftar_soal' == request()->segment(1) ? 'active' : ''}}">
-        <a class="nav-link" href="{{route('daftar_soal.index')}}">
-          <i class="fas fa-book"></i>
-          <p>Daftar Soal</p>
-        </a>
-      </li>
       <li class="{{'jadwal_tes' == request()->segment(1) ? 'active' : ''}}">
         <a class="nav-link" href="{{route('jadwal_tes.index')}}">
           <i class="far fa-clock"></i>

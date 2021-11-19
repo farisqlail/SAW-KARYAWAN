@@ -16,6 +16,9 @@
                         <form enctype="multipart/form-data" action="{{route('daftar_soal.simpan')}}" method="POST" class="col-md-12">
                             @csrf
                             <div class="form-group">
+                                    <input type="text" name="id_jadwal_tes" class="form-control" value="{{$jadwaltes->id_jadwal_tes}}" hidden>
+                                </div>
+                            <div class="form-group">
                                 <label for="soal">Soal<span class="text-danger">*</span></label>
                                 <input type="text" name="soal" required class="form-control">
                             </div>

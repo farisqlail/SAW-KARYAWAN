@@ -17,7 +17,6 @@ class CreatePelamarTable extends Migration
             $table->increments('id_pelamar');
             $table->unsignedInteger('id_user')->index()->nullable();
             $table->unsignedInteger('id_lowongan')->index()->nullable();
-            $table->bigInteger('id_bobot_kriteria')->index();
             $table->string('nama_pelamar');
             $table->date('tanggal_lahir');
             $table->string('no_telepon');

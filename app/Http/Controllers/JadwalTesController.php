@@ -6,7 +6,6 @@ use App\DaftarSoal;
 use App\HasilTes;
 use App\JadwalTes;
 use App\lowongan;
-use App\SoalTes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -66,48 +65,7 @@ class JadwalTesController extends Controller
             return redirect()->route('jadwal_tes.index');
         }
     }
-    public function pilihsoal($id)
-    {
-        $jadwal_tes = JadwalTes::find($id);
-        $daftarsoal = DB::table('daftar_soal')
-            ->get();
-        $soaltes = DB::table('soal_tes')
-            ->join('daftar_soal', 'soal_tes.id_soal', '=', 'daftar_soal.id_soal')
-            ->get();
-        return view('jadwal_tes.pilihsoal', ['jadwaltes' => $jadwal_tes, 'daftarsoal' => $daftarsoal, 'soaltes' => $soaltes]);
-    }
-    public function simpansoal(Request $request, $id)
-    {
-        $daftarsoaltes = new SoalTes();
-        $daftarsoaltes->id_jadwal_tes = $request->get('id_jadwal_tes');
-        $daftarsoaltes->id_soal = $request->get('id_soal');
-        $daftarsoaltes->save();
-
-        $jadwal_tes = JadwalTes::find($id);
-        $daftarsoal = DB::table('daftar_soal')
-            ->leftJoin('soal_tes', 'daftar_soal.id_soal', '=', 'soal_tes.id_soal')
-            ->get();
-        $soaltes = DB::table('soal_tes')
-            ->join('daftar_soal', 'soal_tes.id_soal', '=', 'daftar_soal.id_soal')
-            ->get();
-            return redirect()->route('jadwal_tes.pilihsoal', ['jadwaltes' => $jadwal_tes, 'daftarsoal' => $daftarsoal, 'soaltes' => $soaltes]);
-    }
-
-    public function hapussoal(Request $request,$id)
-    {
-        $soal_teshapus = DB::table('soal_tes')
-        ->where('id_soal_tes', '=', $request->get('id_soal_tes'))
-        ->delete();
-        
-        $jadwal_tes = JadwalTes::find($id);
-        $daftarsoal = DB::table('daftar_soal')
-            ->leftJoin('soal_tes', 'daftar_soal.id_soal', '=', 'soal_tes.id_soal')
-            ->get();
-        $soaltes = DB::table('soal_tes')
-            ->join('daftar_soal', 'soal_tes.id_soal', '=', 'daftar_soal.id_soal')
-            ->get();
-            return redirect()->route('jadwal_tes.pilihsoal', ['jadwaltes' => $jadwal_tes, 'daftarsoal' => $daftarsoal, 'soaltes' => $soaltes]);
-    }
+  
 
     /**
      * Display the specified resource.

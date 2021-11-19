@@ -55,8 +55,8 @@ Route::prefix('/bobot_kriteria')->group(function ()
 
 Route::prefix('/daftar_soal')->group(function ()
 {
-    Route::get('/', 'DaftarSoalController@index')->name('daftar_soal.index');
-    Route::get('/tambah', 'DaftarSoalController@create')->name('daftar_soal.tambah');
+    Route::get('/{id}', 'DaftarSoalController@index')->name('daftar_soal.index');
+    Route::get('/{id}/tambah', 'DaftarSoalController@create')->name('daftar_soal.tambah');
     Route::post('/tambah', 'DaftarSoalController@store')->name('daftar_soal.simpan');
     Route::get('/edit/{id}', 'DaftarSoalController@edit')->name('daftar_soal.edit');
     Route::post('/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
