@@ -14,8 +14,8 @@ class CreateKriteriaTable extends Migration
     public function up()
     {
         Schema::create('kriteria', function (Blueprint $table) {
-            $table->increments('id_kriteria');
-            $table->unsignedInteger('id_lowongan')->index()->nullable();
+            $table->bigIncrements('id_kriteria');
+            $table->unsignedBigInteger('id_lowongan')->index()->nullable();
             $table->string('nama_kriteria');
             $table->string('atribut_kriteria');
             $table->integer('bobot_preferensi');

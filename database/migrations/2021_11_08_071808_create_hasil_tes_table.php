@@ -14,9 +14,9 @@ class CreateHasilTesTable extends Migration
     public function up()
     {
         Schema::create('hasil_tes', function (Blueprint $table) {
-            $table->increments('id_hasil_tes');
-            $table->unsignedInteger('id_soal')->index()->nullable();
-            $table->unsignedInteger('id_pelamar')->index()->nullable();
+            $table->bigIncrements('id_hasil_tes');
+            $table->unsignedBigInteger('id_soal')->index()->nullable();
+            $table->unsignedBigInteger('id_pelamar')->index()->nullable();
             $table->string('jawaban');
             $table->integer('nilai');
             $table->timestamps(); 

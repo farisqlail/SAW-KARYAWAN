@@ -14,9 +14,9 @@ class CreateSoalTesTable extends Migration
     public function up()
     {
         Schema::create('soal_tes', function (Blueprint $table) {
-            $table->increments('id_soal_tes');
-            $table->unsignedInteger('id_jadwal_tes')->index()->nullable();
-            $table->unsignedInteger('id_soal')->index()->nullable();
+            $table->bigIncrements('id_soal_tes');
+            $table->unsignedBigInteger('id_jadwal_tes')->index()->nullable();
+            $table->unsignedBigInteger('id_soal')->index()->nullable();
             $table->timestamps();
             $table->foreign('id_jadwal_tes')
             ->references('id_jadwal_tes')

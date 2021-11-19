@@ -14,9 +14,9 @@ class CreateNilaiAlternatifTable extends Migration
     public function up()
     {
         Schema::create('nilai_alternatif', function (Blueprint $table) {
-            $table->increments('id_nilai_alternatif');
-            $table->unsignedInteger('id_pelamar')->index()->nullable();
-            $table->unsignedInteger('id_bobot_kriteria')->index()->nullable();
+            $table->bigIncrements('id_nilai_alternatif');
+            $table->unsignedBigInteger('id_bobot_kriteria')->index()->nullable();
+            $table->unsignedBigInteger('id_pelamar')->index()->nullable();
 //            $table->timestamps();
             $table->foreign('id_pelamar')
                 ->references('id_pelamar')

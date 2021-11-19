@@ -14,8 +14,8 @@ class CreateBobotKriteriaTable extends Migration
     public function up()
     {
         Schema::create('bobot_kriteria', function (Blueprint $table) {
-            $table->increments('id_bobot_kriteria');
-            $table->unsignedInteger('id_kriteria')->index()->nullable();
+            $table->bigIncrements('id_bobot_kriteria');
+            $table->unsignedBigInteger('id_kriteria')->index()->nullable();
             $table->string('nama_bobot');
             $table->integer('jumlah_bobot');
             $table->timestamps();
