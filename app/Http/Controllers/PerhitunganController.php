@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\BobotKriteria;
 use App\Kriteria;
+use App\NilaiAlternatif;
 use Illuminate\Http\Request;
 
 class PerhitunganController extends Controller
 {
     public function index()
     {
+        $nilaiAlternatif = NilaiAlternatif::all();
         $kriteria = Kriteria::all();
         $bobotKriteria = BobotKriteria::all();
         $kode_krit = [];
@@ -41,7 +43,8 @@ class PerhitunganController extends Controller
         return view('perhitungan.index',[
             'kriteria'      => $kriteria,
             'bobotKriteria' => $bobotKriteria,
-            'kode_krit'     => $kode_krit
+            'kode_krit'     => $kode_krit,
+            'nilaiAlternatif' => $nilaiAlternatif
         ]);
     }
 }

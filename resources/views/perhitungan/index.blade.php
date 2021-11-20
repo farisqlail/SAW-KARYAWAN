@@ -13,22 +13,22 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">Kode</th>
-                                    <th class="text-center">Nama</th>
-                                    @foreach($kriteria as $krit)
-                                        <th class="text-center">{{$krit->nama}}</th>
-                                    @endforeach
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">Kode</th>
+                                        <th class="text-center">Nama</th>
+                                        @foreach ($kriteria as $krit)
+                                            <th class="text-center">{{ $krit->nama }}</th>
+                                        @endforeach
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($alternatif))
-                                    @foreach($alternatif as $data)
+                                    {{-- @if (!empty($alternatif))
+                                    @foreach ($alternatif as $data)
                                         <tr>
                                             <td>{{$data->kode_alternatif}}</td>
                                             <td>{{$data->nama_alternatif}}</td>
-                                            @foreach($data->crip as $crip)
-                                                <td>{{$crip->nama_crip}}</td>
+                                            @foreach ($data->bobot_kriteria as $bk)
+                                                <td>{{$bk->nama_bobot}}</td>
                                             @endforeach
                                         </tr>
                                     @endforeach
@@ -36,7 +36,7 @@
                                     <tr>
                                         <td colspan="{{(count($kriteria)+1)}}" class="text-center">Data tidak ditemukan</td>
                                     </tr>
-                                @endif
+                                @endif --}}
                                 </tbody>
                             </table>
                         </div>
@@ -44,20 +44,20 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">Kode</th>
-                                    @foreach($kriteria as $krit)
-                                        <th class="text-center">{{$krit->kode}}</th>
-                                    @endforeach
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">Kode</th>
+                                        @foreach ($kriteria as $krit)
+                                            <th class="text-center">{{ $krit->id }}</th>
+                                        @endforeach
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($alternatif))
-                                    @foreach($alternatif as $data)
+                                    {{-- @if (!empty($alternatif))
+                                    @foreach ($alternatif as $data)
                                         <tr>
                                             <td>{{$data->kode_alternatif}}</td>
-                                            @foreach($data->crip as $crip)
-                                                <td>{{$crip->nilai_crip}}</td>
+                                            @foreach ($data->bobot_kriteria as $bk)
+                                                <td>{{$bk->jumlah_bobot}}</td>
                                             @endforeach
                                         </tr>
                                     @endforeach
@@ -65,7 +65,7 @@
                                     <tr>
                                         <td colspan="{{(count($kriteria)+1)}}" class="text-center">Data tidak ditemukan</td>
                                     </tr>
-                                @endif
+                                @endif --}}
                                 </tbody>
                             </table>
                         </div>
@@ -83,43 +83,60 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">Kode</th>
-                                    <?php $bobot = [] ?>
-                                    @foreach($kriteria as $krit)
-                                        <?php $bobot[$krit->id] = $krit->bobot ?>
-                                        <th class="text-center">{{$krit->kode}}</th>
-                                    @endforeach
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">Kode</th>
+                                        @php
+                                            $bobot = [];
+                                        @endphp
+                                        @foreach ($kriteria as $krit)
+                                            @php
+                                                $bobot[$krit->id] = $krit->bobot_preferensi;
+                                            @endphp
+                                            <th class="text-center">{{ $krit->bobot_preferensi }}</th>
+                                        @endforeach
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($alternatif))
-                                    <?php $rangking = []; ?>
-                                    @foreach($alternatif as $data)
+                                    @if (!empty($alternatif))
+                                        @php
+                                            $rangking = [];
+                                        @endphp
+                                        @foreach ($nilaiAlternatif as $data)
+                                            <tr>
+                                                <td>{{ $data->id }}</td>
+                                                @php
+                                                    $total = 0;
+                                                @endphp
+                                                @foreach ($data->bobot_kriteria as $bk)
+                                                    @if ($bk->kriteria->atribut == 'cost')
+                                                        @php
+                                                            $normalisasi = $kode_krit[$bk->kriteria->id] / $bk->jumlah_bobot;
+                                                        @endphp
+                                                    @elseif($bk->kriteria->atribut_kriteria == 'benefit')
+                                                        @php
+                                                            $normalisasi = $bk->jumlah_bobot / $kode_krit[$bk->kriteria->id];
+                                                        @endphp
+                                                    @endif
+                                                    @php
+                                                        $total = $total + $bobot[$bk->kriteria->id] * $normalisasi;
+                                                    @endphp
+                                                    <td>{{ number_format($normalisasi, 2, ',', '.') }}</td>
+                                                @endforeach
+                                                @php
+                                                    $rangking[] = [
+                                                        'kode' => $data->id,
+                                                        'nama' => $data->kriteria->nama_kriteria,
+                                                        'total' => $total,
+                                                    ];
+                                                @endphp
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <td>{{$data->kode_alternatif}}</td>
-                                            <?php $total = 0;?>
-                                            @foreach($data->crip as $crip)
-                                                @if($crip->kriteria->atribut == 'cost')
-                                                    <?php $normalisasi = ($kode_krit[$crip->kriteria->id]/$crip->nilai_crip); ?>
-                                                @elseif($crip->kriteria->atribut == 'benefit')
-                                                    <?php $normalisasi = ($crip->nilai_crip/$kode_krit[$crip->kriteria->id]); ?>
-                                                @endif
-                                                    <?php $total = $total+($bobot[$crip->kriteria->id]*$normalisasi);?>
-                                                    <td>{{number_format($normalisasi,2,",",".")}}</td>
-                                            @endforeach
-                                            <?php $rangking[] = [
-                                                'kode'  => $data->kode_alternatif,
-                                                'nama'  => $data->nama_alternatif,
-                                                'total' => $total
-                                            ]; ?>
+                                            <td colspan="{{ count($kriteria) + 1 }}" class="text-center">Data tidak
+                                                ditemukan</td>
                                         </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="{{(count($kriteria)+1)}}" class="text-center">Data tidak ditemukan</td>
-                                    </tr>
-                                @endif
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -144,22 +161,22 @@
                                 </thead>
                                 <tbody>
 
-                                <?php
-                                usort($rangking, function($a, $b)
-                                {
-                                    return $a['total']<=>$b['total'];
-                                });
-                                rsort($rangking);
-                                $a = 1;
-                                ?>
-                                    @foreach($rangking as $t)
+                                    {{-- @php
+                                        usort($rangking, function ($a, $b) {
+                                            return $a['total'] <=> $b['total'];
+                                        });
+                                        rsort($rangking);
+                                        $a = 1;
+                                    @endphp
+                                    @foreach ($rangking as $t)
                                         <tr>
-                                            <td>{{$t['kode']}}</td>
-                                            <td>{{$t['nama']}}</td>
-                                            <td>{{number_format($t['total'],2,",",".")}}</td>
-                                            <td>{{$a++}}</td>
+                                            <td>{{ $t['kode'] }}</td>
+                                            <td>{{ $t['nama'] }}</td>
+                                            <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
+                                            <td>{{ $a++ }}</td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
+
                                 </tbody>
                             </table>
                         </div>
