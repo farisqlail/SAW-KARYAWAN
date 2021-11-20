@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\lowongan;
 use App\Pelamar;
+use App\NilaiAlternatif;
 
 
 class PelamarController extends Controller

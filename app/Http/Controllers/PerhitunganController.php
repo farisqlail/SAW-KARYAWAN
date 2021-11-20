@@ -18,13 +18,13 @@ class PerhitunganController extends Controller
             $kode_krit[$krit->id] = [];
             foreach ($bobotKriteria as $bk)
             {
-                foreach ($bk->crip as $crip)
-                {
-                        if ($crip->kriteria->id == $krit->id)
+                // foreach ($bk->crip as $crip)
+                // {
+                        if ($bk->kriteria->id == $krit->id)
                         {
-                            $kode_krit[$krit->id][] = $crip->nilai_crip;
+                            $kode_krit[$krit->id][] = $bk->jumlah_bobot;
                         }
-                }
+                // }
             }
 
             if ($krit->atribut == 'cost')
@@ -35,6 +35,8 @@ class PerhitunganController extends Controller
                 $kode_krit[$krit->id] = max($kode_krit[$krit->id]);
             }
         };
+
+        // dd($bobotKriteria);
 //        return json_encode($kode_krit);
         return view('perhitungan.index',[
             'kriteria'      => $kriteria,

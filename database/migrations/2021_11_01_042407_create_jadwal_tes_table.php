@@ -15,7 +15,7 @@ class CreateJadwalTesTable extends Migration
     {
         Schema::create('jadwal_tes', function (Blueprint $table) {
             $table->bigIncrements('id_jadwal_tes');
-            $table->unsignedBigInteger('id_lowongan')->index()->nullable();
+            $table->bigInteger('id_lowongan')->unsigned();
             $table->dateTime('tanggal');
             $table->dateTime('durasi_tes');
             $table->timestamps();

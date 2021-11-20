@@ -15,7 +15,7 @@ class CreateDaftarSoalTable extends Migration
     {
         Schema::create('daftar_soal', function (Blueprint $table) {
             $table->bigIncrements('id_soal');
-            $table->unsignedBigInteger('id_jadwal_tes')->index()->nullable();
+            $table->unsignedBigInteger('id_jadwal_tes')->unsigned();
             $table->string('soal');
             $table->string('file_soal');
             $table->integer('bobot_soal');
