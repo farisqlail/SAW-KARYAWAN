@@ -24,10 +24,10 @@
           <p>Lowongan</p>
         </a>
       </li>
-      <li class="{{'pelamar' == request()->segment(1) ? 'active' : ''}}">
-        <a class="nav-link" href="{{ route('pelamar.index') }}">
+      <li class="{{'perhitungan' == request()->segment(1) ? 'active' : ''}}">
+        <a class="nav-link" href="{{ route('perhitungan.index') }}">
           <i class="fas fa-users"></i>
-          <p>Pelamar</p>
+          <p>Seleksi</p>
         </a>
       </li>
       <li class="{{'jadwal_tes' == request()->segment(1) ? 'active' : ''}}">

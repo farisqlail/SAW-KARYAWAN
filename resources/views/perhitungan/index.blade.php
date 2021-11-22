@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.app')
 
 @section('content')
     <div class="container">
@@ -153,7 +153,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Kode</th>
+                                        <th>NO</th>
                                         <th>Nama</th>
                                         <th>Total</th>
                                         <th>Ranking</th>
@@ -161,21 +161,21 @@
                                 </thead>
                                 <tbody>
 
-                                    {{-- @php
-                                        usort($rangking, function ($a, $b) {
+                                    @php
+                                        $rangking = function ($a, $b) {
                                             return $a['total'] <=> $b['total'];
-                                        });
-                                        rsort($rangking);
-                                        $a = 1;
+                                        };
+                                        // usort($rangking);
+                                        $no = 1;
                                     @endphp
                                     @foreach ($rangking as $t)
                                         <tr>
-                                            <td>{{ $t['kode'] }}</td>
-                                            <td>{{ $t['nama'] }}</td>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $t['nama_bobot'] }}</td>
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                                             <td>{{ $a++ }}</td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
 
                                 </tbody>
                             </table>

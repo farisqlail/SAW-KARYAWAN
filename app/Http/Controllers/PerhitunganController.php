@@ -20,13 +20,14 @@ class PerhitunganController extends Controller
             $kode_krit[$krit->id] = [];
             foreach ($bobotKriteria as $bk)
             {
-                // foreach ($bk->crip as $crip)
-                // {
-                        if ($bk->kriteria->id == $krit->id)
-                        {
-                            $kode_krit[$krit->id][] = $bk->jumlah_bobot;
-                        }
-                // }
+                dd($bk->jumlah_bobot);
+                foreach ($bk->jumlah_bobot as $bobot)
+                {
+                    if ($bobot->kriteria->id == $krit->id)
+                    {
+                        $kode_krit[$krit->id][] = $bobot->jumlah_bobot;
+                    }
+                }
             }
 
             if ($krit->atribut == 'cost')
