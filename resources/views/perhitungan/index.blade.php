@@ -25,26 +25,24 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @if (!empty($pelamar))
-                                        @foreach ($pelamar as $data)
+
+                                    @foreach ($pelamarAll as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->nama_pelamar }}</td>
-                                            @foreach ($kriteria as $krit)
-                                                    @foreach ($data->bobotKriteria as $bk)
-                                                        @if ($krit->id_kriteria == $bk->id_kriteria)
-                                                            <td>{{ $bk->nama_bobot }}</td>
-                                                        @endif
-                                                    @endforeach
+                                            @foreach ($data->bobot_kriteria as $bk)
+                                                <td>{{ $bk->nama_bobot }}</td>
                                             @endforeach
-                                            </tr>
-                                        @endforeach
-                                    @else
+
+                                            {{-- <td>{{ $data->bobotKriteria->nama_bobot }}</td> --}}
+                                        </tr>
+                                    @endforeach
+                                    {{-- @else
                                         <tr>
                                             <td colspan="{{ count($pelamar) + 1 }}" class="text-center">Data tidak
                                                 ditemukan</td>
                                         </tr>
-                                    @endif
+                                    @endif --}}
                                 </tbody>
                             </table>
                         </div>
@@ -82,77 +80,77 @@
         </div>
     </div> --}}
 
-            {{-- <div class="col-md-12 card-deck mt-4">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="float-left">Normalisasi</h3>
-            </div>
+            <div class="col-md-12 card-deck mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="float-left">Normalisasi</h3>
+                    </div>
 
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="text-center">No</th>
-                                @php
-                                    $bobot = [];
-                                    $no = 1;
-                                @endphp
-                                @foreach ($kriteria as $krit)
-                                    @php
-                                        $bobot[$krit->id] = $krit->bobot_preferensi;
-                                    @endphp
-                                    <th class="text-center">{{ $krit->bobot_preferensi }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (!empty($alternatif))
-                                @php
-                                    $rangking = [];
-                                @endphp
-                                @foreach ($nilaiAlternatif as $data)
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>{{ $no++ }}</td>
+                                        <th class="text-center">No</th>
                                         @php
-                                            $total = 0;
+                                            $bobot = [];
+                                            $no = 1;
                                         @endphp
-                                        @foreach ($data->bobot_kriteria as $bk)
-                                            @if ($bk->kriteria->atribut_kriteria == 'cost')
-                                                @php
-                                                    $normalisasi = $kode_krit[$bk->kriteria->id_kriteria] / $bk->jumlah_bobot;
-                                                @endphp
-                                            @elseif($bk->kriteria->atribut_kriteria == 'benefit')
-                                                @php
-                                                    $normalisasi = $bk->jumlah_bobot / $kode_krit[$bk->kriteria->id_kriteria];
-                                                @endphp
-                                            @endif
+                                        @foreach ($kriteria as $krit)
                                             @php
-                                                $total = $total + $bobot[$bk->kriteria->id_kriteria] * $normalisasi;
+                                                $bobot[$krit->id] = $krit->bobot_preferensi;
                                             @endphp
-                                            <td>{{ number_format($normalisasi, 2, ',', '.') }}</td>
+                                            <th class="text-center">{{ $krit->bobot_preferensi }}</th>
                                         @endforeach
-                                        @php
-                                            $rangking[] = [
-                                                'kode' => $data->id,
-                                                'nama' => $data->kriteria->nama_kriteria,
-                                                'total' => $total,
-                                            ];
-                                        @endphp
                                     </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="{{ count($kriteria) + 1 }}" class="text-center">Data tidak
-                                        ditemukan</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    @if (!empty($pelamar))
+                                        @php
+                                            $rangking = [];
+                                        @endphp
+                                        @foreach ($nilaiAlternatif as $data)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+
+                                                @php
+                                                    $total = 0;
+                                                @endphp
+                                                @if ($data->bobot_kriteria->kriteria->atribut_kriteria == 'cost')
+                                                    @php
+                                                        $normalisasi = $kode_krit[$data->bobot_kriteria->kriteria->id_kriteria] / $data->bobot_kriteria->jumlah_bobot;
+                                                    @endphp
+                                                @elseif($data->bobot_kriteria->kriteria->atribut_kriteria ==
+                                                    'benefit')
+                                                    @php
+                                                        $normalisasi = $data->bobot_kriteria->jumlah_bobot / $kode_krit[$data->bobot_kriteria->kriteria->id_kriteria];
+                                                    @endphp
+                                                @endif
+                                                @php
+                                                    $total = $total + $data->bobot_kriteria->id_kriteria * $normalisasi;
+                                                @endphp
+                                                    <td>{{ number_format($normalisasi, 2, ',', '.') }}</td>
+                                                @php
+                                                    $rangking[] = [
+                                                        'kode' => $data->id,
+                                                        'nama' => $data->bobot_kriteria->kriteria->nama_kriteria,
+                                                        'total' => $total,
+                                                    ];
+                                                @endphp
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="{{ count($kriteria) + 1 }}" class="text-center">Data tidak
+                                                ditemukan</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> --}}
 
             <div class="col-md-12 card-deck mt-4">
                 <div class="card">
@@ -172,37 +170,56 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if (!empty($pelamar))
+                                        @php
+                                            $rangking = [];
+                                        @endphp
+                                        @foreach ($nilaiAlternatif as $data)
+                                            @php
+                                                $bobot = [];
+                                                $total = 0;
+                                            @endphp
+                                            @if ($data->bobot_kriteria->kriteria->atribut_kriteria == 'cost')
+                                                @php
+                                                    $normalisasi = $kode_krit[$data->bobot_kriteria->kriteria->id_kriteria] / $data->bobot_kriteria->jumlah_bobot;
+                                                @endphp
+                                            @elseif($data->bobot_kriteria->kriteria->atribut_kriteria == 'benefit')
+                                                @php
+                                                    $normalisasi = $data->bobot_kriteria->jumlah_bobot / $kode_krit[$data->bobot_kriteria->kriteria->id_kriteria];
+                                                @endphp
+                                            @endif
+                                            @php
+                                                $total = $total + $data->bobot_kriteria->id_kriteria * $normalisasi;
+                                            @endphp
+                                            {{-- {{ number_format($normalisasi, 2, ',', '.') }} --}}
+                                            @foreach ($pelamar as $item)
+                                                @if ($item->id_pelamar == $data->id_pelamar)
+                                                    @php
+                                                        $rangking[] = [
+                                                            'kode' => $item->id,
+                                                            'nama' => $item->nama_pelamar,
+                                                            'total' => $total,
+                                                        ];
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                            @php
+                                                usort($rangking, function ($a, $b) {
+                                                    return $a['total'] <=> $b['total'];
+                                                });
+                                                rsort($rangking);
+                                                // }
+                                                
+                                                $a = 1;
+                                                $no2 = 1;
+                                            @endphp
+                                        @endforeach
+                                    @endif
 
-                                    @php
-                                        //   if (!empty($alternatif)) {
-                                        //         $rangking = [];
-                                        //         foreach ($nilaiAlternatif as $data) {
-                                        //             usort($rangking, function ($a, $b) {
-                                        //                 return $a['total'] <=> $b['total'];
-                                        //             });
-                                        //             usort($rangking);
-                                        
-                                        //             $rangking[] = [
-                                        //                 'kode' => $data->id,
-                                        //                 'nama' => $data->kriteria->nama_kriteria,
-                                        //                 'total' => $total,
-                                        //             ];
-                                        //         }
-                                        //     }
-                                        $rangking = [];
-                                        // if (!empty($rangking)) {
-                                        usort($rangking, function ($a, $b) {
-                                            return $a['total'] <=> $b['total'];
-                                        });
-                                        rsort($rangking);
-                                        // }
-                                        
-                                        $no = 1;
-                                    @endphp
                                     @foreach ($rangking as $t)
                                         <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $t['nama_bobot'] }}</td>
+                                            <td>{{ $no2++ }}</td>
+                                            <td>{{ $t['nama'] }}</td>
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                                             <td>{{ $a++ }}</td>
                                             <td></td>

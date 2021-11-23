@@ -8,64 +8,58 @@ use App\NilaiAlternatif;
 use App\Lowongan;
 use App\Pelamar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PerhitunganController extends Controller
 {
     public function index($id)
     {
         $lowongan = lowongan::find($id);
+        $pelamar = Pelamar::where('id_lowongan', $id)->get();
+        $pelamarAll = Pelamar::all();
+        // dd($pelamarAll);
         $nilaiAlternatif = NilaiAlternatif::all();
-        $kriteria = Kriteria::with('pelamar')->where('id_lowongan', $lowongan)->get();
+        $kriteria = Kriteria::all();
         $bobotKriteria = BobotKriteria::all();
-        $pelamar = Pelamar::with('lowongan')->where('id_lowongan', $lowongan)->get();
-        dd($pelamar);
         
         $kode_krit = [];
-
 
         foreach ($kriteria as $krit)
         {
             $kode_krit[$krit->id_kriteria] = [];
-            foreach ($bobotKriteria as $bk)
+            foreach ($pelamar as $plm)
             {
-                // dd($bk->jumlah_bobot);
-                // foreach ($bk->jumlah_bobot as $bobot)
-                // {
-                    if ($bk->kriteria->id_kriteria == $krit->id_kriteria)
+                foreach ($plm->bobot_kriteria as $bobot)
+                {
+                    if ($bobot->id_kriteria == $krit->id_kriteria)
                     {
-                        $kode_krit[$krit->id_kriteria][] = $bk->jumlah_bobot;
+                        // dd($bk->kriteria->atribut_kriteria);
+                        $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
                     }
-                // }
-
-                // foreach ($pelamar as $plm)
-                // {
-                //     // dd($bk->jumlah_bobot);
-                //     foreach ($plm->jumlah_bobot as $bobot)
-                //     {
-                //         if ($bobot->kriteria->id_kriteria == $krit->id_kriteria)
-                //         {
-                //             $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
-                //         }
-                //     }
-                // }
+                }
             }
-
-            if ($krit->atribut_kriteria == 'cost')
-            {
+            
+            
+            if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id_kriteria])){
+                
                 $kode_krit[$krit->id_kriteria] = min($kode_krit[$krit->id_kriteria]);
-            } elseif ($krit->atribut_kriteria == 'benefit')
-            {
+            } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id_kriteria])){  
+
                 $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
+            } else {
+
+                $kode_krit[$krit->id_kriteria] = 1;
             }
         };
-
-        // dd($bobotKriteria);
+        
+        // dd($kode_krit);
 //        return json_encode($kode_krit);
         return view('perhitungan.index',[
             'kriteria'      => $kriteria,
             'bobotKriteria' => $bobotKriteria,
             'kode_krit'     => $kode_krit,
             'pelamar'       => $pelamar,
+            'pelamarAll'    => $pelamarAll,
             'nilaiAlternatif' => $nilaiAlternatif
         ]);
     }

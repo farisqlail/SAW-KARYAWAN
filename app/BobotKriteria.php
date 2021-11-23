@@ -16,10 +16,15 @@ class BobotKriteria extends Model
     }
 
     public function pelamar() {
-        return $this->belongsTo(Pelamar::class,'id_pelamar', 'id_pelamar');
+        return $this->belongsToMany(Pelamar::class, 'nilai_alternatif','id_pelamar', 'id_bobot_kriteria');
     }
     
     public function nilai_alternatif() {
         return $this->hasMany(NilaiAlternatif::class,'id_bobot_kriteria', 'id_bobot_kriteria');
+    }
+
+    public function pelamar2(){
+
+        return $this->belongsTo(Pelamar::class, 'id_bobot_kriteria', 'id_bobot_kriteria');
     }
 }

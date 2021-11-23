@@ -16,7 +16,7 @@ class Kriteria extends Model
     }
     
     public function bobot_kriteria() {
-        return $this->hasMany(BobotKriteria::class,'id_kriteria', 'id_kriteria');
+        return $this->hasMany(BobotKriteria::class,'id_bobot_kriteria', 'id_bobot_kriteria');
     }
 
     public function pelamar() {

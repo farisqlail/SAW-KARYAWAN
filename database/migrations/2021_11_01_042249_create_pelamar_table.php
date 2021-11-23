@@ -15,8 +15,8 @@ class CreatePelamarTable extends Migration
     {
         Schema::create('pelamar', function (Blueprint $table) {
             $table->bigIncrements('id_pelamar');
-            $table->unsignedInteger('id_lowongan')->index()->nullable();
-            $table->unsignedBigInteger('id_user')->index()->nullable();
+            $table->unsignedInteger('id_lowongan')->index();
+            $table->unsignedBigInteger('id_user')->index();
             $table->string('nama_pelamar');
             $table->date('tanggal_lahir');
             $table->string('no_telepon');
