@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BobotKriteria;
 use App\Kriteria;
 use App\NilaiAlternatif;
+use App\Lowongan;
 use Illuminate\Http\Request;
 
 class PerhitunganController extends Controller
@@ -17,25 +18,25 @@ class PerhitunganController extends Controller
         $kode_krit = [];
         foreach ($kriteria as $krit)
         {
-            $kode_krit[$krit->id] = [];
+            $kode_krit[$krit->id_kriteria] = [];
             foreach ($bobotKriteria as $bk)
             {
                 // dd($bk->jumlah_bobot);
                 // foreach ($bk->jumlah_bobot as $bobot)
                 // {
-                    if ($bk->kriteria->id == $krit->id)
+                    if ($bk->kriteria->id_kriteria == $krit->id_kriteria)
                     {
-                        $kode_krit[$krit->id][] = $bk->jumlah_bobot;
+                        $kode_krit[$krit->id_kriteria][] = $bk->jumlah_bobot;
                     }
                 // }
             }
 
-            if ($krit->atribut == 'cost')
+            if ($krit->atribut_kriteria == 'cost')
             {
-                $kode_krit[$krit->id] = min($kode_krit[$krit->id]);
-            } elseif ($krit->atribut == 'benefit')
+                $kode_krit[$krit->id_kriteria] = min($kode_krit[$krit->id_kriteria]);
+            } elseif ($krit->atribut_kriteria == 'benefit')
             {
-                $kode_krit[$krit->id] = max($kode_krit[$krit->id]);
+                $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
             }
         };
 
@@ -47,5 +48,11 @@ class PerhitunganController extends Controller
             'kode_krit'     => $kode_krit,
             'nilaiAlternatif' => $nilaiAlternatif
         ]);
+    }
+
+    public function lowongan(){
+
+        $lowongan = lowongan::all();
+        return view('perhitungan.lowongan', ['lowongan' => $lowongan]);
     }
 }

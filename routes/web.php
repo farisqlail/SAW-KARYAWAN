@@ -88,4 +88,5 @@ Route::prefix('/pelamar')->group(function ()
 Route::prefix('/perhitungan')->group(function ()
 {
     Route::get('/', 'PerhitunganController@index')->name('perhitungan.index');
+    Route::get('/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
 });

@@ -25,9 +25,9 @@
         </a>
       </li>
       <li class="{{'perhitungan' == request()->segment(1) ? 'active' : ''}}">
-        <a class="nav-link" href="{{ route('perhitungan.index') }}">
+        <a class="nav-link" href="{{ route('perhitungan.pelamar') }}">
           <i class="fas fa-users"></i>
-          <p>Seleksi</p>
+          <p>Seleksi Pelamar</p>
         </a>
       </li>
       <li class="{{'jadwal_tes' == request()->segment(1) ? 'active' : ''}}">
