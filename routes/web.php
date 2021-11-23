@@ -87,6 +87,10 @@ Route::prefix('/pelamar')->group(function ()
 
 Route::prefix('/perhitungan')->group(function ()
 {
-    Route::get('/', 'PerhitunganController@index')->name('perhitungan.index');
+    Route::get('/seleksi-1/{id}', 'PerhitunganController@index')->name('perhitungan.index');
     Route::get('/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
+});
+
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
 });

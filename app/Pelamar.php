@@ -28,7 +28,7 @@ class Pelamar extends Model
     }
 
     public function lowongan() {
-        return $this->belongsTo(lowongan::class,'id_lowongan', 'id_lowongan');
+        return $this->belongsTo(Lowongan::class,'id_lowongan', 'id_lowongan');
     }
 
     public function nilai_alternatif() {

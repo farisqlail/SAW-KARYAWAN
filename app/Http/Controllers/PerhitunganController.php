@@ -11,13 +11,18 @@ use Illuminate\Http\Request;
 
 class PerhitunganController extends Controller
 {
-    public function index()
+    public function index($id)
     {
+        $lowongan = lowongan::find($id);
         $nilaiAlternatif = NilaiAlternatif::all();
-        $kriteria = Kriteria::all();
+        $kriteria = Kriteria::with('pelamar')->where('id_lowongan', $lowongan)->get();
         $bobotKriteria = BobotKriteria::all();
-        $pelamar = Pelamar::all();
+        $pelamar = Pelamar::with('lowongan')->where('id_lowongan', $lowongan)->get();
+        dd($pelamar);
+        
         $kode_krit = [];
+
+
         foreach ($kriteria as $krit)
         {
             $kode_krit[$krit->id_kriteria] = [];

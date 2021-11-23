@@ -16,7 +16,7 @@ class BobotKriteria extends Model
     }
 
     public function pelamar() {
-        return $this->belongsTo(Kriteria::class,'id_pelamar', 'id_pelamar');
+        return $this->belongsTo(Pelamar::class,'id_pelamar', 'id_pelamar');
     }
     
     public function nilai_alternatif() {

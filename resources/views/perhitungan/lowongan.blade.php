@@ -27,7 +27,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$data->posisi_lowongan}}</td>
                                     <td class="text-center">
-                                        <a href="{{route('perhitungan.index')}}" class="btn btn-sm btn-info">Seleksi 1</a>
+                                        <a href="{{route('perhitungan.index', $data)}}" class="btn btn-sm btn-info">Seleksi 1</a>
                                         <a href="#" class="btn btn-sm btn-success">Seleksi 2</a>
                                     </td>
                                 </tr>

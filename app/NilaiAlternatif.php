@@ -17,4 +17,8 @@ class NilaiAlternatif extends Model
     public function pelamar() {
         return $this->belongsTo(Pelamar::class,'id_pelamar', 'id_pelamar');
     }
+
+    public function lowongan() {
+        return $this->belongsTo(Lowongan::class,'id_lowongan', 'id_lowongan');
+    }
 }

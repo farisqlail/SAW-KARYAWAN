@@ -22,4 +22,8 @@ class lowongan extends Model
     public function jadwal_tes() {
         return $this->hasMany(JadwalTes::class,'id_lowongan', 'id_lowongan');
     }
+
+    public function nilaiAlternatif() {
+        return $this->hasMany(NilaiAlternatif::class,'id_nilai_alternatif', 'id_nilai_alternatif');
+    }
 }
