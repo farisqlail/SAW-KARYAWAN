@@ -26,7 +26,7 @@
                                         $no = 1;
                                     @endphp
 
-                                    @foreach ($pelamarAll as $data)
+                                    @foreach ($pelamar as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->nama_pelamar }}</td>
@@ -199,6 +199,7 @@
                                                             'kode' => $item->id,
                                                             'nama' => $item->nama_pelamar,
                                                             'total' => $total,
+                                                            'id_pelamar' => $item->id_pelamar
                                                         ];
                                                     @endphp
                                                 @endif
@@ -222,7 +223,9 @@
                                             <td>{{ $t['nama'] }}</td>
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                                             <td>{{ $a++ }}</td>
-                                            <td></td>
+                                            <td>
+                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-success">Lihat Detail</a>
+                                            </td>
                                         </tr>
                                     @endforeach
 

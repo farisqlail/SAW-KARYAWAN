@@ -69,4 +69,11 @@ class PerhitunganController extends Controller
         $lowongan = lowongan::all();
         return view('perhitungan.lowongan', ['lowongan' => $lowongan]);
     }
+
+    public function detail($id){
+
+        $pelamar = Pelamar::find($id);
+
+        return view('perhitungan.detail', ['pelamar' => $pelamar]);
+    }
 }

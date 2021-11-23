@@ -89,6 +89,7 @@ Route::prefix('/perhitungan')->group(function ()
 {
     Route::get('/seleksi-1/{id}', 'PerhitunganController@index')->name('perhitungan.index');
     Route::get('/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
+    Route::get('/seleksi-detail/{id}', 'PerhitunganController@detail')->name('seleksi.detail');
 });
 
 Route::get('/debug-sentry', function () {
