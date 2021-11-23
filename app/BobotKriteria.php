@@ -14,6 +14,10 @@ class BobotKriteria extends Model
     public function kriteria() {
         return $this->belongsTo(Kriteria::class,'id_kriteria', 'id_kriteria');
     }
+
+    public function pelamar() {
+        return $this->belongsTo(Kriteria::class,'id_pelamar', 'id_pelamar');
+    }
     
     public function nilai_alternatif() {
         return $this->hasMany(NilaiAlternatif::class,'id_bobot_kriteria', 'id_bobot_kriteria');

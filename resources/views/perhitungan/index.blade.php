@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            {{-- <div class="col-md-12 card-deck">
+            <div class="col-md-12 card-deck">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="float-left">Hasil Analisa</h3>
@@ -14,34 +14,45 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Kode</th>
-                                        <th class="text-center">Nama</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Nama Pelamar</th>
                                         @foreach ($kriteria as $krit)
-                                            <th class="text-center">{{ $krit->nama }}</th>
+                                            <th class="text-center">{{ $krit->nama_kriteria }}</th>
                                         @endforeach
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @if (!empty($alternatif))
-                                    @foreach ($alternatif as $data)
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @if (!empty($pelamar))
+                                        @foreach ($pelamar as $data)
                                         <tr>
-                                            <td>{{$data->kode_alternatif}}</td>
-                                            <td>{{$data->nama_alternatif}}</td>
-                                            @foreach ($data->bobot_kriteria as $bk)
-                                                <td>{{$bk->nama_bobot}}</td>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $data->nama_pelamar }}</td>
+                                            @foreach ($kriteria as $krit)
+                                                    @foreach ($data->bobotKriteria as $bk)
+                                                        @if ($krit->id_kriteria == $bk->id_kriteria)
+                                                            <td>{{ $bk->nama_bobot }}</td>
+                                                        @endif
+                                                    @endforeach
                                             @endforeach
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="{{ count($pelamar) + 1 }}" class="text-center">Data tidak
+                                                ditemukan</td>
                                         </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="{{(count($kriteria)+1)}}" class="text-center">Data tidak ditemukan</td>
-                                    </tr>
-                                @endif --}}
-            </tbody>
-            </table>
-        </div>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        {{-- <div class="table-responsive">
+            {{-- <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -71,7 +82,7 @@
         </div>
     </div> --}}
 
-    {{-- <div class="col-md-12 card-deck mt-4">
+            {{-- <div class="col-md-12 card-deck mt-4">
         <div class="card">
             <div class="card-header">
                 <h3 class="float-left">Normalisasi</h3>
@@ -143,65 +154,65 @@
         </div>
     </div> --}}
 
-    <div class="col-md-12 card-deck mt-4">
-        <div class="card">
-            <div class="card-header">
-                <h3>Ranking</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>Nama</th>
-                                <th>Total</th>
-                                <th>Ranking</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+            <div class="col-md-12 card-deck mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Ranking</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>Nama</th>
+                                        <th>Total</th>
+                                        <th>Ranking</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                            @php
-                                //   if (!empty($alternatif)) {
-                                //         $rangking = [];
-                                //         foreach ($nilaiAlternatif as $data) {
-                                //             usort($rangking, function ($a, $b) {
-                                //                 return $a['total'] <=> $b['total'];
-                                //             });
-                                //             usort($rangking);
-                                
-                                //             $rangking[] = [
-                                //                 'kode' => $data->id,
-                                //                 'nama' => $data->kriteria->nama_kriteria,
-                                //                 'total' => $total,
-                                //             ];
-                                //         }
-                                //     }
-                                $rangking = [];
-                                // if (!empty($rangking)) {
-                                usort($rangking, function ($a, $b) {
-                                    return $a['total'] <=> $b['total'];
-                                });
-                                rsort($rangking);
-                                // }
-                                
-                                $no = 1;
-                            @endphp
-                            @foreach ($rangking as $t)
-                                <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $t['nama_bobot'] }}</td>
-                                    <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
-                                    <td>{{ $a++ }}</td>
-                                    <td></td>
-                                </tr>
-                            @endforeach
+                                    @php
+                                        //   if (!empty($alternatif)) {
+                                        //         $rangking = [];
+                                        //         foreach ($nilaiAlternatif as $data) {
+                                        //             usort($rangking, function ($a, $b) {
+                                        //                 return $a['total'] <=> $b['total'];
+                                        //             });
+                                        //             usort($rangking);
+                                        
+                                        //             $rangking[] = [
+                                        //                 'kode' => $data->id,
+                                        //                 'nama' => $data->kriteria->nama_kriteria,
+                                        //                 'total' => $total,
+                                        //             ];
+                                        //         }
+                                        //     }
+                                        $rangking = [];
+                                        // if (!empty($rangking)) {
+                                        usort($rangking, function ($a, $b) {
+                                            return $a['total'] <=> $b['total'];
+                                        });
+                                        rsort($rangking);
+                                        // }
+                                        
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($rangking as $t)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $t['nama_bobot'] }}</td>
+                                            <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
+                                            <td>{{ $a++ }}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-@endsection
+        @endsection

@@ -42,4 +42,8 @@ class Pelamar extends Model
     public function kriteria() {
         return $this->hasMany(Kriteria::class,'id_lowongan', 'id_lowongan');
     }
+
+    public function bobotKriteria() {
+        return $this->hasMany(BobotKriteria::class,'id_bobot_kriteria', 'id_bobot_kriteria');
+    }
 }
