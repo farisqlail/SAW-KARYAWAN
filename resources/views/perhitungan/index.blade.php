@@ -162,11 +162,11 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>Nama</th>
-                                        <th>Total</th>
-                                        <th>Ranking</th>
-                                        <th>Aksi</th>
+                                        <th align="center">NO</th>
+                                        <th align="center">Nama</th>
+                                        <th align="center">Total</th>
+                                        <th align="center">Ranking</th>
+                                        <th align="center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -223,8 +223,10 @@
                                             <td>{{ $t['nama'] }}</td>
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                                             <td>{{ $a++ }}</td>
-                                            <td>
-                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-success">Lihat Detail</a>
+                                            <td align="center">
+                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-primary">Detail Pelamar</a>
+                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-success">Terima</a>
+                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-danger">Tolak</a>
                                             </td>
                                         </tr>
                                     @endforeach
