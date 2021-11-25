@@ -136,10 +136,7 @@ class PelamarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    public function edit($id){}
 
     /**
      * Update the specified resource in storage.
@@ -150,7 +147,24 @@ class PelamarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->submit == 'Terima') {
+            
+            $pelamar = Pelamar::findOrFail($id);
+            $pelamar->status_lamaran = 'Diterima';
+
+            $pelamar->save();
+
+            return redirect()->route('home');
+
+        } elseif ($request->submit == 'Tolak') {
+
+            $pelamar = Pelamar::findOrFail($id);
+            $pelamar->status_lamaran = 'Ditolak';
+
+            $pelamar->save();
+
+            return redirect()->route('home');
+        }
     }
 
     /**

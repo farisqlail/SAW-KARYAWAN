@@ -129,7 +129,7 @@
                                                 @php
                                                     $total = $total + $data->bobot_kriteria->id_kriteria * $normalisasi;
                                                 @endphp
-                                                    <td>{{ number_format($normalisasi, 2, ',', '.') }}</td>
+                                                <td>{{ number_format($normalisasi, 2, ',', '.') }}</td>
                                                 @php
                                                     $rangking[] = [
                                                         'kode' => $data->id,
@@ -199,7 +199,8 @@
                                                             'kode' => $item->id,
                                                             'nama' => $item->nama_pelamar,
                                                             'total' => $total,
-                                                            'id_pelamar' => $item->id_pelamar
+                                                            'id_pelamar' => $item->id_pelamar,
+                                                            'status_lamaran' => $item->status_lamaran
                                                         ];
                                                     @endphp
                                                 @endif
@@ -224,9 +225,22 @@
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                                             <td>{{ $a++ }}</td>
                                             <td align="center">
-                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-primary">Detail Pelamar</a>
-                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-success">Terima</a>
-                                                <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}" class="btn btn-danger">Tolak</a>
+
+                                                    <form action="{{ route('pelamar.update', $t['id_pelamar']) }}" method="post">
+
+                                                        <a href="{{ route('seleksi.detail', $t['id_pelamar']) }}"
+                                                        class="btn btn-primary">Detail Pelamar</a>
+
+                                                        {{ csrf_field() }}
+                                                        {{-- {{ method_field('PATCH') }} --}}
+                                                        
+                                                        <input type="submit" name="submit" href="{{ route('seleksi.detail', $t['id_pelamar']) }}"
+                                                        class="btn btn-success" value="Terima">
+    
+                                                        <input type="submit" name="submit" href="{{ route('seleksi.detail', $t['id_pelamar']) }}"
+                                                        class="btn btn-danger" value="Tolak">
+                                                    </form>
+                                                    
                                             </td>
                                         </tr>
                                     @endforeach
