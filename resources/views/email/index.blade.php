@@ -5,7 +5,7 @@
 	@include('beautymail::templates.minty.contentStart')
 		<tr>
 			<td class="title">
-				Welcome Steve
+				Halo {{ $pelamar->nama_pelamar }}
 			</td>
 		</tr>
 		<tr>

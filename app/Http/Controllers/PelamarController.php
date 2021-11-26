@@ -155,20 +155,15 @@ class PelamarController extends Controller
             $pelamar->status_lamaran = 'Diterima';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.index', [], function($message)
+            $beautymail->send('email.index', [], function($message) use($pelamar)
             {
                 $message
-                    ->from('bar@example.com')
-                    ->to('faris.riskilail@gmail.com', 'faris')
-                    ->subject('Balasan Lamaran Posisi');
+                    ->from('lintasnusa@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi '.$pelamar->lowongan->posisi_lowongan);
             });
 
             $pelamar->save();
-
-
-            // $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            // $message = []; 
-            // $beautymail->from('bar@example.com')->to($pelamar->user->email, $pelamar->nama_pelamar)->subject('Balasan Lamaran Posisi'.$pelamar->lowongan->nama_lowongan);
 
             return redirect()->route('home');
 
@@ -181,6 +176,13 @@ class PelamarController extends Controller
 
             return redirect()->route('home');
         }
+    }
+
+    public function email($id){
+
+        $pelamar = Pelamar::find($id);
+
+        return view('email.index', ['pelamar' => $pelamar]);
     }
 
     /**
