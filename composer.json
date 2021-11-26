@@ -10,7 +10,8 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "realrashid/sweet-alert": "^4.1",
-        "sentry/sentry-laravel": "^2.10"
+        "sentry/sentry-laravel": "^2.10",
+        "snowfire/beautymail": "^1.1"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

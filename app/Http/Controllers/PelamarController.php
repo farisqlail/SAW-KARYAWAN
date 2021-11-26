@@ -11,6 +11,7 @@ use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Snowfire\Beautymail\Beautymail;
 use App\lowongan;
 use App\Pelamar;
 use App\NilaiAlternatif;
@@ -150,9 +151,24 @@ class PelamarController extends Controller
         if ($request->submit == 'Terima') {
             
             $pelamar = Pelamar::findOrFail($id);
+            // dd($pelamar->lowongan->posisi_lowongan);
             $pelamar->status_lamaran = 'Diterima';
 
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.index', [], function($message)
+            {
+                $message
+                    ->from('bar@example.com')
+                    ->to('faris.riskilail@gmail.com', 'faris')
+                    ->subject('Balasan Lamaran Posisi');
+            });
+
             $pelamar->save();
+
+
+            // $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            // $message = []; 
+            // $beautymail->from('bar@example.com')->to($pelamar->user->email, $pelamar->nama_pelamar)->subject('Balasan Lamaran Posisi'.$pelamar->lowongan->nama_lowongan);
 
             return redirect()->route('home');
 

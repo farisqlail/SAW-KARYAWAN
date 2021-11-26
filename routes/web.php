@@ -94,6 +94,6 @@ Route::prefix('/perhitungan')->group(function ()
     Route::get('/seleksi-detail/{id}', 'PerhitunganController@detail')->name('seleksi.detail');
 });
 
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
+// Route::get('/debug-sentry', function () {
+//     throw new Exception('My first Sentry error!');
+// });
