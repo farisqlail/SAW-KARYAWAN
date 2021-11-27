@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class DaftarSoalController extends Controller
 {
@@ -27,11 +28,12 @@ class DaftarSoalController extends Controller
 
     public function home($id){
 
-        $pelamar = Pelamar::find($id);
+        $user = Auth::user()->id;
+        dd($user);
         $pelamarGet = Pelamar::where('id_lowongan', $id)->get(); 
         // dd($pelamarGet);
-        $jadwaltes = JadwalTes::find($pelamarGet);
-        $daftarSoal = DaftarSoal::where('id_jadwal_tes', $pelamarGet)->get();
+        $jadwaltes = JadwalTes::find($id);
+        $daftarSoal = DaftarSoal::where('id_jadwal_tes', $id)->get();
 
         dd($jadwaltes);
 
