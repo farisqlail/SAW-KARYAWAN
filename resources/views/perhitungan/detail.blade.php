@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         : <a href="{{ asset('storage/file/cv/' . $pelamar->cv) }}" class="btn btn-info btn-sm"
-                                            target="blank" download><i class="fas fa-download"></i> &nbsp; Download CV</a> <br>
+                                            target="blank"><i class="fas fa-download"></i> &nbsp; Download CV</a> <br>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         : <a href="{{ asset('storage/file/ijazah/' . $pelamar->ijazah) }}" class="btn btn-info btn-sm"
-                                            target="blank" download><i class="fas fa-download"></i> &nbsp; Download Ijazah</a> <br>
+                                            target="blank"><i class="fas fa-download"></i> &nbsp; Download Ijazah</a> <br>
                                     </div>
                                 </div>
                                 <div class="row">

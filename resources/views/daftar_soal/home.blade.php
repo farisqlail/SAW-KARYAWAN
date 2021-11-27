@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>CV.Lintas Nusa | Lowongan</title>
+    <title>CV.Lintas Nusa</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    {{-- <link href="{{ asset('user-template/assets/img/favicon.png') }}" rel="icon"> --}}
-    <link href="{{ asset('user-template/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -31,7 +31,7 @@
 
 <body>
 
-    <!-- ======= Header ======= -->
+    {{-- <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center justify-content-between">
 
@@ -51,10 +51,8 @@
                             <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i
                                         class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                                                                document.getElementById('logout-form').submit();">Logout</a>
-                                    </li>
+                                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">Logout</a></li>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         style="display: none;">
@@ -72,41 +70,11 @@
             </nav><!-- .navbar -->
 
         </div>
-    </header><!-- End Header -->
+    </header><!-- End Header --> --}}
 
-    <main id="main">
-        <div class="container mt-5 mb-5">
-            <h1 style="margin-top: 100px;" align="center">Daftar Lowongan Pekerjaan</h1>
-
-            <div class="row" style="margin-top: 50px">
-                @foreach ($lowongan as $data)
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>{{ $data->posisi_lowongan }}</h4>
-                                <span class="text-muted">Kuota {{ $data->kuota }} - <i
-                                        class="text-danger">{{ $data->berlaku_sampai }}</i></span>
-                                <p class="mt-3">
-                                    {{ $data->keterangan }}
-                                </p>
-                                @if (Auth::guest())
-                                    <div class="button-group" align="right">
-                                        <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
-                                    </div>
-                                @else
-                                    <div class="button-group" align="right">
-                                        <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}"
-                                            class="btn-get-started">Lamar</a>
-                                    </div>
-                                @endif
-
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-    </main>
-
+    @if (!empty($daftarSoal))
+        <a href="/upload/{{ $daftarSoal->file_soal }}">Download File</a>
+    @endif
 
 
     <!-- Vendor JS Files -->

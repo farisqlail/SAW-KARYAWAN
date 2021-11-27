@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\lowongan;
+use App\Pelamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,8 +23,9 @@ class LowonganController extends Controller
     public function home(){
 
         $lowongan = lowongan::all();
+        $pelamar = Pelamar::all();
 
-        return view('lowongan.home', compact('lowongan'));
+        return view('lowongan.home', compact('lowongan', 'pelamar'));
     }
 
     /**

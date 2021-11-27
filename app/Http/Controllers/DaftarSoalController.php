@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DaftarSoal;
 use App\JadwalTes;
 use App\lowongan;
+use App\Pelamar;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +23,19 @@ class DaftarSoalController extends Controller
         $jadwaltes=JadwalTes::find($id);
         $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
         return view('daftar_soal.index', ['daftarsoal' => $daftarsoal,'jadwaltes'=>$jadwaltes]);
+    }
+
+    public function home($id){
+
+        $pelamar = Pelamar::find($id);
+        $pelamarGet = Pelamar::where('id_lowongan', $id)->get(); 
+        // dd($pelamarGet);
+        $jadwaltes = JadwalTes::find($pelamarGet);
+        $daftarSoal = DaftarSoal::where('id_jadwal_tes', $pelamarGet)->get();
+
+        dd($jadwaltes);
+
+        return view('daftar_soal.home', ['daftarSoal' => $daftarSoal,'pelamar'=>$pelamar, 'pelamarGet' => $pelamarGet, 'jadwal_tes' => $jadwaltes]);
     }
 
     /**

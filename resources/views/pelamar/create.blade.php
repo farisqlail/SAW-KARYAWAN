@@ -44,6 +44,10 @@
                     <ul>
                         <li><a class="nav-link scrollto active" href="{{ route('lowongan.home') }}">Lowongan</a></li>
                         @auth
+                        @if ($pelamar[0]->status_lamaran == 'Diterima')
+                            <li><a class="nav-link scrollto" href="#">Tes Online</a>
+                            </li>
+                        @endif
                             <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i
                                         class="bi bi-chevron-down"></i></a>
                                 <ul>
