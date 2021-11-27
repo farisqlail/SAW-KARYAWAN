@@ -173,10 +173,10 @@
                                     @if (!empty($pelamar))
                                         @php
                                             $rangking = [];
+                                            $bobot = [];
                                         @endphp
                                         @foreach ($nilaiAlternatif as $data)
                                             @php
-                                                $bobot = [];
                                                 $total = 0;
                                             @endphp
                                             @if ($data->bobot_kriteria->kriteria->atribut_kriteria == 'cost')

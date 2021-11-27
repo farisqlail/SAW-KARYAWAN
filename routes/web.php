@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome2');
-});
+Route::get('/', 'FrontendController@index');
 
 Auth::routes();
 

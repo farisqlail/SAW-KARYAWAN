@@ -39,7 +39,6 @@ class PerhitunganController extends Controller
                 }
             }
             
-            
             if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id_kriteria])){
                 
                 $kode_krit[$krit->id_kriteria] = min($kode_krit[$krit->id_kriteria]);

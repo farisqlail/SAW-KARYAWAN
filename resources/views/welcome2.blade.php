@@ -43,12 +43,16 @@
                 @if (Route::has('login'))
                     <ul>
                         <li><a class="nav-link scrollto active" href="{{ route('lowongan.home') }}">Lowongan</a></li>
+                        @if ($pelamar[0]->status_lamaran == 'Diterima')
+                            <li><a class="nav-link scrollto" href="#">Tes Online</a>
+                            </li>
+                        @endif
                         @auth
                             <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i
                                         class="bi bi-chevron-down"></i></a>
                                 <ul>
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">Logout</a></li>
+                                            document.getElementById('logout-form').submit();">Logout</a></li>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         style="display: none;">
