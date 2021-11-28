@@ -28,7 +28,8 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('user-template/assets/css/style.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -46,30 +47,50 @@
 
 
     <div class="container" align="center" style="margin-top: 6rem;">
-        <h1>
-            Soal {{ $daftarsoal[0]->soal }}
-        </h1>
+        <div class="card shadow-sm p-3 mb-5 bg-body rounded">
+            <h1 class="mb-5">Tes Tulis Online</h1>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>
+                            Soal {{ $daftarsoal[0]->soal }}
+                        </h3>
 
-        <br>
-        <span>
-            Anda bisa download soalnya disini
-        </span>
-        <br>
-        <a href="{{ asset('/upload/'.$daftarsoal[0]->file_soal) }}" class="btn btn-primary mt-3"><i class="fas fa-download"></i> &nbsp;Download File</a>
+                        <br>
+                        <span>
+                            Anda bisa download soalnya disini
+                        </span>
+                        <br>
+                        <a href="{{ asset('/upload/' . $daftarsoal[0]->file_soal) }}" class="btn btn-primary mt-3"  target="blank"><i
+                                class="fas fa-download"></i> &nbsp;Download File</a>
+                    </div>
+                    <div class="col-md-6">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <h3>Unggah Jawaban</h3><br>
+                                <span>Jika sudah menyelesaikan soal unggah jawabanmu disini</span><br>
+                                <input type="file" class="btn btn-success mt-3" value="Unggah Jawaban">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 
-        <!-- Vendor JS Files -->
-        <script src="{{ asset('user-template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('user-template/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-        <script src="{{ asset('user-template/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-        <script src="{{ asset('user-template/assets/vendor/php-email-form/validate.js') }}"></script>
-        <script src="{{ asset('user-template/assets/vendor/purecounter/purecounter.js') }}"></script>
-        <script src="{{ asset('user-template/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-    
-        <!-- Template Main JS File -->
-        <script src="{{ asset('user-template/assets/js/main.js') }}"></script>
-    
-    </body>
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('user-template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('user-template/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('user-template/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('user-template/assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('user-template/assets/vendor/purecounter/purecounter.js') }}"></script>
+    <script src="{{ asset('user-template/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{{ asset('user-template/assets/js/main.js') }}"></script>
+
+</body>
+
 </html>
-    
