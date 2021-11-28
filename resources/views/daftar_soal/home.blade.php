@@ -65,12 +65,20 @@
                                 class="fas fa-download"></i> &nbsp;Download File</a>
                     </div>
                     <div class="col-md-6">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('jawaban.store') }}" method="POST" enctype="multipart/form-data">
+                            
+                            {{ csrf_field() }}
+
+                            
+                            <input type="number" name="id_soal_tes" value="{{ $daftarsoal[0]->id_soal }}" hidden>   
+                            <input type="number" name="id_pelamar" value="{{ $pelamarGet }}" hidden>
                             <div class="form-group">
                                 <h3>Unggah Jawaban</h3><br>
                                 <span>Jika sudah menyelesaikan soal unggah jawabanmu disini</span><br>
-                                <input type="file" class="btn btn-success mt-3" value="Unggah Jawaban">
-                            </div>
+                                <input type="file" class="btn btn-success mt-3" name="jawaban" value="Unggah Jawaban">
+                            </div><br>
+
+                            <button type="submit" class="btn btn-primary">Uggah Jawaban</button>
                         </form>
                     </div>
                 </div>

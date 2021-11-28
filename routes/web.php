@@ -99,6 +99,11 @@ Route::prefix('/email')->group(function ()
     Route::get('/email/{id}', 'PelamarController@email')->name('email.index');
 });
 
+Route::prefix('/jawaban')->group(function ()
+{
+    Route::post('/jawaban', 'HasilTesController@store')->name('jawaban.store');
+});
+
 // Route::get('/debug-sentry', function () {
 //     throw new Exception('My first Sentry error!');
 // });

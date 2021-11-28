@@ -28,10 +28,15 @@ class DaftarSoalController extends Controller
 
     public function home($id){
 
+        $user = Auth::user()->id;
+        $pelamar = Pelamar::with('user')->where('id_user', $user)->get();
+        $pelamarGet = $pelamar[0]->id_pelamar;
         $jadwaltes = JadwalTes::find($id);
         $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
 
-        return view('daftar_soal.home', ['daftarsoal' => $daftarsoal,'jadwaltes'=>$jadwaltes]);
+        // dd($daftarsoal[0]->id_soal);
+
+        return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes'=>$jadwaltes, 'pelamarGet' => $pelamarGet]);
     }
 
     /**
