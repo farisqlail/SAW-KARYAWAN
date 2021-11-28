@@ -32,12 +32,13 @@ class JadwalTesController extends Controller
         $pelamar = Pelamar::with('user')->where('id_user', $user)
                     ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
                     ->get();
-        $pelamarGet = Pelamar::where('id_lowongan', $pelamar)->get();
-        dd($pelamarGet);
-        $jadwal_tes = JadwalTes::with('pelamar.user')
-                        ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
-                        ->where('pelamar.id_lowongan', $pelamar)
-                        ->get();
+        $pelamarGet = $pelamar[0]->id_lowongan;
+        // dd($pelamarGet);
+        $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
+                    ->where('lowongan.id_lowongan', $pelamarGet)
+                    ->get();
+        // dd($jadwal_tes);
+       
         // $jadwal_tes = DB::table('jadwal_tes')
         // ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
         // $jadwal_tes = JadwalTes::with('pelamar')
