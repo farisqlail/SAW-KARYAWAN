@@ -10,6 +10,7 @@ use App\Pelamar;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalTesController extends Controller
 {
@@ -25,22 +26,23 @@ class JadwalTesController extends Controller
         return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
     }
 
-    public function home($id){
+    public function home(){
 
-        $pelamar = Pelamar::find($id);
+        $user = Auth::user()->id;
+        $pelamar = Pelamar::with('user')->where('id_user', $user)
+                    ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
+                    ->get();
+        $pelamarGet = Pelamar::where('id_lowongan', $pelamar)->get();
+        dd($pelamarGet);
+        $jadwal_tes = JadwalTes::with('pelamar.user')
+                        ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
+                        ->where('pelamar.id_lowongan', $pelamar)
+                        ->get();
         // $jadwal_tes = DB::table('jadwal_tes')
         // ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
         // $jadwal_tes = JadwalTes::with('pelamar')
-        //                 ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan', 'pelamar', 'pelamar.id_lowongan', '=', 'lowongan.id_lowongan')
+        //                 ->where('id_pelamar', $id)
         //                 ->get();
-        $jadwal_tes = JadwalTes::with('pelamar')
-                        ->where('id_pelamar', $id)
-                        ->get();
-        dd($jadwal_tes);
-                        // foreach ($jadwal_tes as $item) {
-        //     # code...
-        //     dd($item);
-        // }
 
         return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
     }
