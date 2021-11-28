@@ -74,7 +74,7 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::get('/edit/{id}', 'JadwalTesController@edit')->name('jadwal_tes.ubah');
     Route::post('/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
     Route::post('/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
-    Route::get('/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
+    Route::get('/jadwal/{id}', 'JadwalTesController@home')->name('soal-tes.home');
 });
 
 Route::prefix('/pelamar')->group(function ()

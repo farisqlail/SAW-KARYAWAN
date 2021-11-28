@@ -18,4 +18,9 @@ class JadwalTes extends Model
     public function soal_tes() {
         return $this->hasMany(DaftarSoal::class,'id_jadwal_tes', 'id_jadwal_tes');
     }
+
+    public function pelamar(){
+
+        return $this->belongsTo(Pelamar::class);
+    }
 }

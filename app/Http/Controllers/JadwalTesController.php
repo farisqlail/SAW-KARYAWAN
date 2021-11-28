@@ -25,11 +25,22 @@ class JadwalTesController extends Controller
         return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
     }
 
-    public function home(){
+    public function home($id){
 
-        $pelamar = Pelamar::all();
-        $jadwal_tes = DB::table('jadwal_tes')
-        ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
+        $pelamar = Pelamar::find($id);
+        // $jadwal_tes = DB::table('jadwal_tes')
+        // ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
+        // $jadwal_tes = JadwalTes::with('pelamar')
+        //                 ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan', 'pelamar', 'pelamar.id_lowongan', '=', 'lowongan.id_lowongan')
+        //                 ->get();
+        $jadwal_tes = JadwalTes::with('pelamar')
+                        ->where('id_pelamar', $id)
+                        ->get();
+        dd($jadwal_tes);
+                        // foreach ($jadwal_tes as $item) {
+        //     # code...
+        //     dd($item);
+        // }
 
         return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
     }
