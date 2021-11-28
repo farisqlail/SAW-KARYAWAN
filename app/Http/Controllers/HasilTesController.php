@@ -20,7 +20,9 @@ class HasilTesController extends Controller
      */
     public function index()
     {
-        //
+        $hasilTes = HasilTes::all();
+
+        return view('jawaban.index', ['hasilTes' => $hasilTes]);
     }
 
     /**
