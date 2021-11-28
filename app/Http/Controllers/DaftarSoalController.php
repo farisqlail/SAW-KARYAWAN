@@ -21,23 +21,17 @@ class DaftarSoalController extends Controller
      */
     public function index($id)
     {
-        $jadwaltes=JadwalTes::find($id);
+        $jadwaltes = JadwalTes::find($id);
         $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
         return view('daftar_soal.index', ['daftarsoal' => $daftarsoal,'jadwaltes'=>$jadwaltes]);
     }
 
     public function home($id){
 
-        $user = Auth::user()->id;
-        dd($user);
-        $pelamarGet = Pelamar::where('id_lowongan', $id)->get(); 
-        // dd($pelamarGet);
         $jadwaltes = JadwalTes::find($id);
-        $daftarSoal = DaftarSoal::where('id_jadwal_tes', $id)->get();
+        $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
 
-        dd($jadwaltes);
-
-        return view('daftar_soal.home', ['daftarSoal' => $daftarSoal,'pelamar'=>$pelamar, 'pelamarGet' => $pelamarGet, 'jadwal_tes' => $jadwaltes]);
+        return view('daftar_soal.home', ['daftarsoal' => $daftarsoal,'jadwaltes'=>$jadwaltes]);
     }
 
     /**

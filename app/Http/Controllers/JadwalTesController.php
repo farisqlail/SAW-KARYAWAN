@@ -6,6 +6,7 @@ use App\DaftarSoal;
 use App\HasilTes;
 use App\JadwalTes;
 use App\lowongan;
+use App\Pelamar;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +23,15 @@ class JadwalTesController extends Controller
         $jadwal_tes = DB::table('jadwal_tes')
             ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
         return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
+    }
+
+    public function home(){
+
+        $pelamar = Pelamar::all();
+        $jadwal_tes = DB::table('jadwal_tes')
+        ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
+
+        return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
     }
 
     /**
