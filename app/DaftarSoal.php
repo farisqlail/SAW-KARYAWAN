@@ -8,7 +8,7 @@ class DaftarSoal extends Model
 {
     protected $table        = 'daftar_soal';
     protected $primaryKey   = 'id_soal';
-    protected $fillable     = ['soal','file_soal','bobot_soal','id_jadwal_tes'];
+    protected $fillable     = ['soal','file_soal','bobot_soal','id_jadwal_tes', 'id_lowongan'];
     protected $hidden       = ['created_at','updated_at'];
     
     public function jadwal_tes() {

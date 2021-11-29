@@ -38,7 +38,7 @@
                                                     @csrf
                                                     
                                                     <a href="{{route('daftar_soal.index',['id' => $data->id_jadwal_tes])}}" class="btn btn-sm btn-info">Daftar Soal</a>
-                                                    <a href="" class="btn btn-sm btn-info">Nilai</a>
+                                                    <a href="{{ route('jawaban.index', ['id_lowongan' => $data->id_lowongan]) }}" class="btn btn-sm btn-info">Nilai</a>
                                                     <a href="{{route('jadwal_tes.ubah',['id' => $data->id_jadwal_tes])}}"class="btn btn-sm btn-warning">Edit</a>
                                                     <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                                 </form>

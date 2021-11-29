@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2021 at 06:15 PM
+-- Generation Time: Nov 29, 2021 at 05:19 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -77,7 +77,9 @@ CREATE TABLE `daftar_soal` (
 --
 
 INSERT INTO `daftar_soal` (`id_soal`, `id_jadwal_tes`, `soal`, `file_soal`, `bobot_soal`, `created_at`, `updated_at`) VALUES
-(5, 2, 'Apa', '1637162965.pdf', 25, '2021-11-17 08:29:25', '2021-11-17 08:29:25');
+(5, 2, 'Apa', '1637162965.pdf', 25, '2021-11-17 08:29:25', '2021-11-17 08:29:25'),
+(6, 2, 'Pekerjaan', '1638036994.pdf', 20, '2021-11-27 11:16:34', '2021-11-27 11:16:34'),
+(7, 3, 'Pengetahuan Akutansi', '1638115067.pdf', 20, '2021-11-28 08:57:47', '2021-11-28 08:57:47');
 
 -- --------------------------------------------------------
 
@@ -87,13 +89,20 @@ INSERT INTO `daftar_soal` (`id_soal`, `id_jadwal_tes`, `soal`, `file_soal`, `bob
 
 CREATE TABLE `hasil_tes` (
   `id_hasil_tes` int(10) UNSIGNED NOT NULL,
-  `id_soal` int(10) UNSIGNED DEFAULT NULL,
+  `id_soal_tes` int(10) UNSIGNED DEFAULT NULL,
   `id_pelamar` int(10) UNSIGNED DEFAULT NULL,
   `jawaban` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nilai` int(11) NOT NULL,
+  `nilai` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `hasil_tes`
+--
+
+INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
+(1, 7, 9, '1638116533.pdf', NULL, '2021-11-28 09:22:13', '2021-11-28 09:22:13');
 
 -- --------------------------------------------------------
 
@@ -115,7 +124,8 @@ CREATE TABLE `jadwal_tes` (
 --
 
 INSERT INTO `jadwal_tes` (`id_jadwal_tes`, `id_lowongan`, `tanggal`, `durasi_tes`, `created_at`, `updated_at`) VALUES
-(2, 1, '2021-11-17 22:22:00', '2021-11-26 22:20:00', '2021-11-17 08:20:53', '2021-11-17 08:20:53');
+(2, 1, '2021-11-17 22:22:00', '2021-11-26 22:30:00', '2021-11-17 08:20:53', '2021-11-26 11:18:44'),
+(3, 2, '2021-11-29 08:00:00', '2021-11-30 10:00:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,16 +225,7 @@ CREATE TABLE `nilai_alternatif` (
 INSERT INTO `nilai_alternatif` (`id_nilai_alternatif`, `id_pelamar`, `id_bobot_kriteria`, `updated_at`, `created_at`) VALUES
 (1, 9, 10, '2021-11-20 08:04:11', '2021-11-20 08:04:11'),
 (2, 9, 8, '2021-11-20 08:04:11', '2021-11-20 08:04:11'),
-(3, 9, 3, '2021-11-20 08:04:11', '2021-11-20 08:04:11'),
-(4, 10, 11, '2021-11-22 09:17:32', '2021-11-22 09:17:32'),
-(5, 10, 9, '2021-11-22 09:17:32', '2021-11-22 09:17:32'),
-(6, 10, 3, '2021-11-22 09:17:32', '2021-11-22 09:17:32'),
-(7, 11, 12, '2021-11-22 18:35:47', '2021-11-22 18:35:47'),
-(8, 11, 9, '2021-11-22 18:35:47', '2021-11-22 18:35:47'),
-(9, 11, 3, '2021-11-22 18:35:47', '2021-11-22 18:35:47'),
-(10, 12, 11, '2021-11-22 23:30:17', '2021-11-22 23:30:17'),
-(11, 12, 8, '2021-11-22 23:30:17', '2021-11-22 23:30:17'),
-(12, 12, 4, '2021-11-22 23:30:17', '2021-11-22 23:30:17');
+(3, 9, 3, '2021-11-20 08:04:11', '2021-11-20 08:04:11');
 
 -- --------------------------------------------------------
 
@@ -256,7 +257,7 @@ CREATE TABLE `pelamar` (
   `cv` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ijazah` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pas_foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status_lamaran` int(11) DEFAULT NULL,
+  `status_lamaran` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -266,10 +267,7 @@ CREATE TABLE `pelamar` (
 --
 
 INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `id_bobot_kriteria`, `nama_pelamar`, `tanggal_lahir`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `status_lamaran`, `created_at`, `updated_at`) VALUES
-(9, 3, 1, 1, 'faris', '2021-11-01', '213413', 'Laki-laki', '1637420651.pdf', '1637420651.pdf', '1637420651.png', NULL, '2021-11-20 08:04:11', '2021-11-20 08:04:11'),
-(10, 3, 1, 1, 'denny', '2021-11-01', '123123', 'Laki-laki', '1637597852.pdf', '1637597852.pdf', '1637597852.png', NULL, '2021-11-22 09:17:32', '2021-11-22 09:17:32'),
-(11, 3, 1, 2, 'palis', '2021-11-01', '123123123', 'Laki-laki', '1637631347.pdf', '1637631347.pdf', '1637631347.png', NULL, '2021-11-22 18:35:47', '2021-11-22 18:35:47'),
-(12, 3, 1, 3, 'wewe', '2021-11-01', '123123', 'Laki-laki', '1637649017.pdf', '1637649017.pdf', '1637649017.png', NULL, '2021-11-22 23:30:17', '2021-11-22 23:30:17');
+(9, 3, 2, 1, 'faris', '2021-11-01', '213413', 'Laki-laki', '1637420651.pdf', '1637420651.pdf', '1637420651.png', 'Diterima', '2021-11-20 08:04:11', '2021-11-20 08:04:11');
 
 -- --------------------------------------------------------
 
@@ -293,8 +291,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'pjxukdH7sNpYwjGW7pW2iNtAsFGfoBSEQ1lYM2GMEOPPGZZFyY0zVvU2HS1W', NULL, NULL),
-(3, 'user', 'customer', 'user@gmail.com', '$2y$10$RfanrhxaxM9xrQ5vu2xf6.cf9GTjW4AQsjJZBpT8m.62GpG0mTX/K', 'HSt07RQaidLqXhupBdpT0FddOaRKeOf3EJjRYdI3wdKmewOrNQW8WZ8KFGe1', '2021-11-20 07:38:55', '2021-11-20 07:38:55');
+(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'SnmRJZlDBBdpk4dxkFIV1FyKNr8OHyCcYUGQ83JLcxiG0EFb0ZWZG3fOLWXQ', NULL, NULL),
+(3, 'user', 'customer', 'faris.riskilail@gmail.com', '$2y$10$RfanrhxaxM9xrQ5vu2xf6.cf9GTjW4AQsjJZBpT8m.62GpG0mTX/K', 'WbEoO59hwULQbkQSc3dp58nhCySSkyM7xrhEIkdoMMtBYy8L0L7zFGZMfgYl', '2021-11-20 07:38:55', '2021-11-20 07:38:55');
 
 --
 -- Indexes for dumped tables
@@ -319,7 +317,7 @@ ALTER TABLE `daftar_soal`
 --
 ALTER TABLE `hasil_tes`
   ADD PRIMARY KEY (`id_hasil_tes`),
-  ADD KEY `hasil_tes_id_soal_index` (`id_soal`),
+  ADD KEY `hasil_tes_id_soal_index` (`id_soal_tes`),
   ADD KEY `hasil_tes_id_pelamar_index` (`id_pelamar`);
 
 --
@@ -392,19 +390,19 @@ ALTER TABLE `bobot_kriteria`
 -- AUTO_INCREMENT for table `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
-  MODIFY `id_soal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_soal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
-  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -463,7 +461,7 @@ ALTER TABLE `daftar_soal`
 --
 ALTER TABLE `hasil_tes`
   ADD CONSTRAINT `hasil_tes_id_pelamar_foreign` FOREIGN KEY (`id_pelamar`) REFERENCES `pelamar` (`id_pelamar`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `hasil_tes_id_soal_foreign` FOREIGN KEY (`id_soal`) REFERENCES `daftar_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `hasil_tes_id_soal_foreign` FOREIGN KEY (`id_soal_tes`) REFERENCES `daftar_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `jadwal_tes`

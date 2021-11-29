@@ -72,6 +72,7 @@
                             
                             <input type="number" name="id_soal_tes" value="{{ $daftarsoal[0]->id_soal }}" hidden>   
                             <input type="number" name="id_pelamar" value="{{ $pelamarGet }}" hidden>
+                            <input type="number" name="id_lowongan" value="{{ $pelamar[0]->id_lowongan }}" hidden>
                             <div class="form-group">
                                 <h3>Unggah Jawaban</h3><br>
                                 <span>Jika sudah menyelesaikan soal unggah jawabanmu disini</span><br>

@@ -101,7 +101,7 @@ Route::prefix('/email')->group(function ()
 
 Route::prefix('/jawaban')->group(function ()
 {
-    Route::get('/', 'HasilTesController@index')->name('jawaban.index');
+    Route::get('/hasil-tes/{id}', 'HasilTesController@index')->name('jawaban.index');
     Route::post('/jawaban', 'HasilTesController@store')->name('jawaban.store');
 });
 

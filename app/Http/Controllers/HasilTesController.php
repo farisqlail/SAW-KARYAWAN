@@ -18,9 +18,11 @@ class HasilTesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $hasilTes = HasilTes::all();
+
+        $hasilTes = HasilTes::with('pelamar')->where('id_lowongan', $id)->get();
+        // dd($hasilTes);
 
         return view('jawaban.index', ['hasilTes' => $hasilTes]);
     }
@@ -56,6 +58,7 @@ class HasilTesController extends Controller
 
             $hasilTes->id_soal_tes = $request->get('id_soal_tes');
             $hasilTes->id_pelamar = $request->get('id_pelamar');
+            $hasilTes->id_lowongan = $request->get('id_lowongan');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
