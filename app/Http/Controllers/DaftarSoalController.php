@@ -108,6 +108,7 @@ class DaftarSoalController extends Controller
     public function edit($id)
     {
         $daftar_soal = DaftarSoal::find($id);
+        
         return view('daftar_soal.edit',['daftar_soal' => $daftar_soal]);
     }
 

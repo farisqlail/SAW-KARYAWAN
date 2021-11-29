@@ -91,7 +91,9 @@ class HasilTesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hasilTes = HasilTes::findOrFail($id);
+
+        return view('jawaban.nilai', ['hasilTes' => $hasilTes]);
     }
 
     /**
@@ -103,7 +105,23 @@ class HasilTesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'nilai' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            dd($validator->errors());
+            return back()->withErrors($validator->errors());
+        } else {
+
+            $hasilTes = HasilTes::findOrFail($id);
+
+            $hasilTes->nilai = $request->get('nilai');
+
+            $hasilTes->save();
+        }
+
+        return redirect()->route('jadwal_tes.index');
     }
 
     /**
