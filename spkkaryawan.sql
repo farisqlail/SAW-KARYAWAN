@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2021 at 05:19 AM
+-- Generation Time: Nov 30, 2021 at 04:46 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -91,6 +91,7 @@ CREATE TABLE `hasil_tes` (
   `id_hasil_tes` int(10) UNSIGNED NOT NULL,
   `id_soal_tes` int(10) UNSIGNED DEFAULT NULL,
   `id_pelamar` int(10) UNSIGNED DEFAULT NULL,
+  `id_lowongan` int(10) UNSIGNED NOT NULL,
   `jawaban` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nilai` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -101,8 +102,8 @@ CREATE TABLE `hasil_tes` (
 -- Dumping data for table `hasil_tes`
 --
 
-INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
-(1, 7, 9, '1638116533.pdf', NULL, '2021-11-28 09:22:13', '2021-11-28 09:22:13');
+INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `id_lowongan`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
+(2, 7, 9, 2, '1638227227.pdf', 90, '2021-11-29 16:07:07', '2021-11-29 16:32:32');
 
 -- --------------------------------------------------------
 
@@ -291,8 +292,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'SnmRJZlDBBdpk4dxkFIV1FyKNr8OHyCcYUGQ83JLcxiG0EFb0ZWZG3fOLWXQ', NULL, NULL),
-(3, 'user', 'customer', 'faris.riskilail@gmail.com', '$2y$10$RfanrhxaxM9xrQ5vu2xf6.cf9GTjW4AQsjJZBpT8m.62GpG0mTX/K', 'WbEoO59hwULQbkQSc3dp58nhCySSkyM7xrhEIkdoMMtBYy8L0L7zFGZMfgYl', '2021-11-20 07:38:55', '2021-11-20 07:38:55');
+(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'FvikDYGTkqwXcOrPxbOfDep7M2nQRke7vDdJHGIZpnLZYi5foAY5PCjncLsy', NULL, NULL),
+(3, 'user', 'customer', 'faris.riskilail@gmail.com', '$2y$10$RfanrhxaxM9xrQ5vu2xf6.cf9GTjW4AQsjJZBpT8m.62GpG0mTX/K', 'lN47kugXFdad5rpfGVX8XgIh4lRgpzeNMlGulw79is42aNUlvrNNcHKTlyQO', '2021-11-20 07:38:55', '2021-11-20 07:38:55');
 
 --
 -- Indexes for dumped tables
@@ -318,7 +319,8 @@ ALTER TABLE `daftar_soal`
 ALTER TABLE `hasil_tes`
   ADD PRIMARY KEY (`id_hasil_tes`),
   ADD KEY `hasil_tes_id_soal_index` (`id_soal_tes`),
-  ADD KEY `hasil_tes_id_pelamar_index` (`id_pelamar`);
+  ADD KEY `hasil_tes_id_pelamar_index` (`id_pelamar`),
+  ADD KEY `id_lowongan` (`id_lowongan`);
 
 --
 -- Indexes for table `jadwal_tes`
@@ -396,7 +398,7 @@ ALTER TABLE `daftar_soal`
 -- AUTO_INCREMENT for table `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jadwal_tes`

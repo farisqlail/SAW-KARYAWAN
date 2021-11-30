@@ -46,7 +46,7 @@ class HasilTesController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'jawaban' => 'required|mimes:pdf|max:5024',
+            'jawaban' => 'required',
         ]);
 
         if ($validator->fails()) {
