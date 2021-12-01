@@ -80,14 +80,17 @@
 
             <div class="row" style="margin-top: 50px">
                 @foreach ($lowongan as $data)
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <h4>{{ $data->posisi_lowongan }}</h4>
                                 <span class="text-muted">Kuota {{ $data->kuota }} - <i
                                         class="text-danger">{{ $data->berlaku_sampai }}</i></span>
                                 <p class="mt-3">
-                                    {{ $data->keterangan }}
+                                    {!! $data->deskripsi_pekerjaan !!}
+                                </p>
+                                <p class="mt-1">
+                                    {!! $data->deskripsi_persyaratan !!}
                                 </p>
                                 @if (Auth::guest())
                                     <div class="button-group" align="right">
