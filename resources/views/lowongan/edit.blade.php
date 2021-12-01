@@ -39,14 +39,20 @@
                                     <label for="nama">Berlaku Sampai <span class="text-danger">*</span></label>
                                     <input type="date" name="berlaku" required class="form-control"value="{{$lowongan->berlaku_sampai}}">
                             </div>
+
                             <div class="form-group">
-                                    <label for="nama">Deskripsi<span class="text-danger">*</span></label>
-                                    <textarea name="deskripsi" class="form-control">{{$lowongan->keterangan}}</textarea>
+                                <label for="nama">Deskripsi Pekerjaan<span class="text-danger">*</span></label><br>
+                                <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nama">Deskripsi Persyaratan<span class="text-danger">*</span></label><br>
+                                <textarea name="deskripsi_persyaratan" id="deskripsi_persyaratan" class="form-control"></textarea>
                             </div>
                           
                            
                             <div class="float-right">
-                                <button type="submit" class="btn btn-success">Tambah</button>
+                                <button type="submit" class="btn btn-success">Edit</button>
                             </div>
                         </form>
                     </div>
@@ -55,4 +61,11 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
+<script>
+    CKEDITOR.replace( 'deskripsi_pekerjaan');
+    CKEDITOR.replace( 'deskripsi_persyaratan');
+</script>
 @endsection

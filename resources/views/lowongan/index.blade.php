@@ -35,8 +35,8 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$data->posisi_lowongan}}</td>
                                     <td>{{$data->kuota}}</td>
-                                    <td>{{$data->berlaku_sampai}}</td>
-                                    <td>{{$data->keterangan}}</td>
+                                    <td>{!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
+                                    <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
                                     <td class="text-center">
                                         <form action="{{route('lowongan.hapus',['id' => $data->id_lowongan])}}" method="POST">
                                             @csrf

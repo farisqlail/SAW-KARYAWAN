@@ -50,7 +50,8 @@ class LowonganController extends Controller
             'posisi' => 'required',
             'kuota' => "required",
             'berlaku' => "required",
-            
+            'deskripsi_pekerjaan' => "required",
+            'deskripsi_persyaratan' => "required",
         ]);
 
         if ($validator->fails()) {
@@ -61,7 +62,8 @@ class LowonganController extends Controller
             $lowongan->posisi_lowongan = $request->get('posisi');
             $lowongan->kuota = $request->get('kuota');
             $lowongan->berlaku_sampai = $request->get('berlaku');
-            $lowongan->keterangan= $request->get('deskripsi');
+            $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
+            $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
             $lowongan->save();
             return redirect()->route('lowongan.index');
         }
@@ -103,8 +105,8 @@ class LowonganController extends Controller
             'posisi' => 'required',
             'kuota' => "required",
             'berlaku' => "required",
-            'deskripsi' => "required",
-            
+            'deskripsi_pekerjaan' => "required",
+            'deskripsi_persyaratan' => "required",
         ]);
 
         if ($validator->fails()) {
@@ -115,7 +117,8 @@ class LowonganController extends Controller
             $lowongan->posisi_lowongan = $request->get('posisi');
             $lowongan->kuota = $request->get('kuota');
             $lowongan->berlaku_sampai = $request->get('berlaku');
-            $lowongan->keterangan= $request->get('deskripsi');
+            $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
+            $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
             $lowongan->save();
             return redirect()->route('lowongan.index');
         }
