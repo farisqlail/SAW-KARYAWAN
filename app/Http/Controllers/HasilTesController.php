@@ -10,6 +10,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\HasilTes;
+use App\Pelamar;
+use App\DaftarSoal;
+use App\JadwalTes;
 
 class HasilTesController extends Controller
 {
@@ -32,9 +35,17 @@ class HasilTesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $user = Auth::user()->id;
+        $pelamar = Pelamar::with('user')->where('id_user', $user)->get();
+        
+        $pelamarGet = $pelamar[0]->id_pelamar;
+
+        $jadwaltes = JadwalTes::find($id);
+        $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
+
+        return view('jawaban.jawaban', ['pelamarGet' => $pelamarGet, 'daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamar' => $pelamar]);
     }
 
     /**

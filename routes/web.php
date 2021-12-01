@@ -102,6 +102,7 @@ Route::prefix('/email')->group(function ()
 Route::prefix('/jawaban')->group(function ()
 {
     Route::get('/hasil-tes/{id}', 'HasilTesController@index')->name('jawaban.index');
+    Route::get('/jawaban/unggah/{id}', 'HasilTesController@create')->name('jawaban.unggah');
     Route::post('/jawaban', 'HasilTesController@store')->name('jawaban.store');
     Route::get('/nilai-jawaban/{id}', 'HasilTesController@edit')->name('jawaban.nilai');
     Route::patch('/nilai-jawaban/{id}', 'HasilTesController@update')->name('jawaban.nilai.update');
