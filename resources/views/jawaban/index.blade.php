@@ -2,6 +2,7 @@
 
 @section('content')
 
+@include('jawaban.nilai')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -50,8 +51,12 @@
                                                 <a href="{{route('jadwal_tes.ubah',['id' => $data->id_jadwal_tes])}}"class="btn btn-sm btn-warning">Edit</a>
                                                 <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                             </form> --}}
-                                                    <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}"
-                                                        class="btn btn-info">Nilai Jawaban</a>
+                                                    {{-- <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}"
+                                                        class="btn btn-info">Nilai Jawaban</a> --}}
+                                                        {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#nilaiJawaban">
+                                                            Nilai Jawaban
+                                                          </button> --}}
+                                                          <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}" data-id="{{ $data->id_hasil_tes }}" data-toggle="modal" data-target="#nilaiJawaban" class="btn btn-info">Nilai Jawaban</a>
                                                 </td>
                                             </tr>
                                         @endforeach
