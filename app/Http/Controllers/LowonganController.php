@@ -77,7 +77,10 @@ class LowonganController extends Controller
      */
     public function show($id)
     {
-        //
+        $lowongan = lowongan::find($id);
+        $pelamar = Pelamar::all();
+
+        return view('lowongan.detail',['lowongan' => $lowongan, 'pelamar' => $pelamar]);
     }
 
     /**

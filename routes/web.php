@@ -25,6 +25,7 @@ Route::prefix('/lowongan')->group(function ()
     Route::get('/', 'LowonganController@index')->name('lowongan.index');
     Route::get('/daftar-lowongan', 'LowonganController@home')->name('lowongan.home');
     Route::get('/tambah', 'LowonganController@create')->name('lowongan.tambah');
+    Route::get('/detail/{id}', 'LowonganController@show')->name('lowongan.detail');
     Route::post('/tambah', 'LowonganController@store')->name('lowongan.simpan');
     Route::get('/edit/{id}', 'LowonganController@edit')->name('lowongan.edit');
     Route::post('/edit/{id}', 'LowonganController@update')->name('lowongan.update');

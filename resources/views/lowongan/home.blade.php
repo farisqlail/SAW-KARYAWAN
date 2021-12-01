@@ -87,7 +87,7 @@
                                 <span class="text-muted">Kuota {{ $data->kuota }} - <i
                                         class="text-danger">{{ $data->berlaku_sampai }}</i></span>
                                 <p class="mt-3">
-                                    {!! $data->deskripsi_pekerjaan !!}
+                                    {!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 200) !!}
                                 </p>
                                 <p class="mt-1">
                                     {!! $data->deskripsi_persyaratan !!}
@@ -98,6 +98,8 @@
                                     </div>
                                 @else
                                     <div class="button-group" align="right">
+                                        <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
+                                            class="btn btn-outline-primary">Lihat Detail</a>
                                         <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}"
                                             class="btn-get-started">Lamar</a>
                                     </div>
