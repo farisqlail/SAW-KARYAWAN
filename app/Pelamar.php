@@ -28,7 +28,12 @@ class Pelamar extends Model
     }
 
     public function lowongan() {
-        return $this->belongsTo(Lowongan::class,'id_lowongan', 'id_lowongan');
+        return $this->belongsTo(lowongan::class,'id_lowongan', 'id_lowongan');
+    }
+
+    public function bobot()
+    {
+        return $this->belongsToMany(BobotKriteria::class,'nilai_alternatif','id_pelamar','id_bobot_kriteria');
     }
 
     public function nilai_alternatif() {

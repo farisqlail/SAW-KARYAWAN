@@ -14,52 +14,38 @@ class PerhitunganController extends Controller
 {
     public function index($id)
     {
-        $lowongan = lowongan::find($id);
-        $pelamar = Pelamar::where('id_lowongan', $id)->get();
-        $pelamarAll = Pelamar::all();
-        // dd($pelamarAll);
-        $nilaiAlternatif = NilaiAlternatif::all();
         $kriteria = Kriteria::all();
-        $bobotKriteria = BobotKriteria::all();
-        
+        $alternatif = Pelamar::all();
         $kode_krit = [];
-
         foreach ($kriteria as $krit)
         {
             $kode_krit[$krit->id_kriteria] = [];
-            foreach ($pelamar as $plm)
+            foreach ($alternatif as $al)
             {
-                foreach ($plm->bobot_kriteria as $bobot)
+                foreach ($al->bobot as $bobot)
                 {
-                    if ($bobot->id_kriteria == $krit->id_kriteria)
-                    {
-                        // dd($bk->kriteria->atribut_kriteria);
-                        $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
-                    }
+                        if ($bobot->kriteria->id_kriteria == $krit->id_kriteria)
+                        {
+                            $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
+                        }
                 }
             }
-            
-            if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id_kriteria])){
-                
+
+            if ($krit->atribut_kriteria == 'cost')
+            {
                 $kode_krit[$krit->id_kriteria] = min($kode_krit[$krit->id_kriteria]);
-            } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id_kriteria])){  
-
+           
+            } elseif ($krit->atribut_kriteria == 'benefit')
+            {
                 $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
-            } else {
-
-                $kode_krit[$krit->id_kriteria] = 1;
+               
             }
         };
-        
-        // dd($kode_krit);
 //        return json_encode($kode_krit);
         return view('perhitungan.index',[
             'kriteria'      => $kriteria,
-            'bobotKriteria' => $bobotKriteria,
-            'kode_krit'     => $kode_krit,
-            'pelamar'       => $pelamar,
-            'pelamarAll'    => $pelamarAll,
-            'nilaiAlternatif' => $nilaiAlternatif
+            'alternatif'    => $alternatif,
+            'kode_krit'     => $kode_krit
         ]);
     }
 
