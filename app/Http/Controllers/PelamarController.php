@@ -159,7 +159,7 @@ class PelamarController extends Controller
             $beautymail->send('email.lolos', [], function($message) use($pelamar)
             {
                 $message
-                    ->from('lintasnusa@gmail.com')
+                    ->from('lintasnusa1990@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi '.$pelamar->lowongan->posisi_lowongan);
             });

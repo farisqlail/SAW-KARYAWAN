@@ -14,6 +14,10 @@ class PerhitunganController extends Controller
 {
     public function index($id)
     {
+        $lowongan = Lowongan::all();
+        $lowonganGet = $lowongan[0]->id_lowongan;
+        // dd($lowonganGet);
+
         $kriteria = Kriteria::all();
         $alternatif = Pelamar::all();
         $kode_krit = [];

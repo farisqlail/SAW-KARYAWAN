@@ -111,16 +111,19 @@
                                                 $nilai_normalisasi = 0; ?>
                                                 @foreach ($data->bobot as $crip)
                                                     @if ($crip->kriteria->atribut_kriteria == 'cost')
-                                                        <?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; ?>
-
-
+                                                        @php 
+                                                            $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; 
+                                                        @endphp
 
                                                     @elseif($crip->kriteria->atribut_kriteria == 'benefit')
-                                                        <?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; ?>
-
+                                                        @php 
+                                                            $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; 
+                                                        @endphp
 
                                                     @endif
-                                                    <?php $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi; ?>
+                                                    @php 
+                                                        $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi; 
+                                                    @endphp
                                                     <td>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</td>
 
 
