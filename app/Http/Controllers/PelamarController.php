@@ -31,6 +31,15 @@ class PelamarController extends Controller
         return view('pelamar.index', ['pelamar' => $pelamar]);
     }
 
+    public function riwayat(){
+
+        $user = Auth::user()->id;
+        $pelamar = Pelamar::where('id_user', $user)->get();
+        // dd($pelamar);
+
+        return view('pelamar.riwayat', ['pelamar' => $pelamar]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -207,4 +216,5 @@ class PelamarController extends Controller
         $pelamar->delete();
         return redirect(route('pelamar.index'));
     }
+    
 }
