@@ -61,6 +61,7 @@ Route::prefix('/daftar_soal')->group(function ()
     Route::post('/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
     Route::post('/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
     Route::get('/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
+    
 });
 
 Route::prefix('/jadwal_tes')->group(function ()

@@ -37,15 +37,19 @@ class JadwalTesController extends Controller
         $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
                     ->where('lowongan.id_lowongan', $pelamarGet)
                     ->get();
-        // dd($jadwal_tes);
-       
-        // $jadwal_tes = DB::table('jadwal_tes')
-        // ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
-        // $jadwal_tes = JadwalTes::with('pelamar')
-        //                 ->where('id_pelamar', $id)
-        //                 ->get();
+        // dd($pelamar[0]->status_lamaran);
+        
+        if ($pelamar[0]->status_lamaran == NULL) {
+           
+            return view('jadwal_tes.gagal', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+        } else if($pelamar[0]->status_lamaran == 'Diterima'){
 
-        return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+            return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+        } else if($pelamar[0]->status_lamaran  == 'Ditolak'){
+
+            return view('jadwal_tes.gagal', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+        }
+        
     }
 
     /**
@@ -159,4 +163,5 @@ class JadwalTesController extends Controller
         $jadwal_tes->delete();
         return redirect(route('jadwal_tes.index'));
     }
+
 }
