@@ -45,9 +45,9 @@
             <nav id="navbar" class="navbar">
                 @if (Route::has('login'))
                     <ul>
-                        <li><a class="nav-link scrollto active" href="{{ route('lowongan.home') }}">Lowongan</a></li>
+                        <li><a class="nav-link scrollto {{'lowongan' == request()->segment(1) ? 'active' : ''}}" href="{{ route('lowongan.home') }}">Lowongan</a></li>
                         @auth
-                            <li><a class="nav-link scrollto" href="{{ route('soal-tes.home') }}">Tes Online</a>
+                            <li><a class="nav-link scrollto {{'jadwal_tes' == request()->segment(1) ? 'active' : ''}}" href="{{ route('soal-tes.home') }}">Tes Online</a>
                             </li>
 
                             <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i
