@@ -15,12 +15,12 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <form enctype="multipart/form-data" action="{{ route('pelamar.simpan') }}"
-                                    method="POST" class="col-md-12">
+                                <form enctype="multipart/form-data" action="{{ route('pelamar.simpan') }}" method="POST"
+                                    class="col-md-12">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="text" name="id_user" class="form-control"
-                                            value="{{ Auth::id() }}" hidden>
+                                        <input type="text" name="id_user" class="form-control" value="{{ Auth::id() }}"
+                                            hidden>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="id_lowongan" class="form-control"
@@ -35,8 +35,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Tanggal Lahir <span
-                                                        class="text-danger">*</span></label>
+                                                <label for="">Tanggal Lahir <span class="text-danger">*</span></label>
                                                 <input type="date" name="tanggal_lahir" required class="form-control">
                                             </div>
                                         </div>
@@ -45,8 +44,7 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Jenis Kelamin <span
-                                                        class="text-danger">*</span></label>
+                                                <label for="">Jenis Kelamin <span class="text-danger">*</span></label>
                                                 <select name="jenis_kelamin" class="form-control">
                                                     <option value="">Pilih Jenis Kelamin</option>
                                                     <option value="Laki-laki">Laki-laki</option>
@@ -56,23 +54,20 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                @foreach ($kriteria as $kriteria)
-                                                    <div class="form-group">
-                                                        <label for="Kriteria">{{ $kriteria->nama_kriteria }}</label>
-                                                        <select name="id_bobot_kriteria" class="form-control">
-                                                            <option value="">-- Pilih
-                                                                {{ $kriteria->nama_kriteria }}--
-                                                            </option>
-                                                            @foreach ($bobot_kriteria as $bobot)
-                                                                @if ($kriteria->id_kriteria == $bobot->id_kriteria)
-                                                                    <option value="{{ $bobot->id_bobot_kriteria }}">
-                                                                        {{ $bobot->nama_bobot }}</option>
-                                                                @else
+                                                @foreach($kriteria as $kriteria)
+                                                <div class="form-group">
+                                                    <label for="Kriteria">{{$kriteria->nama_kriteria}}</label>
+                                                    <select name="{{$kriteria->id_kriteria}}" class="form-control">
+                                                        <option value="">-- Pilih {{$kriteria->nama_kriteria}}--</option>
+                                                        @foreach($bobot_kriteria as $bobot)
+                                                        @if($kriteria->id_kriteria==$bobot->id_kriteria)
+                                                        <option value="{{$bobot->id_bobot_kriteria}}">{{$bobot->nama_bobot}}</option>
+                                                        @else
 
-                                                                @endif
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                        @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                                 @endforeach
                                             </div>
                                         </div>

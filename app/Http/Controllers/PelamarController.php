@@ -54,6 +54,8 @@ class PelamarController extends Controller
         ->get();
         $bobot_kriteria= BobotKriteria::all();
 
+        // dd($kriteria);
+
         return view('pelamar.create', ['lowongan' => $lowongan, 'kriteria' => $kriteria,'bobot_kriteria'=>$bobot_kriteria, 'pelamar' => $pelamar]);
     }
 
@@ -86,7 +88,6 @@ class PelamarController extends Controller
 
             $pelamar->id_lowongan = $request->get('id_lowongan');
             $pelamar->id_user = $request->get('id_user');
-            $pelamar->id_bobot_kriteria = $request->get('id_bobot_kriteria');
             // $pelamar->id_bobot_kriteria = $request->get('id_bobot_kriteria');
             $pelamar->nama_pelamar = $request->get('nama_pelamar');
             $pelamar->tanggal_lahir = $request->get('tanggal_lahir');

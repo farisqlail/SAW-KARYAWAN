@@ -17,7 +17,6 @@ class Pelamar extends Model
         'ijazah',
         'pas_foto',
         'status_lamaran',
-        'id_bobot_kriteria',
         'id_user',
         'id_lowongan'
     ];
