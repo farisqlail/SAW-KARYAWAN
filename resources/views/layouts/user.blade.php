@@ -66,8 +66,8 @@
                                 </ul>
                             </li>
                         @else
-                            <li><a class="nav-link scrollto" href="{{ route('login') }}">Login</a></li>
-                            <li><a class="getstarted scrollto" href="{{ route('register') }}">Register</a></li>
+                            <li><a class="nav-link scrollto {{'login' == request()->segment(1) ? 'active' : ''}}" href="{{ route('login') }}">Login</a></li>
+                            <li><a class="getstarted scrollto {{'register' == request()->segment(1) ? 'active' : ''}}" href="{{ route('register') }}">Register</a></li>
                         @endauth
                     </ul>
                 @endif
@@ -102,7 +102,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('user-template/assets/js/main.js') }}"></script>
-
+    @include('sweetalert::alert')   
 </body>
 
 </html>

@@ -18,8 +18,8 @@ class PerhitunganController extends Controller
         $lowonganGet = $lowongan[0]->id_lowongan;
         // dd($lowonganGet);
 
-        $kriteria = Kriteria::all();
-        $alternatif = Pelamar::all();
+        $kriteria = Kriteria::where('id_lowongan', $id)->get();
+        $alternatif = Pelamar::where('id_lowongan', $id)->get();
         $kode_krit = [];
         foreach ($kriteria as $krit)
         {

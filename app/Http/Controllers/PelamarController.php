@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
-use RealRashid\SweetAlert\Facades\Alert;
+use Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Snowfire\Beautymail\Beautymail;
@@ -67,7 +67,6 @@ class PelamarController extends Controller
      */
     public function store(Request $request)
     {
-        Alert::success('Berhasil Melamar', 'Tunggu informasi berikutnya!');
         
         $validator = Validator::make(request()->all(), [
             'nama_pelamar' => 'required',
@@ -79,10 +78,12 @@ class PelamarController extends Controller
             'pas_foto' => 'required|mimes:jpeg,png,jpg|max:1024',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()) 
+        {
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+            Alert::success('Berhasil Melamar', 'Lamaran kamu sudah kami terima');
 
             $pelamar = new Pelamar();
 
@@ -112,6 +113,7 @@ class PelamarController extends Controller
                 Storage::putFileAs("public/images/pas_foto", $file, $filename);
             }
             
+            
             $pelamar->save();
 
             $bobot_kriteria= BobotKriteria::all();
@@ -125,6 +127,7 @@ class PelamarController extends Controller
                 $nilai_alternatif->id_bobot_kriteria=$request->get($kriteria->id_kriteria);
                 $nilai_alternatif->save();
             }
+            
 
             return redirect()->route('lowongan.home');
         }
