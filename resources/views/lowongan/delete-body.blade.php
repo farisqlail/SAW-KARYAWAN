@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalHapus" data-id="{{ $lowongan[0]->id_lowongan }}" tabindex="-1" role="dialog"
+<div class="modal fade" id="modalHapus" data-id="{{ route('lowongan.delete', ['id', $lowongan[0]->id_lowongan]) }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

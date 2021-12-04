@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\BobotKriteria;
-use App\Kriteria;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\BobotKriteria;
+use App\Kriteria;
 
 
 class BobotKriteriaController extends Controller
@@ -21,6 +21,7 @@ class BobotKriteriaController extends Controller
         $kriteria = Kriteria::find($id);
         $datakriteria=Kriteria::where('id_kriteria',$id)->first();
         $data = BobotKriteria::where('id_kriteria',$id)->get();
+        
         return view('bobot_kriteria.index',['bobot_kriteria' => $data,'kriteria'=>$kriteria,'datakriteria'=>$datakriteria]);
     }
 
@@ -32,6 +33,7 @@ class BobotKriteriaController extends Controller
     public function create($id)
     {
         $kriteria = Kriteria::find($id);
+
         return view('bobot_kriteria.tambah',['kriteria' => $kriteria]);
     }
 
@@ -51,9 +53,11 @@ class BobotKriteriaController extends Controller
         ]);
 
         if ($validator->fails()) {
+            
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
             Alert::success('Berhasil', 'Berhasil menambah bobot kriteria');
 
             $bobot_kriteria = new BobotKriteria();
@@ -63,7 +67,7 @@ class BobotKriteriaController extends Controller
             $bobot_kriteria->save();
             return redirect()->route('bobot_kriteria.index',['id' => $bobot_kriteria->id_kriteria]);
         }
-        return redirect(route('bobot_kriteria'));
+        // return redirect(route('bobot_kriteria'));
     }
 
     /**
@@ -85,8 +89,9 @@ class BobotKriteriaController extends Controller
      */
     public function edit($id)
     {
-        $bobot_kriteria = BobotKriteria::find($id);
-        return view('bobot_kriteria.edit',['data' => $bobot_kriteria]);
+        $bobot = BobotKriteria::find($id);
+
+        return view('bobot_kriteria.edit',['bobot' => $bobot]);
     }
 
     /**
@@ -112,13 +117,16 @@ class BobotKriteriaController extends Controller
             Alert::success('Berhasil', 'Berhasil mengubah bobot kriteria');
 
             $bobot_kriteria = BobotKriteria::find($id);
+
             $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
             $bobot_kriteria->jumlah_bobot = $request->get('nilai_bobot');
+
             $bobot_kriteria->save();
+
             return redirect()->route('bobot_kriteria.index',['id' => $bobot_kriteria->id_kriteria]);
         }
-        return redirect(route('bobot_kriteria'));
+        // return redirect(route('bobot_kriteria'));
     }
 
     /**

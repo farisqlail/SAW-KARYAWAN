@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Snowfire\Beautymail\Beautymail;
@@ -83,6 +83,7 @@ class PelamarController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
             Alert::success('Berhasil Melamar', 'Lamaran kamu sudah kami terima');
 
             $pelamar = new Pelamar();
@@ -168,7 +169,7 @@ class PelamarController extends Controller
             
             $pelamar = Pelamar::findOrFail($id);
             // dd($pelamar->lowongan->posisi_lowongan);
-            $pelamar->status_lamaran = 'Diterima';
+            $pelamar->status_lamaran = 'Diterima Tahap 1';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos', [], function($message) use($pelamar)

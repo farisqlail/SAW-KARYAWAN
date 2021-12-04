@@ -50,11 +50,12 @@
                             <li><a class="nav-link scrollto {{'jadwal_tes' == request()->segment(1) ? 'active' : ''}}" href="{{ route('soal-tes.home') }}">Tes Online</a>
                             </li>
 
+                            <li><a class="nav-link scrollto {{'pelamar' == request()->segment(1) ? 'active' : ''}}" href="{{ route('pelamar.riwayat', Auth::user()->id) }}">Riwayat Lamaran</a>
+                            </li>
+
                             <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i
                                         class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a class="nav-link scrollto" href="{{ route('pelamar.riwayat', Auth::user()->id) }}">Riwayat Lamaran</a>
-                                    </li>
 
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">Logout</a></li>

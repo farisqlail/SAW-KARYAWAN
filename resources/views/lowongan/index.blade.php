@@ -45,18 +45,18 @@
                                                         action="{{ route('lowongan.hapus', ['id' => $data->id_lowongan]) }}"
                                                         method="POST">
                                                         @csrf
-                                                        @if (Auth()->user()->role == 'admin')
+                                                        {{-- @if (Auth()->user()->role == 'admin') --}}
                                                             <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}"
                                                                 class="btn btn-sm btn-info">Kriteria</a>
                                                             <a href="{{ route('lowongan.edit', ['id' => $data->id_lowongan]) }}"
                                                                 class="btn btn-sm btn-warning">Edit</a>
-                                                        @endif
+                                                                <a href="{{ route('lowongan.delete', ['id', $data->id_lowongan]) }}"
+                                                                    data-id="{{ route('lowongan.delete', ['id', $data->id_lowongan]) }}" class="btn btn-sm btn-danger"
+                                                                    data-toggle="modal" data-target="#modalHapus">
+                                                                    Hapus
+                                                                </a>
+                                                        {{-- @endif --}}
                                                     </form>
-                                                    <a href="{{ route('lowongan.delete', ['id', $data->id_lowongan]) }}"
-                                                        data-id="{{ $data->id_lowongan }}" class="btn btn-sm btn-danger"
-                                                        data-toggle="modal" data-target="#modalHapus">
-                                                        Hapus
-                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

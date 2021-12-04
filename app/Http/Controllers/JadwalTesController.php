@@ -7,7 +7,7 @@ use App\HasilTes;
 use App\JadwalTes;
 use App\lowongan;
 use App\Pelamar;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

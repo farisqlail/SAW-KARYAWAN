@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\lowongan;
 use App\Pelamar;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
