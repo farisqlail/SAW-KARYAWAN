@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('lowongan.delete-body')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -31,38 +33,7 @@
                                 <tbody>
                                     @if (!empty($lowongan))
                                         @foreach ($lowongan as $data)
-
-                                            <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Lowongan
-                                                            </h5>
-                                                            <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body text-center">
-                                                            <img src="{{ asset('assets/img/delete-alert.gif') }}"
-                                                                img="img-fluid" width="200" alt=""><br><br>
-                                                            <h4>Yakin ingin menghapus lowongan ?</h4>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <form
-                                                                action="{{ route('lowongan.hapus', ['id' => $data->id_lowongan]) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                        
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
@@ -79,12 +50,13 @@
                                                                 class="btn btn-sm btn-info">Kriteria</a>
                                                             <a href="{{ route('lowongan.edit', ['id' => $data->id_lowongan]) }}"
                                                                 class="btn btn-sm btn-warning">Edit</a>
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                data-toggle="modal" data-target="#modalHapus">
-                                                                Hapus
-                                                            </button>
                                                         @endif
                                                     </form>
+                                                    <a href="{{ route('lowongan.delete', ['id', $data->id_lowongan]) }}"
+                                                        data-id="{{ $data->id_lowongan }}" class="btn btn-sm btn-danger"
+                                                        data-toggle="modal" data-target="#modalHapus">
+                                                        Hapus
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

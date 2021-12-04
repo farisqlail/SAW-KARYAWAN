@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BobotKriteria;
 use App\Kriteria;
+use Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,6 +54,8 @@ class BobotKriteriaController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+            Alert::success('Berhasil', 'Berhasil menambah bobot kriteria');
+
             $bobot_kriteria = new BobotKriteria();
             $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
@@ -106,6 +109,8 @@ class BobotKriteriaController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+            Alert::success('Berhasil', 'Berhasil mengubah bobot kriteria');
+
             $bobot_kriteria = BobotKriteria::find($id);
             $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');

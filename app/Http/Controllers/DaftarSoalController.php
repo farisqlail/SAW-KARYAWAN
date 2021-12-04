@@ -6,6 +6,7 @@ use App\DaftarSoal;
 use App\JadwalTes;
 use App\lowongan;
 use App\Pelamar;
+use Alert;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -71,6 +72,8 @@ class DaftarSoalController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+            Alert::success('Berhasil', 'Berhasil menambah soal');
+
             $daftar_soal = new DaftarSoal();
             $daftar_soal->id_jadwal_tes = $request->get('id_jadwal_tes');
             $daftar_soal->soal = $request->get('soal');
@@ -131,6 +134,8 @@ class DaftarSoalController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+            Alert::success('Berhasil', 'Berhasil mengubah soal');
+
             $daftar_soal = DaftarSoal::find($id);
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = $request->get('bobot');

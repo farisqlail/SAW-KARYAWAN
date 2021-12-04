@@ -65,6 +65,8 @@ class HasilTesController extends Controller
             return back()->withErrors($validator->errors());
         } else {
 
+            Alert::success('Berhasil', 'Jawaban kamu sudah kami terima, akan kita cek lagi');
+
             $hasilTes = new HasilTes();
 
             $hasilTes->id_soal_tes = $request->get('id_soal_tes');
@@ -124,6 +126,8 @@ class HasilTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
+            Alert::success('Berhasil', 'Berhasil menilai Jawaban');
 
             $hasilTes = HasilTes::findOrFail($id);
 

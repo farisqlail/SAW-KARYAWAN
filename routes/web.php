@@ -29,6 +29,7 @@ Route::prefix('/lowongan')->group(function ()
     Route::post('/tambah', 'LowonganController@store')->name('lowongan.simpan');
     Route::get('/edit/{id}', 'LowonganController@edit')->name('lowongan.edit');
     Route::post('/edit/{id}', 'LowonganController@update')->name('lowongan.update');
+    Route::get('/hapus/{id}', 'LowonganController@delete')->name('lowongan.delete');
     Route::post('/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
 });
 

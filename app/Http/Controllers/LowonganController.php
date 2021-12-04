@@ -145,11 +145,18 @@ class LowonganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     public function delete(){
+        $lowongan = Lowongan::findOrFail($id);
+
+        return view('lowongan.delete-body', ['lowongan' => $lowongan]);
+     }
+
     public function destroy($id)
     {
         Alert::success('Berhasil', 'Berhasil menghapus lowongan');
         
-        $lowongan = Lowongan::find($id);
+        $lowongan = Lowongan::findOrFail($id);
         $lowongan->delete();
         return redirect(route('lowongan.index'));
     }

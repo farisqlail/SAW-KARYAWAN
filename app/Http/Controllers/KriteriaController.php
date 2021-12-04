@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Alert;
 use App\Kriteria;
 use App\lowongan;
 
@@ -52,6 +53,9 @@ class KriteriaController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
+            Alert::success('Berhasil', 'Berhasil menambah kriteria');
+
             $kriteria = new Kriteria();
             $kriteria->id_lowongan = $request->get('id_lowongan');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
@@ -107,6 +111,9 @@ class KriteriaController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
+            Alert::success('Berhasil', 'Berhasil mengubah kriteria');
+
             $kriteria = Kriteria::find($id);
             $kriteria->id_lowongan = $request->get('id_lowongan');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');

@@ -163,6 +163,8 @@ class PelamarController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->submit == 'Terima') {
+
+            Alert::success('Berhasil', 'Pelamar sudah diterima & akan mengirim email lanjut');
             
             $pelamar = Pelamar::findOrFail($id);
             // dd($pelamar->lowongan->posisi_lowongan);
@@ -182,6 +184,8 @@ class PelamarController extends Controller
             return redirect()->route('home');
 
         } elseif ($request->submit == 'Tolak') {
+
+            Alert::success('Berhasil', 'Pelamar sudah ditolak & akan mengirim email lanjut');
 
             $pelamar = Pelamar::findOrFail($id);
             $pelamar->status_lamaran = 'Ditolak';

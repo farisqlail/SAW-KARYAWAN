@@ -7,6 +7,7 @@ use App\HasilTes;
 use App\JadwalTes;
 use App\lowongan;
 use App\Pelamar;
+use Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -85,6 +86,9 @@ class JadwalTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
+            Alert::success('Berhasil', 'Berhasil menambah jadwal tes');
+
             $jadwal_tes = new JadwalTes();
             $jadwal_tes->id_lowongan = $request->get('id_lowongan');
             $jadwal_tes->tanggal = $request->get('tanggal');
@@ -142,6 +146,9 @@ class JadwalTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
+
+            Alert::success('Berhasil', 'Berhasil mengubah jadwal tes');
+
             $jadwal_tes = JadwalTes::find($id);
             $jadwal_tes->id_lowongan = $request->get('id_lowongan');
             $jadwal_tes->tanggal = $request->get('tanggal');
