@@ -35,14 +35,15 @@ class PerhitunganController extends Controller
                 }
             }
 
-            if ($krit->atribut_kriteria == 'cost')
-            {
+            if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id_kriteria])){
+
                 $kode_krit[$krit->id_kriteria] = min($kode_krit[$krit->id_kriteria]);
-           
-            } elseif ($krit->atribut_kriteria == 'benefit')
-            {
+            } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id_kriteria])){
+
                 $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
-               
+            } else {
+
+                $kode_krit[$krit->id_kriteria] = 1;
             }
         };
 //        return json_encode($kode_krit);
@@ -56,6 +57,7 @@ class PerhitunganController extends Controller
     public function lowongan(){
 
         $lowongan = lowongan::all();
+
         return view('perhitungan.lowongan', ['lowongan' => $lowongan]);
     }
 

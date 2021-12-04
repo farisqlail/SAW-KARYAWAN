@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Snowfire\Beautymail\Beautymail;
 use App\lowongan;
 use App\Pelamar;
+use Carbon\Carbon;
 use App\NilaiAlternatif;
 
 
