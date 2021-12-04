@@ -169,7 +169,7 @@ class PelamarController extends Controller
             
             $pelamar = Pelamar::findOrFail($id);
             // dd($pelamar->lowongan->posisi_lowongan);
-            $pelamar->status_lamaran = 'Diterima Tahap 1';
+            $pelamar->status_lamaran = 'Diterima';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos', [], function($message) use($pelamar)

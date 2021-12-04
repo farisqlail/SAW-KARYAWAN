@@ -23,7 +23,6 @@ class HasilTesController extends Controller
      */
     public function index($id)
     {
-
         $hasilTes = HasilTes::with('pelamar')->where('id_lowongan', $id)->get();
         // dd($hasilTes);
 

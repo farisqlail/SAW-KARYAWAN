@@ -146,7 +146,8 @@ class LowonganController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function delete(){
+     public function delete($id){
+         
         $lowongan = Lowongan::findOrFail($id);
 
         return view('lowongan.delete-body', ['lowongan' => $lowongan]);

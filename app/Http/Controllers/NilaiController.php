@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Alternatif;
 use App\Crip;
 use App\Kriteria;
+use App\Pelamar;
 use Illuminate\Http\Request;
 use DB;
 class NilaiController extends Controller
@@ -17,7 +18,7 @@ class NilaiController extends Controller
     public function index(Request $req)
     {
         $kriteria = Kriteria::all();
-        $alternatif = Alternatif::all();
+        $alternatif = Pelamar::all();
         return view('nilai.index',[
             'kriteria'      => $kriteria,
             'alternatif'    => $alternatif

@@ -25,7 +25,7 @@
                                 <td>
                                     @if ($data->status_lamaran == NULL)
                                         <span class="text-warning">Lamaran belum ada status</span>
-                                    @elseif($data->status_lamaran == 'Diterima Tahap 1')
+                                    @elseif($data->status_lamaran == 'Diterima')
                                         <span class="text-success">Lamaran Diterima Seleksi 1</span>
                                     @elseif($data->status_lamaran == 'Ditolak')
                                         <span class="text-danger">Lamaran Ditolak</span>
