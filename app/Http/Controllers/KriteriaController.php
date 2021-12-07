@@ -53,8 +53,7 @@ class KriteriaController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-
-            Alert::success('Berhasil', 'Berhasil menambah kriteria');
+            Alert::success('Berhasil', 'Data kriteria berhasil ditambahkan');
 
             $kriteria = new Kriteria();
             $kriteria->id_lowongan = $request->get('id_lowongan');
@@ -111,8 +110,7 @@ class KriteriaController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-
-            Alert::success('Berhasil', 'Berhasil mengubah kriteria');
+            Alert::success('Berhasil', 'Data kriteria berhasil diubah');
 
             $kriteria = Kriteria::find($id);
             $kriteria->id_lowongan = $request->get('id_lowongan');

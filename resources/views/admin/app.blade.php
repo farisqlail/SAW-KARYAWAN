@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <!-- Styles -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <style>
@@ -61,7 +62,6 @@
     <link href="{{ asset('assets/css/material-dashboard.css?v=2.1.2') }}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('assets/demo/demo.css') }}" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -101,8 +101,6 @@
 
     <!-- Plugin for the momentJs  -->
     <script src="{{ asset('assets/js/plugins/moment.min.js') }}"></script>
-    <!--  Plugin for Sweet Alert -->
-    <script src="{{ asset('assets/js/plugins/sweetalert2.js') }}"></script>
     <!-- Forms Validations Plugin -->
     <script src="{{ asset('assets/js/plugins/jquery.validate.min.js') }}"></script>
     <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
@@ -133,18 +131,15 @@
     <script src="{{ asset('assets/demo/demo.js') }}"></script>
     <!-- Library for adding dinamically elements -->
     <script src="{{ asset('assets/js/plugins/arrive.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#myTable').DataTable();
         });
     </script>
 
-
-    {{-- END SCRIPT --}}
-
-    <script>
-
-    </script>
     @include('sweetalert::alert')
 </body>
 

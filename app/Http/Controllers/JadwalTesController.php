@@ -7,9 +7,9 @@ use App\HasilTes;
 use App\JadwalTes;
 use App\lowongan;
 use App\Pelamar;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,54 +27,30 @@ class JadwalTesController extends Controller
         return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
     }
 
-    public function home()
-    {
+    public function home(){
+
         $user = Auth::user()->id;
-        $pelamar = Pelamar::where('id_user', $user)->get();
-        // dd($pelamar);
-
-        if (!empty($pelamar)) {
-            foreach ($pelamar as $data) {
-
-                $pelamar = Pelamar::with('user')->where('id_user', $user)
+        $pelamar = Pelamar::with('user')->where('id_user', $user)
                     ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
                     ->get();
-
-                $pelamarGet = $data->id_lowongan;
-
-                $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
+        $pelamarGet = $pelamar[0]->id_lowongan;
+        // dd($pelamarGet);
+        $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
                     ->where('lowongan.id_lowongan', $pelamarGet)
                     ->get();
-            }
-            // dd($pelamar->count() > 0);
-            if ($pelamar->count() > 0) {
-                if ($pelamar[0]->status_lamaran == "Diterima") {
+        // dd($pelamar[0]->status_lamaran);
+        
+        if ($pelamar[0]->status_lamaran == NULL) {
+           
+            return view('jadwal_tes.gagal', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+        } else if($pelamar[0]->status_lamaran == 'Diterima'){
 
-                    return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-                } else if ($pelamar[0]->status_lamaran == "Ditolak") {
-                    
-                    return view('jadwal_tes.gagal',);
-                }
-            } else {
+            return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+        } else if($pelamar[0]->status_lamaran  == 'Ditolak'){
 
-                return view('jadwal_tes.gagal',);
-            }
-            
+            return view('jadwal_tes.gagal', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
         }
-
-        // dd($data->status_lamaran);
-
-
-        // if(empty($data)){
-
-        //     return view('jadwal_tes.gagal');
-        // } else if($data->status_lamaran === "Ditolak") {
-
-        //     return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-        // } else if ($data->status_lamaran === "Diterima") {
-
-        //     return view('jadwal_tes.gagal');
-        // } 
+        
     }
 
     /**
@@ -110,21 +86,17 @@ class JadwalTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-
-            Alert::success('Berhasil', 'Berhasil menambah jadwal tes');
+            Alert::success('Berhasil', 'Jawdal tes berhasil ditambahkan');
 
             $jadwal_tes = new JadwalTes();
-
             $jadwal_tes->id_lowongan = $request->get('id_lowongan');
             $jadwal_tes->tanggal = $request->get('tanggal');
             $jadwal_tes->durasi_tes = $request->get('batas');
-
             $jadwal_tes->save();
-
             return redirect()->route('jadwal_tes.index');
         }
     }
-
+  
 
     /**
      * Display the specified resource.
@@ -173,8 +145,7 @@ class JadwalTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-
-            Alert::success('Berhasil', 'Berhasil mengubah jadwal tes');
+            Alert::success('Berhasil', 'Jawdal tes berhasil diubah');
 
             $jadwal_tes = JadwalTes::find($id);
             $jadwal_tes->id_lowongan = $request->get('id_lowongan');
@@ -197,4 +168,5 @@ class JadwalTesController extends Controller
         $jadwal_tes->delete();
         return redirect(route('jadwal_tes.index'));
     }
+
 }

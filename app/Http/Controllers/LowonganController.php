@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\lowongan;
 use App\Pelamar;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LowonganController extends Controller
 {
@@ -47,7 +47,6 @@ class LowonganController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make(request()->all(), [
             'posisi' => 'required',
             'kuota' => "required",
@@ -60,16 +59,14 @@ class LowonganController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            Alert::success('Berhasil', 'Berhasil menambah lowongan');
+            Alert::success('Berhasil', 'Data lowongan berhasil ditambahkan');
 
             $lowongan = new lowongan();
-
             $lowongan->posisi_lowongan = $request->get('posisi');
             $lowongan->kuota = $request->get('kuota');
             $lowongan->berlaku_sampai = $request->get('berlaku');
             $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
-
             $lowongan->save();
             return redirect()->route('lowongan.index');
         }
@@ -110,7 +107,6 @@ class LowonganController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $validator = Validator::make(request()->all(), [
             'posisi' => 'required',
             'kuota' => "required",
@@ -123,18 +119,15 @@ class LowonganController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            Alert::success('Berhasil', 'Berhasil mengubah lowongan');
+            Alert::success('Berhasil', 'Data lowongan berhasil diubah');
 
             $lowongan = lowongan::find($id);
-
             $lowongan->posisi_lowongan = $request->get('posisi');
             $lowongan->kuota = $request->get('kuota');
             $lowongan->berlaku_sampai = $request->get('berlaku');
             $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
-
             $lowongan->save();
-
             return redirect()->route('lowongan.index');
         }
     }
@@ -145,20 +138,12 @@ class LowonganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-     public function delete($id){
-         
-        $lowongan = Lowongan::findOrFail($id);
-
-        return view('lowongan.delete-body', ['lowongan' => $lowongan]);
-     }
-
     public function destroy($id)
     {
-        Alert::success('Berhasil', 'Berhasil menghapus lowongan');
         
         $lowongan = Lowongan::findOrFail($id);
         $lowongan->delete();
-        return redirect(route('lowongan.index'));
+
+        return redirect()->route('lowongan.index');
     }
 }

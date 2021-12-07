@@ -23,6 +23,7 @@ class HasilTesController extends Controller
      */
     public function index($id)
     {
+
         $hasilTes = HasilTes::with('pelamar')->where('id_lowongan', $id)->get();
         // dd($hasilTes);
 
@@ -64,7 +65,7 @@ class HasilTesController extends Controller
             return back()->withErrors($validator->errors());
         } else {
 
-            Alert::success('Berhasil', 'Jawaban kamu sudah kami terima, akan kita cek lagi');
+            Alert::success('Berhasil Upload', 'Jawaban akan kami cek dulu');
 
             $hasilTes = new HasilTes();
 
@@ -81,7 +82,7 @@ class HasilTesController extends Controller
             $hasilTes->save();
         }
 
-        return redirect()->back();
+        return redirect()->route('lowongan.home');
     }
 
     /**
@@ -126,8 +127,8 @@ class HasilTesController extends Controller
             return back()->withErrors($validator->errors());
         } else {
 
-            Alert::success('Berhasil', 'Berhasil menilai Jawaban');
-
+            Alert::success('Berhasil', 'Jawaban berhasil dinilai');
+            
             $hasilTes = HasilTes::findOrFail($id);
 
             $hasilTes->nilai = $request->get('nilai');

@@ -41,22 +41,14 @@
                                                 <td>{!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
                                                 <td class="text-center">
-                                                    <form
-                                                        action="{{ route('lowongan.hapus', ['id' => $data->id_lowongan]) }}"
-                                                        method="POST">
-                                                        @csrf
                                                         {{-- @if (Auth()->user()->role == 'admin') --}}
                                                             <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}"
                                                                 class="btn btn-sm btn-info">Kriteria</a>
                                                             <a href="{{ route('lowongan.edit', ['id' => $data->id_lowongan]) }}"
                                                                 class="btn btn-sm btn-warning">Edit</a>
-                                                                <a href="{{ route('lowongan.delete', ['id', $data->id_lowongan]) }}"
-                                                                    data-id="{{ route('lowongan.delete', ['id', $data->id_lowongan]) }}" class="btn btn-sm btn-danger"
-                                                                    data-toggle="modal" data-target="#modalHapus">
+                                                                <a href="#" data-id="{{ $data->id_lowongan }}" class="btn btn-sm btn-danger delete">
                                                                     Hapus
                                                                 </a>
-                                                        {{-- @endif --}}
-                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -73,4 +65,31 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $('.delete').click(function() {
+        var lowonganId = $(this).attr('data-id');
+        swal({
+                title: "Apakah kamu yakin ?",
+                text: "Apa kamu yakin ingin menghapus data ini",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location = "/lowongan/hapus/" + lowonganId + ""
+                    swal("Data berhasil dihapus", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Data tidak jadi dihapus");
+                }
+            });
+    });
+</script>
 @endsection

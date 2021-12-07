@@ -30,7 +30,7 @@ Route::prefix('/lowongan')->group(function ()
     Route::get('/edit/{id}', 'LowonganController@edit')->name('lowongan.edit');
     Route::post('/edit/{id}', 'LowonganController@update')->name('lowongan.update');
     Route::get('/hapus/{id}', 'LowonganController@delete')->name('lowongan.delete');
-    Route::post('/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
+    Route::get('/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
 });
 
 Route::prefix('/kriteria')->group(function ()
@@ -40,7 +40,7 @@ Route::prefix('/kriteria')->group(function ()
     Route::post('/tambah', 'KriteriaController@store')->name('kriteria.simpan');
     Route::get('/edit/{id}', 'KriteriaController@edit')->name('kriteria.edit');
     Route::post('/edit/{id}', 'KriteriaController@update')->name('kriteria.update');
-    Route::post('/hapus/{id}', 'KriteriaController@destroy')->name('kriteria.hapus');
+    Route::get('/hapus/{id}', 'KriteriaController@destroy')->name('kriteria.hapus');
 });
 
 Route::prefix('/bobot_kriteria')->group(function ()
@@ -50,7 +50,7 @@ Route::prefix('/bobot_kriteria')->group(function ()
     Route::post('/tambah', 'BobotKriteriaController@store')->name('bobot_kriteria.simpan');
     Route::get('/edit/{id}', 'BobotKriteriaController@edit')->name('bobot_kriteria.edit');
     Route::post('/edit/{id}', 'BobotKriteriaController@update')->name('bobot_kriteria.update');
-    Route::post('/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
+    Route::get('/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
 });
 
 Route::prefix('/daftar_soal')->group(function ()
@@ -60,7 +60,7 @@ Route::prefix('/daftar_soal')->group(function ()
     Route::post('/tambah', 'DaftarSoalController@store')->name('daftar_soal.simpan');
     Route::get('/edit/{id}', 'DaftarSoalController@edit')->name('daftar_soal.edit');
     Route::post('/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
-    Route::post('/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
+    Route::get('/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
     Route::get('/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
     
 });
@@ -76,7 +76,7 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::post('/hapussoal/{id}', 'JadwalTesController@hapussoal')->name('jadwal_tes.hapussoal');
     Route::get('/edit/{id}', 'JadwalTesController@edit')->name('jadwal_tes.ubah');
     Route::post('/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
-    Route::post('/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
+    Route::get('/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
     Route::get('/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
 });
 
@@ -87,7 +87,7 @@ Route::prefix('/pelamar')->group(function ()
     Route::post('/melamar', 'PelamarController@store')->name('pelamar.simpan');
     // Route::get('/edit/{id}', 'PelamarController@edit')->name('pelamar.ubah');
     Route::post('/seleksi-pelamar/{id}', 'PelamarController@update')->name('pelamar.update');
-    Route::post('/hapus/{id}', 'PelamarController@destroy')->name('pelamar.hapus');
+    Route::get('/hapus/{id}', 'PelamarController@destroy')->name('pelamar.hapus');
     Route::get('/riwayat-lamaran/{id}', 'PelamarController@riwayat')->name('pelamar.riwayat');
 });
 
