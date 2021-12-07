@@ -11,7 +11,7 @@ class HasilTes extends Model
     protected $fillable     = ['jawaban_tes','nilai_tes','id_soal_tes','id_pelamar'];
     protected $hidden       = ['created_at','updated_at'];
 
-    public function soal_tes() {
+    public function daftar_soal() {
         return $this->belongsTo(DaftarSoal::class,'id_soal', 'id_soal_tes');
     }
     

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\BobotKriteria;
+use App\DaftarSoal;
+use App\HasilTes;
 use App\Kriteria;
 use App\NilaiAlternatif;
 use App\Lowongan;
@@ -51,6 +53,19 @@ class PerhitunganController extends Controller
             'kriteria'      => $kriteria,
             'alternatif'    => $alternatif,
             'kode_krit'     => $kode_krit
+        ]);
+    }
+
+    public function perhitungan2(){
+
+        $daftarSoal = DaftarSoal::all();
+        $daftarSoalGet = $daftarSoal[0]->id_soal;
+        $hasilTes = HasilTes::join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_soal_tes', $daftarSoalGet)->get();
+ 
+    
+        return view('perhitungan.seleksi2', [
+            'daftarSoal' => $daftarSoal,
+            'hasilTes' => $hasilTes
         ]);
     }
 

@@ -81,7 +81,7 @@ class HasilTesController extends Controller
             $hasilTes->save();
         }
 
-        return redirect()->route('lowongan.home');
+        return redirect()->back();
     }
 
     /**
