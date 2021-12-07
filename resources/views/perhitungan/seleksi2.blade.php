@@ -25,8 +25,8 @@
 
                                 @foreach ($hasilTes as $data)
                                     @php
-                                        $hitung = $data->nilai / $data->bobot_soal;
-                                        $total = $hitung / $data->bobot_soal;
+                                        $hitung = $data->nilai * ($data->bobot_soal / 100);
+                                        $total = $hitung + $hitung / $data->bobot_soal;
 
                                         $rangking[] = [
                                             'nama' => $data->pelamar->nama_pelamar,
@@ -49,7 +49,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $t['nama'] }}</td>
-                                        <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
+                                        <td>{{ number_format($t['total']) }}</td>
                                         <td>{{ $a++ }}</td>
                                         <td align="center">
 
