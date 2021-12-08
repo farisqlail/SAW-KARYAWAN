@@ -27,30 +27,40 @@ class JadwalTesController extends Controller
         return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
     }
 
-    public function home(){
+    public function home()
+    {
 
         $user = Auth::user()->id;
-        $pelamar = Pelamar::with('user')->where('id_user', $user)
+        $pelamar = Pelamar::where('id_user', $user)->get();
+        // dd($pelamar);
+
+        if (!empty($pelamar)) {
+            foreach ($pelamar as $data) {
+
+                $pelamar = Pelamar::with('user')->where('id_user', $user)
                     ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
                     ->get();
-        $pelamarGet = $pelamar[0]->id_lowongan;
-        // dd($pelamarGet);
-        $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
+
+                $pelamarGet = $data->id_lowongan;
+
+                $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
                     ->where('lowongan.id_lowongan', $pelamarGet)
                     ->get();
-        // dd($pelamar[0]->status_lamaran);
-        
-        if ($pelamar[0]->status_lamaran == NULL) {
-           
-            return view('jadwal_tes.gagal', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-        } else if($pelamar[0]->status_lamaran == 'Diterima'){
+            }
+            // dd($pelamar->count() > 0);
+            if ($pelamar->count() > 0) {
+                if ($pelamar[0]->status_lamaran == "Diterima") {
 
-            return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-        } else if($pelamar[0]->status_lamaran  == 'Ditolak'){
+                    return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+                } else if ($pelamar[0]->status_lamaran == "Ditolak") {
 
-            return view('jadwal_tes.gagal', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+                    return view('jadwal_tes.gagal',);
+                }
+            } else {
+
+                return view('jadwal_tes.gagal',);
+            }
         }
-        
     }
 
     /**
@@ -96,7 +106,7 @@ class JadwalTesController extends Controller
             return redirect()->route('jadwal_tes.index');
         }
     }
-  
+
 
     /**
      * Display the specified resource.
@@ -168,5 +178,4 @@ class JadwalTesController extends Controller
         $jadwal_tes->delete();
         return redirect(route('jadwal_tes.index'));
     }
-
 }
