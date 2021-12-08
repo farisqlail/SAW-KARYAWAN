@@ -12,7 +12,7 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <form action="{{route('kriteria.update',['id_kriteria' => $data->id_kriteria])}}" method="POST" class="col-md-12">
+                            <form action="{{route('kriteria.update', $data->id_kriteria)}}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
                                     <input type="text" name="id_lowongan" class="form-control" value="{{$data->id_lowongan}}" hidden>

@@ -27,11 +27,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Tanggal Mulai <span class="text-danger">*</span></label>
-                                    <input type="date" name="tanggal" class="form-control">
+                                    <input type="datetime-local" name="tanggal" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="batas">Batas Pengumpulan <span class="text-danger">*</span></label>
-                                    <input type="date" name="batas" class="form-control">
+                                    <input type="datetime-local" name="batas" class="form-control">
                                 </div>
 
 

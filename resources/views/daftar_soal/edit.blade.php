@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                        <form enctype="multipart/form-data" action="{{route('daftar_soal.update',['id_soal' => $daftar_soal->id_soal])}}" method="POST" class="col-md-12">
+                        <form enctype="multipart/form-data" action="{{route('daftar_soal.update',$daftar_soal->id_soal)}}" method="POST" class="col-md-12">
                             @csrf
                             <div class="form-group">
                                 <label for="soal">Soal<span class="text-danger">*</span></label>

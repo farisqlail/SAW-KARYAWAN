@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\DaftarSoal;
-use App\JadwalTes;
-use App\lowongan;
-use App\Pelamar;
-use Illuminate\Support\Facades\File;
+use App\BobotKriteria;
+use App\Kriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class DaftarSoalController extends Controller
+class BobotKriteriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,25 +17,10 @@ class DaftarSoalController extends Controller
      */
     public function index($id)
     {
-        $jadwaltes = JadwalTes::find($id);
-        $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
-        return view('daftar_soal.index', ['daftarsoal' => $daftarsoal,'jadwaltes'=>$jadwaltes]);
-    }
-
-    public function home($id){
-
-        $user = Auth::user()->id;
-        $pelamar = Pelamar::with('user')->where('id_user', $user)->get();
-        
-        $pelamarGet = $pelamar[0]->id_pelamar;
-
-
-        $jadwaltes = JadwalTes::find($id);
-        $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
-
-        // dd($daftarsoal[0]->id_soal);
-
-        return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes'=>$jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar]);
+        $kriteria = Kriteria::find($id);
+        $datakriteria=Kriteria::where('id_kriteria',$id)->first();
+        $data = BobotKriteria::where('id_kriteria',$id)->get();
+        return view('bobot_kriteria.index',['bobot_kriteria' => $data,'kriteria'=>$kriteria,'datakriteria'=>$datakriteria]);
     }
 
     /**
@@ -50,8 +30,8 @@ class DaftarSoalController extends Controller
      */
     public function create($id)
     {
-        $jadwaltes=JadwalTes::find($id);
-        return view('daftar_soal.tambah',['jadwaltes'=>$jadwaltes]);
+        $kriteria = Kriteria::find($id);
+        return view('bobot_kriteria.tambah',['kriteria' => $kriteria]);
     }
 
     /**
@@ -63,33 +43,27 @@ class DaftarSoalController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'soal' => 'required',
-            'bobot' => "required",
-            'file_soal' => "required",
+            'id_kriteria' => 'required',
+            'keterangan_bobot' => "required",
+            'nilai_bobot' => "required",
+            
         ]);
 
         if ($validator->fails()) {
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            Alert::success('Berhasil', 'Data soal berhasil ditambahkan');
-
-            $daftar_soal = new DaftarSoal();
-            $daftar_soal->id_jadwal_tes = $request->get('id_jadwal_tes');
-            $daftar_soal->soal = $request->get('soal');
-            $daftar_soal->bobot_soal = $request->get('bobot');
-            if($request->file('file_soal')){
-                $file = $request->file('file_soal');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $daftar_soal->file_soal  = $filename;
-                $tujuan_upload = 'upload';
-                $file->move($tujuan_upload, $filename);
-            }
-            }
-            $daftar_soal->save();
-            return redirect()->route('daftar_soal.index',['id' => $daftar_soal->id_jadwal_tes]);
+            Alert::success('Berhasil', 'Data bobot kriteria berhasil ditambahkan');
+            
+            $bobot_kriteria = new BobotKriteria();
+            $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
+            $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
+            $bobot_kriteria->jumlah_bobot = $request->get('nilai_bobot');
+            $bobot_kriteria->save();
+            return redirect()->route('bobot_kriteria.index',['id' => $bobot_kriteria->id_kriteria]);
         }
-    
+        return redirect(route('bobot_kriteria'));
+    }
 
     /**
      * Display the specified resource.
@@ -110,9 +84,8 @@ class DaftarSoalController extends Controller
      */
     public function edit($id)
     {
-        $daftar_soal = DaftarSoal::find($id);
-        
-        return view('daftar_soal.edit',['daftar_soal' => $daftar_soal]);
+        $bobot_kriteria = BobotKriteria::find($id);
+        return view('bobot_kriteria.edit',['data' => $bobot_kriteria]);
     }
 
     /**
@@ -125,8 +98,9 @@ class DaftarSoalController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
-            'soal' => 'required',
-            'bobot' => "required",
+            'id_kriteria' => 'required',
+            'keterangan_bobot' => "required",
+            'nilai_bobot' => "required",
             
         ]);
 
@@ -134,22 +108,16 @@ class DaftarSoalController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            Alert::success('Berhasil', 'Data soal berhasil diubah');
+            Alert::success('Berhasil', 'Data bobot kriteria berhasil diubah');
 
-            $daftar_soal = DaftarSoal::find($id);
-            $daftar_soal->soal = $request->get('soal');
-            $daftar_soal->bobot_soal = $request->get('bobot');
-            if($request->file('file_soal')){
-                $file = $request->file('file_soal');
-                $tujuan_upload='upload';
-                File::delete('upload/'.$daftar_soal->file_soal);
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $daftar_soal->file_soal  = $filename;
-                $file->move($tujuan_upload, $filename);
-            }
-            }
-            $daftar_soal->save();
-            return redirect()->route('daftar_soal.index',['id' => $daftar_soal->id_jadwal_tes]);
+            $bobot_kriteria = BobotKriteria::find($id);
+            $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
+            $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
+            $bobot_kriteria->jumlah_bobot = $request->get('nilai_bobot');
+            $bobot_kriteria->save();
+            return redirect()->route('bobot_kriteria.index',['id' => $bobot_kriteria->id_kriteria]);
+        }
+        return redirect(route('bobot_kriteria'));
     }
 
     /**
@@ -160,9 +128,8 @@ class DaftarSoalController extends Controller
      */
     public function destroy($id)
     {
-        $daftar_soal = DaftarSoal::find($id);
-        $daftar_soal->delete();
-        File::delete('upload/'.$daftar_soal->file_soal);
-        return redirect()->route('daftar_soal.index',['id' => $daftar_soal->id_jadwal_tes]);
+        $bobot_kriteria = BobotKriteria::find($id);
+        $bobot_kriteria->delete();
+        return redirect()->route('bobot_kriteria.index',['id' => $bobot_kriteria->id_kriteria]);
     }
 }

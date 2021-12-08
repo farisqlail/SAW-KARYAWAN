@@ -26,14 +26,16 @@
                                 <tbody>
 
                                     {{-- @php $total = []; @endphp --}}
+
                                     @foreach ($hasilTes as $data)
                                         @php
                                             $hitung = $data->nilai * ($data->bobot_soal / 100);
-                                            $total = $hitung / $data->bobot_soal; 
+                                            // $total = $hitung / $data->bobot_soal;
                                             
                                             $rangking[] = [
                                                 'nama' => $data->pelamar->nama_pelamar,
                                                 'hitung' => $hitung,
+                                                'bobot' => $data->bobot_soal,
                                             ];
                                         @endphp
 

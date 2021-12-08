@@ -136,7 +136,7 @@ class HasilTesController extends Controller
             $hasilTes->save();
         }
 
-        return redirect()->route('jadwal_tes.index');
+        return redirect()->back();
     }
 
     /**

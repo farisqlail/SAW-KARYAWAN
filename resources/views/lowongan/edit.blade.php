@@ -25,7 +25,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <form enctype="multipart/form-data" action="{{route('lowongan.update',['id_lowongan' => $lowongan->id_lowongan])}}" method="POST" class="col-md-12">
+                        <form enctype="multipart/form-data" action="{{route('lowongan.update',$lowongan->id_lowongan)}}" method="POST" class="col-md-12">
                             @csrf
                             <div class="form-group">
                                 <label for="nama">Posisi Lowongan <span class="text-danger">*</span></label>
@@ -42,12 +42,12 @@
 
                             <div class="form-group">
                                 <label for="nama">Deskripsi Pekerjaan<span class="text-danger">*</span></label><br>
-                                <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" class="form-control"></textarea>
+                                <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" class="form-control">{!! $lowongan->deskripsi_pekerjaan !!}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="nama">Deskripsi Persyaratan<span class="text-danger">*</span></label><br>
-                                <textarea name="deskripsi_persyaratan" id="deskripsi_persyaratan" class="form-control"></textarea>
+                                <textarea name="deskripsi_persyaratan" id="deskripsi_persyaratan" class="form-control">{!! $lowongan->deskripsi_persyaratan !!}</textarea>
                             </div>
                           
                            

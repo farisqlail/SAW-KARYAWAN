@@ -60,8 +60,9 @@ class PerhitunganController extends Controller
 
         $daftarSoal = DaftarSoal::all();
         $daftarSoalGet = $daftarSoal[0]->id_soal;
-        $hasilTes = HasilTes::join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
+        $hasilTes = HasilTes::select('id_pelamar')->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
             ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
+            ->groupBy('id_pelamar')
             ->get();
 
         // dd($hasilTes);   

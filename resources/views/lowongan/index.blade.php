@@ -2,7 +2,6 @@
 
 @section('content')
 
-    @include('lowongan.delete-body')
 
     <div class="container">
         <div class="row justify-content-center">
