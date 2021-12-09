@@ -94,6 +94,9 @@ class PelamarController extends Controller
             // $pelamar->id_bobot_kriteria = $request->get('id_bobot_kriteria');
             $pelamar->nama_pelamar = $request->get('nama_pelamar');
             $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
+            $pelamar->tempat_lahir = $request->get('tempat_lahir');
+            $pelamar->agama = $request->get('agama');
+            $pelamar->alamat = $request->get('alamat');
             $pelamar->no_telepon = $request->get('no_telepon');
             $pelamar->jenis_kelamin = $request->get('jenis_kelamin');
             if ($request->hasFile('cv')) {

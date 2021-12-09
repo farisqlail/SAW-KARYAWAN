@@ -11,6 +11,9 @@ class Pelamar extends Model
     protected $fillable     = [
         'nama_pelamar',
         'tanggal_lahir',
+        'tempat_lahir',
+        'agama',
+        'alamat',
         'no_telepon',
         'jenis_kelamin',
         'cv',

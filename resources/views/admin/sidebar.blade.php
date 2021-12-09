@@ -24,14 +24,6 @@
           <p>Lowongan</p>
         </a>
       </li>
-      
-      <li class="{{'jadwal_tes' == request()->segment(1) ? 'active' : ''}}">
-        <a class="nav-link" href="{{route('jadwal_tes.index')}}">
-          <i class="far fa-clock"></i>
-          <p>Jadwal Tes</p>
-        </a>
-      </li>
-
       <li class="{{'perhitungan' == request()->segment(1) ? 'active' : ''}}">
         <a class="nav-link" href="{{ route('perhitungan.pelamar') }}">
           <i class="fas fa-users"></i>
