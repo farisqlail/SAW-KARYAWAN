@@ -60,13 +60,14 @@ class PerhitunganController extends Controller
 
         $daftarSoal = DaftarSoal::all();
         $daftarSoalGet = $daftarSoal[0]->id_soal;
-        $hasilTes = HasilTes::select('id_pelamar')->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
+        $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
+            ->where('hasil_tes.id_lowongan', '=', $lowonganId)
             ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
-            ->groupBy('id_pelamar')
+            ->groupBy('id_pelamar', 'bobot_soal')
             ->get();
 
-        // dd($hasilTes);   
-
+            dd($hasilTes); 
+    
         return view('perhitungan.seleksi2', [
             'daftarSoal' => $daftarSoal,
             'hasilTes' => $hasilTes
