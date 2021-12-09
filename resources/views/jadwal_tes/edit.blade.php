@@ -37,6 +37,7 @@
                                 <input type="datetime-local" name="batas" class="form-control" value="{{$jadwal_tes->durasi_tes}}">
                             </div>
                             <div class="float-right">
+                                <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-success">Edit</button>
                             </div>
                         </form>

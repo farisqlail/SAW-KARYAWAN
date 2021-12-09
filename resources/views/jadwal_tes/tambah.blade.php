@@ -37,6 +37,7 @@
 
 
                                 <div class="float-right">
+                                    <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Tambah</button>
                                 </div>
                             </form>

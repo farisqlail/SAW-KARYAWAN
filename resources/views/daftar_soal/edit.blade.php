@@ -27,6 +27,7 @@
                             <input name="file_soal" class="form-control" type="file"/>
                             <br>
                             <div class="float-right">
+                                <a href="{{ route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]) }}" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-success">Edit</button>
                             </div>
                         </form>

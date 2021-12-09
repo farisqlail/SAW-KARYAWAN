@@ -8,6 +8,7 @@
                     <div class="card-header">
                         <h2 class="float-left">Kriteria</h2>
                         <div class="float-right">
+                            <a href="{{ route('lowongan.index') }}" class="btn btn-danger">Kembali</a>
                             <a href="{{ route('kriteria.tambah', ['id' => $lowongan->id_lowongan]) }}"
                                 class="btn btn-success">Tambah</a>
                         </div>

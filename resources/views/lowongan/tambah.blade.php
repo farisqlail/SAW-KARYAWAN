@@ -53,6 +53,7 @@
                                 </div>
 
                                 <div class="float-right">
+                                    <a href="{{ route('lowongan.index') }}" class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Tambah</button>
                                 </div>
                             </form>

@@ -34,6 +34,7 @@
                                     <input type="number" name="bobot_preferensi" class="form-control" max="100" value="{{$data->bobot_preferensi}}" required>
                                 </div>
                                 <div class="float-right">
+                                    <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}" class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Edit</button>
                                 </div>
                             </form>

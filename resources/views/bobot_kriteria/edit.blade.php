@@ -26,6 +26,7 @@
                                     <input type="number" name="nilai_bobot" class="form-control" max="5" min="1" value="{{$data->jumlah_bobot}}">
                                 </div>
                                 <div class="float-right">
+                                    <a href="{{ route('bobot_kriteria.index', ['id' => $data->id_kriteria]) }}" class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Edit</button>
                                 </div>
                             </form>

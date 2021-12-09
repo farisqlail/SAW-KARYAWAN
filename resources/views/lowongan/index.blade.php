@@ -26,6 +26,7 @@
                                         <th class="text-center">Kuota Lowongan</th>
                                         <th class="text-center">Berlaku Sampai</th>
                                         <th class="text-center">Deskripsi Lowongan</th>
+                                        <th class="text-center">Deskripsi Persyaratan</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,6 +40,7 @@
                                                 <td>{{ $data->kuota }}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
+                                                <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_persyaratan, 30) !!}</td>
                                                 <td class="text-center">
                                                         {{-- @if (Auth()->user()->role == 'admin') --}}
                                                             <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}"
