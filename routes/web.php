@@ -87,6 +87,7 @@ Route::prefix('/pelamar')->group(function ()
     Route::post('/melamar', 'PelamarController@store')->name('pelamar.simpan');
     // Route::get('/edit/{id}', 'PelamarController@edit')->name('pelamar.ubah');
     Route::post('/seleksi-pelamar/{id}', 'PelamarController@update')->name('pelamar.update');
+    Route::post('/seleksi-pelamar-dua/{id}', 'PelamarController@seleksiDua')->name('pelamar.seleksi.dua');
     Route::get('/hapus/{id}', 'PelamarController@destroy')->name('pelamar.hapus');
     Route::get('/riwayat-lamaran/{id}', 'PelamarController@riwayat')->name('pelamar.riwayat');
 });

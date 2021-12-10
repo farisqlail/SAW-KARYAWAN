@@ -9,6 +9,7 @@ use App\Kriteria;
 use App\NilaiAlternatif;
 use App\Lowongan;
 use App\Pelamar;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -54,20 +55,25 @@ class PerhitunganController extends Controller
 
     public function perhitungan2($id)
     {
-
-        $lowongan = Lowongan::all();
-        $lowonganId = $lowongan[0]->id_lowongan;
-
         $daftarSoal = DaftarSoal::all();
         $daftarSoalGet = $daftarSoal[0]->id_soal;
-        $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
-            ->where('hasil_tes.id_lowongan', '=', $lowonganId)
-            ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
-            ->groupBy('id_pelamar', 'bobot_soal')
-            ->get();
+        $tes = HasilTes::all();
 
-            dd($hasilTes); 
-    
+        if ($hasilTes = HasilTes::where('id_lowongan', '=', $id)->where('id_soal_tes', '=', $daftarSoalGet)->count() == 0) {
+            Alert::error('Maaf', 'Data belum ada');
+            return redirect()->back();
+        } else {
+
+            $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
+                ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
+                ->where('hasil_tes.id_lowongan', '=', $id)
+                ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
+                ->groupBy('id_pelamar', 'bobot_soal')
+                ->get();
+        }
+
+        // dd($hasilTes); 
+
         return view('perhitungan.seleksi2', [
             'daftarSoal' => $daftarSoal,
             'hasilTes' => $hasilTes

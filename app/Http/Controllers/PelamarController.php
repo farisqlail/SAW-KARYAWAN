@@ -173,7 +173,7 @@ class PelamarController extends Controller
             
             $pelamar = Pelamar::findOrFail($id);
             // dd($pelamar->lowongan->posisi_lowongan);
-            $pelamar->status_lamaran = 'Diterima';
+            $pelamar->seleksi_satu = 'Diterima';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos', [], function($message) use($pelamar)
@@ -193,7 +193,7 @@ class PelamarController extends Controller
             Alert::success('Berhasil', 'Pelamar sudah ditolak & akan mengirim email lanjut');
 
             $pelamar = Pelamar::findOrFail($id);
-            $pelamar->status_lamaran = 'Ditolak';
+            $pelamar->seleksi_satu = 'Ditolak';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak', [], function($message) use($pelamar)
@@ -207,6 +207,51 @@ class PelamarController extends Controller
             $pelamar->save();
 
             return redirect()->route('home');
+        }
+    }
+
+    public function seleksiDua(Request $request, $id)
+    {
+        if ($request->submit == 'Terima') {
+
+            Alert::success('Berhasil', 'Pelamar sudah diterima & akan mengirim email lanjut');
+            
+            $pelamar = Pelamar::findOrFail($id);
+            // dd($pelamar->lowongan->posisi_lowongan);
+            $pelamar->seleksi_dua = 'Diterima';
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.lolos2', [], function($message) use($pelamar)
+            {
+                $message
+                    ->from('lintasnusa1990@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi '.$pelamar->lowongan->posisi_lowongan);
+            });
+
+            $pelamar->save();
+
+            return redirect()->back();
+
+        } elseif ($request->submit == 'Tolak') {
+
+            Alert::success('Berhasil', 'Pelamar sudah ditolak & akan mengirim email lanjut');
+
+            $pelamar = Pelamar::findOrFail($id);
+            $pelamar->seleksi_dua = 'Ditolak';
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.tolak', [], function($message) use($pelamar)
+            {
+                $message
+                    ->from('lintasnusa@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi '.$pelamar->lowongan->posisi_lowongan);
+            });
+
+            $pelamar->save();
+
+            return redirect()->back();
         }
     }
 

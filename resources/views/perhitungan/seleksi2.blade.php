@@ -25,17 +25,15 @@
                                 </thead>
                                 <tbody>
 
-                                    {{-- @php $total = []; @endphp --}}
-
                                     @foreach ($hasilTes as $data)
                                         @php
                                             $hitung = $data->nilai * ($data->bobot_soal / 100);
-                                            // $total = $hitung / $data->bobot_soal;
                                             
                                             $rangking[] = [
                                                 'nama' => $data->pelamar->nama_pelamar,
                                                 'hitung' => $hitung,
                                                 'bobot' => $data->bobot_soal,
+                                                'id' => $data->id_pelamar
                                             ];
                                         @endphp
 
@@ -57,7 +55,18 @@
                                             <td>{{ number_format($t['hitung']) }}</td>
                                             <td>{{ $a++ }}</td>
                                             <td align="center">
+                                                <form action="{{ route('pelamar.seleksi.dua', $t['id']) }}"
+                                                method="post">
+                                                {{ csrf_field() }}
 
+                                                <input type="submit" name="submit"
+                                                    href="{{ route('seleksi.detail', $t['id']) }}"
+                                                    class="btn btn-success" value="Terima">
+
+                                                <input type="submit" name="submit"
+                                                    href="{{ route('seleksi.detail', $t['id']) }}"
+                                                    class="btn btn-danger" value="Tolak">
+                                            </form>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -49,10 +49,10 @@ class JadwalTesController extends Controller
             }
             // dd($pelamar->count() > 0);
             if ($pelamar->count() > 0) {
-                if ($pelamar[0]->status_lamaran == "Diterima") {
+                if ($pelamar[0]->seleksi_satu == "Diterima") {
 
                     return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-                } else if ($pelamar[0]->status_lamaran == "Ditolak") {
+                } else if ($pelamar[0]->seleksi_satu == "Ditolak") {
 
                     return view('jadwal_tes.gagal',);
                 }

@@ -19,7 +19,8 @@ class Pelamar extends Model
         'cv',
         'ijazah',
         'pas_foto',
-        'status_lamaran',
+        'seleksi_satu',
+        'seleksi_dua',
         'id_user',
         'id_lowongan'
     ];
