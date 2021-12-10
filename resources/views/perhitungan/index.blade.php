@@ -152,6 +152,10 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Ranking</h3>
+                        <div class="float-right">
+                            <a href="" class="btn btn-success">Cetak Rekap</a>
+                            <a href="" class="btn btn-danger">Tolak Semua</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

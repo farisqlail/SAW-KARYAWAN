@@ -60,6 +60,7 @@ class PerhitunganController extends Controller
         $tes = HasilTes::all();
 
         if ($hasilTes = HasilTes::where('id_lowongan', '=', $id)->where('id_soal_tes', '=', $daftarSoalGet)->count() == 0) {
+            
             Alert::error('Maaf', 'Data belum ada');
             return redirect()->back();
         } else {
