@@ -82,7 +82,7 @@ class HasilTesController extends Controller
             $hasilTes->save();
         }
 
-        return redirect()->route('lowongan.home');
+        return redirect()->back();
     }
 
     /**
@@ -104,8 +104,8 @@ class HasilTesController extends Controller
      */
     public function edit($id)
     {
-        $hasilTes = HasilTes::findOrFail($id);
-
+        $hasilTes = HasilTes::find($id);
+        // dd($hasilTes);
         return view('jawaban.nilai', ['hasilTes' => $hasilTes]);
     }
 

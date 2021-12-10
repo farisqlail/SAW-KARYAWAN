@@ -68,7 +68,7 @@
                             </li>
                         @else
                             <li><a class="nav-link scrollto {{'login' == request()->segment(1) ? 'active' : ''}}" href="{{ route('login') }}">Login</a></li>
-                            <li><a class="getstarted scrollto {{'register' == request()->segment(1) ? 'active' : ''}}" href="{{ route('register') }}">Register</a></li>
+                            <li><a class="nav-link scrollto {{'register' == request()->segment(1) ? 'active' : ''}}" href="{{ route('register') }}">Register</a></li>
                         @endauth
                     </ul>
                 @endif
