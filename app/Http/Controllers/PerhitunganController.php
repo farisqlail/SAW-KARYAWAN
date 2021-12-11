@@ -9,6 +9,7 @@ use App\Kriteria;
 use App\NilaiAlternatif;
 use App\Lowongan;
 use App\Pelamar;
+use Barryvdh\DomPDF\Facade as PDF;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,8 @@ class PerhitunganController extends Controller
         return view('perhitungan.index', [
             'kriteria'      => $kriteria,
             'alternatif'    => $alternatif,
-            'kode_krit'     => $kode_krit
+            'kode_krit'     => $kode_krit,
+            'lowonganGet'   => $lowonganGet
         ]);
     }
 
@@ -95,5 +97,53 @@ class PerhitunganController extends Controller
         $pelamar = Pelamar::find($id);
 
         return view('perhitungan.detail', ['pelamar' => $pelamar]);
+    }
+
+    public function laporan1($id){
+        $lowongan = Lowongan::all();
+        $lowonganGet = $lowongan[0]->id_lowongan;
+        // dd($lowonganGet);
+        
+        $kriteria = Kriteria::where('id_lowongan', $id)->get();
+        $alternatif = Pelamar::where('id_lowongan', $id)->get();
+    
+        $kode_krit = [];
+        foreach ($kriteria as $krit) {
+            $kode_krit[$krit->id_kriteria] = [];
+            foreach ($alternatif as $al) {
+                foreach ($al->bobot as $bobot) {
+                    if ($bobot->kriteria->id_kriteria == $krit->id_kriteria) {
+                        $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
+                    }
+                }
+            }
+
+            if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id_kriteria])) {
+
+                $kode_krit[$krit->id_kriteria] = min($kode_krit[$krit->id_kriteria]);
+            } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id_kriteria])) {
+
+                $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
+            } else {
+
+                $kode_krit[$krit->id_kriteria] = 1;
+            }
+        };
+        //   
+        
+        $tes = [
+            'kriteria'      => $kriteria,
+            'alternatif'    => $alternatif,
+            'kode_krit'     => $kode_krit
+        ];
+
+        dd($tes);
+        $pdf = PDF::loadView('laporan.seleksi1', [
+            'kriteria'      => $kriteria,
+            'alternatif'    => $alternatif,
+            'kode_krit'     => $kode_krit
+        ]);
+
+        return $pdf->download('invoice.pdf');
     }
 }

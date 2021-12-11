@@ -114,6 +114,11 @@ Route::prefix('/jawaban')->group(function ()
     Route::patch('/nilai-jawaban/{id}', 'HasilTesController@update')->name('jawaban.nilai.update');
 });
 
+Route::prefix('/cetak')->group(function ()
+{
+    Route::get('/cetak-seleksi-1/{id}', 'PerhitunganController@laporan1')->name('seleksi.satu');
+});
+
 // Route::get('/debug-sentry', function () {
 //     throw new Exception('My first Sentry error!');
 // });

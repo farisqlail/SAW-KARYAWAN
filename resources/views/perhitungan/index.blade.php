@@ -153,7 +153,7 @@
                     <div class="card-header">
                         <h3>Ranking</h3>
                         <div class="float-right">
-                            <a href="" class="btn btn-success">Cetak Rekap</a>
+                            <a href="{{ route('seleksi.satu', $lowonganGet) }}" class="btn btn-success">Cetak Rekap</a>
                             <a href="" class="btn btn-danger">Tolak Semua</a>
                         </div>
                     </div>
