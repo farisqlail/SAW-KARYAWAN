@@ -50,36 +50,6 @@
                 </div>
             </div>
 
-            {{-- <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">Kode</th>
-                        @foreach ($kriteria as $krit)
-                            <th class="text-center">{{ $krit->id }}</th>
-                        @endforeach
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (!empty($alternatif))
-                                    @foreach ($alternatif as $data)
-                                        <tr>
-                                            <td>{{$data->kode_alternatif}}</td>
-                                            @foreach ($data->bobot_kriteria as $bk)
-                                                <td>{{$bk->jumlah_bobot}}</td>
-                                            @endforeach
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="{{(count($kriteria)+1)}}" class="text-center">Data tidak ditemukan</td>
-                                    </tr>
-                                @endif
-                </tbody>
-            </table>
-        </div>
-    </div> --}}
-
             <div class="col-md-12 card-deck mt-4">
                 <div class="card">
                     <div class="card-header">
@@ -129,8 +99,9 @@
 
                                                 @endforeach
                                                 <?php $rangking[] = [
-                                                    'kode' => $data->id_pelamar,
-                                                    'nama' => $data->nama_pelamar,
+                                                    'kode'  => $data->id_pelamar,
+                                                    'nama'  => $data->nama_pelamar,
+                                                    'idLowongan'    => $data->id_lowongan,
                                                     'total' => $total,
                                                 ]; ?>
                                             </tr>
@@ -153,7 +124,7 @@
                     <div class="card-header">
                         <h3>Ranking</h3>
                         <div class="float-right">
-                            <a href="{{ route('seleksi.satu', $lowonganGet) }}" class="btn btn-success">Cetak Rekap</a>
+                            <a href="{{ route('seleksi.satu',  $rangking[0]['idLowongan']) }}" class="btn btn-success">Cetak Rekap</a>
                             <a href="" class="btn btn-danger">Tolak Semua</a>
                         </div>
                     </div>

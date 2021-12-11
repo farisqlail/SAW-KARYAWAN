@@ -100,18 +100,21 @@ class PerhitunganController extends Controller
     }
 
     public function laporan1($id){
+
         $lowongan = Lowongan::all();
         $lowonganGet = $lowongan[0]->id_lowongan;
-        // dd($lowonganGet);
-        
+        // dd($id);
+
         $kriteria = Kriteria::where('id_lowongan', $id)->get();
         $alternatif = Pelamar::where('id_lowongan', $id)->get();
-    
         $kode_krit = [];
+
         foreach ($kriteria as $krit) {
             $kode_krit[$krit->id_kriteria] = [];
+
             foreach ($alternatif as $al) {
                 foreach ($al->bobot as $bobot) {
+                    
                     if ($bobot->kriteria->id_kriteria == $krit->id_kriteria) {
                         $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
                     }
@@ -129,21 +132,20 @@ class PerhitunganController extends Controller
                 $kode_krit[$krit->id_kriteria] = 1;
             }
         };
-        //   
-        
-        $tes = [
+        //        return json_encode($kode_krit);
+        return view('laporan.seleksi1', [
             'kriteria'      => $kriteria,
             'alternatif'    => $alternatif,
-            'kode_krit'     => $kode_krit
-        ];
-
-        dd($tes);
-        $pdf = PDF::loadView('laporan.seleksi1', [
-            'kriteria'      => $kriteria,
-            'alternatif'    => $alternatif,
-            'kode_krit'     => $kode_krit
+            'kode_krit'     => $kode_krit,
         ]);
 
-        return $pdf->download('invoice.pdf');
+        // dd($tes);
+        // $pdf = PDF::loadView('laporan.seleksi1', [
+        //     'kriteria'      => $kriteria,
+        //     'alternatif'    => $alternatif,
+        //     'kode_krit'     => $kode_krit
+        // ]);
+
+        // return $pdf->download('invoice.pdf');
     }
 }
