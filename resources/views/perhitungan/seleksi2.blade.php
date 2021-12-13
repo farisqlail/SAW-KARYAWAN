@@ -11,7 +11,7 @@
                         <h3 class="float-left">Rangking</h3>
                         
                         <div class="float-right">
-                            <a href="" class="btn btn-success">Cetak Rekap</a>
+                            <a href="{{ route('seleksi.dua',  $lowongan) }}" class="btn btn-success">Cetak Rekap</a>
                             <a href="" class="btn btn-danger">Tolak Semua</a>
                         </div>
                     </div>

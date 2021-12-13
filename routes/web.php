@@ -97,7 +97,7 @@ Route::prefix('/perhitungan')->group(function ()
     Route::get('/seleksi-1/{id}', 'PerhitunganController@index')->name('perhitungan.index');
     Route::get('/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
     Route::get('/seleksi-detail/{id}', 'PerhitunganController@detail')->name('seleksi.detail');
-    Route::get('/seleksi-2/{id}', 'PerhitunganController@perhitungan2')->name('seleksi.dua');
+    Route::get('/seleksi-2/{id}', 'PerhitunganController@perhitungan2')->name('perhitungan.dua');
 });
 
 Route::prefix('/email')->group(function ()
@@ -117,6 +117,7 @@ Route::prefix('/jawaban')->group(function ()
 Route::prefix('/cetak')->group(function ()
 {
     Route::get('/cetak-seleksi-1/{id}', 'PerhitunganController@laporan1')->name('seleksi.satu');
+    Route::get('/cetak-seleksi-2/{id}', 'PerhitunganController@laporan2')->name('seleksi.dua');
 });
 
 // Route::get('/debug-sentry', function () {

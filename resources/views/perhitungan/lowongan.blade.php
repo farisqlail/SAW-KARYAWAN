@@ -28,7 +28,7 @@
                                     <td>{{$data->posisi_lowongan}}</td>
                                     <td class="text-center">
                                         <a href="{{route('perhitungan.index', $data)}}" class="btn btn-sm btn-info">Seleksi 1</a>
-                                        <a href="{{ Route('seleksi.dua', $data) }}" class="btn btn-sm btn-success">Seleksi 2</a>
+                                        <a href="{{ Route('perhitungan.dua', $data) }}" class="btn btn-sm btn-success">Seleksi 2</a>
                                     </td>
                                 </tr>
                                 @endforeach
