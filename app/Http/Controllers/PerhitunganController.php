@@ -139,20 +139,20 @@ class PerhitunganController extends Controller
         };
 
         //        return json_encode($kode_krit);
-        return view('laporan.seleksi1', [
-            'kriteria'      => $kriteria,
-            'alternatif'    => $alternatif,
-            'kode_krit'     => $kode_krit,
-        ]);
-
-        // dd($tes);
-        // $pdf = PDF::loadView('laporan.seleksi1', [
+        // return view('laporan.seleksi1', [
         //     'kriteria'      => $kriteria,
         //     'alternatif'    => $alternatif,
-        //     'kode_krit'     => $kode_krit
+        //     'kode_krit'     => $kode_krit,
         // ]);
 
-        // return $pdf->download('invoice.pdf');
+        // dd($tes);
+        $pdf = PDF::loadView('laporan.seleksi1', [
+            'kriteria'      => $kriteria,
+            'alternatif'    => $alternatif,
+            'kode_krit'     => $kode_krit
+        ]);
+
+        return $pdf->download('Seleksi-tahap-satu.pdf');
     }
 
     public function laporan2($id)

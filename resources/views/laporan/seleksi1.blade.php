@@ -22,29 +22,22 @@
                 $bobot = [];
             ?>
             @foreach ($kriteria as $krit)
-                 {{ $bobot[$krit->id_kriteria] = $krit->bobot_preferensi }}
+            <span hidden>{{ $bobot[$krit->id_kriteria] = $krit->bobot_preferensi }}</span>
+                 
                 @foreach ($alternatif as $data)
                     
-                        {{ $loop->iteration }}
-                        {{ $data->nama_pelamar }}
                         <?php $total = 0;
                         $nilai_normalisasi = 0; ?>
                         @foreach ($data->bobot as $crip)
                             @if ($crip->kriteria->atribut_kriteria == 'cost')
-                                @php
-                                    $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot;
-                                @endphp
+                               <span hidden>{{ $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot }}</span>
 
                             @elseif($crip->kriteria->atribut_kriteria == 'benefit')
-                                @php
-                                    $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria];
-                                @endphp
+                               <span hidden>{{ $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria] }}</span>
 
                             @endif
-                            @php
-                                $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi;
-                            @endphp
-                            {{ number_format($nilai_normalisasi, 2, ',', '.') }}
+                            <span hidden>{{  $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi }}</span>
+                            <span hidden>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</span>
 
 
                         @endforeach
@@ -94,7 +87,15 @@
                             <td>{{ $t['notelp'] }}</td>
                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                             <td>{{ $a++ }}</td>
-                            <td>{{ $t['seleksi_1'] }} Seleksi Satu</td>
+                            <td>
+                                @if ($t['seleksi_1'] == "Diterima")
+                                    Seleksi Satu
+                                @elseif($t['seleksi_2']  == "Ditolak")
+                                    Seleksi Satu
+                                @else
+                                    <span class="text-danger">Belum ada keterangan</span>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

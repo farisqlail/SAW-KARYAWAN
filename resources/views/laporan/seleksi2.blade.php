@@ -70,6 +70,8 @@
                                 <td>
                                     @if ($t['status'] == "Diterima")
                                         Seleksi Satu
+                                    @elseif($t['status'] == "Ditolak")
+                                        Seleksi Satu
                                     @else 
                                         <span class="text-danger">Belum Ada keterangan</span>
                                     @endif
