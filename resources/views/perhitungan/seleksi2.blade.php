@@ -11,8 +11,13 @@
                         <h3 class="float-left">Rangking</h3>
                         
                         <div class="float-right">
-                            <a href="{{ route('seleksi.dua',  $lowongan) }}" class="btn btn-success">Cetak Rekap</a>
-                            <a href="" class="btn btn-danger">Tolak Semua</a>
+                            <form action="{{ route('pelamar.tolak.dua') }}" method="post">
+                                @csrf
+                                <a href="{{ route('seleksi.dua',  $lowongan) }}" class="btn btn-success">Cetak Rekap</a>
+                                <input type="submit" name="submit"
+                                    class="btn btn-danger" value="Tolak Semua">
+                            
+                            </form>
                         </div>
                     </div>
 
