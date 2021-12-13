@@ -81,27 +81,27 @@
                                                 $nilai_normalisasi = 0; ?>
                                                 @foreach ($data->bobot as $crip)
                                                     @if ($crip->kriteria->atribut_kriteria == 'cost')
-                                                        @php 
-                                                            $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; 
+                                                        @php
+                                                            $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot;
                                                         @endphp
 
                                                     @elseif($crip->kriteria->atribut_kriteria == 'benefit')
-                                                        @php 
-                                                            $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; 
+                                                        @php
+                                                            $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria];
                                                         @endphp
 
                                                     @endif
-                                                    @php 
-                                                        $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi; 
+                                                    @php
+                                                        $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi;
                                                     @endphp
                                                     <td>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</td>
 
 
                                                 @endforeach
                                                 <?php $rangking[] = [
-                                                    'kode'  => $data->id_pelamar,
-                                                    'nama'  => $data->nama_pelamar,
-                                                    'idLowongan'    => $data->id_lowongan,
+                                                    'kode' => $data->id_pelamar,
+                                                    'nama' => $data->nama_pelamar,
+                                                    'idLowongan' => $data->id_lowongan,
                                                     'total' => $total,
                                                 ]; ?>
                                             </tr>
@@ -124,8 +124,13 @@
                     <div class="card-header">
                         <h3>Ranking</h3>
                         <div class="float-right">
-                            <a href="{{ route('seleksi.satu',  $rangking[0]['idLowongan']) }}" class="btn btn-success">Cetak Rekap</a>
-                            <a href="" class="btn btn-danger">Tolak Semua</a>
+                            <form action="{{ route('pelamar.tolak.satu') }}" method="post">
+                                @csrf
+                                <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
+                                    class="btn btn-success">Cetak Rekap</a>
+                                <input type="submit" name="submit"
+                                    class="btn btn-danger" value="Tolak Semua">
+                            </form>
                         </div>
                     </div>
                     <div class="card-body">
@@ -159,22 +164,21 @@
                                             <td>{{ $a++ }}</td>
                                             <td align="center">
 
-                                                <form action="{{ route('pelamar.update', $t['kode']) }}"
-                                                        method="post">
+                                                <form action="{{ route('pelamar.update', $t['kode']) }}" method="post">
 
-                                                        <a href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                            class="btn btn-primary">Detail Pelamar</a>
+                                                    <a href="{{ route('seleksi.detail', $t['kode']) }}"
+                                                        class="btn btn-primary">Detail Pelamar</a>
 
-                                                        {{ csrf_field() }}
+                                                    {{ csrf_field() }}
 
-                                                        <input type="submit" name="submit"
-                                                            href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                            class="btn btn-success" value="Terima">
+                                                    <input type="submit" name="submit"
+                                                        href="{{ route('seleksi.detail', $t['kode']) }}"
+                                                        class="btn btn-success" value="Terima">
 
-                                                        <input type="submit" name="submit"
-                                                            href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                            class="btn btn-danger" value="Tolak">
-                                                    </form>
+                                                    <input type="submit" name="submit"
+                                                        href="{{ route('seleksi.detail', $t['kode']) }}"
+                                                        class="btn btn-danger" value="Tolak">
+                                                </form>
 
                                             </td>
                                         </tr>

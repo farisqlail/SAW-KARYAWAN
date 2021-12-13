@@ -206,8 +206,32 @@ class PelamarController extends Controller
 
             $pelamar->save();
 
-            return redirect()->route('home');
+            return redirect()->back();
         }
+    }
+
+    public function tolakSatu(Request $request){
+
+        foreach (Pelamar::whereNull('seleksi_satu')->get() as $data) {
+            
+            Alert::success('Berhasil', 'Pelamar sudah ditolak & akan mengirim email lanjut');
+
+            $data->seleksi_satu = 'Ditolak';
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.tolak', [], function($message) use($data)
+            {
+                $message
+                    ->from('lintasnusa@gmail.com')
+                    ->to($data->user->email, $data->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi '.$data->lowongan->posisi_lowongan);
+            });
+
+            $data->save();
+
+            return redirect()->back();
+        }
+
     }
 
     public function seleksiDua(Request $request, $id)
