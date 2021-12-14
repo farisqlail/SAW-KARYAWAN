@@ -14,7 +14,16 @@
                         <h4><b>{{ $data->posisi_lowongan }}</b></h4>
                         <span class="text-muted">Kuota Lowongan: {{ $data->kuota }}
                             <br>
-                            <i class="text-danger"> Pendaftaran ditutup pada: {{ $data->berlaku_sampai }}</i></span>
+                            <i class="text-danger"> 
+                                @php
+                                    $date = \Carbon\Carbon::parse($data->berlaku_sampai);
+                                @endphp
+                                @if ($date > \Carbon\Carbon::now())
+                                    Pendaftaran berlaku sampai {{ $data->berlaku_sampai }}
+                                @else
+                                    Pendaftaran ditutup
+                                @endif
+                            </i></span>
                         <p class="mt-3">
                         <h4>Persyaratan</h4>
                             {!! $data->deskripsi_persyaratan !!}

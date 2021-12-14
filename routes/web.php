@@ -31,27 +31,22 @@ Route::prefix('/lowongan')->group(function ()
     Route::post('/edit/{id}', 'LowonganController@update')->name('lowongan.update');
     Route::get('/hapus/{id}', 'LowonganController@delete')->name('lowongan.delete');
     Route::get('/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
+    //Kriteria
+    Route::get('/kriteria/{id}', 'KriteriaController@index')->name('kriteria.index');
+    Route::get('/kriteria/{id}/tambah', 'KriteriaController@create')->name('kriteria.tambah');
+    Route::post('/kriteria/tambah', 'KriteriaController@store')->name('kriteria.simpan');
+    Route::get('/kriteria/edit/{id}', 'KriteriaController@edit')->name('kriteria.edit');
+    Route::post('/kriteria/edit/{id}', 'KriteriaController@update')->name('kriteria.update');
+    Route::get('/kriteria/hapus/{id}', 'KriteriaController@destroy')->name('kriteria.hapus');
+    //Bobot Kriteria
+    Route::get('/bobot_kriteria/{id}', 'BobotKriteriaController@index')->name('bobot_kriteria.index');
+    Route::get('/bobot_kriteria/{id}/tambah', 'BobotKriteriaController@create')->name('bobot_kriteria.tambah');
+    Route::post('/bobot_kriteria/tambah', 'BobotKriteriaController@store')->name('bobot_kriteria.simpan');
+    Route::get('/bobot_kriteria/edit/{id}', 'BobotKriteriaController@edit')->name('bobot_kriteria.edit');
+    Route::post('/bobot_kriteria/edit/{id}', 'BobotKriteriaController@update')->name('bobot_kriteria.update');
+    Route::get('/bobot_kriteria/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
 });
 
-Route::prefix('/kriteria')->group(function ()
-{
-    Route::get('/{id}', 'KriteriaController@index')->name('kriteria.index');
-    Route::get('/{id}/tambah', 'KriteriaController@create')->name('kriteria.tambah');
-    Route::post('/tambah', 'KriteriaController@store')->name('kriteria.simpan');
-    Route::get('/edit/{id}', 'KriteriaController@edit')->name('kriteria.edit');
-    Route::post('/edit/{id}', 'KriteriaController@update')->name('kriteria.update');
-    Route::get('/hapus/{id}', 'KriteriaController@destroy')->name('kriteria.hapus');
-});
-
-Route::prefix('/bobot_kriteria')->group(function ()
-{
-    Route::get('/{id}', 'BobotKriteriaController@index')->name('bobot_kriteria.index');
-    Route::get('/{id}/tambah', 'BobotKriteriaController@create')->name('bobot_kriteria.tambah');
-    Route::post('/tambah', 'BobotKriteriaController@store')->name('bobot_kriteria.simpan');
-    Route::get('/edit/{id}', 'BobotKriteriaController@edit')->name('bobot_kriteria.edit');
-    Route::post('/edit/{id}', 'BobotKriteriaController@update')->name('bobot_kriteria.update');
-    Route::get('/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
-});
 
 Route::prefix('/daftar_soal')->group(function ()
 {
