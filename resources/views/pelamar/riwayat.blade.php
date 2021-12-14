@@ -23,12 +23,18 @@
                                 <td>{{ $data->lowongan->posisi_lowongan }}</td>
                                 <td>{{ $data->lowongan->created_at->toFormattedDateString() }}</td>
                                 <td>
-                                    @if ($data->status_lamaran == NULL)
+                                    @if ($data->seleksi_satu == null && $data->seleksi_dua == null)
                                         <span class="text-warning">Lamaran belum ada status</span>
-                                    @elseif($data->status_lamaran == 'Diterima')
-                                        <span class="text-success">Lamaran Diterima Seleksi 1</span>
-                                    @elseif($data->status_lamaran == 'Ditolak')
-                                        <span class="text-danger">Lamaran Ditolak</span>
+                                    @elseif($data->seleksi_satu == 'Diterima')
+                                        <span class="text-success">Lamaran Diterima Seleksi 1 </span>
+                                        @if ($data->seleksi_dua == 'Diterima')
+                                            <span class="text-success">dan seleksi 2 </span>
+                                        @endif
+                                    @elseif($data->seleksi_satu == 'Ditolak')
+                                        <span class="text-danger">Lamaran seleksi 1</span>
+                                        @if ($data->seleksi_dua == 'Ditolak')
+                                            <span class="text-danger">dan selsksi 2 ditolak</span>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
