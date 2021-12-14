@@ -71,7 +71,7 @@
                     <td>{{ $data->pelamar->lowongan->posisi_lowongan }}</td>
                     <td>{{ $data->pelamar->nama_pelamar }}</td>
                     <td align="center"><a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}" target="blank"
-                            class="btn btn-primary"><i class="fas fa-download"></i> &nbsp;Unduh</a></td>
+                            class="btn btn-primary"><i class="fas fa-download"></i> &nbsp;Unduh Jawaban</a></td>
                     <td class="text-center">
                         @if (!empty($data->nilai))
                             {{ $data->nilai }}

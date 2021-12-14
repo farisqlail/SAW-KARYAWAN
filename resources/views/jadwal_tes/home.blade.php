@@ -12,7 +12,11 @@
                     <span>
                         Waktu Pengerjaan :
                         <i class="text-danger">
-                            {{ $item->tanggal }} - {{ $item->durasi_tes }}
+                            @if ($item->tanggal && $item->durasi_tes > \Carbon\Carbon::now())
+                                {{ $item->tanggal }} - {{ $item->durasi_tes }}
+                            @else
+                                Tes ditutup
+                            @endif
                         </i>
                     </span>
                     <br><br>

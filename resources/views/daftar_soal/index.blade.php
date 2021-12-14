@@ -29,10 +29,10 @@
                                 <tbody>
                                     @if (!empty($daftarsoal))
                                         @foreach ($daftarsoal as $data)
-                                            <tr>
+                                            <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->soal }}</td>
-                                                <td><a href="/upload/{{ $data->file_soal }}">Download File</a></td>
+                                                <td ><a href="/upload/{{ $data->file_soal }}" class="btn btn-success"><i class="fas fa-download"></i> &nbsp; Unduh File</a></td>
                                                 <td>{{ $data->bobot_soal }}</td>
                                                 <td class="text-center">
 
