@@ -63,19 +63,21 @@ class PerhitunganController extends Controller
         $daftarSoal = DaftarSoal::all();
         $daftarSoalGet = $daftarSoal[0]->id_soal;
         $tes = HasilTes::all();
+            
+        foreach ($tes as $hasilTes) {
+            if ($hasilTes = HasilTes::where('id_lowongan', '=', $id)->where('id_soal_tes', '=', $daftarSoalGet)->count() == 0) {
 
-        if ($hasilTes = HasilTes::where('id_lowongan', '=', $id)->where('id_soal_tes', '=', $daftarSoalGet)->count() == 0) {
+                Alert::error('Maaf', 'Data belum ada');
+                return redirect()->back();
+            } else {
 
-            Alert::error('Maaf', 'Data belum ada');
-            return redirect()->back();
-        } else {
-            $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
-                ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
-                ->where('hasil_tes.id_lowongan', '=', $id)
-                ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
-                ->groupBy('id_pelamar', 'bobot_soal')
-                ->get();
-
+                $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
+                    ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
+                    ->where('hasil_tes.id_lowongan', '=', $id)
+                    ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
+                    ->groupBy('id_pelamar', 'bobot_soal')
+                    ->get();
+            }
         }
 
         // dd($hasilTes); 
