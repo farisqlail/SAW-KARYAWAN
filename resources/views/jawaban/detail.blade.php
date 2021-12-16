@@ -19,14 +19,16 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Posisi Lowongan</th>
                                         <th class="text-center">Nama Pelamar</th>
+                                        <th class="text-center">Jawaban</th>
+                                        <th class="text-center">Nilai</th>
                                         <th class="text-center" style="width:40%">Aksi</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (!empty($pelamar))
-                                        @foreach ($pelamar as $data)
-                                            {{-- <div class="modal fade" id="nilaiJawaban{{ $data->id_hasil_tes }}" tabindex="-1"
+                                    @if (!empty($hasilTes))
+                                        @foreach ($hasilTes as $data)
+                                            <div class="modal fade" id="nilaiJawaban{{ $data->id_hasil_tes }}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -62,13 +64,13 @@
                                         </form>
                         </div>
                     </div>
-                </div> --}}
+                </div>
 
                 <tr class="text-center">
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->posisi_lowongan }}</td>
-                    <td>{{ $data->nama_pelamar }}</td>
-                    {{-- <td align="center">
+                    <td>{{ $data->pelamar->lowongan->posisi_lowongan }}</td>
+                    <td>{{ $data->pelamar->nama_pelamar }}</td>
+                    <td align="center">
                         <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}" target="blank"
                             class="btn btn-primary"><i class="fas fa-download"></i> &nbsp;Unduh Jawaban</a>
                     </td>
@@ -78,11 +80,11 @@
                         @else
                             0
                         @endif
-                    </td> --}}
+                    </td>
                     <td class="text-center">
-                        <a href="{{ route('jawaban.detail', $data) }}" class="btn btn-success">Detail Jawaban</a>
-                        {{-- <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}"
-                            data-toggle="modal" data-target="#nilaiJawaban{{ $data->id_hasil_tes }}" class="btn btn-info">Nilai Jawaban</a> --}}
+                        {{-- <a href="{{ route('jawaban.detail', $data) }}" class="btn btn-success">Detail Jawaban</a> --}}
+                        <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}"
+                            data-toggle="modal" data-target="#nilaiJawaban{{ $data->id_hasil_tes }}" class="btn btn-info">Nilai Jawaban</a>
                     </td>
                 </tr>
                 @endforeach

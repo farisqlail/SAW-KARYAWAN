@@ -23,11 +23,27 @@ class HasilTesController extends Controller
      */
     public function index($id)
     {
+        $pelamar = Pelamar::select('pelamar.id_pelamar', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
+                    ->join('hasil_tes', 'hasil_tes.id_pelamar', '=', 'pelamar.id_pelamar')
+                    ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
+                    ->where('hasil_tes.id_lowongan', $id)
+                    ->groupBy('id_pelamar', 'nama_pelamar', 'posisi_lowongan')
+                    ->get();
+        // dd($pelamar); 
 
-        $hasilTes = HasilTes::with('pelamar')->where('id_lowongan', $id)->get();
+        return view('jawaban.index', [
+            'pelamar' => $pelamar
+        ]);
+    }
+
+    public function detail($id){
+
+        $hasilTes = HasilTes::with('pelamar')->where('id_pelamar', $id)->get();
         // dd($hasilTes);
 
-        return view('jawaban.index', ['hasilTes' => $hasilTes]);
+        return view('jawaban.detail', [
+            'hasilTes' => $hasilTes
+        ]);
     }
 
     /**
