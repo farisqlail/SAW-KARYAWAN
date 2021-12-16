@@ -10,20 +10,21 @@
                     <h5><b>{{ $item->posisi_lowongan }}</b></h5>
                     <br>
                     <span>
-                        Waktu Pengerjaan :
                         <i class="text-danger">
                             @if ($item->tanggal && $item->durasi_tes > \Carbon\Carbon::now())
-                                {{ $item->tanggal }} - {{ $item->durasi_tes }}
+                            Waktu Pengerjaan : {{ $item->tanggal }} - {{ $item->durasi_tes }}
                             @else
-                                Tes ditutup
+                                Status : Tes ditutup
                             @endif
                         </i>
                     </span>
                     <br><br>
 
                     <div class="button-mulai" align="right">
+                        @if ($item->tanggal && $item->durasi_tes > \Carbon\Carbon::now())
                         <a href="{{ route('daftar_soal.home', ['id' => $item->id_jadwal_tes]) }}"
                             class="btn btn-success">Mulai Tes</a>
+                        @endif
                     </div>
                 </div>
             </div>
