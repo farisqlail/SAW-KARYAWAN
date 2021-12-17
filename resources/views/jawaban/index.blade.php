@@ -17,8 +17,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Posisi Lowongan</th>
                                         <th class="text-center">Nama Pelamar</th>
+                                        <th class="text-center">Posisi Lowongan</th>
                                         <th class="text-center" style="width:40%">Aksi</th>
 
                                     </tr>
@@ -66,8 +66,8 @@
 
                 <tr class="text-center">
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->posisi_lowongan }}</td>
                     <td>{{ $data->nama_pelamar }}</td>
+                    <td>{{ $data->posisi_lowongan }}</td>
                     {{-- <td align="center">
                         <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}" target="blank"
                             class="btn btn-primary"><i class="fas fa-download"></i> &nbsp;Unduh Jawaban</a>

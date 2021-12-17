@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pelamar;
+use App\lowongan;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $pelamar = Pelamar::whereNull('seleksi_satu')->count();
+        $lowongan = Lowongan::where('berlaku_sampai', '>=', \Carbon\Carbon::now())->count();
+        $pelamarDua = Pelamar::whereNotNull('seleksi_satu')->whereNotNull('seleksi_dua')->count();
+        // dd($pelamarDua);
+
+        return view('home', [
+            'pelamar'       => $pelamar,
+            'lowongan'      => $lowongan,
+            'pelamarDua'    => $pelamarDua
+        ]);
     }
 }

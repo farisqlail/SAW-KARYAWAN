@@ -73,6 +73,14 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::post('/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
     Route::get('/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
     Route::get('/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
+
+    //Jawaban
+    Route::get('/hasil-tes/{id}', 'HasilTesController@index')->name('jawaban.index');
+    Route::get('/jawaban/unggah/{id}', 'HasilTesController@create')->name('jawaban.unggah');
+    Route::get('/jawaban/detail/{id}', 'HasilTesController@detail')->name('jawaban.detail');
+    Route::post('/jawaban', 'HasilTesController@store')->name('jawaban.store');
+    Route::get('/nilai-jawaban/{id}', 'HasilTesController@edit')->name('jawaban.nilai');
+    Route::patch('/nilai-jawaban/{id}', 'HasilTesController@update')->name('jawaban.nilai.update');
 });
 
 Route::prefix('/pelamar')->group(function ()
@@ -102,15 +110,6 @@ Route::prefix('/email')->group(function ()
     Route::get('/email/{id}', 'PelamarController@email')->name('email.index');
 });
 
-Route::prefix('/jawaban')->group(function ()
-{
-    Route::get('/hasil-tes/{id}', 'HasilTesController@index')->name('jawaban.index');
-    Route::get('/jawaban/unggah/{id}', 'HasilTesController@create')->name('jawaban.unggah');
-    Route::get('/jawaban/detail/{id}', 'HasilTesController@detail')->name('jawaban.detail');
-    Route::post('/jawaban', 'HasilTesController@store')->name('jawaban.store');
-    Route::get('/nilai-jawaban/{id}', 'HasilTesController@edit')->name('jawaban.nilai');
-    Route::patch('/nilai-jawaban/{id}', 'HasilTesController@update')->name('jawaban.nilai.update');
-});
 
 Route::prefix('/cetak')->group(function ()
 {
