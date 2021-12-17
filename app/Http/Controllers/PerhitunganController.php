@@ -42,8 +42,11 @@ class PerhitunganController extends Controller
 
                 $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
             } else {
+                Alert::error('Maaf', 'Data belum ada');
 
                 $kode_krit[$krit->id_kriteria] = 1;
+
+                return redirect()->back();
             }
         };
         //        return json_encode($kode_krit);
@@ -58,35 +61,31 @@ class PerhitunganController extends Controller
     public function perhitungan2($id)
     {
         $lowongan = Lowongan::find($id);
-        // dd($lowongan);
-
         $daftarSoal = DaftarSoal::all();
         $daftarSoalGet = $daftarSoal[0]->id_soal;
         $tes = HasilTes::all();
-            
+
         foreach ($tes as $hasilTes) {
-            if ($hasilTes = HasilTes::where('id_lowongan', '=', $id)->where('id_soal_tes', '=', $daftarSoalGet)->count() == 0) {
+            if (HasilTes::all()->count() == null) {
 
                 Alert::error('Maaf', 'Data belum ada');
                 return redirect()->back();
             } else {
-
                 $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
                     ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
                     ->where('hasil_tes.id_lowongan', '=', $id)
                     ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
                     ->groupBy('id_pelamar', 'bobot_soal')
                     ->get();
+
+                return view('perhitungan.seleksi2', [
+                    'daftarSoal'    => $daftarSoal,
+                    'hasilTes'      => $hasilTes,
+                    'lowongan'      => $lowongan
+                ]);
             }
         }
-
-        // dd($hasilTes); 
-
-        return view('perhitungan.seleksi2', [
-            'daftarSoal'    => $daftarSoal,
-            'hasilTes'      => $hasilTes,
-            'lowongan'      => $lowongan
-        ]);
+        // dd($hasilTes);
     }
 
     public function lowongan()

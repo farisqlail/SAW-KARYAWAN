@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Null_;
 
 class JadwalTesController extends Controller
 {
@@ -48,16 +49,13 @@ class JadwalTesController extends Controller
                     ->get();
             }
             // dd($pelamar->count() > 0);
-            if ($pelamar->count() > 0) {
-                if ($pelamar[0]->seleksi_satu == "Diterima") {
+            if($pelamar[0]->seleksi_satu == 'Diterima'){
 
-                    return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-                } else if ($pelamar[0]->seleksi_satu == "Ditolak") {
-
-                    return view('jadwal_tes.gagal',);
-                }
+                return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+            } elseif(Pelamar::whereNull('seleksi_satu')->get()) {
+                
+                return view('jadwal_tes.gagal',);
             } else {
-
                 return view('jadwal_tes.gagal',);
             }
         }

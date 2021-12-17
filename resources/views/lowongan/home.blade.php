@@ -31,8 +31,6 @@
                                 {!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 200) !!}
                                 </p>
 
-
-
                                 @if (Auth::guest())
                                     <div class="button-group" align="right">
                                         @if (\Carbon\Carbon::parse($data->berlaku_sampai) > \Carbon\Carbon::now())
@@ -53,7 +51,7 @@
                                 @endif
 
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                 @endforeach
             </div>

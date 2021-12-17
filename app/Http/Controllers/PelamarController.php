@@ -186,7 +186,7 @@ class PelamarController extends Controller
 
             $pelamar->save();
 
-            return redirect()->route('home');
+            return redirect()->back();
 
         } elseif ($request->submit == 'Tolak') {
 
