@@ -32,10 +32,7 @@ class HomeController extends Controller
 
         $riwayat = Pelamar::all()->groupBy('id_lowongan');
         // dd($riwayat);
-        foreach ($riwayat as $data) {
-            // dd($data->lowongan->posisi_lowongan);
-            dd($data[0]->count());
-        }
+        
 
         return view('home', [
             'pelamar'       => $pelamar,
