@@ -38,7 +38,7 @@ class HasilTesController extends Controller
 
     public function detail($id){
 
-        $hasilTes = HasilTes::with('pelamar')->where('id_pelamar', $id)->get();
+        $hasilTes = HasilTes::with('pelamar', 'daftar_soal')->where('id_pelamar', $id)->get();
         // dd($hasilTes);
 
         return view('jawaban.detail', [

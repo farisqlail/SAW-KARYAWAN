@@ -17,7 +17,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Posisi Lowongan</th>
+                                        <th class="text-center">Soal Tes</th>
                                         <th class="text-center">Nama Pelamar</th>
                                         <th class="text-center">Jawaban</th>
                                         <th class="text-center">Nilai</th>
@@ -68,7 +68,7 @@
 
                 <tr class="text-center">
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->pelamar->lowongan->posisi_lowongan }}</td>
+                    <td>{{ $data->daftar_soal->soal }}</td>
                     <td>{{ $data->pelamar->nama_pelamar }}</td>
                     <td align="center">
                         <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}" target="blank"

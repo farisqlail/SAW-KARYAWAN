@@ -12,7 +12,7 @@ class HasilTes extends Model
     protected $hidden       = ['created_at','updated_at'];
 
     public function daftar_soal() {
-        return $this->belongsTo(DaftarSoal::class,'id_soal', 'id_soal_tes');
+        return $this->belongsTo(DaftarSoal::class,'id_soal_tes', 'id_soal');
     }
     
     public function pelamar() {

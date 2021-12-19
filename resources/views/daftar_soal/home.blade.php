@@ -33,6 +33,49 @@
                         <tbody>
                             @if (!empty($daftarsoal))
                                 @foreach ($daftarsoal as $data)
+                                    <div class="modal fade" id="unggah-jawaban{{ $data->id_soal }}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Unggah Jawaban</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('jawaban.store') }}" method="POST"
+                                                        enctype="multipart/form-data">
+
+                                                        {{ csrf_field() }}
+
+                                                        <input type="number" name="id_soal_tes"
+                                                            value="{{ $data->id_soal }}" hidden>
+                                                        <input type="number" name="id_pelamar" value="{{ $pelamarGet }}"
+                                                            hidden>
+                                                        <input type="number" name="id_lowongan"
+                                                            value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                                                        <div class="form-group">
+                                                            <span class="text-danger">Unggah jawabanmu disini, pastikan
+                                                                jawaban yang kamu unggah sesuai soal!</span><br>
+                                                            <input type="file" class="btn btn-warning mt-3" name="jawaban"
+                                                                value="Unggah Jawaban">
+                                                        </div><br>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div>
+                                                        {{-- <button type="submit" class="btn btn-primary">Uggah Jawaban</button> --}}
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->soal }}</td>
@@ -42,9 +85,7 @@
                                         </td>
 
                                         <td align="center">
-                                            <a href="{{ route('jawaban.unggah', $data->id_jadwal_tes) }}"
-                                                data-id={{ $data->id_jadwal_tes }} class="btn btn-success"
-                                                data-toggle="modal" data-target="#unggah-jawaban">Unggah Jawaban</a>
+                                            <a href="{{ route('jawaban.unggah', $data->id_soal) }}" class="btn btn-success" data-toggle="modal" data-target="#unggah-jawaban{{ $data->id_soal }}">Unggah Jawaban</a>
                                         </td>
                                     </tr>
                                 @endforeach
