@@ -50,68 +50,70 @@
                 </div>
             </div>
 
-             <div class="col-md-12 card-deck mt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="float-left">Normalisasi</h3>
-                </div>
+            <div class="col-md-12 card-deck mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="float-left">Normalisasi</h3>
+                    </div>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Nama Pelamar</th>
-                                    <?php $bobot = [] ?>
-                                    @foreach($kriteria as $krit)
-                                    <?php $bobot[$krit->id_kriteria] = $krit->bobot_preferensi ?>
-                                    <th class="text-center">{{$krit->nama_kriteria}}</th>
-                                    @endforeach
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(!empty($alternatif))
-                                <?php $rangking = []; ?>
-                                @foreach($alternatif as $data)
-                                <tr>
-                                    <td>{{$data->nama_pelamar}}</td>
-                                    <?php $total = 0;
-                                    $nilai_normalisasi = 0; ?>
-                                    @foreach($data->bobot as $crip)
-                                    @if($crip->kriteria->atribut_kriteria == 'cost')
-                                    <?php $nilai_normalisasi = ($kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot); ?>
-
-
-
-                                    @elseif($crip->kriteria->atribut_kriteria == 'benefit')
-                                    <?php $nilai_normalisasi = ($crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]); ?>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nama Pelamar</th>
+                                        <?php $bobot = []; ?>
+                                        @foreach ($kriteria as $krit)
+                                            <?php $bobot[$krit->id_kriteria] = $krit->bobot_preferensi; ?>
+                                            <th class="text-center">{{ $krit->nama_kriteria }}</th>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (!empty($alternatif))
+                                        <?php $rangking = []; ?>
+                                        @foreach ($alternatif as $data)
+                                            <tr>
+                                                <td>{{ $data->nama_pelamar }}</td>
+                                                <?php $total = 0;
+                                                $nilai_normalisasi = 0; ?>
+                                                @foreach ($data->bobot as $crip)
+                                                    @if ($crip->kriteria->atribut_kriteria == 'cost')
+                                                        <?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; ?>
 
 
+
+                                                    @elseif($crip->kriteria->atribut_kriteria == 'benefit')
+                                                        <?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; ?>
+
+
+                                                    @endif
+                                                    <?php $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi; ?>
+                                                    <td>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</td>
+
+
+                                                @endforeach
+                                                <?php $rangking[] = [
+                                                    'total' => $total,
+                                                    'kode' => $data->id_pelamar,
+                                                    'nama' => $data->nama_pelamar,
+                                                    'idLowongan' => $data->id_lowongan,
+                                                    'seleksi_1' => $data->seleksi_satu,
+                                                ]; ?>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="{{ count($kriteria) + 1 }}" class="text-center">Data tidak
+                                                ditemukan</td>
+                                        </tr>
                                     @endif
-                                    <?php $total = $total + ($bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi); ?>
-                                    <td>{{number_format($nilai_normalisasi,2,",",".")}}</td>
-
-
-                                    @endforeach
-                                    <?php $rangking[] = [
-                                        'total' => $total,
-                                        'kode'  => $data->id_pelamar,
-                                        'nama'  => $data->nama_pelamar,
-                                        'idLowongan' => $data->id_lowongan,
-                                    ]; ?>
-                                </tr>
-                                @endforeach
-                                @else
-                                <tr>
-                                    <td colspan="{{(count($kriteria)+1)}}" class="text-center">Data tidak ditemukan</td>
-                                </tr>
-                                @endif
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
             <div class="col-md-12 card-deck mt-4">
                 <div class="card">
@@ -122,8 +124,7 @@
                                 @csrf
                                 <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
                                     class="btn btn-success">Cetak Rekap</a>
-                                <input type="submit" name="submit"
-                                    class="btn btn-danger" value="Tolak Semua">
+                                <input type="submit" name="submit" class="btn btn-danger" value="Tolak Semua">
                             </form>
                         </div>
                     </div>
@@ -161,17 +162,21 @@
                                                 <form action="{{ route('pelamar.update', $t['kode']) }}" method="post">
 
                                                     <a href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                        class="btn btn-primary">Detail Pelamar</a>
+                                                        class="btn btn-info">Lihat Detail</a>
 
                                                     {{ csrf_field() }}
 
-                                                    <input type="submit" name="submit"
-                                                        href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                        class="btn btn-success" value="Terima">
+                                                    @if ($t['seleksi_1'] == null)
 
-                                                    <input type="submit" name="submit"
-                                                        href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                        class="btn btn-danger" value="Tolak">
+                                                        <input type="submit" name="submit"
+                                                            href="{{ route('seleksi.detail', $t['kode']) }}"
+                                                            class="btn btn-success" value="Terima">
+
+                                                        <input type="submit" name="submit"
+                                                            href="{{ route('seleksi.detail', $t['kode']) }}"
+                                                            class="btn btn-danger" value="Tolak">
+                                                    @endif
+
                                                 </form>
 
                                             </td>
