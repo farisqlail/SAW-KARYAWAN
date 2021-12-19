@@ -49,15 +49,30 @@ class JadwalTesController extends Controller
                     ->get();
             }
             // dd($pelamar->count() > 0);
-            if($pelamar[0]->seleksi_satu == 'Diterima'){
-
-                return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-            } elseif(Pelamar::whereNull('seleksi_satu')->get()) {
-                
-                return view('jadwal_tes.gagal',);
-            } else {
-                return view('jadwal_tes.gagal',);
-            }
+        
+                // if($pelamar[0]->seleksi_satu == 'Diterima'){
+                    
+                //     return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+                // } elseif(Pelamar::whereNull('seleksi_satu')->get()) {
+                    
+                //     return view('jadwal_tes.gagal',);
+                // } else {
+                //     return view('jadwal_tes.gagal',);
+                // }
+                if ($pelamar->count() > 0) {
+                    if ($pelamar[0]->seleksi_satu == "Diterima") {
+    
+                        return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
+                    } else if ($pelamar[0]->seleksi_satu == "Ditolak") {
+    
+                        return view('jadwal_tes.gagal');
+                    } elseif(Pelamar::whereNull('seleksi_satu')->get()){
+                        return view('jadwal_tes.gagal');
+                    }
+                } else {
+    
+                    return view('jadwal_tes.gagal');
+                }
         }
     }
 

@@ -2,14 +2,14 @@
 
 @section('content')
 
-@include('jawaban.jawaban')
+    @include('jawaban.jawaban')
 
-<div class="container" style="margin-top: 6rem;">
-    <div class="card shadow-sm p-3 mb-5 bg-body rounded">
-        <h1 class="mb-5">Tes Tulis Online</h1>
-        <div class="card-body">
+    <div class="container" style="margin-top: 6rem;">
+        <div class="card shadow-sm p-3 mb-5 bg-body rounded">
+            <h1 class="mb-5">Tes Tulis Online</h1>
+            <div class="card-body">
 
-            {{-- <h3>
+                {{-- <h3>
                 Soal {{ $daftarsoal[0]->soal }}
             </h3>
 
@@ -20,42 +20,43 @@
             <br>
             <a href="{{ asset('/upload/' . $daftarsoal[0]->file_soal) }}" class="btn btn-primary mt-3"
                 target="blank"><i class="fas fa-download"></i> &nbsp;Download File</a> --}}
-            <div class="table-responsive">
-                <table class="table table-bordered" id="myTable">
-                    <thead>
-                        <tr>
-                            <th class="text-center">No</th>
-                            <th class="text-center">Soal</th>
-                            <th class="text-center">File Soal</th>
-                            <th class="text-center">Unggah Jawaban</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (!empty($daftarsoal))
-                            @foreach ($daftarsoal as $data)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->soal }}</td>
-                                    <td align="center">
-                                        <a href="/upload/{{ $data->file_soal }}" class="btn btn-primary"
-                                            target="blank"><i class="fas fa-download"></i> &nbsp; Download File</a>
-                                    </td>
-
-                                    <td align="center">
-                                        <a href="{{ route('jawaban.unggah', $data->id_jadwal_tes) }}" data-id={{ $data->id_jadwal_tes}} class="btn btn-success" data-toggle="modal" data-target="#unggah-jawaban">Unggah Jawaban</a>
-
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="myTable">
+                        <thead>
                             <tr>
-                                <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Soal</th>
+                                <th class="text-center">File Soal</th>
+                                <th class="text-center">Unggah Jawaban</th>
                             </tr>
-                        @endif
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @if (!empty($daftarsoal))
+                                @foreach ($daftarsoal as $data)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->soal }}</td>
+                                        <td align="center">
+                                            <a href="/upload/{{ $data->file_soal }}" class="btn btn-primary"
+                                                target="blank"><i class="fas fa-download"></i> &nbsp; Download File</a>
+                                        </td>
 
-                {{-- <form action="{{ route('jawaban.store') }}" method="POST" enctype="multipart/form-data">
+                                        <td align="center">
+                                            <a href="{{ route('jawaban.unggah', $data->id_jadwal_tes) }}"
+                                                data-id={{ $data->id_jadwal_tes }} class="btn btn-success"
+                                                data-toggle="modal" data-target="#unggah-jawaban">Unggah Jawaban</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+
+                    {{-- <form action="{{ route('jawaban.store') }}" method="POST" enctype="multipart/form-data">
 
                 {{ csrf_field() }}
 
@@ -74,11 +75,9 @@
 
 
 
+                </div>
             </div>
         </div>
-    </div>
 
 
-@endsection
-
- 
+    @endsection

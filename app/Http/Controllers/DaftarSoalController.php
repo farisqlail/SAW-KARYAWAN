@@ -30,8 +30,8 @@ class DaftarSoalController extends Controller
     public function home($id){
 
         $user = Auth::user()->id;
-        $pelamar = Pelamar::with('user')->where('id_user', $user)->get();
-        
+        $pelamar = Pelamar::with('user', 'hasil_tes')->where('id_user', $user)->get();
+       
         $pelamarGet = $pelamar[0]->id_pelamar;
 
 

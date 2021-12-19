@@ -80,7 +80,9 @@
                         @endif
                     </td> --}}
                     <td class="text-center">
-                        <a href="{{ route('jawaban.detail', $data) }}" class="btn btn-success">Detail Jawaban</a>
+                        
+                            <a href="{{ route('jawaban.detail', $data) }}" class="btn btn-success">Detail Jawaban</a>
+                       
                         {{-- <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}"
                             data-toggle="modal" data-target="#nilaiJawaban{{ $data->id_hasil_tes }}" class="btn btn-info">Nilai Jawaban</a> --}}
                     </td>
