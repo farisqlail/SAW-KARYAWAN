@@ -18,7 +18,6 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Soal Tes</th>
-                                        <th class="text-center">Nama Pelamar</th>
                                         <th class="text-center">Jawaban</th>
                                         <th class="text-center">Nilai</th>
                                         <th class="text-center" style="width:40%">Aksi</th>
@@ -69,7 +68,6 @@
                 <tr class="text-center">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->daftar_soal->soal }}</td>
-                    <td>{{ $data->pelamar->nama_pelamar }}</td>
                     <td align="center">
                         <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}" target="blank"
                             class="btn btn-primary"><i class="fas fa-download"></i> &nbsp;Unduh Jawaban</a>

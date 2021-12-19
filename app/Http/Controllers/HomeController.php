@@ -30,14 +30,15 @@ class HomeController extends Controller
         $lowongan = Lowongan::where('berlaku_sampai', '>=', \Carbon\Carbon::now())->count();
         $pelamarDua = Pelamar::whereNotNull('seleksi_satu')->whereNotNull('seleksi_dua')->count();
 
-        $riwayat = Pelamar::all()->groupBy('id_lowongan');
+        $riwayat = lowongan::withCount('pelamar')->get();
         // dd($riwayat);
         
 
         return view('home', [
             'pelamar'       => $pelamar,
             'lowongan'      => $lowongan,
-            'pelamarDua'    => $pelamarDua
+            'pelamarDua'    => $pelamarDua,
+            'riwayat'       => $riwayat
         ]);
     }
 }

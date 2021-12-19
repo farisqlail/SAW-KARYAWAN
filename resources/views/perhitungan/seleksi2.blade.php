@@ -33,58 +33,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (!empty($hasilTes))
-                                        @foreach ($hasilTes as $data)
-                                            @php
-                                                $hitung = $data->nilai * ($data->bobot_soal / 100);
-                                                
-                                                $rangking[] = [
-                                                    'nama' => $data->pelamar->nama_pelamar,
-                                                    'hitung' => $hitung,
-                                                    'bobot' => $data->bobot_soal,
-                                                    'id' => $data->id_pelamar,
-                                                ];
-                                            @endphp
-
-                                        @endforeach
-
-                                        @php
-                                            usort($rangking, function ($a, $b) {
-                                                return $a['hitung'] <=> $b['hitung'];
-                                            });
-                                            rsort($rangking);
-                                            $a = 1;
-                                            $no2 = 1;
-                                        @endphp
-
-                                        @foreach ($rangking as $t)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $t['nama'] }}</td>
-                                                <td>{{ number_format($t['hitung']) }}</td>
-                                                <td>{{ $a++ }}</td>
-                                                <td align="center">
-                                                    <form action="{{ route('pelamar.seleksi.dua', $t['id']) }}"
-                                                        method="post">
-                                                        {{ csrf_field() }}
-
-                                                        <input type="submit" name="submit"
-                                                            href="{{ route('seleksi.detail', $t['id']) }}"
-                                                            class="btn btn-success" value="Terima">
-
-                                                        <input type="submit" name="submit"
-                                                            href="{{ route('seleksi.detail', $t['id']) }}"
-                                                            class="btn btn-danger" value="Tolak">
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                    @foreach ($hasilTes as $data)
                                         <tr>
-                                            <td colspan="{{ count($hasilTes) + 1 }}" class="text-center">Data tidak
-                                                ditemukan</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $data['nama_pelamar'] }}</td>
+                                            <td>{{ number_format($data['total']) }}</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td align="center">
+                                                <form action="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" method="post">
+                                                    {{ csrf_field() }}
+
+                                                    <input type="submit" name="submit"
+                                                        href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
+                                                        class="btn btn-success" value="Terima">
+
+                                                    <input type="submit" name="submit"
+                                                        href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
+                                                        class="btn btn-danger" value="Tolak">
+                                                </form>
+                                            </td>
                                         </tr>
-                                    @endif
+                                    @endforeach
 
                                 </tbody>
                             </table>
