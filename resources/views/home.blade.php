@@ -47,6 +47,7 @@
         <br>
         <div class="card">
             <div class="card-body">
+                <h3>Riwayat Rekruitmen</h3>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -63,7 +64,13 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $data->posisi_lowongan }}</td>
                                     <td>{{ $data->pelamar_count }}</td>
-                                    <td></td>
+                                    <td>
+                                        @if ($data->berlaku_sampai > \Carbon\Carbon::now())
+                                            Pendaftaran Berlangsung
+                                        @else
+                                            Pendaftaran Ditutup
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
