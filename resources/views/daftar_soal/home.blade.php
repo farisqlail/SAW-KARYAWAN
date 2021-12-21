@@ -76,39 +76,53 @@
                                         </div>
                                     </div>
 
-                                    <div class="modal fade" id="ubah-jawaban{{ $data->id_hasil_tes }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">  
-                                                    <h5 class="modal-title" id="exampleModalLabel">Unggah Jawaban</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ route('jawaban.update', $data->id_hasil_tes) }}" method="POST" enctype="multipart/form-data">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('PATCH') }}
-                                    
-                                                        <input type="number" name="id_soal_tes" value="{{ $daftarsoal[0]->id_soal }}" hidden>
-                                                        <input type="number" name="id_pelamar" value="{{ $pelamarGet }}" hidden>
-                                                        <input type="number" name="id_lowongan" value="{{ $pelamar[0]->id_lowongan }}" hidden>
-                                                        <div class="form-group">
-                                                            <span class="text-danger">Unggah jawabanmu disini, pastikan jawaban yang kamu unggah sesuai soal!</span><br>
-                                                            <input type="file" class="btn btn-warning mt-3" name="jawaban" value="Unggah Jawaban">
-                                                        </div><br>
-                                    
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                                        </div>
-                                                        {{-- <button type="submit" class="btn btn-primary">Uggah Jawaban</button> --}}
-                                                    </form>
+                                    @if (!empty($data->jawaban))
+                                        <div class="modal fade" id="ubah-jawaban{{ $data->id_hasil_tes }}"
+                                            tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Unggah Jawaban
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('jawaban.update', $data->id_hasil_tes) }}"
+                                                            method="POST" enctype="multipart/form-data">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('PATCH') }}
+
+                                                            <input type="number" name="id_soal_tes"
+                                                                value="{{ $daftarsoal[0]->id_soal }}" hidden>
+                                                            <input type="number" name="id_pelamar"
+                                                                value="{{ $pelamarGet }}" hidden>
+                                                            <input type="number" name="id_lowongan"
+                                                                value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                                                            <div class="form-group">
+                                                                <span class="text-danger">Unggah jawabanmu disini,
+                                                                    pastikan
+                                                                    jawaban yang kamu unggah sesuai soal!</span><br>
+                                                                <input type="file" class="btn btn-warning mt-3"
+                                                                    name="jawaban" value="Unggah Jawaban">
+                                                            </div><br>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save
+                                                                    changes</button>
+                                                            </div>
+                                                            {{-- <button type="submit" class="btn btn-primary">Uggah Jawaban</button> --}}
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
+                                    @endif
+
 
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -124,9 +138,10 @@
                                                     class="btn btn-success" data-toggle="modal"
                                                     data-target="#unggah-jawaban{{ $data->id_soal }}">Unggah Jawaban</a>
                                             @else
-                                                    <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}"
-                                                        class="btn btn-success" target="blank" download>Unduh Jawaban</a>
-                                                    <a href="" class="btn btn-danger" data-toggle="modal" data-target="#ubah-jawaban{{ $data->id_hasil_tes }}">Ubah Jawaban</a>
+                                                <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}"
+                                                    class="btn btn-success" target="blank" download>Unduh Jawaban</a>
+                                                <a href="" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#ubah-jawaban{{ $data->id_hasil_tes }}">Ubah Jawaban</a>
                                             @endif
                                         </td>
                                     </tr>

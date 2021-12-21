@@ -59,8 +59,11 @@ class HasilTesController extends Controller
         $pelamarGet = $pelamar[0]->id_pelamar;
 
         $jadwaltes = JadwalTes::find($id);
-        $daftarsoal = DaftarSoal::where('id_jadwal_tes',$id)->get();
-
+        $daftarsoal = DaftarSoal::join('hasil_tes', 'hasil_tes.id_soal_tes', '=', 'daftar_soal.id_soal')
+            ->where('id_jadwal_tes', $id)
+            ->where('hasil_tes.id_pelamar', $pelamarGet)
+            ->get();
+            
         return view('jawaban.jawaban', ['pelamarGet' => $pelamarGet, 'daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamar' => $pelamar]);
     }
 
