@@ -81,6 +81,8 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::post('/jawaban', 'HasilTesController@store')->name('jawaban.store');
     Route::get('/nilai-jawaban/{id}', 'HasilTesController@edit')->name('jawaban.nilai');
     Route::patch('/nilai-jawaban/{id}', 'HasilTesController@update')->name('jawaban.nilai.update');
+    Route::get('/jawaban/edit/{id}', 'HasilTesController@editJawaban')->name('jawaban.edit');
+    Route::patch('/jawaban/edit/{id}', 'HasilTesController@updateJawaban')->name('jawaban.update');
 });
 
 Route::prefix('/pelamar')->group(function ()

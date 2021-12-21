@@ -101,6 +101,44 @@ class HasilTesController extends Controller
         return redirect()->back();
     }
 
+    public function editJawaban($id){
+
+        $hasilTes = HasilTes::find($id);
+        // dd($hasilTes);
+        return view('jawaban.edit', ['hasilTes' => $hasilTes]);
+    }
+
+    public function updateJawaban(Request $request, $id){
+
+        $validator = Validator::make(request()->all(), [
+            'jawaban' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            dd($validator->errors());
+            return back()->withErrors($validator->errors());
+        } else {
+
+            Alert::success('Berhasil Upload', 'Jawaban udah diubah dan akan kami cek dulu');
+
+            $hasilTes = HasilTes::findOrFail($id);
+
+            $hasilTes->id_soal_tes = $request->get('id_soal_tes');
+            $hasilTes->id_pelamar = $request->get('id_pelamar');
+            $hasilTes->id_lowongan = $request->get('id_lowongan');
+            if ($request->hasFile('jawaban')) {
+                $file = $request->file('jawaban');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $hasilTes->jawaban = $filename;
+                Storage::putFileAs("public/file/jawaban", $file, $filename);
+            }
+
+            $hasilTes->save();
+        }
+
+        return redirect()->back();
+    }
+
     /**
      * Display the specified resource.
      *
