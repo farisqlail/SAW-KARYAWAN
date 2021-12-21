@@ -34,34 +34,31 @@ class DaftarSoalController extends Controller
         $user = Auth::user()->id;
         $pelamar = Pelamar::with('user', 'hasil_tes')->where('id_user', $user)->get();
         $pelamarGet = $pelamar[0]->id_pelamar;
-
+        // dd($pelamarGet);
         $jadwaltes = JadwalTes::find($id);
-        $daftarsoal = DaftarSoal::join('hasil_tes', 'hasil_tes.id_soal_tes', '=', 'daftar_soal.id_soal')
-            ->where('id_jadwal_tes', $id)
-            ->where('hasil_tes.id_pelamar', $pelamarGet)
+        // dd($jadwaltes);
+        $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+            $q->where('id_pelamar', $pelamarGet);
+        }])
+        // ->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
+        //     $q->where('id_pelamar', $pelamarGet);
+        // })->with(['hasil_tes' => function($q) use ($pelamarGet) {
+        //     $q->where('id_pelamar', $pelamarGet);
+        // }])
+            ->where(function($q) use ($pelamarGet){
+                $q->whereHas('hasil_tes', function($q) use ($pelamarGet) {
+                    $q->where('id_pelamar', $pelamarGet);
+                })
+                ->orWhereHas('hasil_tes', function($q) use ($pelamarGet) {
+                    $q->where('id_pelamar', '!=', $pelamarGet);
+                });
+            })->with(['hasil_tes' => function($q) use ($pelamarGet) {
+                    $q->where('id_pelamar', $pelamarGet);
+                }])
             ->get();
-// dd($daftarsoal);
-        if ($daftarsoal) {
 
-            $daftarsoal = DaftarSoal::join('hasil_tes', 'hasil_tes.id_soal_tes', '=', 'daftar_soal.id_soal')
-                ->where('id_jadwal_tes', $id)
-                ->where('hasil_tes.id_pelamar', $pelamarGet)
-                ->get();
-            // dd($daftarsoal);
-
-            return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar]);
-        } else {
-
-            $daftarsoal = DaftarSoal::
-                where('id_jadwal_tes', $id)
-                ->get();
-
-            return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar]);
-        }
-
-        // $tes = HasilTes::select('id_soal_tes')->where('id_pelamar', $pelamarGet)->get();
-        // $hasilTes = HasilTes::where('id_pelamar', $pelamarGet)->get();
-
+        // dd($daftarsoal);
+        return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar]);
     }
 
     /**

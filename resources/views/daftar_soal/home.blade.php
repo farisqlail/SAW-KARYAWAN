@@ -76,8 +76,8 @@
                                         </div>
                                     </div>
 
-                                    @if (!empty($data->jawaban))
-                                        <div class="modal fade" id="ubah-jawaban{{ $data->id_hasil_tes }}"
+                                    @if ($data->hasil_tes_count > 0)
+                                        <div class="modal fade" id="ubah-jawaban{{ $data->hasil_tes->id_hasil_tes }}"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -90,7 +90,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="{{ route('jawaban.update', $data->id_hasil_tes) }}"
+                                                        <form action="{{ route('jawaban.update', $data->hasil_tes->id_hasil_tes) }}"
                                                             method="POST" enctype="multipart/form-data">
                                                             {{ csrf_field() }}
                                                             {{ method_field('PATCH') }}
@@ -133,15 +133,15 @@
                                         </td>
 
                                         <td align="center">
-                                            @if (empty($data->jawaban))
+                                            @if ($data->hasil_tes_count == 0)
                                                 <a href="{{ route('jawaban.unggah', $data->id_soal) }}"
                                                     class="btn btn-success" data-toggle="modal"
                                                     data-target="#unggah-jawaban{{ $data->id_soal }}">Unggah Jawaban</a>
                                             @else
-                                                <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}"
-                                                    class="btn btn-success" target="blank" download>Unduh Jawaban</a>
+                                                <a href="{{ asset('storage/file/jawaban/' . $data->hasil_tes->jawaban) }}"
+                                                    class="btn btn-success" target="blank">Unduh Jawaban</a>
                                                 <a href="" class="btn btn-danger" data-toggle="modal"
-                                                    data-target="#ubah-jawaban{{ $data->id_hasil_tes }}">Ubah Jawaban</a>
+                                                    data-target="#ubah-jawaban{{ $data->hasil_tes->id_hasil_tes }}">Ubah Jawaban</a>
                                             @endif
                                         </td>
                                     </tr>

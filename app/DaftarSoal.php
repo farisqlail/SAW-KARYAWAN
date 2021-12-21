@@ -16,7 +16,7 @@ class DaftarSoal extends Model
     }
     
     public function hasil_tes() {
-        return $this->hasMany(HasilTes::class,'id_soal', 'id_soal');
+        return $this->hasOne(HasilTes::class,'id_soal_tes', 'id_soal');
     }
     
 }
