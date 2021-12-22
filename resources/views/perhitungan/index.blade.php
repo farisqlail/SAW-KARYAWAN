@@ -137,6 +137,7 @@
                                         <th align="center">Nama</th>
                                         <th align="center">Total</th>
                                         <th align="center">Ranking</th>
+                                        <th align="center">Status Lamaran</th>
                                         <th align="center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -157,6 +158,13 @@
                                             <td>{{ $t['nama'] }}</td>
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                                             <td>{{ $a++ }}</td>
+                                            <td>
+                                                @if ($t['seleksi_1'] == 'Diterima')
+                                                    Lolos Seleksi Satu
+                                                @else
+                                                    Menunggu Seleksi
+                                                @endif
+                                            </td>
                                             <td align="center">
 
                                                 <form action="{{ route('pelamar.update', $t['kode']) }}" method="post">

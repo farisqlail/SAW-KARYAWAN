@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2021 at 12:03 PM
+-- Generation Time: Dec 21, 2021 at 05:22 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -122,15 +122,12 @@ CREATE TABLE `hasil_tes` (
 --
 
 INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `id_lowongan`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
-(9, 14, 17, 8, '1639708085.pdf', 90, '2021-12-16 19:28:05', '2021-12-16 19:29:43'),
-(10, 15, 17, 8, '1639708092.pdf', 80, '2021-12-16 19:28:12', '2021-12-16 19:29:48'),
-(11, 16, 17, 8, '1639708098.pdf', 75, '2021-12-16 19:28:18', '2021-12-16 19:29:53'),
-(12, 17, 18, 9, '1639708418.pdf', 80, '2021-12-16 19:33:38', '2021-12-16 19:58:18'),
-(13, 18, 18, 9, '1639708423.pdf', 80, '2021-12-16 19:33:43', '2021-12-16 19:58:22'),
-(14, 19, 18, 9, '1639708427.pdf', 60, '2021-12-16 19:33:48', '2021-12-16 19:58:30'),
 (19, 14, 16, 8, '1640084512.pdf', 90, '2021-12-19 10:18:46', '2021-12-21 04:01:52'),
 (20, 15, 16, 8, '1639934332.pdf', 80, '2021-12-19 10:18:52', '2021-12-19 10:19:27'),
-(21, 16, 16, 8, '1639934337.pdf', 10, '2021-12-19 10:18:57', '2021-12-19 10:19:33');
+(21, 16, 16, 8, '1639934337.pdf', 10, '2021-12-19 10:18:57', '2021-12-19 10:19:33'),
+(22, 14, 20, 8, '1640103399.pdf', NULL, '2021-12-21 08:05:25', '2021-12-21 09:16:39'),
+(23, 15, 20, 8, '1640100731.pdf', NULL, '2021-12-21 08:32:11', '2021-12-21 08:32:11'),
+(25, 16, 20, 8, '1640103302.pdf', NULL, '2021-12-21 09:15:02', '2021-12-21 09:15:02');
 
 -- --------------------------------------------------------
 
@@ -264,15 +261,12 @@ INSERT INTO `nilai_alternatif` (`id_nilai_alternatif`, `id_pelamar`, `id_bobot_k
 (16, 16, 27, '2021-12-16 19:02:29', '2021-12-16 19:02:29'),
 (17, 16, 30, '2021-12-16 19:02:29', '2021-12-16 19:02:29'),
 (18, 16, 33, '2021-12-16 19:02:29', '2021-12-16 19:02:29'),
-(19, 17, 28, '2021-12-16 19:03:11', '2021-12-16 19:03:11'),
-(20, 17, 31, '2021-12-16 19:03:11', '2021-12-16 19:03:11'),
-(21, 17, 34, '2021-12-16 19:03:11', '2021-12-16 19:03:11'),
-(22, 18, 38, '2021-12-16 19:32:23', '2021-12-16 19:32:23'),
-(23, 18, 39, '2021-12-16 19:32:23', '2021-12-16 19:32:23'),
-(24, 18, 42, '2021-12-16 19:32:23', '2021-12-16 19:32:23'),
 (25, 19, 28, '2021-12-19 07:56:10', '2021-12-19 07:56:10'),
 (26, 19, 32, '2021-12-19 07:56:10', '2021-12-19 07:56:10'),
-(27, 19, 33, '2021-12-19 07:56:10', '2021-12-19 07:56:10');
+(27, 19, 33, '2021-12-19 07:56:10', '2021-12-19 07:56:10'),
+(28, 20, 27, '2021-12-21 04:16:15', '2021-12-21 04:16:15'),
+(29, 20, 32, '2021-12-21 04:16:15', '2021-12-21 04:16:15'),
+(30, 20, 33, '2021-12-21 04:16:15', '2021-12-21 04:16:15');
 
 -- --------------------------------------------------------
 
@@ -318,9 +312,8 @@ CREATE TABLE `pelamar` (
 
 INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `created_at`, `updated_at`) VALUES
 (16, 3, 8, 'faris', '2021-11-30', 'Surabaya', 'Islam', 'jl.asdasdasd', '123123123', 'Laki-laki', '1639706549.pdf', '1639706549.pdf', '1639706549.png', 'Diterima', NULL, '2021-12-16 19:02:29', '2021-12-19 08:30:54'),
-(17, 6, 8, 'new', '2021-11-29', 'asdasd', 'Katolik', 'asdasdasd', '2132', 'Laki-laki', '1639706591.pdf', '1639706591.pdf', '1639706591.png', 'Diterima', 'Diterima', '2021-12-16 19:03:11', '2021-12-16 19:30:04'),
-(18, 5, 9, 'wewe', '2021-12-01', 'asdas', 'Katolik', 'asdasdasda', '123123', 'Laki-laki', '1639708343.pdf', '1639708343.pdf', '1639708343.png', 'Diterima', NULL, '2021-12-16 19:32:23', '2021-12-16 19:33:15'),
-(19, 5, 8, 'asd', '2021-11-30', 'sby', 'Kristen', '1sasdasd', '123123', 'Laki-laki', '1639925770.pdf', '1639925770.pdf', '1639925770.png', NULL, NULL, '2021-12-19 07:56:10', '2021-12-19 07:56:10');
+(19, 5, 8, 'asd', '2021-11-30', 'sby', 'Kristen', '1sasdasd', '123123', 'Laki-laki', '1639925770.pdf', '1639925770.pdf', '1639925770.png', 'Diterima', NULL, '2021-12-19 07:56:10', '2021-12-21 08:34:04'),
+(20, 6, 8, 'new', '2021-11-30', 'sby', 'Kristen', 'asdasd', '12312', 'Laki-laki', '1640085375.pdf', '1640085375.pdf', '1640085375.jpg', 'Diterima', NULL, '2021-12-21 04:16:15', '2021-12-21 04:16:36');
 
 -- --------------------------------------------------------
 
@@ -344,10 +337,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'HLQCflyvdYuj1ZaGW1YwARKfR2PhsD446YdlEbuNbC0aifGaNSz55RvDhz81', NULL, NULL),
-(3, 'Faris', 'customer', 'faris.riskilail@gmail.com', '$2y$10$RfanrhxaxM9xrQ5vu2xf6.cf9GTjW4AQsjJZBpT8m.62GpG0mTX/K', 'bU0wT8BJbr3dqgJVTzgZWldEK8NoqCspZV3HHKJ2gaAajhzOPGoH7Dmrrqdk', '2021-11-20 07:38:55', '2021-11-20 07:38:55'),
+(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', '2zp8eUbtFXrQE30wtrIpLELkQaHaK8jBDyWnnMqbl67rMHrjZkyXR5TTtdAP', NULL, NULL),
+(3, 'Faris', 'customer', 'faris.riskilail@gmail.com', '$2y$10$RfanrhxaxM9xrQ5vu2xf6.cf9GTjW4AQsjJZBpT8m.62GpG0mTX/K', 'UNzLN4BK8BaDQe3IqXokGfjNILQ7YBRiu3YXaIffMSSSFMz9hsCsydf4EA8X', '2021-11-20 07:38:55', '2021-11-20 07:38:55'),
 (4, 'faris', 'customer', 'faris@gmail.com', '$2y$10$T2i3J5m3LAibFLGqhDTMdOdokgQw54WHdDHI3iZcrTPpJNPY9/umK', 'hjs7i0XpNZlIJyWQiVByklVX6FJkPEBeKgDxsJgqOH9OxVBI4ds4k3lzCgsV', '2021-12-01 02:24:57', '2021-12-01 02:24:57'),
-(5, 'user', 'customer', 'user@gmail.com', '$2y$10$jt8auyHBLqqa2r6aH6oILuzmXtw5w/.94lKit74jcgcAgldus3Lh.', 'xT1Mxo3oXaCyS8NiSdgytInC95h92VutnxeZMpGuSJYSJJf6GdycGehzEgZQ', '2021-12-02 21:41:13', '2021-12-02 21:41:13'),
+(5, 'user', 'customer', 'user@gmail.com', '$2y$10$jt8auyHBLqqa2r6aH6oILuzmXtw5w/.94lKit74jcgcAgldus3Lh.', 'spzq3VDHSD1W1TC8JDjpq2DOiODc2NKW0nwIiKX7TRIiPwAE2ixWAyJ3Yh5R', '2021-12-02 21:41:13', '2021-12-02 21:41:13'),
 (6, 'new', 'customer', 'new@gmail.com', '$2y$10$.J1XH4m7oWilFlbTSfMni.LbDuPigYG.w0WTajqetg6SKY.sns5jm', NULL, '2021-12-08 05:08:09', '2021-12-08 05:08:09'),
 (7, 'baru', 'customer', 'baru@gmail.com', '$2y$10$FTvCFmfgPhLFNxMBxZacGuvNqxKKeaYdYCRGGGrsQ3Ev5zB4Dc0lW', NULL, '2021-12-19 08:25:15', '2021-12-19 08:25:15');
 
@@ -455,7 +448,7 @@ ALTER TABLE `daftar_soal`
 -- AUTO_INCREMENT for table `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `jadwal_tes`
@@ -485,13 +478,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
-  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `pelamar`
 --
 ALTER TABLE `pelamar`
-  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`

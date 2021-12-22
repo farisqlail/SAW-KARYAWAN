@@ -102,6 +102,7 @@ class PerhitunganController extends Controller
                 }
                 if (empty($ar)) {
                     Alert::error('Maaf', 'Data belum ada');
+                    
                     return redirect()->back();
                 }
                 

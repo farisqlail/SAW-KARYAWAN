@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('jawaban.jawaban')
+    {{-- @include('jawaban.jawaban') --}}
 
     <div class="container" style="margin-top: 6rem;">
         <div class="card shadow-sm p-3 mb-5 bg-body rounded">
@@ -96,7 +96,7 @@
                                                             {{ method_field('PATCH') }}
 
                                                             <input type="number" name="id_soal_tes"
-                                                                value="{{ $daftarsoal[0]->id_soal }}" hidden>
+                                                                value="{{ $data->id_soal }}" hidden>
                                                             <input type="number" name="id_pelamar"
                                                                 value="{{ $pelamarGet }}" hidden>
                                                             <input type="number" name="id_lowongan"
@@ -134,7 +134,7 @@
 
                                         <td align="center">
                                             @if ($data->hasil_tes_count == 0)
-                                                <a href="{{ route('jawaban.unggah', $data->id_soal) }}"
+                                                <a href=""
                                                     class="btn btn-success" data-toggle="modal"
                                                     data-target="#unggah-jawaban{{ $data->id_soal }}">Unggah Jawaban</a>
                                             @else

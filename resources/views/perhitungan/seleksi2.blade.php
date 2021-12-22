@@ -29,6 +29,7 @@
                                         <th align="center">Nama</th>
                                         <th align="center">Total</th>
                                         <th align="center">Ranking</th>
+                                        <th align="center">Status Lamaran</th>
                                         <th align="center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,6 +40,13 @@
                                             <td>{{ $data['nama_pelamar'] }}</td>
                                             <td>{{ number_format($data['total']) }}</td>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                {{-- @if ($data['seleksi_dua'] == 'Diterima')
+                                                    Lolos Seleksi Dua
+                                                @else
+                                                    Menunggu Seleksi Tahap Dua
+                                                @endif --}}
+                                            </td>
                                             <td align="center">
                                                 <form action="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" method="post">
                                                     {{ csrf_field() }}
