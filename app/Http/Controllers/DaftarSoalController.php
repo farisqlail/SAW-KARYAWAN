@@ -40,22 +40,31 @@ class DaftarSoalController extends Controller
         $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
             $q->where('id_pelamar', $pelamarGet);
         }])
+        // ->where(function($q) use ($pelamarGet){
+        //     $q->whereHas('hasil_tes', function($q) use ($pelamarGet) {
+        //         $q->where('id_pelamar', $pelamarGet);
+        //     })
+        //     ->orWhereHas('hasil_tes', function($q) use ($pelamarGet) {
+        //         $q->where('id_pelamar', '!=', $pelamarGet);
+        //     });
+        // })
+        ->with(['hasil_tes' => function($q) use ($pelamarGet) {
+            $q->where('id_pelamar', $pelamarGet);
+        }])
+        ->get();
+
+        if ($daftarsoal->isEmpty()) {
+            $daftarsoal = $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+                $q->where('id_pelamar', $pelamarGet);
+            }])->get();
+        }
+        
         // ->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
         //     $q->where('id_pelamar', $pelamarGet);
         // })->with(['hasil_tes' => function($q) use ($pelamarGet) {
         //     $q->where('id_pelamar', $pelamarGet);
         // }])
-            ->where(function($q) use ($pelamarGet){
-                $q->whereHas('hasil_tes', function($q) use ($pelamarGet) {
-                    $q->where('id_pelamar', $pelamarGet);
-                })
-                ->orWhereHas('hasil_tes', function($q) use ($pelamarGet) {
-                    $q->where('id_pelamar', '!=', $pelamarGet);
-                });
-            })->with(['hasil_tes' => function($q) use ($pelamarGet) {
-                    $q->where('id_pelamar', $pelamarGet);
-                }])
-            ->get();
+
 
         // dd($daftarsoal);
         return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar]);
