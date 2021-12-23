@@ -48,7 +48,7 @@ class PerhitunganController extends Controller
 
                 return redirect()->back();
             }
-        };
+        }
         //        return json_encode($kode_krit);
         return view('perhitungan.index', [
             'kriteria'      => $kriteria,
@@ -143,12 +143,11 @@ class PerhitunganController extends Controller
 
         $lowongan = Lowongan::all();
         $lowonganGet = $lowongan[0]->id_lowongan;
-        // dd($id);
+        // dd($lowonganGet);
 
         $kriteria = Kriteria::where('id_lowongan', $id)->get();
         $alternatif = Pelamar::where('id_lowongan', $id)->get();
         $kode_krit = [];
-
         foreach ($kriteria as $krit) {
             $kode_krit[$krit->id_kriteria] = [];
             foreach ($alternatif as $al) {
@@ -166,27 +165,27 @@ class PerhitunganController extends Controller
 
                 $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
             } else {
+                $kode_krit[$krit->id_kriteria] = 1;
 
-                $kode_krit[$krit->id_kriteria] = 0;
             }
-        };
+        }
 
             //    return json_encode($kode_krit);
             // echo $kode_krit;
-        return view('laporan.seleksi1', [
-            'kriteria'      => $kriteria,
-            'alternatif'    => $alternatif,
-            'kode_krit'     => $kode_krit,
-        ]);
-
-        // dd($tes);
-        // $pdf = PDF::loadView('laporan.seleksi1', [
+        // return view('laporan.seleksi1', [
         //     'kriteria'      => $kriteria,
         //     'alternatif'    => $alternatif,
-        //     'kode_krit'     => $kode_krit
+        //     'kode_krit'     => $kode_krit,
         // ]);
 
-        // return $pdf->download('Seleksi-tahap-satu.pdf');
+        // dd($tes);
+        $pdf = PDF::loadView('laporan.seleksi1', [
+            'kriteria'      => $kriteria,
+            'alternatif'    => $alternatif,
+            'kode_krit'     => $kode_krit
+        ]);
+
+        return $pdf->download('Seleksi-tahap-satu.pdf');
     }
 
     public function laporan2($id)

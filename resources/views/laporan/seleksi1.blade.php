@@ -24,34 +24,38 @@
             ?>
             @foreach ($kriteria as $krit)
                 <span hidden>{{ $bobot[$krit->id_kriteria] = $krit->bobot_preferensi }}</span>
+            @endforeach
+            
+            @foreach ($alternatif as $data)
 
-                @foreach ($alternatif as $data)
-                    <?php $total = 0;
-                    $nilai_normalisasi = 0; ?>
-                    @foreach ($data->bobot as $crip)
-                        @if ($crip->kriteria->atribut_kriteria == 'cost')
-                            <span hidden><?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; ?></span>
+                <?php $total = 0;
+                $nilai_normalisasi = 0; ?>
+                @foreach ($data->bobot as $crip)
+                    @if ($crip->kriteria->atribut_kriteria == 'cost')
+                        <span
+                            hidden>{{ $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot }}</span>
 
-                        @elseif($crip->kriteria->atribut_kriteria == 'benefit')
-                            <span hidden><?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; ?></span>
+                    @elseif($crip->kriteria->atribut_kriteria == 'benefit')
+                        <span
+                            hidden>{{ $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria] }}</span>
 
-                        @endif
-                        <span hidden><?php $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi; ?></span>
-                        <span hidden>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</span>
+                    @endif
+                    <span
+                        hidden>{{ $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi }}</span>
+                    <span hidden>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</span>
 
-
-                    @endforeach
-                    <?php $rangking[] = [
-                        'kode' => $data->id_pelamar,
-                        'nama' => $data->nama_pelamar,
-                        'alamat' => $data->alamat,
-                        'notelp' => $data->no_telepon,
-                        'seleksi_1' => $data->seleksi_satu,
-                        'idLowongan' => $data->id_lowongan,
-                        'total' => $total,
-                    ]; ?>
 
                 @endforeach
+                <?php $rangking[] = [
+                    'kode' => $data->id_pelamar,
+                    'nama' => $data->nama_pelamar,
+                    'alamat' => $data->alamat,
+                    'notelp' => $data->no_telepon,
+                    'seleksi_1' => $data->seleksi_satu,
+                    'idLowongan' => $data->id_lowongan,
+                    'total' => $total,
+                ]; ?>
+
             @endforeach
         @endif
 
@@ -89,9 +93,9 @@
                             <td>{{ $a++ }}</td>
                             <td>
                                 @if ($t['seleksi_1'] == 'Diterima')
-                                    Seleksi Satu
-                                @elseif($t['seleksi_2'] == "Ditolak")
-                                    Seleksi Satu
+                                    Lolos Seleksi Satu
+                                @elseif($t['seleksi_1'] == "Ditolak")
+                                    Tidak Lolos Seleksi Satu
                                 @else
                                     <span class="text-danger">Belum ada keterangan</span>
                                 @endif
