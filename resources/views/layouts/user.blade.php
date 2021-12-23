@@ -45,12 +45,15 @@
             <nav id="navbar" class="navbar">
                 @if (Route::has('login'))
                     <ul>
-                        <li><a class="nav-link scrollto {{'lowongan' == request()->segment(1) ? 'active' : ''}}" href="{{ route('lowongan.home') }}">Lowongan</a></li>
+                        <li><a class="nav-link scrollto {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}"
+                                href="{{ route('lowongan.home') }}">Lowongan</a></li>
                         @auth
-                            <li><a class="nav-link scrollto {{'jadwal_tes' == request()->segment(1) ? 'active' : ''}}" href="{{ route('soal-tes.home') }}">Tes Online</a>
+                            <li><a class="nav-link scrollto {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}"
+                                    href="{{ route('soal-tes.home') }}">Tes Online</a>
                             </li>
 
-                            <li><a class="nav-link scrollto {{'pelamar' == request()->segment(1) ? 'active' : ''}}" href="{{ route('pelamar.riwayat', Auth::user()->id) }}">Riwayat Lamaran</a>
+                            <li><a class="nav-link scrollto {{ 'pelamar' == request()->segment(1) ? 'active' : '' }}"
+                                    href="{{ route('pelamar.riwayat', Auth::user()->id) }}">Riwayat Lamaran</a>
                             </li>
 
                             <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i
@@ -58,7 +61,8 @@
                                 <ul>
 
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">Logout</a></li>
+                                                            document.getElementById('logout-form').submit();">Logout</a>
+                                    </li>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         style="display: none;">
@@ -67,8 +71,10 @@
                                 </ul>
                             </li>
                         @else
-                            <li><a class="nav-link scrollto {{'login' == request()->segment(1) ? 'active' : ''}}" href="{{ route('login') }}">Login</a></li>
-                            <li><a class="nav-link scrollto {{'register' == request()->segment(1) ? 'active' : ''}}" href="{{ route('register') }}">Register</a></li>
+                            <li><a class="nav-link scrollto {{ 'login' == request()->segment(1) ? 'active' : '' }}"
+                                    href="{{ route('login') }}">Login</a></li>
+                            <li><a class="nav-link scrollto {{ 'register' == request()->segment(1) ? 'active' : '' }}"
+                                    href="{{ route('register') }}">Register</a></li>
                         @endauth
                     </ul>
                 @endif
@@ -79,9 +85,25 @@
     </header><!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
+    <div class="container" style="margin-bottom: 100px;">
+        @yield('content')
 
-    @yield('content')
+    </div>
 
+
+    <footer id="footer" class="mx-auto" style="margin-top: 100px">
+        <div class="container footer-bottom clearfix">
+            <div class="copyright">
+                <strong><span><b>CV.LINTASNUSA</b></span></strong>. Email : <a
+                    href="mailto:lintasnusa1990@gmail.com">lintasnusa1990@gmail.com</a>, Wa : <a
+                    href="https://wa.me/6281249356745">+62 812-4935-6745 {{ date('Y') }}</a>
+            </div>
+            <div class="credits">
+                Designed by <a href="{{ url('/') }}">CV.LINTASNUSA</a>
+            </div>
+        </div>
+        &nbsp;
+    </footer>
     <!-- Vendor JS Files -->
     <script src="{{ asset('user-template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('user-template/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
@@ -103,7 +125,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('user-template/assets/js/main.js') }}"></script>
-    @include('sweetalert::alert')   
+    @include('sweetalert::alert')
 </body>
 
 </html>
