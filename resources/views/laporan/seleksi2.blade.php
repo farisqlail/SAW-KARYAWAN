@@ -43,9 +43,9 @@
                                 <td>{{  $loop->iteration}}</td>
                                 <td>
                                     @if ($t['status'] == "Diterima")
-                                        Seleksi Dua
+                                        Lolos Seleksi Dua
                                     @elseif($t['status'] == "Ditolak")
-                                        Seleksi Dua
+                                        Tidak Lolos Seleksi Dua
                                     @else 
                                         <span class="text-danger">Belum Ada keterangan</span>
                                     @endif
