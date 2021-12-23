@@ -17,6 +17,7 @@
                         <div class="row">
                             <form enctype="multipart/form-data" action="{{ route('pelamar.simpan') }}" method="POST" class="col-md-12">
                                 @csrf
+                                
                                 <div class="form-group">
                                     <input type="text" name="id_user" class="form-control" value="{{ Auth::id() }}" hidden>
                                 </div>
@@ -129,8 +130,31 @@
 
                     </div>
 
+                    <div class="modal fade" id="lamar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Cek Data Kamu!</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center mx-auto">
+                              <img src="{{ asset('assets/img/cek.gif') }}" class="img-fluid" width="250">
+
+                              <h3>Apakah anda yakin datamu sudah benar ?</h3>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                              <button type="submit" class="btn btn-primary">Yakin Lamar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     <div class="lamar-btn mt-3" align="right">
-                        <button type="submit" class="btn-get-started" style="border: none;">Lamar</button>
+                        <button type="button" class="btn-get-started" style="border: none;" data-bs-toggle="modal" data-bs-target="#lamar">
+                            Lamar
+                          </button>
+                        {{-- <button type="submit" class="btn-get-started" style="border: none;">Lamar</button> --}}
                     </div>
 
                     </form>

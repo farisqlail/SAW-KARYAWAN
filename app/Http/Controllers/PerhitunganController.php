@@ -94,6 +94,7 @@ class PerhitunganController extends Controller
                         $nilai = $nilai / 100;
 
                         $x['nama_pelamar'] = $data->nama_pelamar;
+                        $x['status'] = $data->seleksi_dua;
                         $x['id_pelamar'] = $data->id_pelamar;
 
                         $x['total'] = $nilai;
@@ -105,11 +106,11 @@ class PerhitunganController extends Controller
                     
                     return redirect()->back();
                 }
-                
-                usort($ar, function ($a, $b) {
-                    return $a['total'] <=> $b['total'];
-                });
-                rsort($ar);
+                array_multisort(array_column($ar, 'total'), SORT_DESC, $ar); 
+                // usort($ar, function ($a, $b) {
+                //     return $a['total'] <=> $b['total'];
+                // });
+                // rsort($ar);
                 // dd($ar);
                 return view('perhitungan.seleksi2', [
                     'daftarSoal'    => $daftarSoal,
@@ -150,10 +151,8 @@ class PerhitunganController extends Controller
 
         foreach ($kriteria as $krit) {
             $kode_krit[$krit->id_kriteria] = [];
-
             foreach ($alternatif as $al) {
                 foreach ($al->bobot as $bobot) {
-
                     if ($bobot->kriteria->id_kriteria == $krit->id_kriteria) {
                         $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
                     }
@@ -168,58 +167,100 @@ class PerhitunganController extends Controller
                 $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
             } else {
 
-                $kode_krit[$krit->id_kriteria] = 1;
+                $kode_krit[$krit->id_kriteria] = 0;
             }
         };
 
-        //        return json_encode($kode_krit);
-        // return view('laporan.seleksi1', [
-        //     'kriteria'      => $kriteria,
-        //     'alternatif'    => $alternatif,
-        //     'kode_krit'     => $kode_krit,
-        // ]);
-
-        // dd($tes);
-        $pdf = PDF::loadView('laporan.seleksi1', [
+            //    return json_encode($kode_krit);
+            // echo $kode_krit;
+        return view('laporan.seleksi1', [
             'kriteria'      => $kriteria,
             'alternatif'    => $alternatif,
-            'kode_krit'     => $kode_krit
+            'kode_krit'     => $kode_krit,
         ]);
 
-        return $pdf->download('Seleksi-tahap-satu.pdf');
+        // dd($tes);
+        // $pdf = PDF::loadView('laporan.seleksi1', [
+        //     'kriteria'      => $kriteria,
+        //     'alternatif'    => $alternatif,
+        //     'kode_krit'     => $kode_krit
+        // ]);
+
+        // return $pdf->download('Seleksi-tahap-satu.pdf');
     }
 
     public function laporan2($id)
     {
-        $lowongan = Lowongan::all();
-        $lowonganGet = $lowongan[0]->id_lowongan;
-
+        $lowongan = Lowongan::find($id);
         $daftarSoal = DaftarSoal::all();
         $daftarSoalGet = $daftarSoal[0]->id_soal;
         $tes = HasilTes::all();
 
-        if ($hasilTes = HasilTes::where('id_lowongan', '=', $id)->where('id_soal_tes', '=', $daftarSoalGet)->count() == 0) {
+        foreach ($tes as $hasilTes) {
+            if (HasilTes::all()->count() == null) {
 
-            Alert::error('Maaf', 'Data belum ada');
-            return redirect()->back();
-        } else {
+                Alert::error('Maaf', 'Data belum ada');
+                return redirect()->back();
+            } else {
+                // $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
+                //     ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
+                //     ->where('hasil_tes.id_lowongan', '=', $id)
+                //     // ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
+                //     ->groupBy('id_pelamar', 'bobot_soal')
+                //     ->get();
 
-            $hasilTes = HasilTes::select('id_pelamar', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
-                ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
-                ->where('hasil_tes.id_lowongan', '=', $id)
-                ->where('hasil_tes.id_soal_tes', '=', $daftarSoalGet)
-                ->groupBy('id_pelamar', 'bobot_soal')
-                ->get();
+                $ar = [];
+                $pelamar = Pelamar::all();
+                foreach ($pelamar as $data) {
+                    $nilai = HasilTes::select('id_soal', DB::raw('sum(nilai * bobot_soal) as hasil'))
+                        ->where('id_pelamar', $data->id_pelamar)
+                        ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
+                        ->where('hasil_tes.id_lowongan', '=', $id)
+                        ->groupBy('id_soal')
+                        ->get();
+
+                    if ($nilai->isNotEmpty()) {
+                        $nilai = $nilai->toArray();
+                        $nilai = array_sum(array_column($nilai, 'hasil'));
+                        $nilai = $nilai / 100;
+
+                        $x['nama_pelamar'] = $data->nama_pelamar;
+                        $x['alamat'] = $data->alamat;
+                        $x['telepon'] = $data->no_telepon;
+                        $x['status'] = $data->seleksi_dua;
+                        $x['id_pelamar'] = $data->id_pelamar;
+
+                        $x['total'] = $nilai;
+                        array_push($ar, $x);
+                    }
+                }
+                if (empty($ar)) {
+                    Alert::error('Maaf', 'Data belum ada');
+                    
+                    return redirect()->back();
+                }
+                array_multisort(array_column($ar, 'total'), SORT_DESC, $ar); 
+                // usort($ar, function ($a, $b) {
+                //     return $a['total'] <=> $b['total'];
+                // });
+                // rsort($ar);
+                // dd($ar);
+                $pdf = PDF::loadView('laporan.seleksi2', [
+                    'daftarSoal'    => $daftarSoal,
+                    'hasilTes'      => $ar,
+                    'lowongan'      => $lowongan
+                ]);
+
+                return $pdf->download('Seleksi-tahap-dua.pdf');
+            }
         }
-
         // dd($hasilTes); 
 
-        $pdf = PDF::loadView('laporan.seleksi2', [
-            'daftarSoal'    => $daftarSoal,
-            'hasilTes'      => $hasilTes,
-            'lowongan'      => $lowongan
-        ]);
+        // $pdf = PDF::loadView('laporan.seleksi2', [
+        //     'daftarSoal'    => $daftarSoal,
+        //     'hasilTes'      => $hasilTes,
+        //     'lowongan'      => $lowongan
+        // ]);
 
-        return $pdf->download('Seleksi-tahap-dua.pdf');
     }
 }

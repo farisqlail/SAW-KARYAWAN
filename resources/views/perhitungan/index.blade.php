@@ -81,8 +81,6 @@
                                                     @if ($crip->kriteria->atribut_kriteria == 'cost')
                                                         <?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; ?>
 
-
-
                                                     @elseif($crip->kriteria->atribut_kriteria == 'benefit')
                                                         <?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; ?>
 
@@ -124,7 +122,7 @@
                                 @csrf
                                 <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
                                     class="btn btn-success">Cetak Rekap</a>
-                                <input type="submit" name="submit" class="btn btn-danger" value="Tolak Semua">
+                                <input type="submit" name="submit" class="btn btn-danger" value="Seleksi Selesai">
                             </form>
                         </div>
                     </div>
@@ -161,6 +159,8 @@
                                             <td>
                                                 @if ($t['seleksi_1'] == 'Diterima')
                                                     Lolos Seleksi Satu
+                                                @elseif ($t['seleksi_1'] == 'Ditolak')
+                                                    Tidak Lolos Seleksi
                                                 @else
                                                     Menunggu Seleksi
                                                 @endif

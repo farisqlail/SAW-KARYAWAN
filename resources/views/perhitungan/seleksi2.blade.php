@@ -14,7 +14,7 @@
                             <form action="{{ route('pelamar.tolak.dua') }}" method="post">
                                 @csrf
                                 <a href="{{ route('seleksi.dua', $lowongan) }}" class="btn btn-success">Cetak Rekap</a>
-                                <input type="submit" name="submit" class="btn btn-danger" value="Tolak Semua">
+                                <input type="submit" name="submit" class="btn btn-danger" value="Seleksi Selesai">
 
                             </form>
                         </div>
@@ -41,11 +41,11 @@
                                             <td>{{ number_format($data['total']) }}</td>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                {{-- @if ($data['seleksi_dua'] == 'Diterima')
+                                                @if ($data['status'] == 'Diterima')
                                                     Lolos Seleksi Dua
                                                 @else
                                                     Menunggu Seleksi Tahap Dua
-                                                @endif --}}
+                                                @endif
                                             </td>
                                             <td align="center">
                                                 <form action="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" method="post">

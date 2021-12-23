@@ -25,16 +25,18 @@
                                 <td>
                                     @if ($data->seleksi_satu == null && $data->seleksi_dua == null)
                                         <span class="text-warning">Lamaran belum ada status</span>
-                                    @elseif($data->seleksi_satu == 'Diterima')
-                                        <span class="text-success">Lamaran Diterima Seleksi 1 </span>
-                                        @if ($data->seleksi_dua == 'Diterima')
-                                            <span class="text-success">dan seleksi 2 </span>
-                                        @endif
-                                    @elseif($data->seleksi_satu == 'Ditolak')
-                                        <span class="text-danger">Lamaran seleksi 1</span>
-                                        @if ($data->seleksi_dua == 'Ditolak')
-                                            <span class="text-danger">dan selsksi 2 ditolak</span>
-                                        @endif
+                                    @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == null)
+                                        <span class="text-success">Lolos Seleksi Tahap 1 <br>
+                                            (Silahkan Mengikuti Tes Online) </span>
+                                    @elseif ($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Diterima')
+                                        <span class="text-success">Lolos Seleksi Tahap 2 <br>
+                                            (Silahkan Datang Ke Perusahaan Untuk Mengikuti Wawancara) </span>
+
+                                    @elseif($data->seleksi_satu == 'Ditolak' && $data->seleksi_dua == null)
+                                        <span class="text-danger">Lamaran Ditolak</span>
+                                    @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Ditolak')
+                                        <span class="text-danger">Lamaran Ditolak</span>
+
                                     @endif
                                 </td>
                             </tr>

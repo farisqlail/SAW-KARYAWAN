@@ -33,45 +33,19 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($hasilTes as $data)
-                            @php
-                                $hitung = $data->nilai * ($data->bobot_soal / 100);
-                                
-                                $rangking[] = [
-                                    'nama'      => $data->pelamar->nama_pelamar,
-                                    'alamat'    => $data->pelamar->alamat,
-                                    'telepon'   => $data->pelamar->no_telepon,
-                                    'status'    => $data->pelamar->seleksi_dua,
-                                    'hitung'    => $hitung,
-                                    'bobot'     => $data->bobot_soal,
-                                    'id'        => $data->id_pelamar,
-                                ];
-                            @endphp
-
-                        @endforeach
-
-                        @php
-                            usort($rangking, function ($a, $b) {
-                                return $a['hitung'] <=> $b['hitung'];
-                            });
-                            rsort($rangking);
-                            $a = 1;
-                            $no2 = 1;
-                        @endphp
-
-                        @foreach ($rangking as $t)
+                        @foreach ($hasilTes as $t)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $t['nama'] }}</td>
+                                <td>{{ $t['nama_pelamar'] }}</td>
                                 <td>{{ $t['alamat'] }}</td>
                                 <td>{{ $t['telepon'] }}</td>
-                                <td>{{ number_format($t['hitung']) }}</td>
-                                <td>{{ $a++ }}</td>
+                                <td>{{ number_format($t['total']) }}</td>
+                                <td>{{  $loop->iteration}}</td>
                                 <td>
                                     @if ($t['status'] == "Diterima")
-                                        Seleksi Satu
+                                        Seleksi Dua
                                     @elseif($t['status'] == "Ditolak")
-                                        Seleksi Satu
+                                        Seleksi Dua
                                     @else 
                                         <span class="text-danger">Belum Ada keterangan</span>
                                     @endif

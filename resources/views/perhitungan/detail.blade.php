@@ -23,18 +23,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        Tanggal Lahir
+                                        Tempat Lahir
                                     </div>
                                     <div class="col-md-6">
-                                        : {{ $pelamar->tanggal_lahir }} <br>
+                                        : {{ $pelamar->tempat_lahir }} <br>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        No Telepon
+                                        Agama
                                     </div>
                                     <div class="col-md-6">
-                                        : {{ $pelamar->no_telepon }} <br>
+                                        : {{ $pelamar->agama }} <br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Alamat
+                                    </div>
+                                    <div class="col-md-6">
+                                        : {{ $pelamar->alamat }} <br>
                                     </div>
                                 </div>
                                 <div class="row">
