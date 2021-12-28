@@ -43,21 +43,29 @@
                                             <td>
                                                 @if ($data['status'] == 'Diterima')
                                                     Lolos Seleksi Dua
+                                                @elseif($data['status'] == 'Ditolak')
+                                                    Tidak Lolos Seleksi Dua
                                                 @else
                                                     Menunggu Seleksi Tahap Dua
                                                 @endif
                                             </td>
                                             <td align="center">
-                                                <form action="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" method="post">
+                                                <form action="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}"
+                                                    method="post">
                                                     {{ csrf_field() }}
 
-                                                    <input type="submit" name="submit"
-                                                        href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
-                                                        class="btn btn-success" value="Terima">
+                                                    <a href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
+                                                        class="btn btn-info">Lihat Detail</a>
 
-                                                    <input type="submit" name="submit"
-                                                        href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
-                                                        class="btn btn-danger" value="Tolak">
+                                                    @if ($data['status'] == null)
+                                                        <input type="submit" name="submit"
+                                                            href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
+                                                            class="btn btn-success" value="Terima">
+
+                                                        <input type="submit" name="submit"
+                                                            href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
+                                                            class="btn btn-danger" value="Tolak">
+                                                    @endif
                                                 </form>
                                             </td>
                                         </tr>

@@ -92,6 +92,7 @@
                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                             <td>{{ $a++ }}</td>
                             <td>
+                                
                                 @if ($t['seleksi_1'] == 'Diterima')
                                     Lolos Seleksi Satu
                                 @elseif($t['seleksi_1'] == "Ditolak")
