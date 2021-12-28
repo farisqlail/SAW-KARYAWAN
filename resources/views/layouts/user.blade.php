@@ -27,6 +27,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('user-template/assets/css/style.css') }}" rel="stylesheet">
@@ -60,8 +62,9 @@
                                         class="bi bi-chevron-down"></i></a>
                                 <ul>
 
-                                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">Logout</a>
+                                    <li><a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                                    document.getElementById('logout-form').submit();">Logout</a>
                                     </li>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -91,7 +94,40 @@
     </div>
 
 
-    <footer id="footer" class="mx-auto" style="margin-top: 100px">
+    <footer id="footer">
+
+        <div class="footer-top">
+
+            <div class="container">
+
+                <div class="row  justify-content-center">
+                    <div class="col-lg-6">
+                        <h3>CV.LINTASNUSA</h3>
+                        <p>Sistem Penerimaan Karyawan</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://wa.me/6281249356745" class="phone"><i class="bx bxs-phone"></i></a>
+                    <a href="mailto:lintasnusa1990@gmail.com" class=""><i class="fas fa-envelope"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container footer-bottom ">
+            <div class="copyright">
+                <strong><span><b>CV.LINTASNUSA</b></span></strong>
+            </div>
+            <div class="credits">
+                Designed by <a href="{{ url('/') }}">CV.LINTASNUSA</a>
+            </div>
+        </div>
+        &nbsp;
+        </div>
+    </footer><!-- End Footer -->
+
+    {{-- <footer id="footer" class="mx-auto" style="margin-top: 100px">
         <div class="container footer-bottom clearfix">
             <div class="copyright">
                 <strong><span><b>CV.LINTASNUSA</b></span></strong>. Email : <a
@@ -103,7 +139,7 @@
             </div>
         </div>
         &nbsp;
-    </footer>
+    </footer> --}}
     <!-- Vendor JS Files -->
     <script src="{{ asset('user-template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('user-template/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
@@ -121,6 +157,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
         integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous">
     </script>
+    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
 
 
     <!-- Template Main JS File -->
