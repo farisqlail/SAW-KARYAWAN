@@ -166,7 +166,6 @@ class PerhitunganController extends Controller
                 $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
             } else {
                 $kode_krit[$krit->id_kriteria] = 1;
-
             }
         }
 
