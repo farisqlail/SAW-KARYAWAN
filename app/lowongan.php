@@ -8,7 +8,7 @@ class lowongan extends Model
 {
     protected $table        = 'lowongan';
     protected $primaryKey   = 'id_lowongan';
-    protected $fillable     = ['posisi_lowongan','kuota_lowongan','berlaku_sampai','deskripsi_pekerjaan', 'deskripsi_persyaratan'];
+    protected $fillable     = ['posisi_lowongan','berlaku_sampai','deskripsi_pekerjaan', 'deskripsi_persyaratan'];
     protected $hidden       = ['created_at','updated_at'];
 
     public function pelamar() {

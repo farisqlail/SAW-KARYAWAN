@@ -7,7 +7,6 @@
         <div class="card" style="margin-top: 100px; width: 50rem; border: none;">
             <div class="card-body">
                 <h4>{{ $lowongan->posisi_lowongan }}</h4>
-                <span class="text-muted">Kuota Lowongan: {{ $lowongan->kuota }}
                     <br>
                     <i class="text-danger"> Pendaftaran ditutup pada: {{ $lowongan->berlaku_sampai }}</i></span>
                 <p class="mt-3">

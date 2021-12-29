@@ -12,7 +12,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4><b>{{ $data->posisi_lowongan }}</b></h4>
-                                <span class="text-muted">Kuota Lowongan: {{ $data->kuota }}
                                     <br>
                                     <i class="text-danger">
                                         @php

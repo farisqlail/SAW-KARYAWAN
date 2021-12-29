@@ -34,10 +34,6 @@
                                     <input type="text" name="posisi" required class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama">Kuota Lowongan <span class="text-danger">*</span></label>
-                                    <input type="number" name="kuota" required class="form-control">
-                                </div>
-                                <div class="form-group">
                                     <label for="nama">Berlaku Sampai <span class="text-danger">*</span></label>
                                     <input type="date" name="berlaku" required class="form-control">
                                 </div>

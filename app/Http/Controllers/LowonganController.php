@@ -49,7 +49,6 @@ class LowonganController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'posisi' => 'required',
-            'kuota' => "required",
             'berlaku' => "required",
             'deskripsi_pekerjaan' => "required",
             'deskripsi_persyaratan' => "required",
@@ -63,7 +62,6 @@ class LowonganController extends Controller
 
             $lowongan = new lowongan();
             $lowongan->posisi_lowongan = $request->get('posisi');
-            $lowongan->kuota = $request->get('kuota');
             $lowongan->berlaku_sampai = $request->get('berlaku');
             $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
@@ -109,7 +107,6 @@ class LowonganController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'posisi' => 'required',
-            'kuota' => "required",
             'berlaku' => "required",
             'deskripsi_pekerjaan' => "required",
             'deskripsi_persyaratan' => "required",
@@ -123,7 +120,6 @@ class LowonganController extends Controller
 
             $lowongan = lowongan::find($id);
             $lowongan->posisi_lowongan = $request->get('posisi');
-            $lowongan->kuota = $request->get('kuota');
             $lowongan->berlaku_sampai = $request->get('berlaku');
             $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');

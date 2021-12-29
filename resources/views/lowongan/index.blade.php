@@ -23,7 +23,6 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Posisi Lowongan</th>
-                                        <th class="text-center">Kuota Lowongan</th>
                                         <th class="text-center">Berlaku Sampai</th>
                                         <th class="text-center">Deskripsi Lowongan</th>
                                         <th class="text-center">Deskripsi Persyaratan</th>
@@ -37,7 +36,6 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
-                                                <td>{{ $data->kuota }}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_persyaratan, 30) !!}</td>
