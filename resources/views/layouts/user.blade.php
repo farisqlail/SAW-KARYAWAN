@@ -88,7 +88,7 @@
     </header><!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
-    <div class="container" style="margin-bottom: 100px;">
+    <div class="container" style="margin-bottom: 500px;">
         @yield('content')
 
     </div>

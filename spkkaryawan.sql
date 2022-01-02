@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2021 at 05:34 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.25
+-- Generation Time: Dec 29, 2021 at 08:16 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `spkkaryawan`
+-- Database: `sawkaryawan`
 --
 
 -- --------------------------------------------------------
@@ -36,6 +36,20 @@ CREATE TABLE `bobot_kriteria` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `bobot_kriteria`
+--
+
+INSERT INTO `bobot_kriteria` (`id_bobot_kriteria`, `id_kriteria`, `nama_bobot`, `jumlah_bobot`, `created_at`, `updated_at`) VALUES
+(1, 1, 'SMA/SMK', 1, '2021-12-22 21:21:13', '2021-12-22 21:21:13'),
+(2, 1, 'D1/D2', 2, '2021-12-22 21:21:27', '2021-12-22 21:21:27'),
+(3, 1, 'S1', 3, '2021-12-22 21:21:38', '2021-12-22 21:21:38'),
+(4, 1, '>S1', 5, '2021-12-22 21:21:51', '2021-12-22 21:21:51'),
+(5, 2, 'Belum Ada', 1, '2021-12-22 21:22:30', '2021-12-22 21:22:30'),
+(6, 2, '<1Tahun', 2, '2021-12-22 21:22:42', '2021-12-22 21:22:42'),
+(7, 2, '<2 Tahun', 3, '2021-12-22 21:22:55', '2021-12-22 21:22:55'),
+(8, 2, '>2 Tahun', 4, '2021-12-22 21:23:09', '2021-12-22 21:23:09');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +65,14 @@ CREATE TABLE `daftar_soal` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `daftar_soal`
+--
+
+INSERT INTO `daftar_soal` (`id_soal`, `id_jadwal_tes`, `soal`, `file_soal`, `bobot_soal`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Buatlah Pivot Tabel', '1640233449.docx', 60, '2021-12-22 21:24:09', '2021-12-22 21:24:09'),
+(2, 1, 'Buatlah Diagram Batang', '1640233470.docx', 40, '2021-12-22 21:24:30', '2021-12-22 21:24:30');
 
 -- --------------------------------------------------------
 
@@ -69,6 +91,14 @@ CREATE TABLE `hasil_tes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `hasil_tes`
+--
+
+INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `id_lowongan`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '1640233938.docx', 90, '2021-12-22 21:31:55', '2021-12-22 21:34:06'),
+(2, 2, 1, 1, '1640233962.pdf', 80, '2021-12-22 21:32:42', '2021-12-22 21:34:25');
+
 -- --------------------------------------------------------
 
 --
@@ -83,6 +113,13 @@ CREATE TABLE `jadwal_tes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jadwal_tes`
+--
+
+INSERT INTO `jadwal_tes` (`id_jadwal_tes`, `id_lowongan`, `tanggal`, `durasi_tes`, `created_at`, `updated_at`) VALUES
+(1, 1, '2021-12-23 11:23:00', '2021-12-24 11:23:00', '2021-12-22 21:23:35', '2021-12-22 21:23:35');
 
 -- --------------------------------------------------------
 
@@ -100,6 +137,14 @@ CREATE TABLE `kriteria` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `kriteria`
+--
+
+INSERT INTO `kriteria` (`id_kriteria`, `id_lowongan`, `nama_kriteria`, `atribut_kriteria`, `bobot_preferensi`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Pendidikan terakhir', 'benefit', 65, '2021-12-22 21:20:51', '2021-12-22 21:20:51'),
+(2, 1, 'Pengalaman Kerja', 'benefit', 35, '2021-12-22 21:22:11', '2021-12-22 21:22:11');
+
 -- --------------------------------------------------------
 
 --
@@ -109,7 +154,6 @@ CREATE TABLE `kriteria` (
 CREATE TABLE `lowongan` (
   `id_lowongan` int(10) UNSIGNED NOT NULL,
   `posisi_lowongan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kuota` int(11) NOT NULL,
   `berlaku_sampai` date NOT NULL,
   `deskripsi_pekerjaan` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `deskripsi_persyaratan` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -117,6 +161,13 @@ CREATE TABLE `lowongan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `lowongan`
+--
+
+INSERT INTO `lowongan` (`id_lowongan`, `posisi_lowongan`, `berlaku_sampai`, `deskripsi_pekerjaan`, `deskripsi_persyaratan`, `status_lowongan`, `created_at`, `updated_at`) VALUES
+(1, 'Finance', '2021-12-31', '<ul>\r\n	<li>Handling Account Payable, verifying invoices and performing reconciliations</li>\r\n	<li>Updating Accounts Receivable and issuing invoices.</li>\r\n	<li>Preparing weekly payment request.</li>\r\n	<li>Managing prepaid expenses and petty cash</li>\r\n	<li>Perform daily bank reconciliation</li>\r\n</ul>', '<ul>\r\n	<li>Candidate must possess a Bachelor&#39;s Degree or equivalent in Economics field</li>\r\n	<li>Fresh Graduate are welcome to apply</li>\r\n	<li>Understand about tax is a plus.</li>\r\n	<li>Good in English Written and Verbal</li>\r\n	<li>Good analytical and communication skills</li>\r\n</ul>', NULL, '2021-12-22 21:20:17', '2021-12-22 21:20:17');
 
 -- --------------------------------------------------------
 
@@ -160,6 +211,18 @@ CREATE TABLE `nilai_alternatif` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `nilai_alternatif`
+--
+
+INSERT INTO `nilai_alternatif` (`id_nilai_alternatif`, `id_pelamar`, `id_bobot_kriteria`, `updated_at`, `created_at`) VALUES
+(1, 1, 3, '2021-12-22 21:26:24', '2021-12-22 21:26:24'),
+(2, 1, 8, '2021-12-22 21:26:24', '2021-12-22 21:26:24'),
+(3, 2, 1, '2021-12-22 21:27:55', '2021-12-22 21:27:55'),
+(4, 2, 5, '2021-12-22 21:27:55', '2021-12-22 21:27:55'),
+(5, 3, 2, '2021-12-23 04:19:47', '2021-12-23 04:19:47'),
+(6, 3, 6, '2021-12-23 04:19:47', '2021-12-23 04:19:47');
+
 -- --------------------------------------------------------
 
 --
@@ -198,6 +261,15 @@ CREATE TABLE `pelamar` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `pelamar`
+--
+
+INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 'Altamarin Adji', '2020-06-09', 'Samarinda', 'Islam', 'Jl Melati', '081246555667', 'Laki-laki', '1640233583.pdf', '1640233584.pdf', '1640233584.png', 'Diterima', 'Ditolak', '2021-12-22 21:26:24', '2021-12-22 21:35:18'),
+(2, 3, 1, 'udin', '2021-12-07', 'Samarinda', 'Islam', 'Jl Kembar', '081233233323', 'Laki-laki', '1640233675.pdf', '1640233675.pdf', '1640233675.png', 'Ditolak', NULL, '2021-12-22 21:27:55', '2021-12-22 21:28:42'),
+(3, 4, 1, 'faris', '2021-12-01', 'sby', 'Kristen', 'asdsda', '12323', 'Laki-laki', '1640258387.pdf', '1640258387.pdf', '1640258387.png', NULL, NULL, '2021-12-23 04:19:47', '2021-12-23 04:19:47');
+
 -- --------------------------------------------------------
 
 --
@@ -220,7 +292,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'zxk8nhSeZW80pgehzluobFrTNt7HceofOnvWqZIaAR4xNeFFeSvwfzR7e8fl', NULL, NULL);
+(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'UxsNLi7oKvqQwhAecKOhgdKDoLThenXgvSXoXOuw6iDEsSn6EKWPH8qUyPlp', NULL, NULL),
+(2, 'Altamarin', 'customer', 'altamarin14@gmail.com', '$2y$10$8XEawByNZ0UtYkgoktCMWO7B0xNF5yBPxk3KIvTsDH82LvDh.koq2', NULL, '2021-12-22 21:25:13', '2021-12-22 21:25:13'),
+(3, 'udin', 'customer', 'udin@gmail.com', '$2y$10$bHEuTuiAEukyxQsL5VMw.e9vs2njnQ0lKhi7GgIvPyKeIF6JW6OUK', NULL, '2021-12-22 21:26:46', '2021-12-22 21:26:46'),
+(4, 'faris', 'customer', 'faris.riskilail@gmail.com', '$2y$10$V10l26cBMJrMU/bjDjXmwOa3fjeJ/9Yaxlhx1ZH.UmYFq4/v5mbs2', NULL, '2021-12-23 04:12:59', '2021-12-23 04:12:59');
 
 --
 -- Indexes for dumped tables
@@ -314,37 +389,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bobot_kriteria`
 --
 ALTER TABLE `bobot_kriteria`
-  MODIFY `id_bobot_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bobot_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
-  MODIFY `id_soal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_soal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
-  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `lowongan`
 --
 ALTER TABLE `lowongan`
-  MODIFY `id_lowongan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lowongan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -356,19 +431,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
-  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pelamar`
 --
 ALTER TABLE `pelamar`
-  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
