@@ -3,8 +3,9 @@
 @section('content')
 
     <div class="container" style="margin-top: 10rem;">
+        <h2><strong>Tes Online</strong></h2>
         @foreach ($jadwal_tes as $item)
-            <div class="card mt-5" style="width: 40rem;">
+            <div class="card mt-3">
                 <div class="card-body">
                     <h6 class="text-success">Posisi Lowongan</h6>
                     <h5><b>{{ $item->posisi_lowongan }}</b></h5>
