@@ -4,8 +4,7 @@
 
     {{-- @include('jawaban.jawaban') --}}
 
-    <div class="container" style="margin-top: 6rem;">
-        <div class="card shadow-sm p-3 mb-5 bg-body rounded">
+        <div class="card shadow-sm p-3 mb-5 bg-body rounded" style="margin-top: 100px;">
             <h1 class="mb-5">Tes Tulis Online</h1>
             <div class="card-body">
 
