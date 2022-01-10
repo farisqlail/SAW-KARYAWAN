@@ -12,17 +12,17 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4><b>{{ $data->posisi_lowongan }}</b></h4>
-                                    <br>
-                                    <i class="text-danger">
-                                        @php
-                                            $date = \Carbon\Carbon::parse($data->berlaku_sampai);
-                                        @endphp
-                                        @if ($date > \Carbon\Carbon::now())
-                                            Pendaftaran berlaku sampai {{ $data->berlaku_sampai }}
-                                        @else
-                                            Pendaftaran ditutup
-                                        @endif
-                                    </i></span>
+                                <br>
+                                <i class="text-danger">
+                                    @php
+                                        $date = \Carbon\Carbon::parse($data->berlaku_sampai);
+                                    @endphp
+                                    @if ($date > \Carbon\Carbon::now())
+                                        Pendaftaran berlaku sampai {{ $data->berlaku_sampai }}
+                                    @else
+                                        Pendaftaran ditutup
+                                    @endif
+                                </i></span>
                                 <p class="mt-3">
                                 <h4>Persyaratan</h4>
                                 {!! $data->deskripsi_persyaratan !!}
@@ -43,8 +43,20 @@
                                         @if (\Carbon\Carbon::parse($data->berlaku_sampai) > \Carbon\Carbon::now())
                                             <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
                                                 class="btn btn-outline-primary">Lihat Detail</a>
-                                            <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}"
-                                                class="btn-get-started">Lamar</a>
+                                            @php
+                                                $check = false;
+                                            @endphp
+                                            @foreach ($data->pelamar as $item)
+                                                @if (Auth::user()->id == $item->id_user)
+                                                    @php
+                                                        $check = true;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                            @if (!$check)
+                                                <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}"
+                                                    class="btn-get-started">Lamar</a>
+                                            @endif
                                         @endif
                                     </div>
                                 @endif

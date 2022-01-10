@@ -95,6 +95,8 @@
         <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     @endif
 
+
+
     <script src="{{ asset('assets/js/core/bootstrap-material-design.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
 
@@ -141,6 +143,8 @@
     </script>
 
     @include('sweetalert::alert')
+
+    @yield('script')
 </body>
 
 </html>

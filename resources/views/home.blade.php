@@ -48,7 +48,7 @@
         <div class="card">
             <div class="card-body">
                 <h3>Riwayat Rekruitmen</h3>
-                <div class="table-responsive">
+                {{-- <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -74,10 +74,70 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table> --}}
+
+                    <div id="chart"></div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script>
+        // Create the chart
+        $(document).ready(function() {
+            Highcharts.chart('chart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Riwayat Rekruitmen'
+                },
+                subtitle: {
+                    text: 'Riwayat rekruitmen pelamar perlowongan'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total pelemar perlowongan'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.1f}%'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                },
+
+                series: [{
+                    name: "Browsers",
+                    colorByPoint: true,
+                    data: @php echo json_encode($a); @endphp
+                }],
+                
+            });
+        });
+    </script>
 @endsection
