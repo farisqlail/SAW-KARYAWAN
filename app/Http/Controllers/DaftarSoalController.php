@@ -23,9 +23,13 @@ class DaftarSoalController extends Controller
      */
     public function index($id)
     {
-        $jadwaltes = JadwalTes::find($id);
-        $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->get();
-        return view('daftar_soal.index', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes]);
+        if (Auth::user()->role == 'admin') {
+            $jadwaltes = JadwalTes::find($id);
+            $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->get();
+            return view('daftar_soal.index', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes]);
+        } else {
+            abort(404);
+        }
     }
 
     public function home($id)
@@ -40,25 +44,25 @@ class DaftarSoalController extends Controller
         $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
             $q->where('id_pelamar', $pelamarGet);
         }])
-        // ->where(function($q) use ($pelamarGet){
-        //     $q->whereHas('hasil_tes', function($q) use ($pelamarGet) {
-        //         $q->where('id_pelamar', $pelamarGet);
-        //     })
-        //     ->orWhereHas('hasil_tes', function($q) use ($pelamarGet) {
-        //         $q->where('id_pelamar', '!=', $pelamarGet);
-        //     });
-        // })
-        ->with(['hasil_tes' => function($q) use ($pelamarGet) {
-            $q->where('id_pelamar', $pelamarGet);
-        }])
-        ->get();
+            // ->where(function($q) use ($pelamarGet){
+            //     $q->whereHas('hasil_tes', function($q) use ($pelamarGet) {
+            //         $q->where('id_pelamar', $pelamarGet);
+            //     })
+            //     ->orWhereHas('hasil_tes', function($q) use ($pelamarGet) {
+            //         $q->where('id_pelamar', '!=', $pelamarGet);
+            //     });
+            // })
+            ->with(['hasil_tes' => function ($q) use ($pelamarGet) {
+                $q->where('id_pelamar', $pelamarGet);
+            }])
+            ->get();
 
         if ($daftarsoal->isEmpty()) {
             $daftarsoal = $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
                 $q->where('id_pelamar', $pelamarGet);
             }])->get();
         }
-        
+
         // ->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
         //     $q->where('id_pelamar', $pelamarGet);
         // })->with(['hasil_tes' => function($q) use ($pelamarGet) {
@@ -77,8 +81,12 @@ class DaftarSoalController extends Controller
      */
     public function create($id)
     {
-        $jadwaltes = JadwalTes::find($id);
-        return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
+        if (Auth::user()->role == 'admin') {
+            $jadwaltes = JadwalTes::find($id);
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -137,9 +145,12 @@ class DaftarSoalController extends Controller
      */
     public function edit($id)
     {
-        $daftar_soal = DaftarSoal::find($id);
-
-        return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal]);
+        if (Auth::user()->role == 'admin') {
+            $daftar_soal = DaftarSoal::find($id);
+            return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal]);
+        } else {
+            abort(404);
+        }
     }
 
     /**

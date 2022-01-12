@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Kriteria;
 use App\lowongan;
+use Illuminate\Support\Facades\Auth;
 
 class KriteriaController extends Controller
 {
@@ -17,9 +18,13 @@ class KriteriaController extends Controller
      */
     public function index($id)
     {
-        $lowongan = lowongan::find($id);
-        $data = Kriteria::where('id_lowongan',$id)->get();
-        return view('kriteria.index',['kriteria' => $data,'lowongan'=>$lowongan]);
+        if (Auth::user()->role == 'admin') {
+            $lowongan = lowongan::find($id);
+            $data = Kriteria::where('id_lowongan', $id)->get();
+            return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan]);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -29,8 +34,12 @@ class KriteriaController extends Controller
      */
     public function create($id)
     {
-        $lowongan = lowongan::find($id);
-        return view('kriteria.tambah',['lowongan' => $lowongan]);
+        if (Auth::user()->role == 'admin') {
+            $lowongan = lowongan::find($id);
+            return view('kriteria.tambah', ['lowongan' => $lowongan]);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -46,7 +55,7 @@ class KriteriaController extends Controller
             'nama_kriteria' => "required",
             'atribut_kriteria' => "required",
             'bobot_preferensi' => "required",
-            
+
         ]);
 
         if ($validator->fails()) {
@@ -59,9 +68,9 @@ class KriteriaController extends Controller
             $kriteria->id_lowongan = $request->get('id_lowongan');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
-            $kriteria->bobot_preferensi= $request->get('bobot_preferensi');
+            $kriteria->bobot_preferensi = $request->get('bobot_preferensi');
             $kriteria->save();
-            return redirect()->route('kriteria.index',['id' => $kriteria->id_lowongan]);
+            return redirect()->route('kriteria.index', ['id' => $kriteria->id_lowongan]);
         }
         return redirect(route('kriteria'));
     }
@@ -85,8 +94,12 @@ class KriteriaController extends Controller
      */
     public function edit($id)
     {
-        $kriteria = Kriteria::find($id);
-        return view('kriteria.edit',['data' => $kriteria]);
+        if (Auth::user()->role == 'admin') {
+            $kriteria = Kriteria::find($id);
+            return view('kriteria.edit', ['data' => $kriteria]);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -103,7 +116,7 @@ class KriteriaController extends Controller
             'nama_kriteria' => "required",
             'atribut_kriteria' => "required",
             'bobot_preferensi' => "required",
-            
+
         ]);
 
         if ($validator->fails()) {
@@ -116,10 +129,10 @@ class KriteriaController extends Controller
             $kriteria->id_lowongan = $request->get('id_lowongan');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
-            $kriteria->bobot_preferensi= $request->get('bobot_preferensi');
+            $kriteria->bobot_preferensi = $request->get('bobot_preferensi');
             $kriteria->save();
         }
-        return redirect(route('kriteria.index',['id' => $kriteria->id_lowongan]));
+        return redirect(route('kriteria.index', ['id' => $kriteria->id_lowongan]));
     }
 
     /**
@@ -132,8 +145,6 @@ class KriteriaController extends Controller
     {
         $kriteria = Kriteria::find($id);
         $kriteria->delete();
-        return redirect(route('kriteria.index',['id' => $kriteria->id_lowongan]));
+        return redirect(route('kriteria.index', ['id' => $kriteria->id_lowongan]));
     }
-
-   
 }

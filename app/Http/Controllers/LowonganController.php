@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\lowongan;
 use App\Pelamar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,11 +18,16 @@ class LowonganController extends Controller
      */
     public function index()
     {
-        $lowongan = lowongan::all();
-        return view('lowongan.index', ['lowongan' => $lowongan]);
+        if (Auth::user()->role == 'admin') {
+            $lowongan = lowongan::all();
+            return view('lowongan.index', ['lowongan' => $lowongan]);
+        } else {
+            abort(404);
+        }
     }
 
-    public function home(){
+    public function home()
+    {
 
         $lowongan = lowongan::all();
         $pelamar = Pelamar::all();
@@ -36,7 +42,11 @@ class LowonganController extends Controller
      */
     public function create()
     {
-        return view('lowongan.tambah');
+        if (Auth::user()->role == 'admin') {
+            return view('lowongan.tambah');
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -63,7 +73,7 @@ class LowonganController extends Controller
             $lowongan = new lowongan();
             $lowongan->posisi_lowongan = $request->get('posisi');
             $lowongan->berlaku_sampai = $request->get('berlaku');
-            $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
+            $lowongan->deskripsi_pekerjaan = $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
             $lowongan->save();
             return redirect()->route('lowongan.index');
@@ -81,7 +91,7 @@ class LowonganController extends Controller
         $lowongan = lowongan::find($id);
         $pelamar = Pelamar::all();
 
-        return view('lowongan.detail',['lowongan' => $lowongan, 'pelamar' => $pelamar]);
+        return view('lowongan.detail', ['lowongan' => $lowongan, 'pelamar' => $pelamar]);
     }
 
     /**
@@ -92,8 +102,12 @@ class LowonganController extends Controller
      */
     public function edit($id)
     {
-        $lowongan = lowongan::find($id);
-        return view('lowongan.edit',['lowongan' => $lowongan]);
+        if (Auth::user()->role == 'admin') {
+            $lowongan = lowongan::find($id);
+            return view('lowongan.edit', ['lowongan' => $lowongan]);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -121,7 +135,7 @@ class LowonganController extends Controller
             $lowongan = lowongan::find($id);
             $lowongan->posisi_lowongan = $request->get('posisi');
             $lowongan->berlaku_sampai = $request->get('berlaku');
-            $lowongan->deskripsi_pekerjaan= $request->get('deskripsi_pekerjaan');
+            $lowongan->deskripsi_pekerjaan = $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
             $lowongan->save();
             return redirect()->route('lowongan.index');
@@ -136,7 +150,7 @@ class LowonganController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $lowongan = Lowongan::findOrFail($id);
         $lowongan->delete();
 
