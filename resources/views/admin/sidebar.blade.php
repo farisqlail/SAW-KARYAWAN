@@ -9,8 +9,8 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li class="{{'home' == request()->path() ? 'active' : ''}}">
-        <a class="nav-link" href="{{ url('/home') }}">
+      <li class="{{'admin/home' == request()->path() ? 'active' : ''}}">
+        <a class="nav-link" href="{{ url('/admin/home') }}">
           <i class="material-icons">dashboard</i>
           <p>Home</p>
         </a>

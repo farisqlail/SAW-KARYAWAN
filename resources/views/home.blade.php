@@ -11,8 +11,11 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Pelamar yang menunggu seleksi</h4>
-                        <h3>{{ $pelamar }}</h3>
+                        <h4 class="card-title">Pelamar yang menunggu seleksi 1 :</h4>
+                        <h4>{{ $pelamar }}</h4>
+                        <h4 class="card-title">Pelamar yang menunggu seleksi 2 : </h4>
+                        <h4>{{ $pelamars2 }}</h4>
+                        
                     </div>
                 </div>
             </div>
@@ -24,8 +27,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Rekruitmen Berlangsung</h4>
-                        <h3>{{ $lowongan }}</h3>
+                        <h4 class="card-title">Rekrutmen Berlangsung</h4>
+                        <h3>{{ $lowonganBerlaku }}</h3>
                     </div>
                 </div>
             </div>
@@ -37,8 +40,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Rekruitmen Selesai</h4>
-                        <h3>{{ $pelamarDua }}</h3>
+                        <h4 class="card-title">Rekrutmen Selesai</h4>
+                        <h3>{{ $lowonganBerakhir }}</h3>
                     </div>
                 </div>
             </div>
@@ -109,7 +112,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Total pelemar perlowongan'
+                        text: 'Total pelamar perlowongan'
                     }
 
                 },
@@ -121,20 +124,21 @@
                         borderWidth: 0,
                         dataLabels: {
                             enabled: true,
-                            format: '{point.y:.1f}%'
+                            format: '{point.y:.0f}'
                         }
                     }
                 },
 
                 tooltip: {
                     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    pointFormat: '<span style="color:{point.color}">{point.date} <br>{point.name}</span>: <b>{point.y:.0f}</b><br/>'
                 },
 
                 series: [{
-                    name: "Browsers",
+                    name: "Jumlah Pelamar",
                     colorByPoint: true,
-                    data: @php echo json_encode($a); @endphp
+                    data: @php echo json_encode($a);
+                     @endphp
                 }],
                 
             });

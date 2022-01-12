@@ -16,63 +16,63 @@ Route::get('/', 'FrontendController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/home', 'HomeController@index')->name('home');
 
 
 //LOWONGAN
 Route::prefix('/lowongan')->group(function ()
 {
-    Route::get('/', 'LowonganController@index')->name('lowongan.index');
+    Route::get('/admin', 'LowonganController@index')->name('lowongan.index');
     Route::get('/daftar-lowongan', 'LowonganController@home')->name('lowongan.home');
     Route::get('/tambah', 'LowonganController@create')->name('lowongan.tambah');
     Route::get('/detail/{id}', 'LowonganController@show')->name('lowongan.detail');
     Route::post('/tambah', 'LowonganController@store')->name('lowongan.simpan');
-    Route::get('/edit/{id}', 'LowonganController@edit')->name('lowongan.edit');
-    Route::post('/edit/{id}', 'LowonganController@update')->name('lowongan.update');
-    Route::get('/hapus/{id}', 'LowonganController@delete')->name('lowongan.delete');
-    Route::get('/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
+    Route::get('/admin/edit/{id}', 'LowonganController@edit')->name('lowongan.edit');
+    Route::post('/admin/edit/{id}', 'LowonganController@update')->name('lowongan.update');
+    Route::get('/admin/hapus/{id}', 'LowonganController@delete')->name('lowongan.delete');
+    Route::get('/admin/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
     //Kriteria
-    Route::get('/kriteria/{id}', 'KriteriaController@index')->name('kriteria.index');
-    Route::get('/kriteria/{id}/tambah', 'KriteriaController@create')->name('kriteria.tambah');
-    Route::post('/kriteria/tambah', 'KriteriaController@store')->name('kriteria.simpan');
-    Route::get('/kriteria/edit/{id}', 'KriteriaController@edit')->name('kriteria.edit');
-    Route::post('/kriteria/edit/{id}', 'KriteriaController@update')->name('kriteria.update');
-    Route::get('/kriteria/hapus/{id}', 'KriteriaController@destroy')->name('kriteria.hapus');
+    Route::get('/admin/kriteria/{id}', 'KriteriaController@index')->name('kriteria.index');
+    Route::get('/admin/kriteria/{id}/tambah', 'KriteriaController@create')->name('kriteria.tambah');
+    Route::post('/admin/kriteria/tambah', 'KriteriaController@store')->name('kriteria.simpan');
+    Route::get('/admin/kriteria/edit/{id}', 'KriteriaController@edit')->name('kriteria.edit');
+    Route::post('/admin/kriteria/edit/{id}', 'KriteriaController@update')->name('kriteria.update');
+    Route::get('/admin/kriteria/hapus/{id}', 'KriteriaController@destroy')->name('kriteria.hapus');
     //Bobot Kriteria
-    Route::get('/bobot_kriteria/{id}', 'BobotKriteriaController@index')->name('bobot_kriteria.index');
-    Route::get('/bobot_kriteria/{id}/tambah', 'BobotKriteriaController@create')->name('bobot_kriteria.tambah');
-    Route::post('/bobot_kriteria/tambah', 'BobotKriteriaController@store')->name('bobot_kriteria.simpan');
-    Route::get('/bobot_kriteria/edit/{id}', 'BobotKriteriaController@edit')->name('bobot_kriteria.edit');
-    Route::post('/bobot_kriteria/edit/{id}', 'BobotKriteriaController@update')->name('bobot_kriteria.update');
-    Route::get('/bobot_kriteria/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
+    Route::get('/admin/bobot_kriteria/{id}', 'BobotKriteriaController@index')->name('bobot_kriteria.index');
+    Route::get('/admin/bobot_kriteria/{id}/tambah', 'BobotKriteriaController@create')->name('bobot_kriteria.tambah');
+    Route::post('/admin/bobot_kriteria/tambah', 'BobotKriteriaController@store')->name('bobot_kriteria.simpan');
+    Route::get('/admin/bobot_kriteria/edit/{id}', 'BobotKriteriaController@edit')->name('bobot_kriteria.edit');
+    Route::post('/admin/bobot_kriteria/edit/{id}', 'BobotKriteriaController@update')->name('bobot_kriteria.update');
+    Route::get('/admin/bobot_kriteria/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
 });
 
 
 Route::prefix('/daftar_soal')->group(function ()
 {
-    Route::get('/{id}', 'DaftarSoalController@index')->name('daftar_soal.index');
-    Route::get('/{id}/tambah', 'DaftarSoalController@create')->name('daftar_soal.tambah');
-    Route::post('/tambah', 'DaftarSoalController@store')->name('daftar_soal.simpan');
-    Route::get('/edit/{id}', 'DaftarSoalController@edit')->name('daftar_soal.edit');
-    Route::post('/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
-    Route::get('/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
-    Route::get('/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
+    Route::get('/admin/{id}', 'DaftarSoalController@index')->name('daftar_soal.index');
+    Route::get('/admin/{id}/tambah', 'DaftarSoalController@create')->name('daftar_soal.tambah');
+    Route::post('/admin/tambah', 'DaftarSoalController@store')->name('daftar_soal.simpan');
+    Route::get('/admin/edit/{id}', 'DaftarSoalController@edit')->name('daftar_soal.edit');
+    Route::post('/admin/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
+    Route::get('/admin/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
+    Route::get('/admin/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
     
 });
 
 Route::prefix('/jadwal_tes')->group(function ()
 {
-    Route::get('/', 'JadwalTesController@index')->name('jadwal_tes.index');
+    Route::get('/admin', 'JadwalTesController@index')->name('jadwal_tes.index');
    
-    Route::get('/tambah', 'JadwalTesController@create')->name('jadwal_tes.tambah');
-    Route::post('/tambah', 'JadwalTesController@store')->name('jadwal_tes.simpan');
-    Route::get('/pilih/{id}', 'JadwalTesController@pilihsoal')->name('jadwal_tes.pilihsoal');
-    Route::post('/pilih/{id}', 'JadwalTesController@simpansoal')->name('jadwal_tes.simpansoal');
-    Route::post('/hapussoal/{id}', 'JadwalTesController@hapussoal')->name('jadwal_tes.hapussoal');
-    Route::get('/edit/{id}', 'JadwalTesController@edit')->name('jadwal_tes.ubah');
-    Route::post('/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
-    Route::get('/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
-    Route::get('/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
+    Route::get('/admin/tambah', 'JadwalTesController@create')->name('jadwal_tes.tambah');
+    Route::post('/admin/tambah', 'JadwalTesController@store')->name('jadwal_tes.simpan');
+    Route::get('/admin/pilih/{id}', 'JadwalTesController@pilihsoal')->name('jadwal_tes.pilihsoal');
+    Route::post('/admin/pilih/{id}', 'JadwalTesController@simpansoal')->name('jadwal_tes.simpansoal');
+    Route::post('/admin/hapussoal/{id}', 'JadwalTesController@hapussoal')->name('jadwal_tes.hapussoal');
+    Route::get('/admin/edit/{id}', 'JadwalTesController@edit')->name('jadwal_tes.ubah');
+    Route::post('/admin/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
+    Route::get('/admin/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
+    Route::get('/admin/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
 
     //Jawaban
     Route::get('/hasil-tes/{id}', 'HasilTesController@index')->name('jawaban.index');
@@ -87,7 +87,7 @@ Route::prefix('/jadwal_tes')->group(function ()
 
 Route::prefix('/pelamar')->group(function ()
 {
-    Route::get('/', 'PelamarController@index')->name('pelamar.index');
+    Route::get('/admin', 'PelamarController@index')->name('pelamar.index');
     Route::get('/{id}/melamar', 'PelamarController@create')->name('pelamar.tambah');
     Route::post('/melamar', 'PelamarController@store')->name('pelamar.simpan');
     // Route::get('/edit/{id}', 'PelamarController@edit')->name('pelamar.ubah');
@@ -101,10 +101,10 @@ Route::prefix('/pelamar')->group(function ()
 
 Route::prefix('/perhitungan')->group(function ()
 {
-    Route::get('/seleksi-1/{id}', 'PerhitunganController@index')->name('perhitungan.index');
-    Route::get('/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
-    Route::get('/seleksi-detail/{id}', 'PerhitunganController@detail')->name('seleksi.detail');
-    Route::get('/seleksi-2/{id}', 'PerhitunganController@perhitungan2')->name('perhitungan.dua');
+    Route::get('/admin/seleksi-1/{id}', 'PerhitunganController@index')->name('perhitungan.index');
+    Route::get('/admin/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
+    Route::get('/admin/seleksi-detail/{id}', 'PerhitunganController@detail')->name('seleksi.detail');
+    Route::get('/admin/seleksi-2/{id}', 'PerhitunganController@perhitungan2')->name('perhitungan.dua');
 });
 
 Route::prefix('/email')->group(function ()
@@ -115,8 +115,8 @@ Route::prefix('/email')->group(function ()
 
 Route::prefix('/cetak')->group(function ()
 {
-    Route::get('/cetak-seleksi-1/{id}', 'PerhitunganController@laporan1')->name('seleksi.satu');
-    Route::get('/cetak-seleksi-2/{id}', 'PerhitunganController@laporan2')->name('seleksi.dua');
+    Route::get('/admin/cetak-seleksi-1/{id}', 'PerhitunganController@laporan1')->name('seleksi.satu');
+    Route::get('/admin/cetak-seleksi-2/{id}', 'PerhitunganController@laporan2')->name('seleksi.dua');
 });
 
 // Route::get('/debug-sentry', function () {
