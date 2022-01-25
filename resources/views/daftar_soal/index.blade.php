@@ -73,7 +73,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location = "/daftar_soal/hapus/" + soalId + ""
+                        window.location = "/admin/daftar_soal/hapus/" + soalId + ""
                         swal("Data berhasil dihapus", {
                             icon: "success",
                         });

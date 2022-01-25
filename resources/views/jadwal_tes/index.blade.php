@@ -75,7 +75,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location = "/jadwal_tes/hapus/" + jadwalId + ""
+                        window.location = "/admin/jadwal_tes/hapus/" + jadwalId + ""
                         swal("Data berhasil dihapus", {
                             icon: "success",
                         });
