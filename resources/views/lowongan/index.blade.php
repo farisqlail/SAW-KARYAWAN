@@ -81,7 +81,7 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/admin/lowongan/hapus/" + lowonganId + ""
+                    window.location = "/lowongan/admin/hapus/" + lowonganId + ""
                     swal("Data berhasil dihapus", {
                         icon: "success",
                     });

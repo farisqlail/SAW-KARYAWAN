@@ -74,7 +74,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location = "/admin/bobot_kriteria/hapus/" + bobotId + ""
+                        window.location = "/lowongan/admin/bobot_kriteria/hapus/" + bobotId + ""
                         swal("Data berhasil dihapus", {
                             icon: "success",
                         });

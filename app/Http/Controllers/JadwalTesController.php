@@ -201,6 +201,7 @@ class JadwalTesController extends Controller
     {
         $jadwal_tes = JadwalTes::find($id);
         $jadwal_tes->delete();
-        return redirect(route('jadwal_tes.index'));
+
+        return redirect()->route('jadwal_tes.index');
     }
 }

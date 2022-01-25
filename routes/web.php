@@ -63,7 +63,6 @@ Route::prefix('/daftar_soal')->group(function ()
 Route::prefix('/jadwal_tes')->group(function ()
 {
     Route::get('/admin', 'JadwalTesController@index')->name('jadwal_tes.index');
-   
     Route::get('/admin/tambah', 'JadwalTesController@create')->name('jadwal_tes.tambah');
     Route::post('/admin/tambah', 'JadwalTesController@store')->name('jadwal_tes.simpan');
     Route::get('/admin/pilih/{id}', 'JadwalTesController@pilihsoal')->name('jadwal_tes.pilihsoal');
@@ -71,7 +70,7 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::post('/admin/hapussoal/{id}', 'JadwalTesController@hapussoal')->name('jadwal_tes.hapussoal');
     Route::get('/admin/edit/{id}', 'JadwalTesController@edit')->name('jadwal_tes.ubah');
     Route::post('/admin/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
-    Route::get('/admin/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
+    Route::get('/admin/jadwal/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
     Route::get('/admin/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
 
     //Jawaban

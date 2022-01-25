@@ -75,7 +75,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location = "/admin/kriteria/hapus/" + kriteriaId + ""
+                        window.location = "/lowongan/admin/kriteria/hapus/" + kriteriaId + ""
                         swal("Data berhasil dihapus", {
                             icon: "success",
                         });
