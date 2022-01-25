@@ -34,6 +34,7 @@ class HomeController extends Controller
             $lowonganBerakhir = Lowongan::where('berlaku_sampai', '>=', \Carbon\Carbon::now())->count();
 
             $riwayat = lowongan::withCount('pelamar')
+                ->orderBy('created_at', 'asc')
                 ->orderBy('posisi_lowongan')
                 ->get();
 
@@ -42,7 +43,6 @@ class HomeController extends Controller
                 $x['date'] = $data->berlaku_sampai;
                 $x['name'] = $data->posisi_lowongan;
                 $x['y'] = $data->pelamar_count;
-
 
                 array_push($a, $x);
             }
