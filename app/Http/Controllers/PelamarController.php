@@ -198,7 +198,7 @@ class PelamarController extends Controller
             $pelamar->seleksi_satu = 'Ditolak';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.tolak', [], function($message) use($pelamar)
+            $beautymail->send('email.tolak', ['pelamar' => $pelamar], function($message) use($pelamar)
             {
                 $message
                     ->from('lintasnusa@gmail.com')

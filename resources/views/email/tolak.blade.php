@@ -2,10 +2,11 @@
 
 @section('content')
 
-	@include('beautymail::templates.minty.contentStart')
-	<tr>
+    @include('beautymail::templates.minty.contentStart')
+    <tr>
         <td class="title">
-            Mohon maaf,
+            Yth.
+            {{ $pelamar->nama_pelamar }}
         </td>
     </tr>
     <tr>
@@ -13,7 +14,10 @@
     </tr>
     <tr>
         <td class="paragraph">
-            Mohon maaf anda belum lolos pada tahap seleksi satu ini kami berharap yang terbaik untuk anda.
+            Menindaklanjuti pengumuman seleksi tahap 1 untuk lowongan <b>{{ $pelamar->lowongan->posisi_lowongan }}</b>, melalui surat ini kami sampaikan
+            bahwa anda TIDAK LOLOS pada seleksi tahap 1.
+
+            Atas perhatiannya kami sampaikan terimakasih.
         </td>
     </tr>
     <tr>
@@ -24,6 +28,6 @@
     <tr>
         <td width="100%" height="25"></td>
     </tr>
-	@include('beautymail::templates.minty.contentEnd')
+    @include('beautymail::templates.minty.contentEnd')
 
 @stop
