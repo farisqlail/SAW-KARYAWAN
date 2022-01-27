@@ -82,7 +82,7 @@ class PelamarController extends Controller
 
         if ($validator->fails()) 
         {
-            dd($validator->errors());
+            // dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
 

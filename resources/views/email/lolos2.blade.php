@@ -22,10 +22,10 @@
                 $dateNow = date('d');
                 $lama = $dateNow + 7;
                 $durasi = $lama - 31;
-                    $bulan = date('m') + 1;
-                    $hasil = date('Y') . '-' . '0' . $bulan . '-' . '0' . $durasi;
+                $bulan = date('m') + 1;
+                $hasil = date('Y') . '-' . '0' . $bulan . '-' . '0' . $durasi;
             @endphp
-                Tanggal : {{ $hasil }}
+            Tanggal : {{ $hasil }}
             <br>
             Tempat : Jl. Kalidami No.51, Mojo, Kec. Gubeng, Kota Surabaya, Jawa Timur
             <br><br>
