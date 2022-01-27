@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BobotKriteria;
+use App\HasilTes;
 use App\Kriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -172,11 +173,12 @@ class PelamarController extends Controller
             Alert::success('Berhasil', 'Pelamar sudah diterima & akan mengirim email lanjut');
             
             $pelamar = Pelamar::findOrFail($id);
+            $hasilTes = HasilTes::findOrFail($id);
             // dd($pelamar->lowongan->posisi_lowongan);
             $pelamar->seleksi_satu = 'Diterima';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.lolos', [], function($message) use($pelamar)
+            $beautymail->send('email.lolos', ['pelamar' => $pelamar, 'hasilTes' => $hasilTes], function($message) use($pelamar)
             {
                 $message
                     ->from('lintasnusa1990@gmail.com')
