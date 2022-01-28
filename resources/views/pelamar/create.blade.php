@@ -15,6 +15,16 @@
 
                         <div class="card-body">
                             <div class="row">
+
+                                @if (Session::has('success'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                        @php
+                                            Session::forget('success');
+                                        @endphp
+                                    </div>
+                                @endif
+
                                 <form enctype="multipart/form-data" action="{{ route('pelamar.simpan') }}" method="POST"
                                     class="col-md-12 needs-validation" novalidate>
                                     @csrf
@@ -123,25 +133,25 @@
                             <div class="form-group mt-2">
                                 <label for="">CV</label><br>
                                 <input name="cv" class="form-control-file mt-2" type="file" required />
-                                <div class="valid-feedback">
-                                    Format tidak sesuai
-                                </div>
+                                @if ($errors->has('cv'))
+                                    <span class="text-danger">{{ $errors->first('cv') }}</span>
+                                @endif
                             </div>
 
                             <div class="form-group mt-3">
                                 <label for="">Ijazah</label><br>
-                                <input name="ijazah" class="form-control-file mt-2 " type="file" required />
-                                <div class="valid-feedback">
-                                    Format tidak sesuai
-                                </div>
+                                <input name="ijazah" class="form-control-file mt-2 " id="ijazah" type="file" required />
+                                @if ($errors->has('ijazah'))
+                                    <span class="text-danger">{{ $errors->first('ijazah') }}</span>
+                                @endif
                             </div>
 
                             <div class="form-group mt-3">
                                 <label for="">Pas Foto</label><br>
                                 <input name="pas_foto" class="form-control-file mt-2" type="file" required />
-                                <div class="valid-feedback">
-                                    Format foto tidak sesuai
-                                </div>
+                                @if ($errors->has('pas_foto'))
+                                    <span class="text-danger">{{ $errors->first('pas_foto') }}</span>
+                                @endif
                             </div>
 
                         </div>
