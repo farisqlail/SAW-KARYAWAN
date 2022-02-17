@@ -16,7 +16,7 @@
         <td class="paragraph">
             Menindaklanjuti pengumuman seleksi tahap 1 untuk lowongan <b>{{ $pelamar->lowongan->posisi_lowongan }}</b>, melalui surat ini kami sampaikan bahwa anda LOLOS pada seleksi tahap 1 dan dimohon untuk mengikuti tes online yang akan diselenggarakan pada:
             <br><br>
-            Tanggal : {{ $hasilTes->created_at }}  <br><br>
+            Tanggal : {{ $hasilTes->created_at }} WIB<br><br>
 
             Untuk informasi yang lebih lanjut dapat dilihat pada halaman website pada menu tes online.
             

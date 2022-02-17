@@ -31,7 +31,7 @@ class LoginController extends Controller
 
         } else {
             // return view('hrd.dashboard');
-            Alert::success('Selamat Datang Kembali', 'Selamat datang lagi '.Auth::user()->name);
+            Alert::success('Selamat Datang', 'Selamat Datang '.Auth::user()->name);
             return redirect()->route('lowongan.home');
         }
     

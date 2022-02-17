@@ -221,7 +221,7 @@ class PelamarController extends Controller
             $data->seleksi_satu = 'Ditolak';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.tolak', [], function($message) use($data)
+            $beautymail->send('email.tolak', ['data' => $data], function($message) use($data)
             {
                 $message
                     ->from('lintasnusa@gmail.com')
@@ -290,7 +290,7 @@ class PelamarController extends Controller
             $data->seleksi_dua = 'Ditolak';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.tolak', [], function($message) use($data)
+            $beautymail->send('email.tolak', ['data' => $data], function($message) use($data)
             {
                 $message
                     ->from('lintasnusa@gmail.com')

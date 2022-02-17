@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -57,7 +58,11 @@ class RegisterController extends Controller
 
        // $this->guard()->login($user);
     //this commented to avoid register user being auto logged in
+   
+        Alert::success('Register Akun Berhasil');
+    
 
+    
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }

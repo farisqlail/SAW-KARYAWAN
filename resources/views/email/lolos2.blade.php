@@ -19,18 +19,17 @@
             yang akan diselenggarakan pada:
             <br><br>
             @php
-                $dateNow = date('d');
-                $lama = $dateNow + 7;
-                $durasi = $lama - 31;
-                $bulan = date('m') + 1;
-                $hasil = date('Y') . '-' . '0' . $bulan . '-' . '0' . $durasi;
+                $dateNow= date('d-m-Y');
+                $dateWW = date('d-m-Y' , strtotime('+7days',strtotime($dateNow)));
+             
             @endphp
-            Tanggal : {{ $hasil }}
+            Tanggal : {{ $dateWW }} <br>
+            Mulai Pukul : 10.00 WIB
             <br>
             Tempat : Jl. Kalidami No.51, Mojo, Kec. Gubeng, Kota Surabaya, Jawa Timur
             <br><br>
             Untuk informasi yang lebih lenjut dapat hubungi 081249356745.
-
+            <br>
             Atas perhatiannya kami sampaikan terimakasih.
         </td>
     </tr>

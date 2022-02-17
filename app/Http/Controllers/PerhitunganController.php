@@ -154,7 +154,7 @@ class PerhitunganController extends Controller
         $lowongan = Lowongan::all();
         $lowonganGet = $lowongan[0]->id_lowongan;
         // dd($lowonganGet);
-
+        $namalowongan= Lowongan::where('id_lowongan', $id)->first();
         $kriteria = Kriteria::where('id_lowongan', $id)->get();
         $alternatif = Pelamar::where('id_lowongan', $id)->get();
         $kode_krit = [];
@@ -189,6 +189,7 @@ class PerhitunganController extends Controller
 
         // dd($tes);
         $pdf = PDF::loadView('laporan.seleksi1', [
+            'namalowongan'      => $namalowongan,
             'kriteria'      => $kriteria,
             'alternatif'    => $alternatif,
             'kode_krit'     => $kode_krit
@@ -254,6 +255,7 @@ class PerhitunganController extends Controller
                 // rsort($ar);
                 // dd($ar);
                 $pdf = PDF::loadView('laporan.seleksi2', [
+                    
                     'daftarSoal'    => $daftarSoal,
                     'hasilTes'      => $ar,
                     'lowongan'      => $lowongan

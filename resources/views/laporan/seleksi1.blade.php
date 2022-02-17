@@ -5,17 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Laporan Rekap Seleksi 1</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
+
+        <style>
+        /* body {
+            font-family: arial;
+        } */
+
+        .print {
+            margin-top: 10px;
+        }
+
+        @media print {
+            .print {
+                display: none;
+            }
+        }
+
+        /* table {
+            border-collapse: collapse;
+        } */
+
+    </style>
 </head>
 
 <body>
     <div class="container">
 
-        <h1 class="text-center mt-5 mb-5">Laporan Seleksi Satu</h1>
+        <h3 class="text-center mt-2 mb-2">CV. LINTAS NUSA</h3>
+        <p class="text-center mt-2 mb-2">Jl. Kalidami No.51, Mojo, Kec. Gubeng, Kota Surabaya, Jawa Timur</p>
+        <p class="text-center mt-2 mb-2">No. Telepon: (031) 5687462  | Email: lintasnusa1990@gmail.com</p>
+        <hr style="border: 2;">
+        <p class="text-center mt-2 mb-2"><b>Laporan Rekap Hasil Seleksi Tahap 1 Pelamar untuk Posisi {{$namalowongan->posisi_lowongan}}</b></p>
+        <p>Tanggal: {{date('d-m-Y')}}</p>
+        
+
 
         <?php $bobot = []; ?>
         @foreach ($kriteria as $krit)
@@ -60,10 +88,10 @@
 
 
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table border="1" cellspacing="" cellpadding="4" width="100%">
                 <thead>
                     <tr>
-                        <th align="center">NO</th>
+                        <th align="center">No</th>
                         <th align="center">Nama</th>
                         <th align="center">Alamat</th>
                         <th align="center">No Telepon</th>
@@ -124,3 +152,4 @@
 </body>
 
 </html>
+
