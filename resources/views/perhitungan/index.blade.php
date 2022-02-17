@@ -168,20 +168,17 @@
                                             <td align="center">
 
                                                 <form action="{{ route('pelamar.update', $t['kode']) }}" method="post">
+                                                    {{ csrf_field() }}
 
                                                     <a href="{{ route('seleksi.detail', $t['kode']) }}"
                                                         class="btn btn-info">Lihat Detail</a>
 
-                                                    {{ csrf_field() }}
-
                                                     @if ($t['seleksi_1'] == null)
 
                                                         <input type="submit" name="submit"
-                                                            href="{{ route('seleksi.detail', $t['kode']) }}"
                                                             class="btn btn-success" value="Terima">
 
                                                         <input type="submit" name="submit"
-                                                            href="{{ route('seleksi.detail', $t['kode']) }}"
                                                             class="btn btn-danger" value="Tolak">
                                                     @endif
 

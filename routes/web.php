@@ -86,11 +86,11 @@ Route::prefix('/jadwal_tes')->group(function ()
 
 Route::prefix('/pelamar')->group(function ()
 {
+    Route::post('/seleksi-pelamar/{id}', 'PelamarController@update')->name('pelamar.update');
     Route::get('/admin', 'PelamarController@index')->name('pelamar.index');
     Route::get('/{id}/melamar', 'PelamarController@create')->name('pelamar.tambah');
     Route::post('/melamar', 'PelamarController@store')->name('pelamar.simpan');
     // Route::get('/edit/{id}', 'PelamarController@edit')->name('pelamar.ubah');
-    Route::post('/seleksi-pelamar/{id}', 'PelamarController@update')->name('pelamar.update');
     Route::post('/tolak-seleksi-satu', 'PelamarController@tolakSatu')->name('pelamar.tolak.satu');
     Route::post('/tolak-seleksi-dua', 'PelamarController@tolakDua')->name('pelamar.tolak.dua');
     Route::post('/seleksi-pelamar-dua/{id}', 'PelamarController@seleksiDua')->name('pelamar.seleksi.dua');

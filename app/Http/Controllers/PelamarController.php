@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BobotKriteria;
 use App\HasilTes;
+use App\JadwalTes;
 use App\Kriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -172,13 +173,13 @@ class PelamarController extends Controller
 
             Alert::success('Berhasil', 'Pelamar sudah diterima & akan mengirim email lanjut');
             
-            $pelamar = Pelamar::findOrFail($id);
-            $hasilTes = HasilTes::findOrFail($id);
-            // dd($pelamar->lowongan->posisi_lowongan);
+            $pelamar = Pelamar::find($id);
+            $jadwalTes = JadwalTes::where('id_lowongan', $pelamar->id_lowongan)->first();
             $pelamar->seleksi_satu = 'Diterima';
+            // dd($jadwalTes);
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.lolos', ['pelamar' => $pelamar, 'hasilTes' => $hasilTes], function($message) use($pelamar)
+            $beautymail->send('email.lolos', ['pelamar' => $pelamar, 'jadwalTes' =>$jadwalTes], function($message) use($pelamar)
             {
                 $message
                     ->from('lintasnusa1990@gmail.com')
@@ -187,7 +188,7 @@ class PelamarController extends Controller
             });
 
             $pelamar->save();
-
+            
             return redirect()->back();
 
         } elseif ($request->submit == 'Tolak') {
@@ -198,7 +199,7 @@ class PelamarController extends Controller
             $pelamar->seleksi_satu = 'Ditolak';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.tolak', ['pelamar' => $pelamar], function($message) use($pelamar)
+            $beautymail->send('email.tolak', ['data' => $pelamar], function($message) use($pelamar)
             {
                 $message
                     ->from('lintasnusa@gmail.com')
