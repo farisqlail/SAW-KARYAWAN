@@ -21,7 +21,9 @@ class KriteriaController extends Controller
         if (Auth::user()->role == 'admin') {
             $lowongan = lowongan::find($id);
             $data = Kriteria::where('id_lowongan', $id)->get();
-            return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan]);
+            $nilai = $data->sum('bobot_preferensi');
+            // dd($nilai);
+            return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
         } else {
             abort(404);
         }

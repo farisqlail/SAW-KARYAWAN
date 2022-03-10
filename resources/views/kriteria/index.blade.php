@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Kriteria {{$lowongan->posisi_lowongan}}</h2>
+                        <h2 class="float-left">Kriteria {{ $lowongan->posisi_lowongan }}</h2>
                         <div class="float-right">
                             <a href="{{ route('lowongan.index') }}" class="btn btn-danger">Kembali</a>
                             <a href="{{ route('kriteria.tambah', ['id' => $lowongan->id_lowongan]) }}"
@@ -26,6 +26,9 @@
                                         <th class="text-center" style="width: 30%">Aksi</th>
                                     </tr>
                                 </thead>
+                                @if ($nilai < 100)
+                                    <span class="text-warning"> <i>Presentase Bobot harus 100%</i></span>
+                                @endif
                                 <tbody>
                                     @if (!empty($kriteria))
                                         @foreach ($kriteria as $data)
@@ -34,18 +37,19 @@
                                                 <td>{{ $data->nama_kriteria }}</td>
                                                 <td>{{ $data->atribut_kriteria }}</td>
                                                 <td class="text-center">
-                                                    @if ($data->bobot_preferensi <= 100)
-                                                    {{ $data->bobot_preferensi }}<br> <span class="text-warning"> <i>Presentase Bobot harus 100%</i></span>
+                                                    @if ($nilai <= 100)
+                                                        {{ $data->bobot_preferensi }}<br>
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                   
-                                                        <a href="{{ route('bobot_kriteria.index', ['id' => $data->id_kriteria]) }}"
-                                                            class="btn btn-sm btn-info">Bobot kriteria</a>
-                                                        <a href="{{ route('kriteria.edit', ['id' => $data->id_kriteria]) }}"
-                                                            class="btn btn-sm btn-warning">Edit</a>
-                                                        <a href="#" class="btn btn-sm btn-danger delete" data-id="{{ $data->id_kriteria }}">Hapus</a>
-                                                    
+
+                                                    <a href="{{ route('bobot_kriteria.index', ['id' => $data->id_kriteria]) }}"
+                                                        class="btn btn-sm btn-info">Bobot kriteria</a>
+                                                    <a href="{{ route('kriteria.edit', ['id' => $data->id_kriteria]) }}"
+                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                    <a href="#" class="btn btn-sm btn-danger delete"
+                                                        data-id="{{ $data->id_kriteria }}">Hapus</a>
+
                                                 </td>
                                             </tr>
                                         @endforeach
