@@ -8,7 +8,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Hasil Tes</h2>
+                        <h2 class="float-left">Hasil Tes {{$pelamar->nama_pelamar}}</h2>
+                        <div class="float-right">
+                            <a href="{{ route('jawaban.index', ['id' => $pelamar->id_lowongan]) }}" class="btn btn-danger">Kembali</a>
+                           
+                        </div>
                     </div>
 
                     <div class="card-body">

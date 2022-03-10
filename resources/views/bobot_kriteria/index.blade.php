@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Bobot Kriteria</h2>
+                        <h3 class="float-left">Bobot Kriteria untuk Kriteria {{$kriteria->nama_kriteria}}</h3>
                         <div class="float-right">
                             <a href="{{ route('kriteria.index', ['id' => $kriteria->id_lowongan]) }}" class="btn btn-danger">Kembali</a>
                             <a href="{{ route('bobot_kriteria.tambah', ['id' => $kriteria->id_kriteria]) }}"

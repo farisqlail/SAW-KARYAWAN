@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Daftar Soal</h2>
+                        <h3 class="float-left">Daftar Soal Tes untuk Posisi {{$lowongan->posisi_lowongan}}</h3>
                         <div class="float-right">
                             <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Kembali</a>
                             <a href="{{ route('daftar_soal.tambah', ['id' => $jadwaltes->id_jadwal_tes]) }}"

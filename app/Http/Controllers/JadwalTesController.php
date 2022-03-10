@@ -180,7 +180,7 @@ class JadwalTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            Alert::success('Berhasil', 'Jawdal tes berhasil diubah');
+            Alert::success('Berhasil', 'Jadwal tes berhasil diubah');
 
             $jadwal_tes = JadwalTes::find($id);
             $jadwal_tes->id_lowongan = $request->get('id_lowongan');

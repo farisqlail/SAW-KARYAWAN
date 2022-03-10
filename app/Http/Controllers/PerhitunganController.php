@@ -23,7 +23,7 @@ class PerhitunganController extends Controller
             $lowongan = Lowongan::all();
             $lowonganGet = $lowongan[0]->id_lowongan;
             // dd($lowonganGet);
-
+            $low=Lowongan::find($id);
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
             $alternatif = Pelamar::where('id_lowongan', $id)->get();
             $kode_krit = [];
@@ -56,7 +56,8 @@ class PerhitunganController extends Controller
                 'kriteria'      => $kriteria,
                 'alternatif'    => $alternatif,
                 'kode_krit'     => $kode_krit,
-                'lowonganGet'   => $lowonganGet
+                'lowonganGet'   => $lowonganGet,
+                'low'   => $low
             ]);
         } else {
             abort(404);
@@ -70,7 +71,7 @@ class PerhitunganController extends Controller
             $daftarSoal = DaftarSoal::all();
             $daftarSoalGet = $daftarSoal[0]->id_soal;
             $tes = HasilTes::all();
-
+            $low=Lowongan::find($id);
             foreach ($tes as $hasilTes) {
                 if (HasilTes::all()->count() == null) {
 
@@ -121,7 +122,8 @@ class PerhitunganController extends Controller
                     return view('perhitungan.seleksi2', [
                         'daftarSoal'    => $daftarSoal,
                         'hasilTes'      => $ar,
-                        'lowongan'      => $lowongan
+                        'lowongan'      => $lowongan,
+                        'low'   => $low
                     ]);
                 }
             }

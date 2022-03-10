@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DaftarSoalController extends Controller
 {
@@ -26,7 +27,11 @@ class DaftarSoalController extends Controller
         if (Auth::user()->role == 'admin') {
             $jadwaltes = JadwalTes::find($id);
             $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->get();
-            return view('daftar_soal.index', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes]);
+            $lowongan = DB::table('jadwal_tes')
+                ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')
+                ->where('jadwal_tes.id_jadwal_tes', $id)
+                ->first();
+            return view('daftar_soal.index', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
         } else {
             abort(404);
         }

@@ -13,6 +13,7 @@ use App\HasilTes;
 use App\Pelamar;
 use App\DaftarSoal;
 use App\JadwalTes;
+use App\lowongan;
 
 class HasilTesController extends Controller
 {
@@ -29,10 +30,12 @@ class HasilTesController extends Controller
                     ->where('hasil_tes.id_lowongan', $id)
                     ->groupBy('id_pelamar', 'nama_pelamar', 'posisi_lowongan')
                     ->get();
+        $lowongan = lowongan::where('id_lowongan', $id)->first();
         // dd($pelamar); 
 
         return view('jawaban.index', [
-            'pelamar' => $pelamar
+            'pelamar' => $pelamar,
+            'lowongan' => $lowongan
         ]);
     }
 
@@ -40,9 +43,10 @@ class HasilTesController extends Controller
 
         $hasilTes = HasilTes::with('pelamar', 'daftar_soal')->where('id_pelamar', $id)->get();
         // dd($hasilTes);
-
+        $pelamar = Pelamar::where('id_pelamar', $id)->first();
         return view('jawaban.detail', [
-            'hasilTes' => $hasilTes
+            'hasilTes' => $hasilTes,
+            'pelamar' => $pelamar
         ]);
     }
 
@@ -84,7 +88,7 @@ class HasilTesController extends Controller
             return back()->withErrors($validator->errors());
         } else {
 
-            Alert::success('Berhasil Upload', 'Jawaban akan kami cek dulu');
+            Alert::success('Berhasil Upload', 'Jawaban diperiksa terlebih dahulu');
 
             $hasilTes = new HasilTes();
 
@@ -122,7 +126,7 @@ class HasilTesController extends Controller
             return back()->withErrors($validator->errors());
         } else {
 
-            Alert::success('Berhasil Upload', 'Jawaban udah diubah dan akan kami cek dulu');
+            Alert::success('Berhasil Ubah Jawaban', 'Jawaban diperiksa terlebih dahulu');
 
             $hasilTes = HasilTes::findOrFail($id);
 

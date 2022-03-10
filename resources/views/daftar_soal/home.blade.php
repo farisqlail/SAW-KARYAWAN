@@ -131,16 +131,17 @@
                                                 target="blank"><i class="fas fa-download"></i> &nbsp; Download File</a>
                                         </td>
 
-                                        <td align="center">
+                                        <td align="center" colspan="2">
                                             @if ($data->hasil_tes_count == 0)
                                                 <a href=""
                                                     class="btn btn-success" data-toggle="modal"
                                                     data-target="#unggah-jawaban{{ $data->id_soal }}">Unggah Jawaban</a>
                                             @else
                                                 <a href="{{ asset('storage/file/jawaban/' . $data->hasil_tes->jawaban) }}"
-                                                    class="btn btn-success" target="blank">Unduh Jawaban</a>
-                                                <a href="" class="btn btn-danger" data-toggle="modal"
-                                                    data-target="#ubah-jawaban{{ $data->hasil_tes->id_hasil_tes }}">Ubah Jawaban</a>
+                                                    class="btn btn-success btn-md" target="blank">Unduh Jawaban</a>
+                                                    <br> <br>
+                                                <a href="" class="btn btn-danger btn-md" data-toggle="modal"
+                                                    data-target="#ubah-jawaban{{ $data->hasil_tes->id_hasil_tes }}" >Ubah Jawaban</a>
                                             @endif
                                         </td>
                                     </tr>

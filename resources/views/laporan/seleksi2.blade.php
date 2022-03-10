@@ -49,7 +49,7 @@
                         <th align="center">Nama</th>
                         <th align="center">Alamat</th>
                         <th align="center">Telepon</th>
-                        <th align="center">Total</th>
+                        <th align="center">Nilai Akhir</th>
                         <th align="center">Ranking</th>
                         <th align="center">Keterangan</th>
                     </tr>

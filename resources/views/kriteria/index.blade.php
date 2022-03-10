@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Kriteria</h2>
+                        <h2 class="float-left">Kriteria {{$lowongan->posisi_lowongan}}</h2>
                         <div class="float-right">
                             <a href="{{ route('lowongan.index') }}" class="btn btn-danger">Kembali</a>
                             <a href="{{ route('kriteria.tambah', ['id' => $lowongan->id_lowongan]) }}"
@@ -33,7 +33,11 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->nama_kriteria }}</td>
                                                 <td>{{ $data->atribut_kriteria }}</td>
-                                                <td>{{ $data->bobot_preferensi }}</td>
+                                                <td class="text-center">
+                                                    @if ($data->bobot_preferensi <= 100)
+                                                    {{ $data->bobot_preferensi }}<br> <span class="text-warning"> <i>Presentase Bobot harus 100%</i></span>
+                                                    @endif
+                                                </td>
                                                 <td class="text-center">
                                                    
                                                         <a href="{{ route('bobot_kriteria.index', ['id' => $data->id_kriteria]) }}"

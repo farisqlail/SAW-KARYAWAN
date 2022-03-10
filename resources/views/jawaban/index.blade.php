@@ -8,9 +8,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Hasil Tes</h2>
+                        <h2 class="float-left">Hasil Tes Posisi {{$lowongan->posisi_lowongan}}</h2>
+                        <div class="float-right">
+                            <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Kembali</a>
+                            
+                        </div>
                     </div>
-
+                   
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered">

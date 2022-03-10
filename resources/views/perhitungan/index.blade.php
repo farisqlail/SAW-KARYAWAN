@@ -6,6 +6,7 @@
             <div class="col-md-12 card-deck">
                 <div class="card">
                     <div class="card-header">
+                        <center><h3>Seleksi Tahap 1 Posisi {{$low->posisi_lowongan}}</h3></center>
                         <h3 class="float-left">Hasil Analisa</h3>
                     </div>
 
@@ -108,6 +109,7 @@
                                     @endif
                                 </tbody>
                             </table>
+                            <p style="color: red;">Keterangan: Rentang nilai diantara 0 hingga 1</p>
                         </div>
                     </div>
                 </div>
@@ -116,7 +118,7 @@
             <div class="col-md-12 card-deck mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Ranking</h3>
+                        <h3>Perankingan Hasil Perhitungan SAW</h3>
                         <div class="float-right">
                             <form action="{{ route('pelamar.tolak.satu') }}" method="post">
                                 @csrf
