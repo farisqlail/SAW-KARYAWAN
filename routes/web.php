@@ -104,6 +104,7 @@ Route::prefix('/perhitungan')->group(function ()
     Route::get('/admin/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
     Route::get('/admin/seleksi-detail/{id}', 'PerhitunganController@detail')->name('seleksi.detail');
     Route::get('/admin/seleksi-2/{id}', 'PerhitunganController@perhitungan2')->name('perhitungan.dua');
+    Route::get('/admin/validasi/{id}', 'PerhitunganController@validation')->name('perhitungan.validasi');
 });
 
 Route::prefix('/email')->group(function ()
