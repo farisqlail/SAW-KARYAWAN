@@ -23,7 +23,7 @@ class PerhitunganController extends Controller
             $lowongan = Lowongan::all();
             $lowonganGet = $lowongan[0]->id_lowongan;
             // dd($lowonganGet);
-            $low=Lowongan::find($id);
+            $low = Lowongan::find($id);
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
             $alternatif = Pelamar::where('id_lowongan', $id)->get();
             $kode_krit = [];
@@ -109,6 +109,15 @@ class PerhitunganController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    public function pdf($id){
+
+        $pelamar = Pelamar::findOrFail($id);
+        // dd($pelamar->cv);
+        return view('perhitungan.pdfCV', [
+            'pelamar' => $pelamar
+        ]);
     }
 
     public function perhitungan2($id)

@@ -87,7 +87,7 @@
                                                         Menunggu Seleksi
                                                         @endif
                                                     </td>
-                                                    <td align="center"><a href="{{ asset('/storage/file/cv/' . $t['cv']) }}" class="btn btn-danger" target="blank">Lihat CV</a></td>
+                                                    <td align="center"><a href="{{ route('perhitungan.pdf', $t['kode']) }}" class="btn btn-danger" target="blank">Lihat CV</a></td>
                                                     <td align="center">
 
                                                         <form action="{{ route('pelamar.update', $t['kode']) }}"
