@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <title>{{ $pelamar->cv }}</title>
 </head>
 <body>
     
-    <div id="pdf">
-
+    <div class="pdf" style="margin: -10px; " align="center">
+        <embed src="{{asset('storage/file/cv/'.$pelamar->cv)}}" type="application/pdf" height="760px" width="100%">
     </div>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js"></script>
-    <script>PDFObject.embed("{{asset('storage/file/cv'.$pelamar->cv)}}", "#pdf");</script>
 </body>
 </html>
