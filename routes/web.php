@@ -96,6 +96,7 @@ Route::prefix('/pelamar')->group(function ()
     Route::post('/seleksi-pelamar-dua/{id}', 'PelamarController@seleksiDua')->name('pelamar.seleksi.dua');
     Route::get('/hapus/{id}', 'PelamarController@destroy')->name('pelamar.hapus');
     Route::get('/riwayat-lamaran/{id}', 'PelamarController@riwayat')->name('pelamar.riwayat');
+    Route::post('/validasi-dokumen/{id}', 'PelamarController@statusDokumen')->name('pelamar.statusDokumen');
 });
 
 Route::prefix('/perhitungan')->group(function ()

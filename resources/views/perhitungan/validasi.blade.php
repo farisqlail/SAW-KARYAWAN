@@ -31,6 +31,7 @@
                             'cv' => $data->cv,
                             'idLowongan' => $data->id_lowongan,
                             'seleksi_1' => $data->seleksi_satu,
+                            'status_dokumen' => $data->status_dokumen,
                         ]; ?>
                         </tr>
                     @endforeach
@@ -114,29 +115,37 @@
                                                     </button>
 
                                                 </td>
-                                                <td></td>
+                                                <td align="center">
+                                                    @if ($t['status_dokumen'] == 'Dokumen Valid')
+                                                        Dokumen Valid
+                                                    @elseif($t['status_dokumen'] == 'Dokumen Tidak Valid')
+                                                        Dokumen Tidak Valid
+                                                    @else
+                                                        <span class="text-danger">Dokumen belum tervalidasi</span>
+                                                    @endif
+                                                </td>
                                                 <td align="center">
 
-                                                    <form action="{{ route('pelamar.update', $t['kode']) }}"
+                                                    <form action="{{ route('pelamar.statusDokumen', $t['kode']) }}"
                                                         method="post">
                                                         {{ csrf_field() }}
 
                                                         <a href="{{ route('seleksi.detail', $t['kode']) }}"
                                                             class="btn btn-info btn-sm">Lihat Detail</a>
 
-                                                        <a href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                            class="btn btn-success btn-sm">Valid</a>
+                                                        <input type="submit" name="submit" class="btn btn-success btn-sm"
+                                                            value="Dokumen Valid">
 
-                                                        <a href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                            class="btn btn-danger btn-sm">Tidak Valid</a>
-
+                                                        <input type="submit" name="submit" class="btn btn-danger btn-sm"
+                                                            value="Dokumen Tidak Valid">
+{{-- 
                                                         @if ($t['seleksi_1'] == null)
                                                             <input type="submit" name="submit" class="btn btn-success"
                                                                 value="Terima">
 
                                                             <input type="submit" name="submit" class="btn btn-danger"
                                                                 value="Tolak">
-                                                        @endif
+                                                        @endif --}}
 
                                                     </form>
 

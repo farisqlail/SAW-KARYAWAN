@@ -167,6 +167,33 @@ class PelamarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function statusDokumen(Request $request, $id){
+
+        if ($request->submit == 'Dokumen Valid') {
+
+            Alert::success('Berhasil', 'Validasi dokumen pelamar berhasil!');
+            
+            $pelamar = Pelamar::find($id);
+            $jadwalTes = JadwalTes::where('id_lowongan', $pelamar->id_lowongan)->first();
+            $pelamar->status_dokumen = 'Dokumen Valid';
+            // dd($jadwalTes);
+            $pelamar->save();
+            
+            return redirect()->back();
+
+        } elseif ($request->submit == 'Dokumen Tidak Valid') {
+
+            Alert::success('Berhasil', 'Dokumen pelamar tidak valid!');
+
+            $pelamar = Pelamar::findOrFail($id);
+            $pelamar->status_dokumen = 'Dokumen Tidak Valid';
+
+            $pelamar->save();
+
+            return redirect()->back();
+        }
+    }
+    
     public function update(Request $request, $id)
     {
         if ($request->submit == 'Terima') {
