@@ -40,14 +40,6 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>Daftar Pelamar</h3>
-                                <div class="float-right">
-                                    <form action="{{ route('pelamar.tolak.satu') }}" method="post">
-                                        @csrf
-                                        <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
-                                            class="btn btn-success">Cetak Rekap</a>
-                                        <input type="submit" name="submit" class="btn btn-danger" value="Seleksi Selesai">
-                                    </form>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -57,6 +49,7 @@
                                                 <th align="center">NO</th>
                                                 <th align="center">Nama</th>
                                                 <th align="center">Ranking</th>
+                                                <th align="center">Status Seleksi Satu</th>
                                                 <th align="center">Dokumen</th>
                                                 <th align="center">Status Dokumen</th>
                                                 <th align="center">Aksi</th>
@@ -87,7 +80,12 @@
                                                         Menunggu Seleksi
                                                         @endif
                                                     </td>
-                                                    <td align="center"><a href="{{ route('perhitungan.pdf', $t['kode']) }}" class="btn btn-danger" target="blank">Lihat CV</a></td>
+                                                    <td align="center">
+                                                        <a href="{{ route('perhitungan.pdf', $t['kode']) }}" class="btn btn-danger btn-sm" target="blank">Lihat CV</a>
+                                                        <a href="{{ route('perhitungan.pdfIjazah', $t['kode']) }}" class="btn btn-danger btn-sm" target="blank">Lihat Ijazah</a>
+                                                        <a href="{{ route('perhitungan.pasFoto', $t['kode']) }}" class="btn btn-danger btn-sm" target="blank">Lihat Pas Foto</a>
+                                                    </td>
+                                                    <td></td>
                                                     <td align="center">
 
                                                         <form action="{{ route('pelamar.update', $t['kode']) }}"

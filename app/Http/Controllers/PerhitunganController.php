@@ -64,13 +64,14 @@ class PerhitunganController extends Controller
         }
     }
 
-    public function validation($id){
+    public function validation($id)
+    {
 
         if (Auth::user()->role == 'admin') {
             $lowongan = Lowongan::all();
             $lowonganGet = $lowongan[0]->id_lowongan;
             // dd($lowonganGet);
-            $low=Lowongan::find($id);
+            $low = Lowongan::find($id);
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
             $alternatif = Pelamar::where('id_lowongan', $id)->get();
             $kode_krit = [];
@@ -111,11 +112,30 @@ class PerhitunganController extends Controller
         }
     }
 
-    public function pdf($id){
+    public function pdf($id)
+    {
 
         $pelamar = Pelamar::findOrFail($id);
         // dd($pelamar->cv);
         return view('perhitungan.pdfCV', [
+            'pelamar' => $pelamar
+        ]);
+    }
+
+    public function pdfIjazah($id)
+    {
+
+        $pelamar = Pelamar::findOrFail($id);
+        return view('perhitungan.pdfIjazah', [
+            'pelamar' => $pelamar
+        ]);
+    }
+
+    public function pasFoto($id)
+    {
+
+        $pelamar = Pelamar::findOrFail($id);
+        return view('perhitungan.pasFoto', [
             'pelamar' => $pelamar
         ]);
     }
@@ -127,7 +147,7 @@ class PerhitunganController extends Controller
             $daftarSoal = DaftarSoal::all();
             $daftarSoalGet = $daftarSoal[0]->id_soal;
             $tes = HasilTes::all();
-            $low=Lowongan::find($id);
+            $low = Lowongan::find($id);
             foreach ($tes as $hasilTes) {
                 if (HasilTes::all()->count() == null) {
 
@@ -212,7 +232,7 @@ class PerhitunganController extends Controller
         $lowongan = Lowongan::all();
         $lowonganGet = $lowongan[0]->id_lowongan;
         // dd($lowonganGet);
-        $namalowongan= Lowongan::where('id_lowongan', $id)->first();
+        $namalowongan = Lowongan::where('id_lowongan', $id)->first();
         $kriteria = Kriteria::where('id_lowongan', $id)->get();
         $alternatif = Pelamar::where('id_lowongan', $id)->get();
         $kode_krit = [];
@@ -313,7 +333,7 @@ class PerhitunganController extends Controller
                 // rsort($ar);
                 // dd($ar);
                 $pdf = PDF::loadView('laporan.seleksi2', [
-                    
+
                     'daftarSoal'    => $daftarSoal,
                     'hasilTes'      => $ar,
                     'lowongan'      => $lowongan

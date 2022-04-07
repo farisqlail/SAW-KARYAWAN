@@ -106,7 +106,9 @@ Route::prefix('/perhitungan')->group(function ()
     Route::get('/admin/seleksi-2/{id}', 'PerhitunganController@perhitungan2')->name('perhitungan.dua');
     Route::get('/admin/validasi/{id}', 'PerhitunganController@validation')->name('perhitungan.validasi');
 
-    Route::get('/pdf/{id}', 'PerhitunganController@pdf')->name('perhitungan.pdf');
+    Route::get('/pdf/cv/{id}', 'PerhitunganController@pdf')->name('perhitungan.pdf');
+    Route::get('/pdf/ijazah/{id}', 'PerhitunganController@pdfIjazah')->name('perhitungan.pdfIjazah');
+    Route::get('/pdf/pasFoto/{id}', 'PerhitunganController@pasFoto')->name('perhitungan.pasFoto');
 });
 
 Route::prefix('/email')->group(function ()
