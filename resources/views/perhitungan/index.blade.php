@@ -98,6 +98,7 @@
                                                     'nama' => $data->nama_pelamar,
                                                     'idLowongan' => $data->id_lowongan,
                                                     'seleksi_1' => $data->seleksi_satu,
+                                                    'date'  => $data->created_at
                                                 ]; ?>
                                             </tr>
                                         @endforeach
@@ -138,6 +139,7 @@
                                         <th align="center">Total</th>
                                         <th align="center">Ranking</th>
                                         <th align="center">Status Lamaran</th>
+                                        <th align="center">Status Lowongan</th>
                                         <th align="center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -165,6 +167,13 @@
                                                     Tidak Lolos Seleksi
                                                 @else
                                                     Menunggu Seleksi
+                                                @endif
+                                            </td>
+                                            <td align="center">
+                                                @if ($t['date'] > date('Y-m-d'))
+                                                    <span class="badge badge-success">Pendaftaran</span>
+                                                @else
+                                                <span class="badge badge-danger">Lowongan ditutup</span>
                                                 @endif
                                             </td>
                                             <td align="center">
