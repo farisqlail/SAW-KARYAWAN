@@ -3,7 +3,7 @@
 @section('content')
 
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -24,6 +24,7 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Posisi Lowongan</th>
                                         <th class="text-center">Berlaku Sampai</th>
+                                        <th class="text-center">Status Pendaftaran</th>
                                         <th class="text-center">Deskripsi Lowongan</th>
                                         <th class="text-center">Deskripsi Persyaratan</th>
                                         <th class="text-center">Aksi</th>
@@ -37,6 +38,13 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
+                                                <td align="center">
+                                                    @if ($data->created_by > date('Y-m-d'))
+                                                        <span class="badge badge-success">Pendaftaran</span>
+                                                    @else
+                                                        <span class="badge badge-danger">Lowongan ditutup</span>
+                                                    @endif
+                                                </td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_persyaratan, 30) !!}</td>
                                                 <td class="text-center">
