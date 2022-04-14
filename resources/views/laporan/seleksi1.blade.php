@@ -93,8 +93,6 @@
                     <tr>
                         <th align="center">No</th>
                         <th align="center">Nama</th>
-                        <th align="center">Alamat</th>
-                        <th align="center">No Telepon</th>
                         <th align="center">Total</th>
                         <th align="center">Ranking</th>
                         <th align="center">Keterangan</th>
@@ -115,8 +113,6 @@
                         <tr>
                             <td>{{ $no2++ }}</td>
                             <td>{{ $t['nama'] }}</td>
-                            <td>{{ $t['alamat'] }}</td>
-                            <td>{{ $t['notelp'] }}</td>
                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
                             <td>{{ $a++ }}</td>
                             <td>
