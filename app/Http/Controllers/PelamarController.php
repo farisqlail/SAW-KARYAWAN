@@ -207,7 +207,7 @@ class PelamarController extends Controller
             // dd($jadwalTes);
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-            $beautymail->send('email.lolos', ['pelamar' => $pelamar, 'jadwalTes' => $jadwalTes], function ($message) use ($pelamar) {
+            $beautymail->send('email.lolos', ['data' => $pelamar, 'jadwalTes' => $jadwalTes], function ($message) use ($pelamar) {
                 $message
                     ->from('lintasnusa1990@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
@@ -328,12 +328,34 @@ class PelamarController extends Controller
 
     public function tolakDua(Request $request)
     {
+        $sort = $request->sorting;
+        $kode = $request->kode;
+        $output = array_slice($kode, 0, $sort);
+        $pelamar = Pelamar::whereNull('seleksi_satu')->whereIn('id_pelamar', $output)->get();
+        $tolak = Pelamar::whereNull('seleksi_satu')->whereNotIn('id_pelamar', $output)->get();
 
-        foreach (Pelamar::whereNull('seleksi_dua')->get() as $data) {
+        // foreach ($pelamar as $data) {
+        //     Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
 
-            Alert::success('Berhasil', 'Pelamar sudah ditolak & akan mengirim email lanjut');
+        //     // $data->seleksi_satu = 'Ditolak';
+        //     Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
+        //     $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
 
-            $data->seleksi_dua = 'Ditolak';
+        // $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+        //     $beautymail->send('email.lolos2', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
+        //         $message
+        //             ->from('lintasnusa1990@gmail.com')
+        //             ->to($pelamar->user->email, $pelamar->nama_pelamar)
+        //             ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
+        //     });
+        //     // $data->save();
+        // }
+        
+        foreach ($tolak as $data) {
+            Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
+
+            // $data->seleksi_satu = 'Ditolak';
+            Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Ditolak']);
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak2', ['data' => $data], function ($message) use ($data) {
@@ -342,8 +364,7 @@ class PelamarController extends Controller
                     ->to($data->user->email, $data->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
             });
-
-            $data->save();
+            // $data->save();
         }
 
         return redirect()->back();
