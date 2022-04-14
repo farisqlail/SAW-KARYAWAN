@@ -34,7 +34,6 @@
                                     <th align="center">Nilai Akhir</th>
                                     <th align="center">Ranking</th>
                                     <th align="center">Status Lamaran</th>
-                                    <th align="center">Status Pendaftaran</th>
                                     <th align="center">Aksi</th>
                                 </tr>
                             </thead>
@@ -52,13 +51,6 @@
                                             Tidak Lolos Seleksi Dua
                                         @else
                                             Menunggu Seleksi Tahap Dua
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($data['created_at'] > date('Y-m-d'))
-                                            <span class="badge badge-success">Pendaftaran</span>
-                                        @else
-                                            <span class="badge badge-danger">Lowongan ditutup</span>
                                         @endif
                                     </td>
                                     <td align="center">

@@ -47,8 +47,6 @@
                     <tr>
                         <th align="center">No</th>
                         <th align="center">Nama</th>
-                        <th align="center">Alamat</th>
-                        <th align="center">Telepon</th>
                         <th align="center">Nilai Akhir</th>
                         <th align="center">Ranking</th>
                         <th align="center">Keterangan</th>
@@ -60,8 +58,6 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $t['nama_pelamar'] }}</td>
-                        <td>{{ $t['alamat'] }}</td>
-                        <td>{{ $t['telepon'] }}</td>
                         <td>{{ number_format($t['total']) }}</td>
                         <td>{{ $loop->iteration}}</td>
                         <td>
