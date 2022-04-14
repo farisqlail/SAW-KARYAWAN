@@ -6,7 +6,9 @@
             <div class="col-md-12 card-deck">
                 <div class="card">
                     <div class="card-header">
-                        <center><h3>Seleksi Tahap 1 Posisi {{$low->posisi_lowongan}}</h3></center>
+                        <center>
+                            <h3>Seleksi Tahap 1 Posisi {{ $low->posisi_lowongan }}</h3>
+                        </center>
                         <h3 class="float-left">Hasil Analisa</h3>
                     </div>
 
@@ -81,16 +83,11 @@
                                                 @foreach ($data->bobot as $crip)
                                                     @if ($crip->kriteria->atribut_kriteria == 'cost')
                                                         <?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; ?>
-
                                                     @elseif($crip->kriteria->atribut_kriteria == 'benefit')
                                                         <?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; ?>
-
-
                                                     @endif
                                                     <?php $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi; ?>
                                                     <td>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</td>
-
-
                                                 @endforeach
                                                 <?php $rangking[] = [
                                                     'total' => $total,
@@ -98,7 +95,7 @@
                                                     'nama' => $data->nama_pelamar,
                                                     'idLowongan' => $data->id_lowongan,
                                                     'seleksi_1' => $data->seleksi_satu,
-                                                    'date'  => $data->created_at
+                                                    'date' => $data->created_at,
                                                 ]; ?>
                                             </tr>
                                         @endforeach
@@ -120,12 +117,21 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Perankingan Hasil Perhitungan SAW</h3>
-                        <div class="float-right">
-                            <form action="{{ route('pelamar.tolak.satu') }}" method="post">
+
+                        <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
+                            class="btn btn-success mt-5">Cetak
+                            Rekap</a>
+                        <div class="float-right mt-5">
+                            <form action="{{ route('pelamar.tolak.satu') }}" method="post" id="formSort">
                                 @csrf
-                                <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
-                                    class="btn btn-success">Cetak Rekap</a>
-                                <input type="submit" name="submit" class="btn btn-danger" value="Seleksi Selesai">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" name="sorting" class="form-control" placeholder="Sorting">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="submit" name="submit" class="btn btn-danger">Sorting</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -156,6 +162,8 @@
 
                                     @foreach ($rangking as $t)
                                         <tr>
+                                            <input type="text" name="kode[]" value="{{ $t['kode'] }}" form="formSort" hidden>
+                                            <input type="text" name="total[]" value="{{ $t['total'] }}" form="formSort" hidden>
                                             <td>{{ $no2++ }}</td>
                                             <td>{{ $t['nama'] }}</td>
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
@@ -173,7 +181,7 @@
                                                 @if ($t['date'] > date('Y-m-d'))
                                                     <span class="badge badge-success">Pendaftaran</span>
                                                 @else
-                                                <span class="badge badge-danger">Lowongan ditutup</span>
+                                                    <span class="badge badge-danger">Lowongan ditutup</span>
                                                 @endif
                                             </td>
                                             <td align="center">
@@ -185,12 +193,11 @@
                                                         class="btn btn-info">Lihat Detail</a>
 
                                                     @if ($t['seleksi_1'] == null)
+                                                        <input type="submit" name="submit" class="btn btn-success"
+                                                            value="Terima">
 
-                                                        <input type="submit" name="submit"
-                                                            class="btn btn-success" value="Terima">
-
-                                                        <input type="submit" name="submit"
-                                                            class="btn btn-danger" value="Tolak">
+                                                        <input type="submit" name="submit" class="btn btn-danger"
+                                                            value="Tolak">
                                                     @endif
 
                                                 </form>
@@ -198,9 +205,9 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
