@@ -34,15 +34,15 @@
                                         Pendaftaran ditutup
                                     @endif
                                 </i></span>
-                                <p class="mt-3">
+                                {{-- <p class="mt-3">
                                 <h4>Persyaratan</h4>
                                 {!! $data->deskripsi_persyaratan !!}
                                 <h4>Deskripsi Pekerjaan</h4>
                                 {!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 200) !!}
-                                </p>
+                                </p> --}}
 
                                 @if (Auth::guest())
-                                    <div class="button-group" align="right">
+                                    <div class="button-group mt-5" align="right">
                                         @if (\Carbon\Carbon::parse($data->berlaku_sampai) > \Carbon\Carbon::now())
                                             <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
                                                 class="btn btn-outline-primary">Lihat Detail</a>
