@@ -328,6 +328,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero .btn-get-started:hover {
   background: #206bfb;
   box-shadow: 0 8px 28px rgba(32, 107, 251, 0.45);
+  color: white;
 }
 #hero .btn-watch-video {
   font-size: 16px;
@@ -405,6 +406,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-get-started:hover {
   background: #206bfb;
   box-shadow: 0 8px 28px rgba(32, 107, 251, 0.45);
+  color: white;
 }
 
 @-webkit-keyframes up-down {
@@ -1192,3 +1194,4 @@ section {
   padding: 6px 12px;
   cursor: pointer;
 }
+

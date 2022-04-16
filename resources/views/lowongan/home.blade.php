@@ -1,15 +1,26 @@
 @extends('layouts.user')
 
+<img src="{{ asset('assets/img/Daftar.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+
 @section('content')
 
     <main id="main">
         <div class="container mt-5 mb-5">
-            <h1 style="margin-top: 100px;" align="center">Daftar Lowongan Pekerjaan</h1>
+            {{-- <h1 style="margin-top: 100px;" align="center">Daftar Lowongan Pekerjaan</h1> --}}
+
+            <div class="row">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
 
             <div class="row" style="margin-top: 50px">
                 @foreach ($lowongan as $data)
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card card-lowongan shadow rounded">
                             <div class="card-body">
                                 <h4><b>{{ $data->posisi_lowongan }}</b></h4>
                                 <br>
