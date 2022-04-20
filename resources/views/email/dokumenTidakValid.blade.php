@@ -14,8 +14,8 @@
     </tr>
     <tr>
         <td class="paragraph">
-            Menindak lanjuti pengumuman seleksi tahap 1 untuk lowongan <b>{{ $data->lowongan->posisi_lowongan }}</b>, melalui surat ini kami sampaikan
-            bahwa anda TIDAK LOLOS pada seleksi tahap 1.
+            Menindak lanjuti lamaran yang anda ajukan untuk lowongan <b>{{ $data->lowongan->posisi_lowongan }}</b>, melalui surat ini kami sampaikan
+            bahwa dokumen anda tidak valid.
 
             Atas perhatiannya kami sampaikan terimakasih.
         </td>

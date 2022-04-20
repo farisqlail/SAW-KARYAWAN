@@ -1,7 +1,6 @@
 @extends('admin.app')
 
 @section('content')
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 card-deck">
@@ -26,7 +25,7 @@
                                         Tempat Lahir
                                     </div>
                                     <div class="col-md-6">
-                                        : {{ $pelamar->tempat_lahir }} <br>
+                                        : {{ $pelamar->tanggal_lahir }}, &nbsp;{{ $pelamar->tempat_lahir }} <br>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -53,32 +52,23 @@
                                         : {{ $pelamar->jenis_kelamin }} <br>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        No Telepon
+                                    </div>
+                                    <div class="col-md-6">
+                                        : {{ $pelamar->no_telepon }} <br>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        CV Pelamar
-                                    </div>
-                                    <div class="col-md-6">
-                                        : <a href="{{ asset('storage/file/cv/' . $pelamar->cv) }}" class="btn btn-info btn-sm"
-                                            target="blank"><i class="fas fa-download"></i> &nbsp; Download CV</a> <br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        Ijazah Pelamar
-                                    </div>
-                                    <div class="col-md-6">
-                                        : <a href="{{ asset('storage/file/ijazah/' . $pelamar->ijazah) }}" class="btn btn-info btn-sm"
-                                            target="blank"><i class="fas fa-download"></i> &nbsp; Download Ijazah</a> <br>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-3">
                                         Foto Pelamar
                                     </div>
                                     <div class="col-md-6">
-                                        : <img src="{{ asset('storage/images/pas_foto/' . $pelamar->pas_foto) }}" class="img-fluid" alt="">
+                                        : <img src="{{ asset('storage/images/pas_foto/' . $pelamar->pas_foto) }}"
+                                            class="img-fluid" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +77,40 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <br>
+            <div class="card" style="width: 67rem;">
+                <div class="card-body">
+                    <h3>CV Pelamar</h3>
+                    <div class="pdf mt-4" style="margin: -10px; " align="center">
+                        <embed src="{{ asset('storage/file/cv/' . $pelamar->cv) }}" type="application/pdf" height="760px"
+                            width="80%">
+                    </div>
+                </div>
+            </div>
 
+            <br>
+            <div class="card" style="width: 67rem;">
+                <div class="card-body">
+                    <h3>Ijazah Pelamar</h3>
+                    <div class="pdf mt-4" style="margin: -10px; " align="center">
+                        <embed src="{{ asset('storage/file/ijazah/' . $pelamar->ijazah) }}" type="application/pdf"
+                            height="760px" width="80%">
+                    </div>
+
+                    <div class="button-validasi mt-4" align="right">
+                        <form action="{{ route('pelamar.statusDokumen', $pelamar->id_pelamar) }}" method="post">
+                            {{ csrf_field() }}
+                            
+                            <input type="submit" name="submit" class="btn btn-danger btn-sm" value="Dokumen Tidak Valid">
+
+                            <input type="submit" name="submit" class="btn btn-success btn-sm" value="Dokumen Valid">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 @endsection

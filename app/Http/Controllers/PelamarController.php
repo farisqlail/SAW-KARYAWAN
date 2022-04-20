@@ -120,7 +120,7 @@ class PelamarController extends Controller
                 Storage::putFileAs("public/images/pas_foto", $file, $filename);
             }
 
-
+            // dd($pelamar);
             $pelamar->save();
 
             $bobot_kriteria = BobotKriteria::all();
@@ -178,6 +178,14 @@ class PelamarController extends Controller
             $pelamar = Pelamar::find($id);
             $jadwalTes = JadwalTes::where('id_lowongan', $pelamar->id_lowongan)->first();
             $pelamar->status_dokumen = 'Dokumen Valid';
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.dokumenValid', ['data' => $pelamar, 'jadwalTes' => $jadwalTes], function ($message) use ($pelamar) {
+                $message
+                    ->from('lintasnusa1990@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
+            });
             // dd($jadwalTes);
             $pelamar->save();
 
@@ -188,6 +196,14 @@ class PelamarController extends Controller
 
             $pelamar = Pelamar::findOrFail($id);
             $pelamar->status_dokumen = 'Dokumen Tidak Valid';
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.dokumenTidakValid', ['data' => $pelamar], function ($message) use ($pelamar) {
+                $message
+                    ->from('lintasnusa@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
+            });
 
             $pelamar->save();
 

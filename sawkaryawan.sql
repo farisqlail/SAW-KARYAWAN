@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2022 at 05:37 AM
+-- Generation Time: Apr 18, 2022 at 07:22 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -121,7 +121,8 @@ CREATE TABLE `jadwal_tes` (
 --
 
 INSERT INTO `jadwal_tes` (`id_jadwal_tes`, `id_lowongan`, `tanggal`, `durasi_tes`, `created_at`, `updated_at`) VALUES
-(1, 1, '2021-12-23 11:23:00', '2022-12-15 11:23:00', '2021-12-22 21:23:35', '2021-12-22 21:23:35');
+(1, 1, '2021-12-23 11:23:00', '2022-12-15 11:23:00', '2021-12-22 21:23:35', '2021-12-22 21:23:35'),
+(3, 2, '2022-02-01 10:00:00', '2022-02-02 10:00:00', '2022-02-17 00:54:20', '2022-02-17 00:54:20');
 
 -- --------------------------------------------------------
 
@@ -145,7 +146,7 @@ CREATE TABLE `kriteria` (
 
 INSERT INTO `kriteria` (`id_kriteria`, `id_lowongan`, `nama_kriteria`, `atribut_kriteria`, `bobot_preferensi`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Pendidikan terakhir', 'benefit', 65, '2021-12-22 21:20:51', '2021-12-22 21:20:51'),
-(2, 1, 'Pengalaman Kerja', 'benefit', 35, '2021-12-22 21:22:11', '2021-12-22 21:22:11'),
+(2, 1, 'Pengalaman Kerja', 'benefit', 34, '2021-12-22 21:22:11', '2022-03-10 05:29:57'),
 (3, 2, 'asd', 'cost', 20, '2022-01-10 08:33:08', '2022-01-10 08:33:08'),
 (4, 2, 'wer', 'cost', 80, '2022-01-10 08:33:17', '2022-01-10 08:33:47');
 
@@ -171,8 +172,8 @@ CREATE TABLE `lowongan` (
 --
 
 INSERT INTO `lowongan` (`id_lowongan`, `posisi_lowongan`, `berlaku_sampai`, `deskripsi_pekerjaan`, `deskripsi_persyaratan`, `status_lowongan`, `created_at`, `updated_at`) VALUES
-(1, 'Finance', '2022-01-13', '<ul>\r\n	<li>Handling Account Payable, verifying invoices and performing reconciliations</li>\r\n	<li>Updating Accounts Receivable and issuing invoices.</li>\r\n	<li>Preparing weekly payment request.</li>\r\n	<li>Managing prepaid expenses and petty cash</li>\r\n	<li>Perform daily bank reconciliation</li>\r\n</ul>', '<ul>\r\n	<li>Candidate must possess a Bachelor&#39;s Degree or equivalent in Economics field</li>\r\n	<li>Fresh Graduate are welcome to apply</li>\r\n	<li>Understand about tax is a plus.</li>\r\n	<li>Good in English Written and Verbal</li>\r\n	<li>Good analytical and communication skills</li>\r\n</ul>', NULL, '2021-12-22 21:20:17', '2021-12-22 21:20:17'),
-(2, 'programmer', '2022-01-29', '<p>asdasd</p>', '<p>asdasd</p>', NULL, '2022-01-10 08:32:54', '2022-01-10 08:32:54');
+(1, 'Finance', '2022-05-27', '<ul>\r\n	<li>Handling Account Payable, verifying invoices and performing reconciliations</li>\r\n	<li>Updating Accounts Receivable and issuing invoices.</li>\r\n	<li>Preparing weekly payment request.</li>\r\n	<li>Managing prepaid expenses and petty cash</li>\r\n	<li>Perform daily bank reconciliation</li>\r\n</ul>', '<ul>\r\n	<li>Candidate must possess a Bachelor&#39;s Degree or equivalent in Economics field</li>\r\n	<li>Fresh Graduate are welcome to apply</li>\r\n	<li>Understand about tax is a plus.</li>\r\n	<li>Good in English Written and Verbal</li>\r\n	<li>Good analytical and communication skills</li>\r\n</ul>', NULL, '2021-12-22 21:20:17', '2021-12-22 21:20:17'),
+(2, 'programmer', '2022-02-26', '<p>asdasd</p>', '<p>asdasd</p>', NULL, '2022-01-10 08:32:54', '2022-01-10 08:32:54');
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,9 @@ INSERT INTO `nilai_alternatif` (`id_nilai_alternatif`, `id_pelamar`, `id_bobot_k
 (5, 3, 2, '2021-12-23 04:19:47', '2021-12-23 04:19:47'),
 (6, 3, 6, '2021-12-23 04:19:47', '2021-12-23 04:19:47'),
 (7, 4, 1, '2022-01-04 00:02:56', '2022-01-04 00:02:56'),
-(8, 4, 7, '2022-01-04 00:02:56', '2022-01-04 00:02:56');
+(8, 4, 7, '2022-01-04 00:02:56', '2022-01-04 00:02:56'),
+(11, 6, 9, '2022-02-16 22:21:09', '2022-02-16 22:21:09'),
+(12, 6, 10, '2022-02-16 22:21:09', '2022-02-16 22:21:09');
 
 -- --------------------------------------------------------
 
@@ -264,6 +267,7 @@ CREATE TABLE `pelamar` (
   `pas_foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `seleksi_satu` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `seleksi_dua` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status_dokumen` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -272,11 +276,12 @@ CREATE TABLE `pelamar` (
 -- Dumping data for table `pelamar`
 --
 
-INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 'Altamarin Adji', '2020-06-09', 'Samarinda', 'Islam', 'Jl Melati', '081246555667', 'Laki-laki', '1640233583.pdf', '1640233584.pdf', '1640233584.png', 'Diterima', 'Diterima', '2021-12-22 21:26:24', '2022-02-16 21:22:21'),
-(2, 3, 1, 'udin', '2021-12-07', 'Samarinda', 'Islam', 'Jl Kembar', '081233233323', 'Laki-laki', '1640233675.pdf', '1640233675.pdf', '1640233675.png', 'Ditolak', 'Ditolak', '2021-12-22 21:27:55', '2022-02-16 20:17:37'),
-(3, 4, 1, 'faris', '2021-12-01', 'sby', 'Kristen', 'asdsda', '12323', 'Laki-laki', '1640258387.pdf', '1640258387.pdf', '1640258387.png', 'Diterima', 'Ditolak', '2021-12-23 04:19:47', '2022-02-16 20:17:39'),
-(4, 5, 1, 'faris', '2021-12-28', 'sby', 'Islam', 'asdasd', '213', 'Laki-laki', '1641279776.pdf', '1641279776.pdf', '1641279776.jpg', 'Diterima', 'Ditolak', '2022-01-04 00:02:56', '2022-02-16 20:17:42');
+INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `status_dokumen`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 'Altamarin Adji', '2020-06-09', 'Samarinda', 'Islam', 'Jl Melati', '081246555667', 'Laki-laki', '1640233583.pdf', '1640233584.pdf', '1640233584.png', 'Diterima', NULL, '', '2021-12-22 21:26:24', '2022-04-14 10:58:02'),
+(2, 3, 1, 'udin', '2021-12-07', 'Samarinda', 'Islam', 'Jl Kembar', '081233233323', 'Laki-laki', '1640233675.pdf', '1640233675.pdf', '1640233675.png', 'Ditolak', NULL, '', '2021-12-22 21:27:55', '2022-04-14 09:23:02'),
+(3, 4, 1, 'faris', '2021-12-01', 'sby', 'Kristen', 'asdsda', '12323', 'Laki-laki', '1640258387.pdf', '1640258387.pdf', '1640258387.png', 'Diterima', NULL, 'Dokumen Valid', '2021-12-23 04:19:47', '2022-04-14 10:58:14'),
+(4, 5, 1, 'faris', '2021-12-28', 'sby', 'Islam', 'asdasd', '213', 'Laki-laki', '1641279776.pdf', '1641279776.pdf', '1641279776.jpg', 'Diterima', NULL, '', '2022-01-04 00:02:56', '2022-04-14 10:58:22'),
+(6, 7, 2, 'Faris Rizqilail', '2022-02-03', 'Surabaya', 'Kristen', 'Jl.Bronggalan Sawah 4F no 41', '0895378052885', 'Laki-laki', '1645075269.pdf', '1645075269.pdf', '1645075269.jpg', 'Ditolak', NULL, '', '2022-02-16 22:21:09', '2022-04-14 09:23:05');
 
 -- --------------------------------------------------------
 
@@ -300,12 +305,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'epQrcK5IE0dmuW5ugALTU56lVbodS0luCdndh9XQWNV7MiUBSqHbGG8TUtwb', NULL, NULL),
+(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'uoOw1YLydYy1oVOXCji7l9X6YsEBnSfQ7rBoLswOV0bm9i28xfyXUtSB17W0', NULL, NULL),
 (2, 'Altamarin', 'customer', 'farisqlail@gmail.com', '$2y$10$8XEawByNZ0UtYkgoktCMWO7B0xNF5yBPxk3KIvTsDH82LvDh.koq2', NULL, '2021-12-22 21:25:13', '2021-12-22 21:25:13'),
 (3, 'udin', 'customer', 'udin@gmail.com', '$2y$10$bHEuTuiAEukyxQsL5VMw.e9vs2njnQ0lKhi7GgIvPyKeIF6JW6OUK', NULL, '2021-12-22 21:26:46', '2021-12-22 21:26:46'),
 (4, 'faris', 'customer', 'faris.riskilail@gmail.com', 'faris123', NULL, '2021-12-23 04:12:59', '2021-12-23 04:12:59'),
 (5, 'faris', 'customer', 'user@gmail.com', '$2y$10$YezkGzmV8VEx2.v6IGbDJeWVtosBnxRKWi4TsuEEUYLD8W6tfe5Fm', NULL, '2022-01-04 00:01:30', '2022-01-04 00:01:30'),
-(6, 'fadil', 'customer', 'fadil@gmail.com', '$2y$10$RM4Zxhf61XO.IMaf1Zg1v.RpjVEJSQbtPTDpit4QdYwcvt8kK0yIm', NULL, '2022-01-10 07:52:34', '2022-01-10 07:52:34');
+(6, 'fadil', 'customer', 'fadil@gmail.com', '$2y$10$RM4Zxhf61XO.IMaf1Zg1v.RpjVEJSQbtPTDpit4QdYwcvt8kK0yIm', NULL, '2022-01-10 07:52:34', '2022-01-10 07:52:34'),
+(7, 'faris', 'customer', 'faris1@gmail.com', '$2y$10$qSQyzjk9KVE7Iy6PTenle.cYxz89l0eBG3enfPjF6Hndv0RoFomqm', NULL, '2022-02-16 22:19:30', '2022-02-16 22:19:30');
 
 --
 -- Indexes for dumped tables
@@ -417,7 +423,7 @@ ALTER TABLE `hasil_tes`
 -- AUTO_INCREMENT for table `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
-  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -441,19 +447,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
-  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `pelamar`
 --
 ALTER TABLE `pelamar`
-  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

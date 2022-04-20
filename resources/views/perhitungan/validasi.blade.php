@@ -52,9 +52,6 @@
                                         <tr>
                                             <th align="center">NO</th>
                                             <th align="center">Nama</th>
-                                            <th align="center">Ranking</th>
-                                            <th align="center">Status Seleksi Satu</th>
-                                            <th align="center">Dokumen</th>
                                             <th align="center">Status Dokumen</th>
                                             <th align="center">Aksi</th>
                                         </tr>
@@ -98,48 +95,23 @@
                                             <tr>
                                                 <td>{{ $no2++ }}</td>
                                                 <td>{{ $t['nama'] }}</td>
-                                                <td>{{ $a++ }}</td>
-                                                <td>
-                                                    @if ($t['seleksi_1'] == 'Diterima')
-                                                        Lolos Seleksi Satu
-                                                    @elseif ($t['seleksi_1'] == 'Ditolak')
-                                                        Tidak Lolos Seleksi
-                                                    @else
-                                                        Menunggu Seleksi
-                                                    @endif
-                                                </td>
-                                                <td align="center">
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                                        data-target="#dokumen">
-                                                        Lihat Dokumen
-                                                    </button>
-
-                                                </td>
                                                 <td align="center">
                                                     @if ($t['status_dokumen'] == 'Dokumen Valid')
-                                                        Dokumen Valid
+                                                        <span class="badge badge-success">Dokumen Valid</span>
                                                     @elseif($t['status_dokumen'] == 'Dokumen Tidak Valid')
-                                                        Dokumen Tidak Valid
+                                                        <span class="badge badge-danger">Dokumen Tidak Valid</span>
                                                     @else
-                                                        <span class="text-danger">Dokumen belum tervalidasi</span>
+                                                        <span class="badge badge-warning">Dokumen belum tervalidasi</span>
                                                     @endif
                                                 </td>
                                                 <td align="center">
 
-                                                    <form action="{{ route('pelamar.statusDokumen', $t['kode']) }}"
-                                                        method="post">
-                                                        {{ csrf_field() }}
 
-                                                        <a href="{{ route('seleksi.detail', $t['kode']) }}"
-                                                            class="btn btn-info btn-sm">Lihat Detail</a>
 
-                                                        <input type="submit" name="submit" class="btn btn-success btn-sm"
-                                                            value="Dokumen Valid">
+                                                    <a href="{{ route('seleksi.detail', $t['kode']) }}"
+                                                        class="btn btn-info btn-sm">Lihat Detail</a>
 
-                                                        <input type="submit" name="submit" class="btn btn-danger btn-sm"
-                                                            value="Dokumen Tidak Valid">
-{{-- 
-                                                        @if ($t['seleksi_1'] == null)
+                                                    {{-- @if ($t['seleksi_1'] == null)
                                                             <input type="submit" name="submit" class="btn btn-success"
                                                                 value="Terima">
 
