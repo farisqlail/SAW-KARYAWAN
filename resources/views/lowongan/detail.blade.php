@@ -1,5 +1,7 @@
 @extends('layouts.user')
 
+<img src="{{ asset('assets/img/Detail.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+
 @section('content')
     <div class="container">
         <div class="d-flex justify-content-center">

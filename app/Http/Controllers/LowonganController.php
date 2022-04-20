@@ -30,7 +30,8 @@ class LowonganController extends Controller
     {
 
         $lowongan = lowongan::all();
-        $pelamar = Pelamar::all();
+        $user = Auth::user()->id;
+        $pelamar = Pelamar::where('id_user', $user)->get();
 
         return view('lowongan.home', compact('lowongan', 'pelamar'));
     }

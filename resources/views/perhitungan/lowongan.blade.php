@@ -17,6 +17,7 @@
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Posisi Lowongan</th>
+                                    <th align="center">Status Lowongan</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -26,6 +27,13 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$data->posisi_lowongan}}</td>
+                                    <td align="center">
+                                        @if ($data->berlaku_sampai > date('Y-m-d'))
+                                            <span class="badge badge-success">Pendaftaran</span>
+                                        @else
+                                            <span class="badge badge-danger">Lowongan ditutup</span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         <a href="{{ route('perhitungan.validasi', $data) }}" class="btn btn-sm btn-danger">Validasi</a>
 

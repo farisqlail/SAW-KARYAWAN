@@ -31,19 +31,39 @@
                                     @if ($date > \Carbon\Carbon::now())
                                         Pendaftaran berlaku sampai {{ $data->berlaku_sampai }}
                                     @else
-                                        Pendaftaran ditutup
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Pendaftaran ditutup
+                                            </div>
+                                            <div class="col-md-6" align="right">
+                                                @if ($data->seleksi_satu == null && $data->seleksi_dua == null)
+                                                    <span class="badge badge-warning">Lamaran belum ada status</span>
+                                                @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == null)
+                                                    <span class="badge badge-success">Lolos Seleksi Tahap 1 <br>
+                                                        (Silahkan Mengikuti Tes Online)
+                                                    </span>
+                                                @elseif ($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Diterima')
+                                                    <span class="badge badge-success">Lolos Seleksi Tahap 2 <br>
+                                                        (Silahkan Datang Ke Perusahaan Untuk Mengikuti Wawancara) </span>
+                                                @elseif($data->seleksi_satu == 'Ditolak' && $data->seleksi_dua == null)
+                                                    <span class="badge badge-danger">Lamaran Ditolak</span>
+                                                @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Ditolak')
+                                                    <span class="badge badge-danger">Lamaran Ditolak</span>
+                                                @endif
+                                            </div>
+                                        </div>
                                     @endif
                                 </i></span>
-                                {{-- <p class="mt-3">
+                                <p class="mt-3">
                                 <h4>Persyaratan</h4>
                                 {!! $data->deskripsi_persyaratan !!}
                                 <h4>Deskripsi Pekerjaan</h4>
                                 {!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 200) !!}
-                                </p> --}}
+                                </p>
 
                                 @if (Auth::guest())
                                     <div class="button-group mt-5" align="right">
-                                        @if (\Carbon\Carbon::parse($data->berlaku_sampai) > \Carbon\Carbon::now())
+                                        @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
                                             <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
                                                 class="btn btn-outline-primary">Lihat Detail</a>
                                             <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
@@ -51,7 +71,7 @@
                                     </div>
                                 @else
                                     <div class="button-group" align="right">
-                                        @if (\Carbon\Carbon::parse($data->berlaku_sampai) > \Carbon\Carbon::now())
+                                        @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
                                             <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
                                                 class="btn btn-outline-primary">Lihat Detail</a>
                                             @php

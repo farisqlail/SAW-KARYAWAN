@@ -1,9 +1,10 @@
 @extends('layouts.user')
 
+<img src="{{ asset('assets/img/Riwayat.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+
 @section('content')
 
     <div class="container" style="margin-top: 100px;">
-        <h1>Riwayat Lamaran</h1>
 
         <div class="table-responsive mt-5">
             <table class="table table-bordered" id="myTable">

@@ -264,22 +264,22 @@ class PelamarController extends Controller
 
         $tolak = Pelamar::whereNull('seleksi_satu')->whereNotIn('id_pelamar', $output)->get();
 
-        // foreach ($pelamar as $data) {
-        //     Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
+        foreach ($pelamar as $data) {
+            Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
 
-        //     // $data->seleksi_satu = 'Ditolak';
-        //     Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
-        //     $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
+            // $data->seleksi_satu = 'Ditolak';
+            Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
+            $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
 
-        //     $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-        //     $beautymail->send('email.lolos', ['data' => $data, 'jadwalTes' => $jadwalTes], function ($message) use ($data) {
-        //         $message
-        //             ->from('lintasnusa@gmail.com')
-        //             ->to($data->user->email, $data->nama_pelamar)
-        //             ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
-        //     });
-        //     // $data->save();
-        // }
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.lolos', ['data' => $data, 'jadwalTes' => $jadwalTes], function ($message) use ($data) {
+                $message
+                    ->from('lintasnusa@gmail.com')
+                    ->to($data->user->email, $data->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
+            });
+            // $data->save();
+        }
         
         foreach ($tolak as $data) {
             Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
@@ -350,22 +350,22 @@ class PelamarController extends Controller
         $pelamar = Pelamar::whereNull('seleksi_satu')->whereIn('id_pelamar', $output)->get();
         $tolak = Pelamar::whereNull('seleksi_satu')->whereNotIn('id_pelamar', $output)->get();
 
-        // foreach ($pelamar as $data) {
-        //     Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
+        foreach ($pelamar as $data) {
+            Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
 
-        //     // $data->seleksi_satu = 'Ditolak';
-        //     Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
-        //     $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
+            // $data->seleksi_satu = 'Ditolak';
+            Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
+            $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
 
-        // $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-        //     $beautymail->send('email.lolos2', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
-        //         $message
-        //             ->from('lintasnusa1990@gmail.com')
-        //             ->to($pelamar->user->email, $pelamar->nama_pelamar)
-        //             ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
-        //     });
-        //     // $data->save();
-        // }
+        $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.lolos2', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
+                $message
+                    ->from('lintasnusa1990@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
+            });
+            // $data->save();
+        }
         
         foreach ($tolak as $data) {
             Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');

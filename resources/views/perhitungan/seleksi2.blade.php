@@ -19,11 +19,14 @@
                             <form action="{{ route('pelamar.tolak.dua') }}" method="post" id="formSort">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <label for="" class="text-dark mt-3" align="left">Jumlah yang Lolos : </label>
+                                    </div>
+                                    <div class="col-md-4">
                                         <input type="text" name="sorting" class="form-control" placeholder="Sorting">
                                     </div>
-                                    <div class="col-md-6">
-                                        <button type="submit" name="submit" class="btn btn-danger">Sorting</button>
+                                    <div class="col-md-4">
+                                        <button type="submit" name="submit" class="btn btn-danger">Seleksi</button>
                                     </div>
                                 </div>
                             </form>
