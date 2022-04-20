@@ -18,16 +18,15 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="myTable">
+                            <table class="table table-bordered" id="myTable" style="width: 98%;">
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Posisi Lowongan</th>
                                         <th class="text-center">Berlaku Sampai</th>
-                                        <th class="text-center">Status Pendaftaran</th>
+                                        <th class="text-center">Status Lowongan</th>
                                         <th class="text-center">Deskripsi Lowongan</th>
-                                        <th class="text-center">Deskripsi Persyaratan</th>
-                                        <th class="text-center">Aksi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,20 +38,23 @@
                                                 <td>{{ $data->posisi_lowongan }}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
                                                 <td align="center">
-                                                    @if ($data->created_by > date('Y-m-d'))
+                                                    @if ($data->berlaku_sampai > date('Y-m-d') && $data->status_lowongan == null)
                                                         <span class="badge badge-success">Pendaftaran</span>
-                                                    @else
-                                                        <span class="badge badge-danger">Lowongan ditutup</span>
+                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == null)
+                                                        <span class="badge badge-warning">Seleksi 1</span>
+                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == 'Seleksi 2')
+                                                        <span class="badge badge-warning">Seleksi 2</span>
+                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == 'Seleksi Selesai')
+                                                        <span class="badge badge-danger">Seleksi Selesai</span>
                                                     @endif
                                                 </td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
-                                                <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_persyaratan, 30) !!}</td>
-                                                <td class="text-center">
+                                                <td >
                                                         {{-- @if (Auth()->user()->role == 'admin') --}}
                                                             <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}"
-                                                                class="btn btn-sm btn-info">Kriteria</a>
+                                                                class="btn btn-sm btn-info btn-sm">Kriteria</a>
                                                             <a href="{{ route('lowongan.edit', ['id' => $data->id_lowongan]) }}"
-                                                                class="btn btn-sm btn-warning">Edit</a>
+                                                                class="btn btn-sm btn-warning btn-sm">Edit</a>
                                                                 <a href="#" data-id="{{ $data->id_lowongan }}" class="btn btn-sm btn-danger delete">
                                                                     Hapus
                                                                 </a>
@@ -98,5 +100,6 @@
                 }
             });
     });
+    
 </script>
 @endsection

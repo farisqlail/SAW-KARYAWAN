@@ -269,6 +269,7 @@ class PelamarController extends Controller
 
             // $data->seleksi_satu = 'Ditolak';
             Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
+            Lowongan::where('id_lowongan', $data->id_lowongan)->update(['status_lowongan' => 'Seleksi 2']);
             $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
@@ -355,6 +356,7 @@ class PelamarController extends Controller
 
             // $data->seleksi_satu = 'Ditolak';
             Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
+            Lowongan::where('id_lowongan', $data->id_lowongan)->update(['status_lowongan' => 'Seleksi Selesai']);
             $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
 
         $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);

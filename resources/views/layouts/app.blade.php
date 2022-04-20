@@ -12,20 +12,24 @@
     <title>Aplikasi Rekrutmen Cv.Lintas Nusa</title>
     <!-- Scripts -->
     @if (Route::current()->getName() == 'login' || Route::current()->getName() == 'register')
-    <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
     @endif
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{asset('assets/img/icon.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/icon.png') }}" type="image/x-icon">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <!-- Styles -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <style>
+        ::-webkit-scrollbar { 
+            display: none; 
+        }
         .form-inline>* {
             margin: 5px 3px;
         }
@@ -51,8 +55,10 @@
             overflow: hidden;
             margin: 10px auto;
         }
+
     </style>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="{{ asset('assets/css/material-dashboard.css?v=2.1.2') }}" rel="stylesheet" />
@@ -79,14 +85,14 @@
 
 
     </div>
-    
+
 
 
     {{-- SCRIPT --}}
 
     <script src="{{ asset('assets/js/core/jquery.min.js') }}"></script>
     @if (Route::current()->getName() != 'login' || Route::current()->getName() == 'register')
-    <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     @endif
 
     <script src="{{ asset('assets/js/core/bootstrap-material-design.min.js') }}"></script>
@@ -129,7 +135,12 @@
     <script src="{{ asset('assets/js/plugins/arrive.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                "scrollY": "200px",
+                "scrollX": "100%",
+                "paging": false
+            });
+
         });
     </script>
 
