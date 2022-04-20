@@ -1,17 +1,14 @@
 @extends('layouts.user')
 
-@section('content')
+<img src="{{ asset('assets/img/Form.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
 
+@section('content')
     <main id="main">
 
         <div class="container">
-            <div class="row justify-content-center" style="margin-top: 100px;">
+            <div class="row justify-content-center" style="margin-top: 50px;">
                 <div class="col-md-8">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
-
-                        <h2 class="float-left">Lamar Pekerjaan</h2>
-                        </form>
-
 
                         <div class="card-body">
                             <div class="row">
@@ -41,13 +38,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Nama Lengkap <span class="text-danger">*</span></label>
-                                                <input type="text" name="nama_pelamar" required class="form-control">
+                                                <input type="text" name="nama_pelamar" required class="form-control"
+                                                    value="{{ Auth::user()->name }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-                                                <input type="date" name="tanggal_lahir" required class="form-control">
+                                                <input type="date" name="tanggal_lahir" required class="form-control"
+                                                    value="{{ Auth::user()->tanggal_lahir }}">
                                             </div>
                                         </div>
                                     </div>
@@ -55,14 +54,16 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Tempat Lahir <span class="text-danger">*</span></label>
-                                                <input type="text" name="tempat_lahir" required class="form-control">
+                                                <input type="text" name="tempat_lahir" required class="form-control"
+                                                    value="{{ Auth::user()->tempat_lahir }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Agama <span class="text-danger">*</span></label>
                                                 <select name="agama" class="form-control" required>
-                                                    <option value="">Pilih Agama</option>
+                                                    <option value="{{ Auth::user()->agama }}">{{ Auth::user()->agama }}
+                                                    </option>
                                                     <option value="Islam">Islam</option>
                                                     <option value="Kristen">Kristen</option>
                                                     <option value="Katolik">Katolik</option>
@@ -76,17 +77,56 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-                                                <select name="jenis_kelamin" class="form-control">
-                                                    <option value="">Pilih Jenis Kelamin</option>
-                                                    <option value="Laki-laki">Laki-laki</option>
-                                                    <option value="Perempuan">Perempuan</option>
-                                                </select>
+                                                <div class="row mt-2">
+                                                    @if (Auth::user()->jenis_kelamin == 'Laki-laki')
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="jenis_kelamin" id="jenis_kelamin"
+                                                                    value="{{ Auth::user()->jenis_kelamin }}" checked>
+                                                                <label class="form-check-label" for="jenis_kelamin">
+                                                                    Laki - Laki
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="jenis_kelamin" id="jenis_kelamin">
+                                                                <label class="form-check-label" for="jenis_kelamin">
+                                                                    Perempuan
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @elseif(Auth::user()->jenis_kelamin == 'Perempuan')
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="jenis_kelamin" id="jenis_kelamin">
+                                                                <label class="form-check-label" for="jenis_kelamin">
+                                                                    Laki - Laki
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="jenis_kelamin" id="jenis_kelamin"
+                                                                    value="{{ Auth::user()->jenis_kelamin }}" checked>
+                                                                <label class="form-check-label" for="jenis_kelamin">
+                                                                    Perempuan
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">No Telepon <span class="text-danger">*</span></label>
-                                                <input type="number" name="no_telepon" required class="form-control">
+                                                <input type="number" name="no_telepon" required class="form-control"
+                                                    value="{{ Auth::user()->no_telepon }}">
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +136,7 @@
                                             <div class="form-group">
                                                 <label for="">Alamat <span class="text-danger">*</span></label>
                                                 <textarea name="alamat" id="" cols="30" rows="5" required
-                                                    class="form-control"></textarea>
+                                                    class="form-control">{{ Auth::user()->alamat }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +157,6 @@
                                                                     <option value="{{ $bobot->id_bobot_kriteria }}">
                                                                         {{ $bobot->nama_bobot }}</option>
                                                                 @else
-
                                                                 @endif
                                                             @endforeach
                                                         </select>
@@ -194,5 +233,4 @@
             </div>
         </div>
     </main>
-
 @endsection
