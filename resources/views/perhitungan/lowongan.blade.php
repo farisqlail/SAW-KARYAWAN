@@ -22,8 +22,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (!empty($lowongan))
-                                        @foreach ($lowongan as $data)
+                                    @if (!empty($jadwalTes))
+                                        @foreach ($jadwalTes as $data)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
@@ -45,8 +45,11 @@
                                                     @if (\Carbon\Carbon::parse($data->berlaku_sampai) < \Carbon\Carbon::now())
                                                         <a href="{{ route('perhitungan.index', $data) }}"
                                                             class="btn btn-sm btn-info">Seleksi 1</a>
-                                                        <a href="{{ Route('perhitungan.dua', $data) }}"
-                                                            class="btn btn-sm btn-success">Seleksi 2</a>
+                                                            @if ($data->durasi_tes < \Carbon\Carbon::now())
+                                                            <a href="{{ Route('perhitungan.dua', $data) }}"
+                                                                class="btn btn-sm btn-success">Seleksi 2</a>
+                                                                
+                                                            @endif
                                                     @endif
                                                 </td>
                                             </tr>

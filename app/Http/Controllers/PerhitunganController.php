@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BobotKriteria;
 use App\DaftarSoal;
 use App\HasilTes;
+use App\JadwalTes;
 use App\Kriteria;
 use App\NilaiAlternatif;
 use App\Lowongan;
@@ -213,7 +214,10 @@ class PerhitunganController extends Controller
     {
 
         $lowongan = lowongan::all();
-        return view('perhitungan.lowongan', ['lowongan' => $lowongan]);
+        $lowonganId = $lowongan[0]->id_lowongan;
+        $jadwalTes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
+        // dd($jadwalTes);
+        return view('perhitungan.lowongan', ['jadwalTes' => $jadwalTes]);
     }
 
     public function detail($id)
@@ -296,6 +300,31 @@ class PerhitunganController extends Controller
                 //     ->groupBy('id_pelamar', 'bobot_soal')
                 //     ->get();
 
+                // dd($lowonganGet);
+                $kriteria = Kriteria::where('id_lowongan', $id)->get();
+                $alternatif = Pelamar::where('id_lowongan', $id)->get();
+                $kode_krit = [];
+                foreach ($kriteria as $krit) {
+                    $kode_krit[$krit->id_kriteria] = [];
+                    foreach ($alternatif as $al) {
+                        foreach ($al->bobot as $bobot) {
+                            if ($bobot->kriteria->id_kriteria == $krit->id_kriteria) {
+                                $kode_krit[$krit->id_kriteria][] = $bobot->jumlah_bobot;
+                            }
+                        }
+                    }
+
+                    if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id_kriteria])) {
+
+                        $kode_krit[$krit->id_kriteria] = min($kode_krit[$krit->id_kriteria]);
+                    } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id_kriteria])) {
+
+                        $kode_krit[$krit->id_kriteria] = max($kode_krit[$krit->id_kriteria]);
+                    } else {
+                        $kode_krit[$krit->id_kriteria] = 1;
+                    }
+                }
+
                 $ar = [];
                 $pelamar = Pelamar::all();
                 foreach ($pelamar as $data) {
@@ -306,6 +335,7 @@ class PerhitunganController extends Controller
                         ->groupBy('id_soal')
                         ->get();
 
+                        
                     if ($nilai->isNotEmpty()) {
                         $nilai = $nilai->toArray();
                         $nilai = array_sum(array_column($nilai, 'hasil'));
@@ -316,8 +346,10 @@ class PerhitunganController extends Controller
                         $x['telepon'] = $data->no_telepon;
                         $x['status'] = $data->seleksi_dua;
                         $x['id_pelamar'] = $data->id_pelamar;
+                        $x['berlaku_sampai'] = $data->berlaku_sampai;
+                        $x['status_dokumen'] = $data->status_dokumen;
 
-                        $x['total'] = $nilai;
+                        $x['nilaiAkhir'] = $nilai;
                         array_push($ar, $x);
                     }
                 }
@@ -326,20 +358,19 @@ class PerhitunganController extends Controller
 
                     return redirect()->back();
                 }
-                array_multisort(array_column($ar, 'total'), SORT_DESC, $ar);
-                // usort($ar, function ($a, $b) {
-                //     return $a['total'] <=> $b['total'];
-                // });
-                // rsort($ar);
-                // dd($ar);
-                $pdf = PDF::loadView('laporan.seleksi2', [
+                array_multisort(array_column($ar, 'nilaiAkhir'), SORT_DESC, $ar);
+              
+                return view('laporan.seleksi2', [
 
                     'daftarSoal'    => $daftarSoal,
                     'hasilTes'      => $ar,
-                    'lowongan'      => $lowongan
+                    'lowongan'      => $lowongan,
+                    'kriteria'      => $kriteria,
+                    'alternatif'    => $alternatif,
+                    'kode_krit'     => $kode_krit
                 ]);
 
-                return $pdf->download('Seleksi-tahap-dua.pdf');
+                // return $pdf->download('Seleksi-tahap-dua.pdf');
             }
         }
         // dd($hasilTes); 

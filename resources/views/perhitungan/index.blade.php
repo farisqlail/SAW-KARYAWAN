@@ -118,9 +118,9 @@
                     <div class="card-header">
                         <h3>Perankingan Hasil Perhitungan SAW</h3>
 
-                        <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
+                        {{-- <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
                             class="btn btn-success mt-5">Cetak
-                            Rekap</a>
+                            Rekap</a> --}}
                         <div class="float-right mt-5">
                             <form action="{{ route('pelamar.tolak.satu') }}" method="post" id="formSort">
                                 @csrf
