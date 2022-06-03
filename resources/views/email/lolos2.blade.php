@@ -6,7 +6,7 @@
     <tr>
         <td class="title">
             Yth.
-            {{ $pelamar->nama_pelamar }}
+            {{ $data->nama_pelamar }}
         </td>
     </tr>
     <tr>
@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td class="paragraph">
-            Menindaklanjuti pengumuman seleksi tahap 2 untuk lowongan <b>{{ $pelamar->lowongan->posisi_lowongan }}</b>,
+            Menindaklanjuti pengumuman seleksi tahap 2 untuk lowongan <b>{{ $data->lowongan->posisi_lowongan }}</b>,
             melalui surat ini kami sampaikan bahwa anda LOLOS pada seleksi tahap 2 dan dimohon untuk mengikuti wawancara
             yang akan diselenggarakan pada:
             <br><br>

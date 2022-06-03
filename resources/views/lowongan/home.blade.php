@@ -4,100 +4,98 @@
 
 @section('content')
 
-    <main id="main">
-        <div class="container mt-5 mb-5">
-            {{-- <h1 style="margin-top: 100px;" align="center">Daftar Lowongan Pekerjaan</h1> --}}
+<main id="main">
+    <div class="container mt-5 mb-5">
+        {{-- <h1 style="margin-top: 100px;" align="center">Daftar Lowongan Pekerjaan</h1> --}}
 
-            <div class="row">
-                <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
 
-                </div>
-                <div class="col-md-6">
-
-                </div>
             </div>
+            <div class="col-md-6">
 
-            <div class="row" style="margin-top: 50px">
-                @foreach ($lowongan as $data)
-                    <div class="col-md-6">
-                        <div class="card card-lowongan shadow rounded">
-                            <div class="card-body">
-                                <h4><b>{{ $data->posisi_lowongan }}</b></h4>
-                                <br>
-                                <i class="text-danger">
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 50px">
+            @foreach ($lowongan as $data)
+            <div class="col-md-6">
+                <div class="card card-lowongan shadow rounded">
+                    <div class="card-body">
+                        <h4><b>{{ $data->posisi_lowongan }}</b></h4>
+                        <br>
+                        <i class="text-danger">
+                            @php
+                            $date = \Carbon\Carbon::parse($data->berlaku_sampai);
+                            @endphp
+                            @if ($date > \Carbon\Carbon::now())
+                            Pendaftaran berlaku sampai {{ $data->berlaku_sampai }}
+                            @else
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Pendaftaran ditutup
+                                </div>
+                                @If(Auth::check())
+                                <div class="col-md-6" align="right">
                                     @php
-                                        $date = \Carbon\Carbon::parse($data->berlaku_sampai);
+                                    $check = false;
                                     @endphp
-                                    @if ($date > \Carbon\Carbon::now())
-                                        Pendaftaran berlaku sampai {{ $data->berlaku_sampai }}
-                                    @else
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                Pendaftaran ditutup
-                                            </div>
-                                            <div class="col-md-6" align="right">
-                                                @if ($data->seleksi_satu == null && $data->seleksi_dua == null)
-                                                    <span class="badge badge-warning">Lamaran belum ada status</span>
-                                                @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == null)
-                                                    <span class="badge badge-success">Lolos Seleksi Tahap 1 <br>
-                                                        (Silahkan Mengikuti Tes Online)
-                                                    </span>
-                                                @elseif ($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Diterima')
-                                                    <span class="badge badge-success">Lolos Seleksi Tahap 2 <br>
-                                                        (Silahkan Datang Ke Perusahaan Untuk Mengikuti Wawancara) </span>
-                                                @elseif($data->seleksi_satu == 'Ditolak' && $data->seleksi_dua == null)
-                                                    <span class="badge badge-danger">Lamaran Ditolak</span>
-                                                @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Ditolak')
-                                                    <span class="badge badge-danger">Lamaran Ditolak</span>
-                                                @endif
-                                            </div>
-                                        </div>
+                                    @foreach ($data->pelamar as $item)
+                                    @if (Auth::user()->id == $item->id_user)
+                                    <span class="badge badge-warning">Lamaran Sudah Diajukan</span>
+                                    @php
+                                    $check = true;
+                                    @endphp
                                     @endif
-                                </i></span>
-                                <p class="mt-3">
-                                <h4>Persyaratan</h4>
-                                {!! $data->deskripsi_persyaratan !!}
-                                <h4>Deskripsi Pekerjaan</h4>
-                                {!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 200) !!}
-                                </p>
-
-                                @if (Auth::guest())
-                                    <div class="button-group mt-5" align="right">
-                                        @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
-                                            <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
-                                                class="btn btn-outline-primary">Lihat Detail</a>
-                                            <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
-                                        @endif
-                                    </div>
+                                    @endforeach
+                                    
+                                </div>
                                 @else
-                                    <div class="button-group" align="right">
-                                        @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
-                                            <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
-                                                class="btn btn-outline-primary">Lihat Detail</a>
-                                            @php
-                                                $check = false;
-                                            @endphp
-                                            @foreach ($data->pelamar as $item)
-                                                @if (Auth::user()->id == $item->id_user)
-                                                    @php
-                                                        $check = true;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-                                            @if (!$check)
-                                                <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}"
-                                                    class="btn-get-started">Lamar</a>
-                                            @endif
-                                        @endif
-                                    </div>
                                 @endif
-
                             </div>
-                        </div><br>
+                            @endif
+                        </i></span>
+                        <p class="mt-3">
+                        <h4>Persyaratan</h4>
+                        {!! $data->deskripsi_persyaratan !!}
+                        <h4>Deskripsi Pekerjaan</h4>
+                        {!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 200) !!}
+                        </p>
+
+                        @if (Auth::guest())
+                        <div class="button-group mt-5" align="right">
+                            @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
+                            <a href="{{ route('lowongan.detail', $data->id_lowongan) }}" class="btn btn-outline-primary">Lihat Detail</a>
+                            <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
+                            @endif
+                        </div>
+                        @else
+                        <div class="button-group" align="right">
+                            @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
+                            <a href="{{ route('lowongan.detail', $data->id_lowongan) }}" class="btn btn-outline-primary">Lihat Detail</a>
+                            @php
+                            $check = false;
+                            @endphp
+                            @foreach ($data->pelamar as $item)
+                            @if (Auth::user()->id == $item->id_user)
+                            @php
+                            $check = true;
+                            @endphp
+                            @endif
+                            @endforeach
+                            @if (!$check)
+                            <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}" class="btn-get-started">Lamar</a>
+                            @endif
+                            @endif
+                        </div>
+                        @endif
+
                     </div>
-                @endforeach
+                </div><br>
             </div>
-    </main>
+            @endforeach
+        </div>
+</main>
 
 
 

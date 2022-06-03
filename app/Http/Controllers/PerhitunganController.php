@@ -224,7 +224,13 @@ class PerhitunganController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $pelamar = Pelamar::find($id);
-            return view('perhitungan.detail', ['pelamar' => $pelamar]);
+            $kriteria = Kriteria::where('id_lowongan', $pelamar->id_lowongan)->get();
+            $alternatif = Pelamar::where('id_pelamar', $id)->get();
+            $pel = NilaiAlternatif::join('bobot_kriteria', 'bobot_kriteria.id_bobot_kriteria', '=', 'nilai_alternatif.id_bobot_kriteria')
+            ->join('kriteria', 'kriteria.id_kriteria', '=', 'bobot_kriteria.id_kriteria')
+            ->where('nilai_alternatif.id_pelamar', $id)
+            ->get(['nama_bobot','nama_kriteria']);
+            return view('perhitungan.detail', ['pelamar' => $pelamar,'kriteria' => $kriteria,'alternatif' => $pel]);
         } else {
             abort(404);
         }
@@ -360,7 +366,7 @@ class PerhitunganController extends Controller
                 }
                 array_multisort(array_column($ar, 'nilaiAkhir'), SORT_DESC, $ar);
               
-                return view('laporan.seleksi2', [
+                 $pdf = PDF::loadView ('laporan.seleksi2', [
 
                     'daftarSoal'    => $daftarSoal,
                     'hasilTes'      => $ar,
@@ -370,7 +376,7 @@ class PerhitunganController extends Controller
                     'kode_krit'     => $kode_krit
                 ]);
 
-                // return $pdf->download('Seleksi-tahap-dua.pdf');
+                return $pdf->download('Seleksi-tahap-dua.pdf');
             }
         }
         // dd($hasilTes); 
