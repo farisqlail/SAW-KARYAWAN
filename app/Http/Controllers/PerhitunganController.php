@@ -376,7 +376,11 @@ class PerhitunganController extends Controller
                     'kode_krit'     => $kode_krit
                 ]);
 
+<<<<<<< HEAD
                 return $pdf->download('Laporan-Seleksi-dan-Rekrutmen.pdf');
+=======
+                return $pdf->download('Seleksi-tahap-dua.pdf');
+>>>>>>> f69eed811610c99c8c3443472b69372722deab47
             }
         }
         // dd($hasilTes); 

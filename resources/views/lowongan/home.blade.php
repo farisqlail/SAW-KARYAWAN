@@ -8,12 +8,24 @@
     <div class="container mt-5 mb-5">
         {{-- <h1 style="margin-top: 100px;" align="center">Daftar Lowongan Pekerjaan</h1> --}}
 
+<<<<<<< HEAD
         <form action="{{ route('lowongan.search') }}" method="GET">
             <input class="form-control" name="search" value="{{ old('search') }}" type="text"
                 placeholder="Search ...">
             <br>
         </form>
 
+=======
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+>>>>>>> f69eed811610c99c8c3443472b69372722deab47
         <div class="row" style="margin-top: 50px">
             @foreach ($lowongan as $data)
             <div class="col-md-6">
@@ -27,9 +39,19 @@
                             @endphp
                             @if ($date > \Carbon\Carbon::now())
                             Pendaftaran berlaku sampai {{ $data->berlaku_sampai }}
+<<<<<<< HEAD
                             <br>
                             @If(Auth::check())
                                 
+=======
+                            @else
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Pendaftaran ditutup
+                                </div>
+                                @If(Auth::check())
+                                <div class="col-md-6" align="right">
+>>>>>>> f69eed811610c99c8c3443472b69372722deab47
                                     @php
                                     $check = false;
                                     @endphp
@@ -42,6 +64,7 @@
                                     @endif
                                     @endforeach
                                     
+<<<<<<< HEAD
                                
                                 @else
                                 @endif
@@ -64,6 +87,8 @@
                                     @endif
                                     @endforeach
                                     
+=======
+>>>>>>> f69eed811610c99c8c3443472b69372722deab47
                                 </div>
                                 @else
                                 @endif
@@ -86,9 +111,14 @@
                         </div>
                         @else
                         <div class="button-group" align="right">
+<<<<<<< HEAD
                         <a href="{{ route('lowongan.detail', $data->id_lowongan) }}" class="btn btn-outline-primary">Lihat Detail</a>
                             @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
                            
+=======
+                            @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
+                            <a href="{{ route('lowongan.detail', $data->id_lowongan) }}" class="btn btn-outline-primary">Lihat Detail</a>
+>>>>>>> f69eed811610c99c8c3443472b69372722deab47
                             @php
                             $check = false;
                             @endphp
