@@ -1,10 +1,10 @@
 @extends('layouts.user')
-
+<img src="{{ asset('assets/img/Tes.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
 @section('content')
 
     {{-- @include('jawaban.jawaban') --}}
 
-        <div class="card shadow-sm p-3 mb-5 bg-body rounded" style="margin-top: 100px;">
+        <div class="card shadow-sm p-3 mb-5 bg-body rounded" style="margin-top: 50px;">
             <h1 class="mb-5">Tes Tulis Online</h1>
             <div class="card-body">
 

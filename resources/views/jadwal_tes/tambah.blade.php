@@ -26,6 +26,10 @@
 
                                 </div>
                                 <div class="form-group">
+                                    <label for="nama">Tanggal Notif <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" name="tanggal_notif" class="form-control">
+                                </div>
+                                <div class="form-group">
                                     <label for="nama">Tanggal Mulai <span class="text-danger">*</span></label>
                                     <input type="datetime-local" name="tanggal" class="form-control">
                                 </div>

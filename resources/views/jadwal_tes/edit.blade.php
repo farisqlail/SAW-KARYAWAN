@@ -29,12 +29,16 @@
 
                             </div>
                             <div class="form-group">
+                                <label for="nama">Tanggal Notif <span class="text-danger">*</span></label>
+                                <input type="datetime-local" name="tanggal_notif" class="form-control" value="{{date('Y-m-d\TH:i', strtotime($jadwal_tes->tanggal_notif)) }}">
+                            </div>
+                            <div class="form-group">
                                 <label for="nama">Tanggal Mulai <span class="text-danger">*</span></label>
-                                <input type="datetime-local" name="tanggal" class="form-control" value="{{$jadwal_tes->tanggal}}">
+                                <input type="datetime-local" name="tanggal" class="form-control" value="{{date('Y-m-d\TH:i', strtotime($jadwal_tes->tanggal)) }}">
                             </div>
                             <div class="form-group">
                                 <label for="batas">Batas Pengumpulan <span class="text-danger">*</span></label>
-                                <input type="datetime-local" name="batas" class="form-control" value="{{$jadwal_tes->durasi_tes}}">
+                                <input type="datetime-local" name="batas" class="form-control" value="{{date('Y-m-d\TH:i', strtotime($jadwal_tes->durasi_tes)) }}">
                             </div>
                             <div class="float-right">
                                 <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Batal</a>

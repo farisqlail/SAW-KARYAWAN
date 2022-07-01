@@ -22,6 +22,8 @@ Route::get('/admin/home', 'HomeController@index')->name('home');
 //LOWONGAN
 Route::prefix('/lowongan')->group(function ()
 {
+
+    Route::get('/lowongan/search', 'LowonganController@search')->name('lowongan.search');
     Route::get('/admin', 'LowonganController@index')->name('lowongan.index');
     Route::get('/daftar-lowongan', 'LowonganController@home')->name('lowongan.home');
     Route::get('/tambah', 'LowonganController@create')->name('lowongan.tambah');
@@ -71,6 +73,7 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::get('/admin/edit/{id}', 'JadwalTesController@edit')->name('jadwal_tes.ubah');
     Route::post('/admin/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
     Route::get('/admin/jadwal/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
+    Route::get('/admin/notif/{id}', 'JadwalTesController@notif')->name('jadwal_tes.notif');
     Route::get('/admin/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
 
     //Jawaban

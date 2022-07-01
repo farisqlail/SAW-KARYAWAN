@@ -21,11 +21,11 @@
                                 <div class="form-group">
                                     <label for="keterangan_bobot">Keterangan Bobot <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="keterangan_bobot" class="form-control">
+                                    <input type="text" name="keterangan_bobot" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nilai_crip">Nilai Bobot<span class="text-danger">*</span></label>
-                                    <input type="number" name="nilai_bobot" class="form-control" max="5" min="1">
+                                    <input type="number" name="nilai_bobot" class="form-control" min="1" required>
                                 </div>
                                 <div class="float-right">
                                     <a href="{{ route('bobot_kriteria.index', ['id' => $kriteria->id_kriteria]) }}"

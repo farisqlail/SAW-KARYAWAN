@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('beautymail::templates.minty.contentStart')
+@include('beautymail::templates.minty.contentStart')
     <tr>
         <td class="title">
             Yth.

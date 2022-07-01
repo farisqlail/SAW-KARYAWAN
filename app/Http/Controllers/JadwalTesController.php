@@ -80,6 +80,27 @@ class JadwalTesController extends Controller
         }
     }
 
+    public function notif($id)
+    {
+
+        $jadwal_tes = JadwalTes::find($id);
+        $lowongan = Lowongan::where('id_lowongan',$jadwal_tes->id_lowongan)->first();
+        $pelamar = Pelamar::where('id_lowongan', $lowongan->id_lowongan)->where('seleksi_satu', 'Diterima')->get();
+
+        foreach ($pelamar as $item) {
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.notif', ['data' => $item, 'jadwal_tes' => $jadwal_tes], function ($message) use ($item) {
+                $message
+                    ->from('lintasnusa1990@gmail.com')
+                    ->to($item->user->email, $item->nama_pelamar)
+                    ->subject('Notifikasi ' . $item->lowongan->posisi_lowongan);
+            });
+
+        }
+        
+        return redirect()->back();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -117,10 +138,11 @@ class JadwalTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            Alert::success('Berhasil', 'Jawdal tes berhasil ditambahkan');
+            Alert::success('Berhasil', 'Jadwal tes berhasil ditambahkan');
 
             $jadwal_tes = new JadwalTes();
             $jadwal_tes->id_lowongan = $request->get('id_lowongan');
+            $jadwal_tes->tanggal_notif = $request->get('tanggal_notif');
             $jadwal_tes->tanggal = $request->get('tanggal');
             $jadwal_tes->durasi_tes = $request->get('batas');
             $jadwal_tes->save();
@@ -184,6 +206,7 @@ class JadwalTesController extends Controller
 
             $jadwal_tes = JadwalTes::find($id);
             $jadwal_tes->id_lowongan = $request->get('id_lowongan');
+            $jadwal_tes->tanggal_notif = $request->get('tanggal_notif');
             $jadwal_tes->tanggal = $request->get('tanggal');
             $jadwal_tes->durasi_tes = $request->get('batas');
             $jadwal_tes->save();

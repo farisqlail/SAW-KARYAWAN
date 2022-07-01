@@ -20,6 +20,7 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Posisi Lowongan</th>
                                         <th class="text-center">Tanggal Tes</th>
+                                        <th class="text-center">Tanggal Notif</th>
                                         <th class="text-center">Batas Pengumpulan</th>
                                         <th class="text-center" style="width:40%">Aksi</th>
 
@@ -32,16 +33,18 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
                                                 <td>{{ $data->tanggal }}</td>
+                                                <td>{{ $data->tanggal_notif }}</td>
                                                 <td>{{ $data->durasi_tes }}</td>
                                                 <td class="text-center">
-                                                        <a href="{{ route('daftar_soal.index', ['id' => $data->id_jadwal_tes]) }}"
-                                                            class="btn btn-sm btn-info">Daftar Soal</a>
-                                                        <a href="{{ route('jawaban.index',  $data->id_lowongan) }}"
-                                                            class="btn btn-sm btn-info">Nilai</a>
-                                                        <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id_jadwal_tes]) }}"
-                                                            class="btn btn-sm btn-warning">Edit</a>
-                                                        <a href="#" class="btn btn-sm btn-danger delete" data-id="{{ $data->id_jadwal_tes }}">Hapus</a>
-                                                    
+                                                    <a href="{{ route('daftar_soal.index', ['id' => $data->id_jadwal_tes]) }}"
+                                                        class="btn btn-sm btn-info">Daftar Soal</a>
+                                                    <a href="{{ route('jawaban.index', $data->id_lowongan) }}"
+                                                        class="btn btn-sm btn-info">Nilai</a>
+                                                    <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id_jadwal_tes]) }}"
+                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                    <a href="{{ route('jadwal_tes.notif', $data->id_jadwal_tes) }}" class="btn btn-sm btn-info">Beri Notif</a>
+                                                    <a href="#" class="btn btn-sm btn-danger delete"
+                                                        data-id="{{ $data->id_jadwal_tes }}">Hapus</a>
                                                 </td>
                                             </tr>
                                         @endforeach

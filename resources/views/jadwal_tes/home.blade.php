@@ -1,10 +1,10 @@
 @extends('layouts.user')
 
-<img src="{{ asset('assets/img/Detail.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+<img src="{{ asset('assets/img/Tes.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
 
 @section('content')
 
-    <div class="container" style="margin-top: 10rem;">
+    <div class="container" style="margin-top: 4rem;">
         <h2><strong>Tes Online</strong></h2>
         @foreach ($jadwal_tes as $item)
             <div class="card mt-3">

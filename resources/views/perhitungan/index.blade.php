@@ -121,20 +121,20 @@
                         {{-- <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
                             class="btn btn-success mt-5">Cetak
                             Rekap</a> --}}
-                        <div class="float-right mt-5">
+                        <div class=" mt-5">
                             <form action="{{ route('pelamar.tolak.satu') }}" method="post" id="formSort">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="" class="text-dark mt-3" align="left">Jumlah yang Lolos : </label>
+                                    <div class="col-md-6">
+                                        <label for="" class="text-dark mt-3" align="left">Nilai Total Min'>= : </label>
+                                        <input type="text" name="nilai" class="form-control" placeholder="Nilai">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
+                                        <label for="" class="text-dark mt-3" align="left">Jumlah yang Lolos : </label>
                                         <input type="text" name="sorting" class="form-control" placeholder="Sorting">
                                     </div>
-                                    <div class="col-md-4">
-                                        <button type="submit" name="submit" class="btn btn-danger">Seleksi</button>
-                                    </div>
                                 </div>
+                                <button type="submit" name="submit" class="btn btn-danger">Seleksi</button>
                             </form>
                         </div>
                     </div>
@@ -164,8 +164,10 @@
 
                                     @foreach ($rangking as $t)
                                         <tr>
-                                            <input type="text" name="kode[]" value="{{ $t['kode'] }}" form="formSort" hidden>
-                                            <input type="text" name="total[]" value="{{ $t['total'] }}" form="formSort" hidden>
+                                            <input type="text" name="kode[]" value="{{ $t['kode'] }}"
+                                                form="formSort" hidden>
+                                            <input type="text" name="total[]" value="{{ $t['total'] }}"
+                                                form="formSort" hidden>
                                             <td>{{ $no2++ }}</td>
                                             <td>{{ $t['nama'] }}</td>
                                             <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
@@ -187,13 +189,13 @@
                                                     <a href="{{ route('seleksi.detail', $t['kode']) }}"
                                                         class="btn btn-info">Lihat Detail</a>
 
-                                                    @if ($t['seleksi_1'] == null)
-                                                        <input type="submit" name="submit" class="btn btn-success"
-                                                            value="Terima">
+                                                    <!-- @if ($t['seleksi_1'] == null)
+    <input type="submit" name="submit" class="btn btn-success"
+                                                                    value="Terima">
 
-                                                        <input type="submit" name="submit" class="btn btn-danger"
-                                                            value="Tolak">
-                                                    @endif
+                                                                <input type="submit" name="submit" class="btn btn-danger"
+                                                                    value="Tolak">
+    @endif -->
 
                                                 </form>
 

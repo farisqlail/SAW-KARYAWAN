@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2022 at 07:22 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Waktu pembuatan: 01 Jul 2022 pada 14.12
+-- Versi server: 10.4.11-MariaDB
+-- Versi PHP: 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bobot_kriteria`
+-- Struktur dari tabel `bobot_kriteria`
 --
 
 CREATE TABLE `bobot_kriteria` (
@@ -37,25 +37,26 @@ CREATE TABLE `bobot_kriteria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `bobot_kriteria`
+-- Dumping data untuk tabel `bobot_kriteria`
 --
 
 INSERT INTO `bobot_kriteria` (`id_bobot_kriteria`, `id_kriteria`, `nama_bobot`, `jumlah_bobot`, `created_at`, `updated_at`) VALUES
 (1, 1, 'SMA/SMK', 1, '2021-12-22 21:21:13', '2021-12-22 21:21:13'),
 (2, 1, 'D1/D2', 2, '2021-12-22 21:21:27', '2021-12-22 21:21:27'),
-(3, 1, 'S1', 3, '2021-12-22 21:21:38', '2021-12-22 21:21:38'),
-(4, 1, '>S1', 5, '2021-12-22 21:21:51', '2021-12-22 21:21:51'),
+(3, 1, 'S1', 4, '2021-12-22 21:21:38', '2022-04-27 04:43:55'),
+(4, 1, 'S2', 5, '2021-12-22 21:21:51', '2022-04-28 23:30:30'),
 (5, 2, 'Belum Ada', 1, '2021-12-22 21:22:30', '2021-12-22 21:22:30'),
-(6, 2, '<1Tahun', 2, '2021-12-22 21:22:42', '2021-12-22 21:22:42'),
-(7, 2, '<2 Tahun', 3, '2021-12-22 21:22:55', '2021-12-22 21:22:55'),
-(8, 2, '>2 Tahun', 4, '2021-12-22 21:23:09', '2021-12-22 21:23:09'),
-(9, 3, 'asd', 2, '2022-01-10 08:33:26', '2022-01-10 08:33:26'),
-(10, 4, 'qwe', 4, '2022-01-10 08:33:39', '2022-01-10 08:33:39');
+(6, 2, 'Dibawah 1Tahun', 2, '2021-12-22 21:22:42', '2022-05-06 01:08:23'),
+(7, 2, 'Diatas 1 Tahun', 3, '2021-12-22 21:22:55', '2022-05-06 01:08:33'),
+(11, 1, 'D3', 3, '2022-04-27 04:44:06', '2022-04-27 04:44:06'),
+(12, 7, 'Microsoft office dan program accounting', 3, '2022-06-20 21:28:12', '2022-06-26 04:06:16'),
+(13, 7, 'Microsoft office', 2, '2022-06-20 21:28:28', '2022-06-26 04:06:31'),
+(14, 7, 'Tidak ada dalam daftar', 1, '2022-06-20 21:30:50', '2022-06-26 04:05:54');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daftar_soal`
+-- Struktur dari tabel `daftar_soal`
 --
 
 CREATE TABLE `daftar_soal` (
@@ -69,17 +70,17 @@ CREATE TABLE `daftar_soal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `daftar_soal`
+-- Dumping data untuk tabel `daftar_soal`
 --
 
 INSERT INTO `daftar_soal` (`id_soal`, `id_jadwal_tes`, `soal`, `file_soal`, `bobot_soal`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Buatlah Pivot Tabel', '1640233449.docx', 60, '2021-12-22 21:24:09', '2021-12-22 21:24:09'),
-(2, 1, 'Buatlah Diagram Batang', '1640233470.docx', 40, '2021-12-22 21:24:30', '2021-12-22 21:24:30');
+(1, 1, 'Buatlah Pivot Tabel', '1656138110.csv', 60, '2021-12-22 21:24:09', '2022-06-24 23:21:50'),
+(2, 1, 'Buatlah Diagram Batang', '1656138123.csv', 40, '2021-12-22 21:24:30', '2022-06-24 23:22:03');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hasil_tes`
+-- Struktur dari tabel `hasil_tes`
 --
 
 CREATE TABLE `hasil_tes` (
@@ -88,23 +89,23 @@ CREATE TABLE `hasil_tes` (
   `id_pelamar` int(10) UNSIGNED DEFAULT NULL,
   `id_lowongan` int(10) UNSIGNED NOT NULL,
   `jawaban` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nilai` int(11) DEFAULT NULL,
+  `nilai` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `hasil_tes`
+-- Dumping data untuk tabel `hasil_tes`
 --
 
 INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `id_lowongan`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '1640233938.docx', 90, '2021-12-22 21:31:55', '2021-12-22 21:34:06'),
-(2, 2, 1, 1, '1640233962.pdf', 80, '2021-12-22 21:32:42', '2021-12-22 21:34:25');
+(25, 1, 23, 1, '1656140634.csv', 80, '2022-06-25 00:03:54', '2022-06-26 20:18:20'),
+(26, 2, 23, 1, '1656140644.csv', 80, '2022-06-25 00:04:04', '2022-06-26 20:18:25');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal_tes`
+-- Struktur dari tabel `jadwal_tes`
 --
 
 CREATE TABLE `jadwal_tes` (
@@ -117,17 +118,16 @@ CREATE TABLE `jadwal_tes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `jadwal_tes`
+-- Dumping data untuk tabel `jadwal_tes`
 --
 
 INSERT INTO `jadwal_tes` (`id_jadwal_tes`, `id_lowongan`, `tanggal`, `durasi_tes`, `created_at`, `updated_at`) VALUES
-(1, 1, '2021-12-23 11:23:00', '2022-12-15 11:23:00', '2021-12-22 21:23:35', '2021-12-22 21:23:35'),
-(3, 2, '2022-02-01 10:00:00', '2022-02-02 10:00:00', '2022-02-17 00:54:20', '2022-02-17 00:54:20');
+(1, 1, '2021-12-23 11:23:00', '2022-07-01 11:23:00', '2021-12-22 21:23:35', '2022-06-26 20:45:23');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kriteria`
+-- Struktur dari tabel `kriteria`
 --
 
 CREATE TABLE `kriteria` (
@@ -141,19 +141,18 @@ CREATE TABLE `kriteria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `kriteria`
+-- Dumping data untuk tabel `kriteria`
 --
 
 INSERT INTO `kriteria` (`id_kriteria`, `id_lowongan`, `nama_kriteria`, `atribut_kriteria`, `bobot_preferensi`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Pendidikan terakhir', 'benefit', 65, '2021-12-22 21:20:51', '2021-12-22 21:20:51'),
-(2, 1, 'Pengalaman Kerja', 'benefit', 34, '2021-12-22 21:22:11', '2022-03-10 05:29:57'),
-(3, 2, 'asd', 'cost', 20, '2022-01-10 08:33:08', '2022-01-10 08:33:08'),
-(4, 2, 'wer', 'cost', 80, '2022-01-10 08:33:17', '2022-01-10 08:33:47');
+(1, 1, 'Pendidikan terakhir', 'benefit', 45, '2021-12-22 21:20:51', '2022-06-20 21:27:45'),
+(2, 1, 'Pengalaman Kerja', 'benefit', 35, '2021-12-22 21:22:11', '2022-04-27 04:43:38'),
+(7, 1, 'Software yang Dikuasai', 'benefit', 20, '2022-06-20 21:27:35', '2022-07-01 05:00:37');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lowongan`
+-- Struktur dari tabel `lowongan`
 --
 
 CREATE TABLE `lowongan` (
@@ -168,17 +167,16 @@ CREATE TABLE `lowongan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `lowongan`
+-- Dumping data untuk tabel `lowongan`
 --
 
 INSERT INTO `lowongan` (`id_lowongan`, `posisi_lowongan`, `berlaku_sampai`, `deskripsi_pekerjaan`, `deskripsi_persyaratan`, `status_lowongan`, `created_at`, `updated_at`) VALUES
-(1, 'Finance', '2022-05-27', '<ul>\r\n	<li>Handling Account Payable, verifying invoices and performing reconciliations</li>\r\n	<li>Updating Accounts Receivable and issuing invoices.</li>\r\n	<li>Preparing weekly payment request.</li>\r\n	<li>Managing prepaid expenses and petty cash</li>\r\n	<li>Perform daily bank reconciliation</li>\r\n</ul>', '<ul>\r\n	<li>Candidate must possess a Bachelor&#39;s Degree or equivalent in Economics field</li>\r\n	<li>Fresh Graduate are welcome to apply</li>\r\n	<li>Understand about tax is a plus.</li>\r\n	<li>Good in English Written and Verbal</li>\r\n	<li>Good analytical and communication skills</li>\r\n</ul>', NULL, '2021-12-22 21:20:17', '2021-12-22 21:20:17'),
-(2, 'programmer', '2022-02-26', '<p>asdasd</p>', '<p>asdasd</p>', NULL, '2022-01-10 08:32:54', '2022-01-10 08:32:54');
+(1, 'Finance', '2022-07-14', '<ul>\r\n	<li>Handling Account Payable, verifying invoices and performing reconciliations</li>\r\n	<li>Updating Accounts Receivable and issuing invoices.</li>\r\n	<li>Preparing weekly payment request.</li>\r\n	<li>Managing prepaid expenses and petty cash</li>\r\n	<li>Perform daily bank reconciliation</li>\r\n</ul>', '<ul>\r\n	<li>Candidate must possess a Bachelor&#39;s Degree or equivalent in Economics field</li>\r\n	<li>Fresh Graduate are welcome to apply</li>\r\n	<li>Understand about tax is a plus.</li>\r\n	<li>Good in English Written and Verbal</li>\r\n	<li>Good analytical and communication skills</li>\r\n</ul>', NULL, '2021-12-22 21:20:17', '2022-07-01 05:03:24');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -188,7 +186,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -206,7 +204,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_alternatif`
+-- Struktur dari tabel `nilai_alternatif`
 --
 
 CREATE TABLE `nilai_alternatif` (
@@ -218,25 +216,27 @@ CREATE TABLE `nilai_alternatif` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `nilai_alternatif`
+-- Dumping data untuk tabel `nilai_alternatif`
 --
 
 INSERT INTO `nilai_alternatif` (`id_nilai_alternatif`, `id_pelamar`, `id_bobot_kriteria`, `updated_at`, `created_at`) VALUES
-(1, 1, 3, '2021-12-22 21:26:24', '2021-12-22 21:26:24'),
-(2, 1, 8, '2021-12-22 21:26:24', '2021-12-22 21:26:24'),
-(3, 2, 1, '2021-12-22 21:27:55', '2021-12-22 21:27:55'),
-(4, 2, 5, '2021-12-22 21:27:55', '2021-12-22 21:27:55'),
-(5, 3, 2, '2021-12-23 04:19:47', '2021-12-23 04:19:47'),
-(6, 3, 6, '2021-12-23 04:19:47', '2021-12-23 04:19:47'),
-(7, 4, 1, '2022-01-04 00:02:56', '2022-01-04 00:02:56'),
-(8, 4, 7, '2022-01-04 00:02:56', '2022-01-04 00:02:56'),
-(11, 6, 9, '2022-02-16 22:21:09', '2022-02-16 22:21:09'),
-(12, 6, 10, '2022-02-16 22:21:09', '2022-02-16 22:21:09');
+(48, 23, 1, '2022-06-24 23:38:01', '2022-06-24 23:38:01'),
+(49, 23, 6, '2022-06-24 23:38:01', '2022-06-24 23:38:01'),
+(50, 23, 13, '2022-06-24 23:38:01', '2022-06-24 23:38:01'),
+(51, 24, 1, '2022-06-24 23:38:56', '2022-06-24 23:38:56'),
+(52, 24, 5, '2022-06-24 23:38:56', '2022-06-24 23:38:56'),
+(53, 24, 14, '2022-06-24 23:38:56', '2022-06-24 23:38:56'),
+(54, 25, 1, '2022-06-24 23:40:22', '2022-06-24 23:40:22'),
+(55, 25, 5, '2022-06-24 23:40:22', '2022-06-24 23:40:22'),
+(56, 25, 12, '2022-06-24 23:40:22', '2022-06-24 23:40:22'),
+(75, 32, 3, '2022-07-01 05:08:42', '2022-07-01 05:08:42'),
+(76, 32, 6, '2022-07-01 05:08:42', '2022-07-01 05:08:42'),
+(77, 32, 12, '2022-07-01 05:08:42', '2022-07-01 05:08:42');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Struktur dari tabel `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -248,7 +248,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pelamar`
+-- Struktur dari tabel `pelamar`
 --
 
 CREATE TABLE `pelamar` (
@@ -268,25 +268,25 @@ CREATE TABLE `pelamar` (
   `seleksi_satu` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `seleksi_dua` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status_dokumen` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nilai_tes` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `pelamar`
+-- Dumping data untuk tabel `pelamar`
 --
 
-INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `status_dokumen`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 'Altamarin Adji', '2020-06-09', 'Samarinda', 'Islam', 'Jl Melati', '081246555667', 'Laki-laki', '1640233583.pdf', '1640233584.pdf', '1640233584.png', 'Diterima', NULL, '', '2021-12-22 21:26:24', '2022-04-14 10:58:02'),
-(2, 3, 1, 'udin', '2021-12-07', 'Samarinda', 'Islam', 'Jl Kembar', '081233233323', 'Laki-laki', '1640233675.pdf', '1640233675.pdf', '1640233675.png', 'Ditolak', NULL, '', '2021-12-22 21:27:55', '2022-04-14 09:23:02'),
-(3, 4, 1, 'faris', '2021-12-01', 'sby', 'Kristen', 'asdsda', '12323', 'Laki-laki', '1640258387.pdf', '1640258387.pdf', '1640258387.png', 'Diterima', NULL, 'Dokumen Valid', '2021-12-23 04:19:47', '2022-04-14 10:58:14'),
-(4, 5, 1, 'faris', '2021-12-28', 'sby', 'Islam', 'asdasd', '213', 'Laki-laki', '1641279776.pdf', '1641279776.pdf', '1641279776.jpg', 'Diterima', NULL, '', '2022-01-04 00:02:56', '2022-04-14 10:58:22'),
-(6, 7, 2, 'Faris Rizqilail', '2022-02-03', 'Surabaya', 'Kristen', 'Jl.Bronggalan Sawah 4F no 41', '0895378052885', 'Laki-laki', '1645075269.pdf', '1645075269.pdf', '1645075269.jpg', 'Ditolak', NULL, '', '2022-02-16 22:21:09', '2022-04-14 09:23:05');
+INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `status_dokumen`, `nilai_tes`, `created_at`, `updated_at`) VALUES
+(23, 16, 1, 'Kevin Ananta', '1999-04-12', 'Surabaya', 'Islam', 'Jl Mawar No. 11', '082133213323', 'Laki-laki', '1656139081.pdf', '1656139081.pdf', '1656139081.png', NULL, NULL, 'Dokumen Valid', 80, '2022-06-24 23:38:01', '2022-06-26 20:19:02'),
+(24, 17, 1, 'Aldi', '2022-06-08', 'Surabaya', 'Islam', 'SDJ', '089988998899', 'Laki-laki', '1656139136.pdf', '1656139136.pdf', '1656139136.png', NULL, NULL, 'Dokumen Valid', NULL, '2022-06-24 23:38:56', '2022-06-26 20:19:06'),
+(25, 10, 1, 'Alex Indra', '2022-04-06', 'Surabaya', 'Islam', 'Melati 2', '081233223322', 'Laki-laki', '1656139222.pdf', '1656139222.pdf', '1656139222.jpg', NULL, NULL, 'Dokumen Tidak Valid', NULL, '2022-06-24 23:40:22', '2022-06-26 20:19:10'),
+(32, 9, 1, 'Altamarin Adji', '1999-04-21', 'Surabaya', 'Islam', 'Jl Kembang No. 9', '082133213325', 'Laki-laki', '1656677322.pdf', '1656677322.pdf', '1656677322.png', NULL, NULL, NULL, NULL, '2022-07-01 05:08:42', '2022-07-01 05:08:42');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -294,6 +294,12 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_lahir` date DEFAULT NULL,
+  `tempat_lahir` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `agama` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_telepon` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jenis_kelamin` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -301,38 +307,48 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'uoOw1YLydYy1oVOXCji7l9X6YsEBnSfQ7rBoLswOV0bm9i28xfyXUtSB17W0', NULL, NULL),
-(2, 'Altamarin', 'customer', 'farisqlail@gmail.com', '$2y$10$8XEawByNZ0UtYkgoktCMWO7B0xNF5yBPxk3KIvTsDH82LvDh.koq2', NULL, '2021-12-22 21:25:13', '2021-12-22 21:25:13'),
-(3, 'udin', 'customer', 'udin@gmail.com', '$2y$10$bHEuTuiAEukyxQsL5VMw.e9vs2njnQ0lKhi7GgIvPyKeIF6JW6OUK', NULL, '2021-12-22 21:26:46', '2021-12-22 21:26:46'),
-(4, 'faris', 'customer', 'faris.riskilail@gmail.com', 'faris123', NULL, '2021-12-23 04:12:59', '2021-12-23 04:12:59'),
-(5, 'faris', 'customer', 'user@gmail.com', '$2y$10$YezkGzmV8VEx2.v6IGbDJeWVtosBnxRKWi4TsuEEUYLD8W6tfe5Fm', NULL, '2022-01-04 00:01:30', '2022-01-04 00:01:30'),
-(6, 'fadil', 'customer', 'fadil@gmail.com', '$2y$10$RM4Zxhf61XO.IMaf1Zg1v.RpjVEJSQbtPTDpit4QdYwcvt8kK0yIm', NULL, '2022-01-10 07:52:34', '2022-01-10 07:52:34'),
-(7, 'faris', 'customer', 'faris1@gmail.com', '$2y$10$qSQyzjk9KVE7Iy6PTenle.cYxz89l0eBG3enfPjF6Hndv0RoFomqm', NULL, '2022-02-16 22:19:30', '2022-02-16 22:19:30');
+INSERT INTO `users` (`id`, `name`, `role`, `email`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin', 'admin@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$X.mbOLyNUwI0JEx2z8kTmOmCF0yEObyfs3BXuqFL499qZRDnEmVAi', 'GSKc0eMUJ3dBxT5WUX1kiUTfmhGmHXq3kOsJiWTtBp6urg2vxg7hKVwSPZsw', NULL, NULL),
+(2, 'Altamarin', 'customer', 'farisqlail@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$8XEawByNZ0UtYkgoktCMWO7B0xNF5yBPxk3KIvTsDH82LvDh.koq2', NULL, '2021-12-22 21:25:13', '2021-12-22 21:25:13'),
+(3, 'udin', 'customer', 'udin@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$bHEuTuiAEukyxQsL5VMw.e9vs2njnQ0lKhi7GgIvPyKeIF6JW6OUK', NULL, '2021-12-22 21:26:46', '2021-12-22 21:26:46'),
+(4, 'faris', 'customer', 'faris.riskilail@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'faris123', NULL, '2021-12-23 04:12:59', '2021-12-23 04:12:59'),
+(5, 'faris', 'customer', 'user@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$YezkGzmV8VEx2.v6IGbDJeWVtosBnxRKWi4TsuEEUYLD8W6tfe5Fm', NULL, '2022-01-04 00:01:30', '2022-01-04 00:01:30'),
+(6, 'fadil', 'customer', 'fadil@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$RM4Zxhf61XO.IMaf1Zg1v.RpjVEJSQbtPTDpit4QdYwcvt8kK0yIm', NULL, '2022-01-10 07:52:34', '2022-01-10 07:52:34'),
+(7, 'faris', 'customer', 'faris1@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$qSQyzjk9KVE7Iy6PTenle.cYxz89l0eBG3enfPjF6Hndv0RoFomqm', NULL, '2022-02-16 22:19:30', '2022-02-16 22:19:30'),
+(8, 'Faris kuku', 'customer', 'fakuh@gmail.com', '2022-03-29', 'Surabaya', 'Kristen', 'bronggalan', '1231231233123', 'Laki-laki', '$2y$10$iWFfEqiyxcmKp/mFyyH5O.vTUYaC86.21pCYqCApDOCdicdfS4yqu', NULL, '2022-04-20 08:07:49', '2022-04-20 08:07:49'),
+(9, 'Altamarin Adji', 'customer', 'altamarin21032000@gmail.com', '1999-04-21', 'Surabaya', 'Islam', 'Jl Kembang No. 9', '082133213325', 'Laki-laki', '$2y$10$7s9s2oegFst30uiy3pHlF.xTBOZSjt9SM.pzGKcTL9gb5D/U.4vHW', NULL, '2022-04-22 23:11:55', '2022-04-22 23:11:55'),
+(10, 'Alex Indra', 'customer', 'alex@gmail.com', '2022-04-06', 'Surabaya', 'Islam', 'Melati 2', '081233223322', 'Laki-laki', '$2y$10$I/20xIMGWb8ED/L/hvPdxOCyX8gGNJL.HCWRunpMEsxWEYNkdZuda', NULL, '2022-04-27 04:47:29', '2022-04-27 04:47:29'),
+(11, 'Abu Hanif', 'customer', 'abu@gmail.com', '2022-04-05', 'Samarinda', 'Kristen', 'jl.kuncup12', '081233223322', 'Laki-laki', '$2y$10$.qKjNriE7r7Bbv/PDa7YS.xDNNmBEo8zEGSMOXbfisEq/EAp9W.Bu', NULL, '2022-04-27 04:49:05', '2022-04-27 04:49:05'),
+(12, 'Andika', 'customer', 'andika@gmail.com', '2022-04-12', 'Surabaya', 'Islam', 'kembang kuning', '081233223322', 'Laki-laki', '$2y$10$cK37NVyz6alc9b7y8LrUru7f2kSCAn4PmZChTL78SzEd3BQoMhDae', NULL, '2022-04-27 04:53:26', '2022-04-27 04:53:26'),
+(13, 'Ikram Arif', 'customer', 'ikram@gmail.com', '2022-04-25', 'Samarinda', 'Islam', 'Melati 22', '081233223322', 'Laki-laki', '$2y$10$XNEAHLLHtsGqMqVu/LgBdemRvIMmlTEnYXxp2Ql0yKyEF.6xfndX6', NULL, '2022-04-27 04:55:23', '2022-04-27 04:55:23'),
+(14, 'Ilham', 'customer', 'ilham@gmail.com', '2022-03-29', 'Surabaya', 'Islam', 'jl.kuncup12', '081233223322', 'Laki-laki', '$2y$10$vsJ2kRhwU5666IBzXQW3ZOPN4XESgzLYxTwuf1Pp4b1YpWv8Rp3z6', NULL, '2022-04-28 08:02:43', '2022-04-28 08:02:43'),
+(15, 'Iwan Arif', 'customer', 'Iwan@gmail.com', '1999-05-22', 'Surabaya', 'Islam', 'Jl Dusun No. 10', '082133213321', 'Laki-laki', '$2y$10$3WsvaB0INCjBjbPtAkBj0ujmUy5nHQ0Tg17J3/27SXrgDpZ9MZN9y', NULL, '2022-05-06 01:04:37', '2022-05-06 01:04:37'),
+(16, 'Kevin Ananta', 'customer', 'Kevin@gmail.com', '1999-04-12', 'Surabaya', 'Islam', 'Jl Mawar No. 11', '082133213323', 'Laki-laki', '$2y$10$KX5KBQ4MQghzfAvh6HtQKe/1Xt1H3DgX3f7dxckH5oYzwRTTKwc/e', NULL, '2022-05-06 01:05:55', '2022-05-06 01:05:55'),
+(17, 'Aldi', 'customer', 'aldi@gmail.com', '2022-06-08', 'Surabaya', 'Islam', 'SDJ', '089988998899', 'Laki-laki', '$2y$10$OnMZgdKRBJXukKs7DkJYiuZyGgWxxOX4lNqxt9XBzc5OdJl.IFaHm', NULL, '2022-06-10 22:55:59', '2022-06-10 22:55:59');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `bobot_kriteria`
+-- Indeks untuk tabel `bobot_kriteria`
 --
 ALTER TABLE `bobot_kriteria`
   ADD PRIMARY KEY (`id_bobot_kriteria`),
   ADD KEY `bobot_kriteria_id_kriteria_index` (`id_kriteria`);
 
 --
--- Indexes for table `daftar_soal`
+-- Indeks untuk tabel `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
   ADD PRIMARY KEY (`id_soal`),
   ADD KEY `daftar_soal_id_jadwal_tes_index` (`id_jadwal_tes`);
 
 --
--- Indexes for table `hasil_tes`
+-- Indeks untuk tabel `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
   ADD PRIMARY KEY (`id_hasil_tes`),
@@ -341,33 +357,33 @@ ALTER TABLE `hasil_tes`
   ADD KEY `id_lowongan` (`id_lowongan`);
 
 --
--- Indexes for table `jadwal_tes`
+-- Indeks untuk tabel `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
   ADD PRIMARY KEY (`id_jadwal_tes`),
   ADD KEY `jadwal_tes_id_lowongan_index` (`id_lowongan`);
 
 --
--- Indexes for table `kriteria`
+-- Indeks untuk tabel `kriteria`
 --
 ALTER TABLE `kriteria`
   ADD PRIMARY KEY (`id_kriteria`),
   ADD KEY `kriteria_id_lowongan_index` (`id_lowongan`);
 
 --
--- Indexes for table `lowongan`
+-- Indeks untuk tabel `lowongan`
 --
 ALTER TABLE `lowongan`
   ADD PRIMARY KEY (`id_lowongan`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `nilai_alternatif`
+-- Indeks untuk tabel `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
   ADD PRIMARY KEY (`id_nilai_alternatif`),
@@ -377,13 +393,13 @@ ALTER TABLE `nilai_alternatif`
   ADD KEY `id_bobot_kriteria_2` (`id_bobot_kriteria`);
 
 --
--- Indexes for table `password_resets`
+-- Indeks untuk tabel `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `pelamar`
+-- Indeks untuk tabel `pelamar`
 --
 ALTER TABLE `pelamar`
   ADD PRIMARY KEY (`id_pelamar`),
@@ -391,120 +407,120 @@ ALTER TABLE `pelamar`
   ADD KEY `pelamar_id_lowongan_index` (`id_lowongan`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `bobot_kriteria`
+-- AUTO_INCREMENT untuk tabel `bobot_kriteria`
 --
 ALTER TABLE `bobot_kriteria`
-  MODIFY `id_bobot_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_bobot_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `daftar_soal`
+-- AUTO_INCREMENT untuk tabel `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
-  MODIFY `id_soal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_soal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `hasil_tes`
+-- AUTO_INCREMENT untuk tabel `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `jadwal_tes`
+-- AUTO_INCREMENT untuk tabel `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
-  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `kriteria`
+-- AUTO_INCREMENT untuk tabel `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `lowongan`
+-- AUTO_INCREMENT untuk tabel `lowongan`
 --
 ALTER TABLE `lowongan`
-  MODIFY `id_lowongan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_lowongan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `nilai_alternatif`
+-- AUTO_INCREMENT untuk tabel `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
-  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
--- AUTO_INCREMENT for table `pelamar`
+-- AUTO_INCREMENT untuk tabel `pelamar`
 --
 ALTER TABLE `pelamar`
-  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `bobot_kriteria`
+-- Ketidakleluasaan untuk tabel `bobot_kriteria`
 --
 ALTER TABLE `bobot_kriteria`
   ADD CONSTRAINT `bobot_kriteria_id_kriteria_foreign` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `daftar_soal`
+-- Ketidakleluasaan untuk tabel `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
   ADD CONSTRAINT `daftar_soal_id_jadwal_tes_foreign` FOREIGN KEY (`id_jadwal_tes`) REFERENCES `jadwal_tes` (`id_jadwal_tes`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `hasil_tes`
+-- Ketidakleluasaan untuk tabel `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
   ADD CONSTRAINT `hasil_tes_id_pelamar_foreign` FOREIGN KEY (`id_pelamar`) REFERENCES `pelamar` (`id_pelamar`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `hasil_tes_id_soal_foreign` FOREIGN KEY (`id_soal_tes`) REFERENCES `daftar_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `jadwal_tes`
+-- Ketidakleluasaan untuk tabel `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
   ADD CONSTRAINT `jadwal_tes_id_lowongan_foreign` FOREIGN KEY (`id_lowongan`) REFERENCES `lowongan` (`id_lowongan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `kriteria`
+-- Ketidakleluasaan untuk tabel `kriteria`
 --
 ALTER TABLE `kriteria`
   ADD CONSTRAINT `kriteria_id_lowongan_foreign` FOREIGN KEY (`id_lowongan`) REFERENCES `lowongan` (`id_lowongan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `nilai_alternatif`
+-- Ketidakleluasaan untuk tabel `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
   ADD CONSTRAINT `nilai_alternatif_id_bobot_kriteria_foreign` FOREIGN KEY (`id_bobot_kriteria`) REFERENCES `bobot_kriteria` (`id_bobot_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nilai_alternatif_id_pelamar_foreign` FOREIGN KEY (`id_pelamar`) REFERENCES `pelamar` (`id_pelamar`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pelamar`
+-- Ketidakleluasaan untuk tabel `pelamar`
 --
 ALTER TABLE `pelamar`
   ADD CONSTRAINT `pelamar_id_lowongan_foreign` FOREIGN KEY (`id_lowongan`) REFERENCES `lowongan` (`id_lowongan`) ON DELETE CASCADE ON UPDATE CASCADE,

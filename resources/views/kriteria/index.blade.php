@@ -28,6 +28,8 @@
                                 </thead>
                                 @if ($nilai < 100)
                                     <span class="text-warning"> <i>Presentase Bobot harus 100%</i></span>
+                                    @elseif ($nilai > 100)
+                                    <span class="text-warning"> <i>Presentase Bobot harus 100%</i></span>
                                 @endif
                                 <tbody>
                                     @if (!empty($kriteria))
@@ -37,9 +39,9 @@
                                                 <td>{{ $data->nama_kriteria }}</td>
                                                 <td>{{ $data->atribut_kriteria }}</td>
                                                 <td class="text-center">
-                                                    @if ($nilai <= 100)
+                                                    
                                                         {{ $data->bobot_preferensi }}<br>
-                                                    @endif
+                                                    
                                                 </td>
                                                 <td class="text-center">
 

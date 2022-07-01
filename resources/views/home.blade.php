@@ -11,6 +11,8 @@
                         </div>
                     </div>
                     <div class="card-body">
+                    <h4 class="card-title">Pelamar yang menunggu validasi :</h4>
+                        <h4>{{ $pelamarv }}</h4>
                         <h4 class="card-title">Pelamar yang menunggu seleksi 1 :</h4>
                         <h4>{{ $pelamar }}</h4>
                         <h4 class="card-title">Pelamar yang menunggu seleksi 2 : </h4>
@@ -20,7 +22,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
+                <div class="card" style="padding-bottom: 60px;">
                     <div class="card-header card-header-icon card-header-success">
                         <div class="card-icon">
                             <i class="material-icons">schedule</i>
@@ -33,7 +35,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
+                <div class="card" style="padding-bottom: 60px;" >
                     <div class="card-header card-header-icon card-header-rose">
                         <div class="card-icon">
                             <i class="material-icons">check</i>
@@ -50,7 +52,7 @@
         <br>
         <div class="card">
             <div class="card-body">
-                <h3>Riwayat Rekruitmen</h3>
+                <h3>Riwayat Rekrutmen</h3>
                 {{-- <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -97,10 +99,10 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'Riwayat Rekruitmen'
+                    text: 'Riwayat Rekrutmen'
                 },
                 subtitle: {
-                    text: 'Riwayat rekruitmen pelamar perlowongan'
+                    text: 'Riwayat rekrutmen pelamar perlowongan'
                 },
                 accessibility: {
                     announceNewData: {

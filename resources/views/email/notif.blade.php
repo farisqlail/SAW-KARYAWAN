@@ -1,8 +1,8 @@
 @extends('beautymail::templates.minty')
 
 @section('content')
+
 @include('beautymail::templates.minty.contentStart')
-   
     <tr>
         <td class="title">
             Yth.
@@ -14,9 +14,9 @@
     </tr>
     <tr>
         <td class="paragraph">
-            Menindak lanjuti lamaran yang anda ajukan untuk lowongan <b>{{ $data->lowongan->posisi_lowongan }}</b>, melalui surat ini kami sampaikan
-            bahwa dokumen anda tidak valid.
-
+            Batas pengumpulan tes sudah hampir ditutup, harap pelamar segera mengirimkan jawaban tes sebelum {{ $jadwal_tes->durasi_tes }}.
+            <br><br>
+            
             Atas perhatiannya kami sampaikan terimakasih.
         </td>
     </tr>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class LowonganController extends Controller
 {
@@ -26,12 +27,24 @@ class LowonganController extends Controller
         }
     }
 
+    public function search(Request $request)
+    {
+        // menangkap data pencarian
+        $search = $request->search;
+
+        // mengambil data dari table pegawai sesuai pencarian data
+        $lowongan = DB::table('lowongan')
+            ->where('posisi_lowongan', 'like', "%" . $search . "%")
+            ->paginate();
+
+        // mengirim data pegawai ke view index
+        return view('lowongan.search', ['lowongan' => $lowongan]);
+    }
+
     public function home()
     {
-
-        $lowongan = lowongan::all();
-        $user = Auth::user()->id;
-        $pelamar = Pelamar::where('id_user', $user)->get();
+        $lowongan = lowongan::orderBy('id_lowongan', 'desc')->get();
+        $pelamar = Pelamar::all();
 
         return view('lowongan.home', compact('lowongan', 'pelamar'));
     }

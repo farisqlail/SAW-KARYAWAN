@@ -28,10 +28,11 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $pelamar = Pelamar::whereNull('seleksi_satu')->count();
+            $pelamarv = Pelamar::whereNull('status_dokumen')->count();
+            $pelamar = Pelamar::where('status_dokumen', 'Dokumen Valid')->whereNull('seleksi_satu')->count();
             $pelamars2 = Pelamar::where('seleksi_satu', 'Diterima')->wherenull('seleksi_dua')->count();
-            $lowonganBerlaku = Lowongan::where('berlaku_sampai', '<', \Carbon\Carbon::now())->count();
-            $lowonganBerakhir = Lowongan::where('berlaku_sampai', '>=', \Carbon\Carbon::now())->count();
+            $lowonganBerlaku = Lowongan::where('berlaku_sampai', '>=', \Carbon\Carbon::now())->count();
+            $lowonganBerakhir = Lowongan::where('berlaku_sampai', '<', \Carbon\Carbon::now())->count();
 
             $riwayat = lowongan::withCount('pelamar')
                 ->orderBy('created_at', 'asc')
@@ -54,6 +55,7 @@ class HomeController extends Controller
 
 
             return view('home', [
+                'pelamarv'           => $pelamarv,
                 'pelamar'           => $pelamar,
                 'pelamars2'         => $pelamars2,
                 'lowonganBerlaku'   => $lowonganBerlaku,
