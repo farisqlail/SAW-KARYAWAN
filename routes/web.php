@@ -22,7 +22,7 @@ Route::get('/admin/home', 'HomeController@index')->name('home');
 //LOWONGAN
 Route::prefix('/lowongan')->group(function ()
 {
-
+    
     Route::get('/lowongan/search', 'LowonganController@search')->name('lowongan.search');
     Route::get('/admin', 'LowonganController@index')->name('lowongan.index');
     Route::get('/daftar-lowongan', 'LowonganController@home')->name('lowongan.home');
@@ -89,6 +89,9 @@ Route::prefix('/jadwal_tes')->group(function ()
 
 Route::prefix('/pelamar')->group(function ()
 {
+    Route::get('/wawancara', 'PelamarController@wawancara')->name('wawancara');
+    Route::get('/hasil/wawancara/{id}', 'PelamarController@hasilwawancara')->name('hasil.wawancara');
+    Route::post('/hasil/wawancara/{id}', 'PelamarController@storeWawancara')->name('hasil.store');
     Route::post('/seleksi-pelamar/{id}', 'PelamarController@update')->name('pelamar.update');
     Route::get('/admin', 'PelamarController@index')->name('pelamar.index');
     Route::get('/{id}/melamar', 'PelamarController@create')->name('pelamar.tambah');

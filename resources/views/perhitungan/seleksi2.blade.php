@@ -72,19 +72,11 @@
 
                                             <a href="{{ route('seleksi.detail', $data['id_pelamar']) }}" class="btn btn-info">Lihat Detail</a>
 
-<<<<<<< HEAD
                                             <!-- @if ($data['status'] == null)
                                             <input type="submit" name="submit" href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" class="btn btn-success" value="Terima">
 
                                             <input type="submit" name="submit" href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" class="btn btn-danger" value="Tolak">
                                             @endif -->
-=======
-                                            @if ($data['status'] == null)
-                                            <input type="submit" name="submit" href="{{ route('seleksi.detail', $data['id_pelamar']) }}" class="btn btn-success" value="Terima">
-
-                                            <input type="submit" name="submit" href="{{ route('seleksi.detail', $data['id_pelamar']) }}" class="btn btn-danger" value="Tolak">
-                                            @endif
->>>>>>> f69eed811610c99c8c3443472b69372722deab47
                                         </form>
                                     </td>
                                 </tr>

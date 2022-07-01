@@ -189,7 +189,7 @@ class PelamarController extends Controller
             // dd($jadwalTes);
             $pelamar->save();
 
-            return redirect()->route('perhitungan.validasi', ['id'=>$pelamar->id_lowongan]);
+            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id_lowongan]);
         } elseif ($request->submit == 'Dokumen Tidak Valid') {
 
             Alert::success('Berhasil', 'Dokumen pelamar tidak valid!');
@@ -207,7 +207,7 @@ class PelamarController extends Controller
 
             $pelamar->save();
 
-            return redirect()->route('perhitungan.validasi', ['id'=>$pelamar->id_lowongan]);;
+            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id_lowongan]);;
         }
     }
 
@@ -345,11 +345,48 @@ class PelamarController extends Controller
         }
     }
 
+    public function wawancara()
+    {
+        $pelamar = Pelamar::select('pelamar.id_pelamar', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
+            ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
+            ->where('seleksi_dua', 'Diterima')
+            ->groupBy('id_pelamar', 'nama_pelamar', 'posisi_lowongan')
+            ->get();
+
+        // $lowongan = lowongan::where('id_lowongan', $id)->first();
+        // dd($pelamar); 
+
+        return view('perhitungan.wawancara', [
+            'pelamar' => $pelamar
+        ]);
+    }
+
+    public function hasilWawancara(Request $request, $id)
+    {
+        $pelamar = Pelamar::findOrFail($id);
+
+        return view('perhitungan.hasil', [
+            'pelamar' => $pelamar
+        ]);
+    }
+
+    public function storeWawancara(Request $request, $id)
+    {
+        Alert::success('Berhasil', 'Hasil wawancara berhasil disimpan');
+        $pelamar = Pelamar::findOrFail($id);
+
+        $pelamar->hasil_wawancara = $request->wawancara;
+        $pelamar->status_wawancara = 'Ditolak';
+        $pelamar->save();
+
+        return view('perhitungan.wawancara');
+    }
+
     public function tolakDua(Request $request)
     {
         $sort = $request->sorting;
         $kode = $request->id_pelamar;
-        $total= $request->total;
+        $total = $request->total;
         $output = array_slice($kode, 0, $sort);
         $pelamar = Pelamar::whereNull('seleksi_dua')->whereIn('id_pelamar', $output)->get();
         $tolak = Pelamar::whereNull('seleksi_dua')->whereNotIn('id_pelamar', $output)->get();
