@@ -377,9 +377,29 @@ class PelamarController extends Controller
 
         $pelamar->hasil_wawancara = $request->wawancara;
         $pelamar->status_wawancara = 'Ditolak';
+        
+        if ($pelamar->hasil_wawancara == 'Ditolak') {
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.wawancaraTolak', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
+                $message
+                    ->from('lintasnusa1990@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
+            });
+        } else {
+            $pelamar->status_wawancara = 'Diterima';
+            
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('email.wawancaraTerima', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
+                $message
+                    ->from('lintasnusa1990@gmail.com')
+                    ->to($pelamar->user->email, $pelamar->nama_pelamar)
+                    ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
+            });
+        }
         $pelamar->save();
-
-        return view('perhitungan.wawancara');
+        
+        return redirect()->route('wawancara');
     }
 
     public function tolakDua(Request $request)
