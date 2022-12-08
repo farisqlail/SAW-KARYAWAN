@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', 'FrontendController@index');
+Route::get('/', 'FrontendController@index')->name('home.user');
 
 Auth::routes();
 
