@@ -54,7 +54,7 @@ class PelamarController extends Controller
         $lowongan = lowongan::find($id);
         $pelamar = Pelamar::all();
         $kriteria = DB::table('kriteria')
-            ->where('id_lowongan', '=', $id)
+            ->where('id', '=', $id)
             ->get();
         $bobot_kriteria = BobotKriteria::all();
 
@@ -91,9 +91,9 @@ class PelamarController extends Controller
 
             $pelamar = new Pelamar();
 
-            $pelamar->id_lowongan = $request->get('id_lowongan');
+            $pelamar->id = $request->get('id');
             $pelamar->id_user = $request->get('id_user');
-            // $pelamar->id_bobot_kriteria = $request->get('id_bobot_kriteria');
+            // $pelamar->id = $request->get('id');
             $pelamar->nama_pelamar = $request->get('nama_pelamar');
             $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
             $pelamar->tempat_lahir = $request->get('tempat_lahir');
@@ -126,12 +126,12 @@ class PelamarController extends Controller
             $bobot_kriteria = BobotKriteria::all();
 
             $kriteria = DB::table('kriteria')
-                ->where('id_lowongan', '=', $request->get('id_lowongan'))
+                ->where('id', '=', $request->get('id'))
                 ->get();
             foreach ($kriteria as $kriteria) {
                 $nilai_alternatif = new NilaiAlternatif();
-                $nilai_alternatif->id_pelamar = $pelamar->id_pelamar;
-                $nilai_alternatif->id_bobot_kriteria = $request->get($kriteria->id_kriteria);
+                $nilai_alternatif->id = $pelamar->id;
+                $nilai_alternatif->id = $request->get($kriteria->id);
                 $nilai_alternatif->save();
             }
 
@@ -176,7 +176,7 @@ class PelamarController extends Controller
             Alert::success('Berhasil', 'Validasi dokumen pelamar berhasil!');
 
             $pelamar = Pelamar::find($id);
-            $jadwalTes = JadwalTes::where('id_lowongan', $pelamar->id_lowongan)->first();
+            $jadwalTes = JadwalTes::where('id', $pelamar->id)->first();
             $pelamar->status_dokumen = 'Dokumen Valid';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
@@ -189,7 +189,7 @@ class PelamarController extends Controller
             // dd($jadwalTes);
             $pelamar->save();
 
-            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id_lowongan]);
+            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id]);
         } elseif ($request->submit == 'Dokumen Tidak Valid') {
 
             Alert::success('Berhasil', 'Dokumen pelamar tidak valid!');
@@ -207,7 +207,7 @@ class PelamarController extends Controller
 
             $pelamar->save();
 
-            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id_lowongan]);;
+            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id]);;
         }
     }
 
@@ -218,7 +218,7 @@ class PelamarController extends Controller
             Alert::success('Berhasil', 'Pelamar sudah diterima & akan mengirim email lanjut');
 
             $pelamar = Pelamar::find($id);
-            $jadwalTes = JadwalTes::where('id_lowongan', $pelamar->id_lowongan)->first();
+            $jadwalTes = JadwalTes::where('id', $pelamar->id)->first();
             $pelamar->seleksi_satu = 'Diterima';
             // dd($jadwalTes);
 
@@ -263,16 +263,16 @@ class PelamarController extends Controller
         $total = $request->total;
         $output = array_slice($kode, 0, $sort);
         $output2 = array_slice($kode, 0, $nilai);
-        $pelamar = Pelamar::whereNull('seleksi_satu')->whereIn('id_pelamar', $output)->whereIn('id_pelamar', $output2)->get();
-        $tolak = Pelamar::whereNull('seleksi_satu')->whereNotIn('id_pelamar', $output)->whereNotIn('id_pelamar', $output2)->get();
+        $pelamar = Pelamar::whereNull('seleksi_satu')->whereIn('id', $output)->whereIn('id', $output2)->get();
+        $tolak = Pelamar::whereNull('seleksi_satu')->whereNotIn('id', $output)->whereNotIn('id', $output2)->get();
 
         foreach ($pelamar as $data) {
             Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
 
             // $data->seleksi_satu = 'Ditolak';
-            Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Diterima']);
-            Lowongan::where('id_lowongan', $data->id_lowongan)->update(['status_lowongan' => 'Seleksi 2']);
-            $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
+            Pelamar::where('id', $data->id)->update(['seleksi_satu' => 'Diterima']);
+            Lowongan::where('id', $data->id)->update(['status_lowongan' => 'Seleksi 2']);
+            $jadwalTes = JadwalTes::where('id', $data->id)->first();
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos', ['data' => $data, 'jadwalTes' => $jadwalTes], function ($message) use ($data) {
@@ -288,7 +288,7 @@ class PelamarController extends Controller
             Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
 
             // $data->seleksi_satu = 'Ditolak';
-            Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_satu' => 'Ditolak']);
+            Pelamar::where('id', $data->id)->update(['seleksi_satu' => 'Ditolak']);
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak', ['data' => $data], function ($message) use ($data) {
@@ -347,13 +347,13 @@ class PelamarController extends Controller
 
     public function wawancara()
     {
-        $pelamar = Pelamar::select('pelamar.id_pelamar', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
-            ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
+        $pelamar = Pelamar::select('pelamar.id', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
+            ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
             ->where('seleksi_dua', 'Diterima')
-            ->groupBy('id_pelamar', 'nama_pelamar', 'posisi_lowongan')
+            ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
 
-        // $lowongan = lowongan::where('id_lowongan', $id)->first();
+        // $lowongan = lowongan::where('id', $id)->first();
         // dd($pelamar); 
 
         return view('perhitungan.wawancara', [
@@ -405,19 +405,19 @@ class PelamarController extends Controller
     public function tolakDua(Request $request)
     {
         $sort = $request->sorting;
-        $kode = $request->id_pelamar;
+        $kode = $request->id;
         $total = $request->total;
         $output = array_slice($kode, 0, $sort);
-        $pelamar = Pelamar::whereNull('seleksi_dua')->whereIn('id_pelamar', $output)->get();
-        $tolak = Pelamar::whereNull('seleksi_dua')->whereNotIn('id_pelamar', $output)->get();
+        $pelamar = Pelamar::whereNull('seleksi_dua')->whereIn('id', $output)->get();
+        $tolak = Pelamar::whereNull('seleksi_dua')->whereNotIn('id', $output)->get();
 
         foreach ($pelamar as $data) {
             Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
 
             // $data->seleksi_satu = 'Ditolak';
-            Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_dua' => 'Diterima']);
-            Lowongan::where('id_lowongan', $data->id_lowongan)->update(['status_lowongan' => 'Seleksi Selesai']);
-            $jadwalTes = JadwalTes::where('id_lowongan', $data->id_lowongan)->first();
+            Pelamar::where('id', $data->id)->update(['seleksi_dua' => 'Diterima']);
+            Lowongan::where('id', $data->id)->update(['status_lowongan' => 'Seleksi Selesai']);
+            $jadwalTes = JadwalTes::where('id', $data->id)->first();
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos2', ['data' => $data], function ($message) use ($data) {
@@ -433,7 +433,7 @@ class PelamarController extends Controller
             Alert::success('Berhasil', 'Pelamar sudah disorting dan dikirim email');
 
             // $data->seleksi_satu = 'Ditolak';
-            Pelamar::where('id_pelamar', $data->id_pelamar)->update(['seleksi_dua' => 'Ditolak']);
+            Pelamar::where('id', $data->id)->update(['seleksi_dua' => 'Ditolak']);
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak2', ['data' => $data], function ($message) use ($data) {

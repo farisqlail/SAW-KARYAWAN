@@ -41,7 +41,7 @@
                                     @endif
                                 @endforeach
                                 @if (!$check)
-                                    <a href="{{ route('pelamar.tambah', $lowongan->id_lowongan) }}"
+                                    <a href="{{ route('pelamar.tambah', $lowongan->id) }}"
                                         class="btn-get-started">Lamar</a>
                                 @endif
                             @endif

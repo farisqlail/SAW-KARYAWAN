@@ -12,17 +12,17 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <form action="{{route('jadwal_tes.update',$jadwal_tes->id_jadwal_tes)}}" method="POST" class="col-md-12">
+                        <form action="{{route('jadwal_tes.update',$jadwal_tes->id)}}" method="POST" class="col-md-12">
                             @csrf
                             <div class="form-group">
                                 <label for="nama">Pilih Lowongan<span class="text-danger">*</span></label>
-                                <select name="id_lowongan" class="form-control" required>
-                                    <option value="{{$jadwal_tes->id_lowongan}}">{{ $jadwal_tes->posisi_lowongan}} </option>
+                                <select name="id" class="form-control" required>
+                                    <option value="{{$jadwal_tes->id}}">{{ $jadwal_tes->posisi_lowongan}} </option>
                                     @foreach($lowongan as $data)
-                                    @if($data->id_lowongan==$jadwal_tes->id_lowongan)
+                                    @if($data->id==$jadwal_tes->id)
 
                                     @else
-                                    <option value="{{$data->id_lowongan}}">{{$data->posisi_lowongan}}</option>
+                                    <option value="{{$data->id}}">{{$data->posisi_lowongan}}</option>
                                     @endif
                                     @endforeach
                                 </select>

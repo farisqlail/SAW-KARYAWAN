@@ -22,16 +22,17 @@ class LoginController extends Controller
      */
     // protected $redirectTo = '/home';
 
-    public function authenticated(Request $request, $user)
+    public function authenticated()
     {
         if (Auth::user()->role == 'admin') {
+            dd(Auth::user());
             // return view('admin.dashboard');
             Alert::success('Selamat Datang Kembali', 'Selamat datang lagi admin');
             return redirect()->route('home');
 
         } else {
             // return view('hrd.dashboard');
-            Alert::success('Selamat Datang', 'Selamat Datang '.Auth::user()->name);
+            Alert::success('Selamat Datang', 'Selamat Datang ' . Auth::user()->name);
             return redirect()->route('lowongan.home');
         }
     

@@ -16,7 +16,7 @@
                         <form enctype="multipart/form-data" action="{{route('daftar_soal.simpan')}}" method="POST" class="col-md-12">
                             @csrf
                             <div class="form-group">
-                                    <input type="text" name="id_jadwal_tes" class="form-control" value="{{$jadwaltes->id_jadwal_tes}}" hidden>
+                                    <input type="text" name="id" class="form-control" value="{{$jadwaltes->id}}" hidden>
                                 </div>
                             <div class="form-group">
                                 <label for="soal">Soal<span class="text-danger">*</span></label>
@@ -32,7 +32,7 @@
                             <input name="file_soal" class="form-control" type="file" required />
                             <br>
                             <div class="float-right">
-                                <a href="{{ route('daftar_soal.index', ['id' => $jadwaltes->id_jadwal_tes]) }}" class="btn btn-danger">Batal</a>
+                                <a href="{{ route('daftar_soal.index', ['id' => $jadwaltes->id]) }}" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-success">Tambah</button>
                             </div>
                         </form>

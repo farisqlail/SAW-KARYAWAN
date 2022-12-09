@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="button-validasi mt-4" align="right">
-                        <form action="{{ route('pelamar.statusDokumen', $pelamar->id_pelamar) }}" method="post"
+                        <form action="{{ route('pelamar.statusDokumen', $pelamar->id) }}" method="post"
                             id="formx">
                             {{ csrf_field() }}
                             @if ($pelamar->status_dokumen == null)

@@ -37,10 +37,10 @@
                                             <td>{{$data->bobot_soal}}</td>
 
                                             <td class="text-center">
-                                                <form action="{{route('jadwal_tes.simpansoal',['id_jadwal_tes' => $jadwaltes->id_jadwal_tes])}}" method="POST">
+                                                <form action="{{route('jadwal_tes.simpansoal',['id' => $jadwaltes->id])}}" method="POST">
                                                     @csrf
-                                                    <input type="text" name="id_jadwal_tes" class="form-control" value="{{$jadwaltes->id_jadwal_tes}}" hidden>
-                                                    <input type="text" name="id_soal" class="form-control" value="{{$data->id_soal}}" hidden>
+                                                    <input type="text" name="id" class="form-control" value="{{$jadwaltes->id}}" hidden>
+                                                    <input type="text" name="id" class="form-control" value="{{$data->id}}" hidden>
                                                     <button type="submit" class="btn btn-sm btn-success">Pilih Soal</button>
                                                 </form>
                                             </td>
@@ -77,10 +77,10 @@
                                         <td>{{$data->bobot_soal}}</td>
 
                                         <td class="text-center">
-                                            <form action="{{route('jadwal_tes.hapussoal',['id_jadwal_tes' => $data->id_jadwal_tes])}}" method="POST">
+                                            <form action="{{route('jadwal_tes.hapussoal',['id' => $data->id])}}" method="POST">
                                                 @csrf
-                                                <input type="text" name="id_jadwal_tes" class="form-control" value="{{$data->id_jadwal_tes}}" hidden>
-                                                <input type="text" name="id_soal_tes" class="form-control" value="{{$data->id_soal_tes}}" hidden>
+                                                <input type="text" name="id" class="form-control" value="{{$data->id}}" hidden>
+                                                <input type="text" name="id_tes" class="form-control" value="{{$data->id_tes}}" hidden>
                                                 <button type="submit" class="btn btn-sm btn-danger">Hapus Soal</button>
                                             </form>
                                         </td>

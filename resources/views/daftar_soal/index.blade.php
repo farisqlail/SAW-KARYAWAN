@@ -9,7 +9,7 @@
                         <h3 class="float-left">Daftar Soal Tes untuk Posisi {{$lowongan->posisi_lowongan}}</h3>
                         <div class="float-right">
                             <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Kembali</a>
-                            <a href="{{ route('daftar_soal.tambah', ['id' => $jadwaltes->id_jadwal_tes]) }}"
+                            <a href="{{ route('daftar_soal.tambah', ['id' => $jadwaltes->id]) }}"
                                 class="btn btn-success">Tambah</a>
                         </div>
                     </div>
@@ -36,10 +36,10 @@
                                                 <td>{{ $data->bobot_soal }}</td>
                                                 <td class="text-center">
 
-                                                    <a href="{{ route('daftar_soal.edit', ['id' => $data->id_soal]) }}"
+                                                    <a href="{{ route('daftar_soal.edit', ['id' => $data->id]) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
                                                     <a href="#" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $data->id_soal }}">Hapus</a>
+                                                        data-id="{{ $data->id }}">Hapus</a>
 
                                                 </td>
                                             </tr>

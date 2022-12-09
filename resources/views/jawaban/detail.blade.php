@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {{-- @include('jawaban.nilai', [$hasilTes[0]->id_hasil_tes]) --}}
+    {{-- @include('jawaban.nilai', [$hasilTes[0]->id]) --}}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -10,7 +10,7 @@
                     <div class="card-header">
                         <h2 class="float-left">Hasil Tes {{$pelamar->nama_pelamar}}</h2>
                         <div class="float-right">
-                            <a href="{{ route('jawaban.index', ['id' => $pelamar->id_lowongan]) }}" class="btn btn-danger">Kembali</a>
+                            <a href="{{ route('jawaban.index', ['id' => $pelamar->id]) }}" class="btn btn-danger">Kembali</a>
                            
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                 <tbody>
                                     @if (!empty($hasilTes))
                                         @foreach ($hasilTes as $data)
-                                            <div class="modal fade" id="nilaiJawaban{{ $data->id_hasil_tes }}" tabindex="-1"
+                                            <div class="modal fade" id="nilaiJawaban{{ $data->id }}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -45,7 +45,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <form enctype="multipart/form-data"
-                                                                action="{{ route('jawaban.nilai.update', [$data->id_hasil_tes]) }}"
+                                                                action="{{ route('jawaban.nilai.update', [$data->id]) }}"
                                                                 method="POST" class="col-md-12" id="form-nilaiJawaban">
                                                                 @csrf
                                                                 {{ method_field('PATCH') }}
@@ -85,8 +85,8 @@
                     </td>
                     <td class="text-center">
                         {{-- <a href="{{ route('jawaban.detail', $data) }}" class="btn btn-success">Detail Jawaban</a> --}}
-                        <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}"
-                            data-toggle="modal" data-target="#nilaiJawaban{{ $data->id_hasil_tes }}" class="btn btn-info">Nilai Jawaban</a>
+                        <a href="{{ route('jawaban.nilai', $data->id) }}"
+                            data-toggle="modal" data-target="#nilaiJawaban{{ $data->id }}" class="btn btn-info">Nilai Jawaban</a>
                     </td>
                 </tr>
                 @endforeach

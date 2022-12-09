@@ -25,7 +25,7 @@ class JadwalTesController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $jadwal_tes = DB::table('jadwal_tes')
-                ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')->get();
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
             return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
         } else {
             abort(404);
@@ -43,13 +43,13 @@ class JadwalTesController extends Controller
             foreach ($pelamar as $data) {
 
                 $pelamar = Pelamar::with('user')->where('id_user', $user)
-                    ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
+                    ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
                     ->get();
 
-                $pelamarGet = $data->id_lowongan;
+                $pelamarGet = $data->id;
 
-                $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan',)
-                    ->where('lowongan.id_lowongan', $pelamarGet)
+                $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id',)
+                    ->where('lowongan.id', $pelamarGet)
                     ->get();
             }
             // dd($pelamar->count() > 0);
@@ -84,8 +84,8 @@ class JadwalTesController extends Controller
     {
 
         $jadwal_tes = JadwalTes::find($id);
-        $lowongan = Lowongan::where('id_lowongan',$jadwal_tes->id_lowongan)->first();
-        $pelamar = Pelamar::where('id_lowongan', $lowongan->id_lowongan)->where('seleksi_satu', 'Diterima')->get();
+        $lowongan = Lowongan::where('id',$jadwal_tes->id)->first();
+        $pelamar = Pelamar::where('id', $lowongan->id)->where('seleksi_satu', 'Diterima')->get();
 
         foreach ($pelamar as $item) {
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
@@ -128,7 +128,7 @@ class JadwalTesController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'id_lowongan' => 'required',
+            'id' => 'required',
             'tanggal' => "required",
             'batas' => "required",
 
@@ -141,7 +141,7 @@ class JadwalTesController extends Controller
             Alert::success('Berhasil', 'Jadwal tes berhasil ditambahkan');
 
             $jadwal_tes = new JadwalTes();
-            $jadwal_tes->id_lowongan = $request->get('id_lowongan');
+            $jadwal_tes->id = $request->get('id');
             $jadwal_tes->tanggal_notif = $request->get('tanggal_notif');
             $jadwal_tes->tanggal = $request->get('tanggal');
             $jadwal_tes->durasi_tes = $request->get('batas');
@@ -172,8 +172,8 @@ class JadwalTesController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $jadwal_tes = DB::table('jadwal_tes')
-                ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')
-                ->where('id_jadwal_tes', $id)
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')
+                ->where('id', $id)
                 ->first();
             $lowongan = lowongan::all();
             return view('jadwal_tes.edit', ['jadwal_tes' => $jadwal_tes, 'lowongan' => $lowongan]);
@@ -192,7 +192,7 @@ class JadwalTesController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
-            'id_lowongan' => 'required',
+            'id' => 'required',
             'tanggal' => "required",
             'batas' => "required",
 
@@ -205,7 +205,7 @@ class JadwalTesController extends Controller
             Alert::success('Berhasil', 'Jadwal tes berhasil diubah');
 
             $jadwal_tes = JadwalTes::find($id);
-            $jadwal_tes->id_lowongan = $request->get('id_lowongan');
+            $jadwal_tes->id = $request->get('id');
             $jadwal_tes->tanggal_notif = $request->get('tanggal_notif');
             $jadwal_tes->tanggal = $request->get('tanggal');
             $jadwal_tes->durasi_tes = $request->get('batas');

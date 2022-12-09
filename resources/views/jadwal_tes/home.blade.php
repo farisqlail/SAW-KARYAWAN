@@ -25,7 +25,7 @@
 
                     <div class="button-mulai" align="right">
                         @if ($item->tanggal && $item->durasi_tes > \Carbon\Carbon::now())
-                        <a href="{{ route('daftar_soal.home', ['id' => $item->id_jadwal_tes]) }}"
+                        <a href="{{ route('daftar_soal.home', ['id' => $item->id]) }}"
                             class="btn btn-success">Lihat Soal</a>
                         @endif
                     </div>

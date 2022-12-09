@@ -24,13 +24,13 @@ class HasilTesController extends Controller
      */
     public function index($id)
     {
-        $pelamar = Pelamar::select('pelamar.id_pelamar', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
-            ->join('hasil_tes', 'hasil_tes.id_pelamar', '=', 'pelamar.id_pelamar')
-            ->join('lowongan', 'lowongan.id_lowongan', '=', 'pelamar.id_lowongan')
-            ->where('hasil_tes.id_lowongan', $id)
-            ->groupBy('id_pelamar', 'nama_pelamar', 'posisi_lowongan')
+        $pelamar = Pelamar::select('pelamar.id', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
+            ->join('hasil_tes', 'hasil_tes.id', '=', 'pelamar.id')
+            ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
+            ->where('hasil_tes.id', $id)
+            ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
-        $lowongan = lowongan::where('id_lowongan', $id)->first();
+        $lowongan = lowongan::where('id', $id)->first();
         // dd($pelamar); 
 
         return view('jawaban.index', [
@@ -42,9 +42,9 @@ class HasilTesController extends Controller
     public function detail($id)
     {
 
-        $hasilTes = HasilTes::with('pelamar', 'daftar_soal')->where('id_pelamar', $id)->get();
+        $hasilTes = HasilTes::with('pelamar', 'daftar_soal')->where('id', $id)->get();
         // dd($hasilTes);
-        $pelamar = Pelamar::where('id_pelamar', $id)->first();
+        $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
             'hasilTes' => $hasilTes,
             'pelamar' => $pelamar
@@ -61,12 +61,12 @@ class HasilTesController extends Controller
         $user = Auth::user()->id;
         $pelamar = Pelamar::with('user')->where('id_user', $user)->get();
 
-        $pelamarGet = $pelamar[0]->id_pelamar;
+        $pelamarGet = $pelamar[0]->id;
 
         $jadwaltes = JadwalTes::find($id);
-        $daftarsoal = DaftarSoal::join('hasil_tes', 'hasil_tes.id_soal_tes', '=', 'daftar_soal.id_soal')
-            ->where('id_jadwal_tes', $id)
-            ->where('hasil_tes.id_pelamar', $pelamarGet)
+        $daftarsoal = DaftarSoal::join('hasil_tes', 'hasil_tes.id_tes', '=', 'daftar_soal.id')
+            ->where('id', $id)
+            ->where('hasil_tes.id', $pelamarGet)
             ->get();
 
         return view('jawaban.jawaban', ['pelamarGet' => $pelamarGet, 'daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamar' => $pelamar]);
@@ -93,9 +93,9 @@ class HasilTesController extends Controller
 
             $hasilTes = new HasilTes();
 
-            $hasilTes->id_soal_tes = $request->get('id_soal_tes');
-            $hasilTes->id_pelamar = $request->get('id_pelamar');
-            $hasilTes->id_lowongan = $request->get('id_lowongan');
+            $hasilTes->id_tes = $request->get('id_tes');
+            $hasilTes->id = $request->get('id');
+            $hasilTes->id = $request->get('id');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -133,9 +133,9 @@ class HasilTesController extends Controller
 
             $hasilTes = HasilTes::findOrFail($id);
 
-            $hasilTes->id_soal_tes = $request->get('id_soal_tes');
-            $hasilTes->id_pelamar = $request->get('id_pelamar');
-            $hasilTes->id_lowongan = $request->get('id_lowongan');
+            $hasilTes->id_tes = $request->get('id_tes');
+            $hasilTes->id = $request->get('id');
+            $hasilTes->id = $request->get('id');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -199,17 +199,17 @@ class HasilTesController extends Controller
 
             $hasilTes->save();
 
-            $NA = HasilTes::select('id_soal', DB::raw('sum(nilai * bobot_soal) as hasil'))
-                ->where('id_pelamar', $hasilTes->id_pelamar)
-                ->join('daftar_soal', 'daftar_soal.id_soal', '=', 'hasil_tes.id_soal_tes')
-                ->where('hasil_tes.id_lowongan', '=', $hasilTes->id_lowongan)
-                ->groupBy('id_soal')
+            $NA = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
+                ->where('id', $hasilTes->id)
+                ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                ->where('hasil_tes.id', '=', $hasilTes->id)
+                ->groupBy('id')
                 ->get();
             $nilai = $NA->toArray();
             $sum_nilai  = array_sum(array_column($nilai, 'hasil'));
             $total=$sum_nilai / 100;
 
-            Pelamar::where('id_pelamar', $hasilTes->id_pelamar)->update(['nilai_tes' => $total]);
+            Pelamar::where('id', $hasilTes->id)->update(['nilai_tes' => $total]);
         }
 
         return redirect()->back();

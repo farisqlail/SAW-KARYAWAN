@@ -31,8 +31,8 @@
                                             hidden>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="id_lowongan" class="form-control"
-                                            value="{{ $lowongan->id_lowongan }}" hidden>
+                                        <input type="text" name="id" class="form-control"
+                                            value="{{ $lowongan->id }}" hidden>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -148,13 +148,13 @@
                                                 @foreach ($kriteria as $kriteria)
                                                     <div class="form-group">
                                                         <label for="Kriteria">{{ $kriteria->nama_kriteria }}</label>
-                                                        <select name="{{ $kriteria->id_kriteria }}"
+                                                        <select name="{{ $kriteria->id }}"
                                                             class="form-control">
                                                             <option value="">-- Pilih {{ $kriteria->nama_kriteria }}--
                                                             </option>
                                                             @foreach ($bobot_kriteria as $bobot)
-                                                                @if ($kriteria->id_kriteria == $bobot->id_kriteria)
-                                                                    <option value="{{ $bobot->id_bobot_kriteria }}">
+                                                                @if ($kriteria->id == $bobot->id)
+                                                                    <option value="{{ $bobot->id }}">
                                                                         {{ $bobot->nama_bobot }}</option>
                                                                 @else
                                                                 @endif

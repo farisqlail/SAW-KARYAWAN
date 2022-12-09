@@ -51,11 +51,11 @@
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
                                                 <td >
                                                         {{-- @if (Auth()->user()->role == 'admin') --}}
-                                                            <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}"
+                                                            <a href="{{ route('kriteria.index', ['id' => $data->id]) }}"
                                                                 class="btn btn-sm btn-info btn-sm">Kriteria</a>
-                                                            <a href="{{ route('lowongan.edit', ['id' => $data->id_lowongan]) }}"
+                                                            <a href="{{ route('lowongan.edit', ['id' => $data->id]) }}"
                                                                 class="btn btn-sm btn-warning btn-sm">Edit</a>
-                                                                <a href="#" data-id="{{ $data->id_lowongan }}" class="btn btn-sm btn-danger delete">
+                                                                <a href="#" data-id="{{ $data->id }}" class="btn btn-sm btn-danger delete">
                                                                     Hapus
                                                                 </a>
                                                 </td>

@@ -36,15 +36,15 @@
                                                 <td>{{ $data->tanggal_notif }}</td>
                                                 <td>{{ $data->durasi_tes }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('daftar_soal.index', ['id' => $data->id_jadwal_tes]) }}"
+                                                    <a href="{{ route('daftar_soal.index', ['id' => $data->id]) }}"
                                                         class="btn btn-sm btn-info">Daftar Soal</a>
-                                                    <a href="{{ route('jawaban.index', $data->id_lowongan) }}"
+                                                    <a href="{{ route('jawaban.index', $data->id) }}"
                                                         class="btn btn-sm btn-info">Nilai</a>
-                                                    <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id_jadwal_tes]) }}"
+                                                    <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id]) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
-                                                    <a href="{{ route('jadwal_tes.notif', $data->id_jadwal_tes) }}" class="btn btn-sm btn-info">Beri Notif</a>
+                                                    <a href="{{ route('jadwal_tes.notif', $data->id) }}" class="btn btn-sm btn-info">Beri Notif</a>
                                                     <a href="#" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $data->id_jadwal_tes }}">Hapus</a>
+                                                        data-id="{{ $data->id }}">Hapus</a>
                                                 </td>
                                             </tr>
                                         @endforeach

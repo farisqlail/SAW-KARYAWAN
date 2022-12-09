@@ -80,13 +80,13 @@
                         @if (Auth::guest())
                         <div class="button-group mt-5" align="right">
                             @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
-                            <a href="{{ route('lowongan.detail', $data->id_lowongan) }}" class="btn btn-outline-primary">Lihat Detail</a>
+                            <a href="{{ route('lowongan.detail', $data->id) }}" class="btn btn-outline-primary">Lihat Detail</a>
                             <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
                             @endif
                         </div>
                         @else
                         <div class="button-group" align="right">
-                        <a href="{{ route('lowongan.detail', $data->id_lowongan) }}" class="btn btn-outline-primary">Lihat Detail</a>
+                        <a href="{{ route('lowongan.detail', $data->id) }}" class="btn btn-outline-primary">Lihat Detail</a>
                             @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
                            
                             @php
@@ -100,7 +100,7 @@
                             @endif
                             @endforeach
                             @if (!$check)
-                            <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}" class="btn-get-started">Lamar</a>
+                            <a href="{{ route('pelamar.tambah', $data->id) }}" class="btn-get-started">Lamar</a>
                             @endif
                             @endif
                         </div>

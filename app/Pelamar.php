@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pelamar extends Model
 {
     protected $table        = 'pelamar';
-    protected $primaryKey   = 'id_pelamar';
+    protected $primaryKey   = 'id';
     protected $fillable     = [
         'nama_pelamar',
         'tanggal_lahir',
@@ -22,7 +22,7 @@ class Pelamar extends Model
         'seleksi_satu',
         'seleksi_dua',
         'id_user',
-        'id_lowongan'
+        'id'
     ];
     protected $hidden       = ['created_at','updated_at'];
 
@@ -31,36 +31,36 @@ class Pelamar extends Model
     }
 
     public function lowongan() {
-        return $this->belongsTo(lowongan::class,'id_lowongan', 'id_lowongan');
+        return $this->belongsTo(lowongan::class,'id', 'id');
     }
 
     public function bobot()
     {
-        return $this->belongsToMany(BobotKriteria::class,'nilai_alternatif','id_pelamar','id_bobot_kriteria');
+        return $this->belongsToMany(BobotKriteria::class,'nilai_alternatif','id','id');
     }
 
     public function nilai_alternatif() {
-        return $this->hasMany(NilaiAlternatif::class,'id_pelamar', 'id_pelamar');
+        return $this->hasMany(NilaiAlternatif::class,'id', 'id');
     }
     
     public function hasil_tes() {
-        return $this->hasMany(HasilTes::class,'id_pelamar', 'id_pelamar');
+        return $this->hasMany(HasilTes::class,'id', 'id');
     }
 
     public function kriteria() {
-        return $this->hasMany(Kriteria::class,'id_lowongan', 'id_lowongan');
+        return $this->hasMany(Kriteria::class,'id', 'id');
     }
 
     public function bobot_kriteria() {
-       return  $this->belongsToMany(BobotKriteria::class,'nilai_alternatif','id_pelamar', 'id_bobot_kriteria');
+       return  $this->belongsToMany(BobotKriteria::class,'nilai_alternatif','id', 'id');
     }
 
     public function bobotKriteria(){
-        return $this->hasMany(BobotKriteria::class, 'id_bobot_kriteria', 'id_bobot_kriteria');
+        return $this->hasMany(BobotKriteria::class, 'id', 'id');
     }
 
     public function jadwalTes(){
 
-        return $this->hasMany(BobotKriteria::class, 'id_jadwal_tes');
+        return $this->hasMany(BobotKriteria::class, 'id');
     }
 }

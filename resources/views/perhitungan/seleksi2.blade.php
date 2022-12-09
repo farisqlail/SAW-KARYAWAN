@@ -50,7 +50,7 @@
                             <tbody>
                                 @foreach ($hasilTes as $data)
                                 <tr>
-                                    <input type="text" name="id_pelamar[]" value="{{ $data['id_pelamar'] }}" form="formSort" hidden>
+                                    <input type="text" name="id[]" value="{{ $data['id'] }}" form="formSort" hidden>
                                     <input type="text" name="total[]" value="($data['total'])" form="formSort" hidden>
                                     
                                     <td>{{ $loop->iteration }}</td>
@@ -67,15 +67,15 @@
                                         @endif
                                     </td>
                                     <td align="center">
-                                        <form action="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" method="post">
+                                        <form action="{{ route('pelamar.seleksi.dua', $data['id']) }}" method="post">
                                             {{ csrf_field() }}
 
-                                            <a href="{{ route('seleksi.detail', $data['id_pelamar']) }}" class="btn btn-info">Lihat Detail</a>
+                                            <a href="{{ route('seleksi.detail', $data['id']) }}" class="btn btn-info">Lihat Detail</a>
 
                                             <!-- @if ($data['status'] == null)
-                                            <input type="submit" name="submit" href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" class="btn btn-success" value="Terima">
+                                            <input type="submit" name="submit" href="{{ route('pelamar.seleksi.dua', $data['id']) }}" class="btn btn-success" value="Terima">
 
-                                            <input type="submit" name="submit" href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}" class="btn btn-danger" value="Tolak">
+                                            <input type="submit" name="submit" href="{{ route('pelamar.seleksi.dua', $data['id']) }}" class="btn btn-danger" value="Tolak">
                                             @endif -->
                                         </form>
                                     </td>

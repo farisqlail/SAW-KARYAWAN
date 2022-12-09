@@ -47,7 +47,7 @@
 
         <?php $bobot = []; ?>
         @foreach ($kriteria as $krit)
-            <?php $bobot[$krit->id_kriteria] = $krit->bobot_preferensi; ?>
+            <?php $bobot[$krit->id] = $krit->bobot_preferensi; ?>
         @endforeach
 
         @if (!empty($alternatif))
@@ -57,25 +57,25 @@
                 $nilai_normalisasi = 0; ?>
                 @foreach ($data->bobot as $crip)
                     @if ($crip->kriteria->atribut_kriteria == 'cost')
-                        <span hidden><?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id_kriteria] / $crip->jumlah_bobot; ?></span>
+                        <span hidden><?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id] / $crip->jumlah_bobot; ?></span>
 
                     @elseif($crip->kriteria->atribut_kriteria == 'benefit')
-                        <span hidden><?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id_kriteria]; ?></span>
+                        <span hidden><?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id]; ?></span>
 
 
                     @endif
-                    <span hidden><?php $total = $total + $bobot[$crip->kriteria->id_kriteria] * $nilai_normalisasi; ?></span>
+                    <span hidden><?php $total = $total + $bobot[$crip->kriteria->id] * $nilai_normalisasi; ?></span>
                     <span hidden>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</span>
 
 
                 @endforeach
                 <?php $rangking[] = [
                     'total' => $total,
-                    'kode' => $data->id_pelamar,
+                    'kode' => $data->id,
                     'nama' => $data->nama_pelamar,
                     'alamat' => $data->alamat,
                     'notelp' => $data->no_telepon,
-                    'idLowongan' => $data->id_lowongan,
+                    'idLowongan' => $data->id,
                     'seleksi_1' => $data->seleksi_satu,
                 ]; ?>
             @endforeach

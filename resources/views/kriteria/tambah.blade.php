@@ -15,7 +15,7 @@
                             <form action="{{route('kriteria.simpan')}}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id_lowongan" class="form-control" value="{{$lowongan->id_lowongan}}" hidden>
+                                    <input type="text" name="id" class="form-control" value="{{$lowongan->id}}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama Kriteria <span class="text-danger">*</span></label>
@@ -34,7 +34,7 @@
                                     <input type="number" name="bobot_preferensi" class="form-control" max="100" required>
                                 </div>
                                 <div class="float-right">
-                                    <a href="{{ route('kriteria.index', ['id' => $lowongan->id_lowongan]) }}" class="btn btn-danger">Batal</a>
+                                    <a href="{{ route('kriteria.index', ['id' => $lowongan->id]) }}" class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Tambah</button>
                                 </div>
                             </form>

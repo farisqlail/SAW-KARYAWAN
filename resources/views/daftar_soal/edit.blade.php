@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                        <form enctype="multipart/form-data" action="{{route('daftar_soal.update',$daftar_soal->id_soal)}}" method="POST" class="col-md-12">
+                        <form enctype="multipart/form-data" action="{{route('daftar_soal.update',$daftar_soal->id)}}" method="POST" class="col-md-12">
                             @csrf
                             <div class="form-group">
                                 <label for="soal">Soal<span class="text-danger">*</span></label>
@@ -27,7 +27,7 @@
                             <input name="file_soal" class="form-control" type="file"/>
                             <br>
                             <div class="float-right">
-                                <a href="{{ route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]) }}" class="btn btn-danger">Batal</a>
+                                <a href="{{ route('daftar_soal.index', ['id' => $daftar_soal->id]) }}" class="btn btn-danger">Batal</a>
                                 <button type="submit" class="btn btn-success">Edit</button>
                             </div>
                         </form>

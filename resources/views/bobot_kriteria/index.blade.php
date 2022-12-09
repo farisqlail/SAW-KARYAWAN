@@ -8,8 +8,8 @@
                     <div class="card-header">
                         <h3 class="float-left">Bobot Kriteria untuk Kriteria {{$kriteria->nama_kriteria}}</h3>
                         <div class="float-right">
-                            <a href="{{ route('kriteria.index', ['id' => $kriteria->id_lowongan]) }}" class="btn btn-danger">Kembali</a>
-                            <a href="{{ route('bobot_kriteria.tambah', ['id' => $kriteria->id_kriteria]) }}"
+                            <a href="{{ route('kriteria.index', ['id' => $kriteria->id]) }}" class="btn btn-danger">Kembali</a>
+                            <a href="{{ route('bobot_kriteria.tambah', ['id' => $kriteria->id]) }}"
                                 class="btn btn-success">Tambah</a>
                         </div>
                     </div>
@@ -37,9 +37,9 @@
                                                 <td>{{ $data->jumlah_bobot }}</td>
                                                 <td class="text-center">
 
-                                                    <a href="{{ route('bobot_kriteria.edit', ['id' => $data->id_bobot_kriteria]) }}"
+                                                    <a href="{{ route('bobot_kriteria.edit', ['id' => $data->id]) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
-                                                    <a href="#" class="btn btn-sm btn-danger delete" data-id="{{ $data->id_bobot_kriteria }}">Hapus</a>
+                                                    <a href="#" class="btn btn-sm btn-danger delete" data-id="{{ $data->id }}">Hapus</a>
 
                                                 </td>
                                             </tr>

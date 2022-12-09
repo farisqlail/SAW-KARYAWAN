@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bobot_kriteria` (
-  `id_bobot_kriteria` int(10) UNSIGNED NOT NULL,
-  `id_kriteria` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `nama_bobot` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_bobot` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `bobot_kriteria` (
 -- Dumping data for table `bobot_kriteria`
 --
 
-INSERT INTO `bobot_kriteria` (`id_bobot_kriteria`, `id_kriteria`, `nama_bobot`, `jumlah_bobot`, `created_at`, `updated_at`) VALUES
+INSERT INTO `bobot_kriteria` (`id`, `id`, `nama_bobot`, `jumlah_bobot`, `created_at`, `updated_at`) VALUES
 (1, 1, 'SMA/SMK', 1, '2021-12-22 21:21:13', '2021-12-22 21:21:13'),
 (2, 1, 'D1/D2', 2, '2021-12-22 21:21:27', '2021-12-22 21:21:27'),
 (3, 1, 'S1', 4, '2021-12-22 21:21:38', '2022-04-27 04:43:55'),
@@ -60,8 +60,8 @@ INSERT INTO `bobot_kriteria` (`id_bobot_kriteria`, `id_kriteria`, `nama_bobot`, 
 --
 
 CREATE TABLE `daftar_soal` (
-  `id_soal` int(10) UNSIGNED NOT NULL,
-  `id_jadwal_tes` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `soal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `file_soal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bobot_soal` int(11) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `daftar_soal` (
 -- Dumping data for table `daftar_soal`
 --
 
-INSERT INTO `daftar_soal` (`id_soal`, `id_jadwal_tes`, `soal`, `file_soal`, `bobot_soal`, `created_at`, `updated_at`) VALUES
+INSERT INTO `daftar_soal` (`id`, `id`, `soal`, `file_soal`, `bobot_soal`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Buatlah Pivot Tabel', '1656138110.csv', 60, '2021-12-22 21:24:09', '2022-06-24 23:21:50'),
 (2, 1, 'Buatlah Diagram Batang', '1656138123.csv', 40, '2021-12-22 21:24:30', '2022-06-24 23:22:03');
 
@@ -84,10 +84,10 @@ INSERT INTO `daftar_soal` (`id_soal`, `id_jadwal_tes`, `soal`, `file_soal`, `bob
 --
 
 CREATE TABLE `hasil_tes` (
-  `id_hasil_tes` int(10) UNSIGNED NOT NULL,
-  `id_soal_tes` int(10) UNSIGNED DEFAULT NULL,
-  `id_pelamar` int(10) UNSIGNED DEFAULT NULL,
-  `id_lowongan` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_tes` int(10) UNSIGNED DEFAULT NULL,
+  `id` int(10) UNSIGNED DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `jawaban` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nilai` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `hasil_tes` (
 -- Dumping data for table `hasil_tes`
 --
 
-INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `id_lowongan`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
+INSERT INTO `hasil_tes` (`id`, `id_tes`, `id`, `id`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
 (25, 1, 23, 1, '1656140634.csv', 80, '2022-06-25 00:03:54', '2022-06-26 20:18:20'),
 (26, 2, 23, 1, '1656140644.csv', 80, '2022-06-25 00:04:04', '2022-06-26 20:18:25');
 
@@ -109,8 +109,8 @@ INSERT INTO `hasil_tes` (`id_hasil_tes`, `id_soal_tes`, `id_pelamar`, `id_lowong
 --
 
 CREATE TABLE `jadwal_tes` (
-  `id_jadwal_tes` int(10) UNSIGNED NOT NULL,
-  `id_lowongan` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `tanggal` datetime NOT NULL,
   `durasi_tes` datetime NOT NULL,
   `tanggal_notif` datetime DEFAULT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE `jadwal_tes` (
 -- Dumping data for table `jadwal_tes`
 --
 
-INSERT INTO `jadwal_tes` (`id_jadwal_tes`, `id_lowongan`, `tanggal`, `durasi_tes`, `tanggal_notif`, `created_at`, `updated_at`) VALUES
+INSERT INTO `jadwal_tes` (`id`, `id`, `tanggal`, `durasi_tes`, `tanggal_notif`, `created_at`, `updated_at`) VALUES
 (1, 1, '2021-12-23 11:23:00', '2022-06-30 11:23:00', '2022-07-01 00:00:00', '2021-12-22 21:23:35', '2022-07-01 00:21:14');
 
 -- --------------------------------------------------------
@@ -132,8 +132,8 @@ INSERT INTO `jadwal_tes` (`id_jadwal_tes`, `id_lowongan`, `tanggal`, `durasi_tes
 --
 
 CREATE TABLE `kriteria` (
-  `id_kriteria` int(10) UNSIGNED NOT NULL,
-  `id_lowongan` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `nama_kriteria` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `atribut_kriteria` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bobot_preferensi` int(11) NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE `kriteria` (
 -- Dumping data for table `kriteria`
 --
 
-INSERT INTO `kriteria` (`id_kriteria`, `id_lowongan`, `nama_kriteria`, `atribut_kriteria`, `bobot_preferensi`, `created_at`, `updated_at`) VALUES
+INSERT INTO `kriteria` (`id`, `id`, `nama_kriteria`, `atribut_kriteria`, `bobot_preferensi`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Pendidikan terakhir', 'benefit', 45, '2021-12-22 21:20:51', '2022-06-20 21:27:45'),
 (2, 1, 'Pengalaman Kerja', 'benefit', 35, '2021-12-22 21:22:11', '2022-04-27 04:43:38'),
 (7, 1, 'Software yang Dikuasai', 'benefit', 20, '2022-06-20 21:27:35', '2022-07-01 05:00:37');
@@ -157,7 +157,7 @@ INSERT INTO `kriteria` (`id_kriteria`, `id_lowongan`, `nama_kriteria`, `atribut_
 --
 
 CREATE TABLE `lowongan` (
-  `id_lowongan` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `posisi_lowongan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `berlaku_sampai` date NOT NULL,
   `deskripsi_pekerjaan` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE `lowongan` (
 -- Dumping data for table `lowongan`
 --
 
-INSERT INTO `lowongan` (`id_lowongan`, `posisi_lowongan`, `berlaku_sampai`, `deskripsi_pekerjaan`, `deskripsi_persyaratan`, `status_lowongan`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lowongan` (`id`, `posisi_lowongan`, `berlaku_sampai`, `deskripsi_pekerjaan`, `deskripsi_persyaratan`, `status_lowongan`, `created_at`, `updated_at`) VALUES
 (1, 'Finance', '2022-06-29', '<ul>\r\n	<li>Handling Account Payable, verifying invoices and performing reconciliations</li>\r\n	<li>Updating Accounts Receivable and issuing invoices.</li>\r\n	<li>Preparing weekly payment request.</li>\r\n	<li>Managing prepaid expenses and petty cash</li>\r\n	<li>Perform daily bank reconciliation</li>\r\n</ul>', '<ul>\r\n	<li>Candidate must possess a Bachelor&#39;s Degree or equivalent in Economics field</li>\r\n	<li>Fresh Graduate are welcome to apply</li>\r\n	<li>Understand about tax is a plus.</li>\r\n	<li>Good in English Written and Verbal</li>\r\n	<li>Good analytical and communication skills</li>\r\n</ul>', 'Seleksi Selesai', '2021-12-22 21:20:17', '2022-07-01 00:29:28'),
 (6, 'Sepong online', '2022-07-15', '<p>dasdasd</p>', '<p>asdasdasd</p>', NULL, '2022-06-30 23:59:37', '2022-06-30 23:59:37');
 
@@ -210,9 +210,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `nilai_alternatif` (
-  `id_nilai_alternatif` int(10) UNSIGNED NOT NULL,
-  `id_pelamar` int(10) UNSIGNED DEFAULT NULL,
-  `id_bobot_kriteria` int(10) UNSIGNED DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED DEFAULT NULL,
+  `id` int(10) UNSIGNED DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -221,7 +221,7 @@ CREATE TABLE `nilai_alternatif` (
 -- Dumping data for table `nilai_alternatif`
 --
 
-INSERT INTO `nilai_alternatif` (`id_nilai_alternatif`, `id_pelamar`, `id_bobot_kriteria`, `updated_at`, `created_at`) VALUES
+INSERT INTO `nilai_alternatif` (`id`, `id`, `id`, `updated_at`, `created_at`) VALUES
 (48, 23, 1, '2022-06-24 23:38:01', '2022-06-24 23:38:01'),
 (49, 23, 6, '2022-06-24 23:38:01', '2022-06-24 23:38:01'),
 (50, 23, 13, '2022-06-24 23:38:01', '2022-06-24 23:38:01'),
@@ -254,9 +254,9 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `pelamar` (
-  `id_pelamar` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `id_user` int(10) UNSIGNED NOT NULL,
-  `id_lowongan` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `nama_pelamar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `tempat_lahir` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -281,7 +281,7 @@ CREATE TABLE `pelamar` (
 -- Dumping data for table `pelamar`
 --
 
-INSERT INTO `pelamar` (`id_pelamar`, `id_user`, `id_lowongan`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `status_wawancara`, `status_dokumen`, `nilai_tes`, `hasil_wawancara`, `created_at`, `updated_at`) VALUES
+INSERT INTO `pelamar` (`id`, `id_user`, `id`, `nama_pelamar`, `tanggal_lahir`, `tempat_lahir`, `agama`, `alamat`, `no_telepon`, `jenis_kelamin`, `cv`, `ijazah`, `pas_foto`, `seleksi_satu`, `seleksi_dua`, `status_wawancara`, `status_dokumen`, `nilai_tes`, `hasil_wawancara`, `created_at`, `updated_at`) VALUES
 (23, 16, 1, 'Kevin Ananta', '1999-04-12', 'Surabaya', 'Islam', 'Jl Mawar No. 11', '082133213323', 'Laki-laki', '1656139081.pdf', '1656139081.pdf', '1656139081.png', 'Diterima', 'Diterima', 'Diterima', 'Dokumen Valid', 80, '<p>asdasczxczxc</p>', '2022-06-24 23:38:01', '2022-07-01 01:06:37'),
 (24, 17, 1, 'Aldi', '2022-06-08', 'Surabaya', 'Islam', 'SDJ', '089988998899', 'Laki-laki', '1656139136.pdf', '1656139136.pdf', '1656139136.png', 'Ditolak', 'Ditolak', '0', 'Dokumen Valid', NULL, '', '2022-06-24 23:38:56', '2022-07-01 00:29:34'),
 (25, 10, 1, 'Alex Indra', '2022-04-06', 'Surabaya', 'Islam', 'Melati 2', '081233223322', 'Laki-laki', '1656139222.pdf', '1656139222.pdf', '1656139222.jpg', 'Ditolak', 'Ditolak', '0', 'Dokumen Tidak Valid', NULL, '', '2022-06-24 23:40:22', '2022-07-01 00:29:40'),
@@ -341,44 +341,44 @@ INSERT INTO `users` (`id`, `name`, `role`, `email`, `tanggal_lahir`, `tempat_lah
 -- Indexes for table `bobot_kriteria`
 --
 ALTER TABLE `bobot_kriteria`
-  ADD PRIMARY KEY (`id_bobot_kriteria`),
-  ADD KEY `bobot_kriteria_id_kriteria_index` (`id_kriteria`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bobot_kriteria_id_index` (`id`);
 
 --
 -- Indexes for table `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
-  ADD PRIMARY KEY (`id_soal`),
-  ADD KEY `daftar_soal_id_jadwal_tes_index` (`id_jadwal_tes`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `daftar_soal_id_index` (`id`);
 
 --
 -- Indexes for table `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  ADD PRIMARY KEY (`id_hasil_tes`),
-  ADD KEY `hasil_tes_id_soal_index` (`id_soal_tes`),
-  ADD KEY `hasil_tes_id_pelamar_index` (`id_pelamar`),
-  ADD KEY `id_lowongan` (`id_lowongan`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `hasil_tes_id_index` (`id_tes`),
+  ADD KEY `hasil_tes_id_index` (`id`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
-  ADD PRIMARY KEY (`id_jadwal_tes`),
-  ADD KEY `jadwal_tes_id_lowongan_index` (`id_lowongan`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jadwal_tes_id_index` (`id`);
 
 --
 -- Indexes for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  ADD PRIMARY KEY (`id_kriteria`),
-  ADD KEY `kriteria_id_lowongan_index` (`id_lowongan`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kriteria_id_index` (`id`);
 
 --
 -- Indexes for table `lowongan`
 --
 ALTER TABLE `lowongan`
-  ADD PRIMARY KEY (`id_lowongan`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -390,11 +390,11 @@ ALTER TABLE `migrations`
 -- Indexes for table `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
-  ADD PRIMARY KEY (`id_nilai_alternatif`),
-  ADD KEY `nilai_alternatif_id_pelamar_index` (`id_pelamar`),
-  ADD KEY `nilai_alternatif_id_bobot_kriteria_index` (`id_bobot_kriteria`),
-  ADD KEY `id_bobot_kriteria` (`id_bobot_kriteria`),
-  ADD KEY `id_bobot_kriteria_2` (`id_bobot_kriteria`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nilai_alternatif_id_index` (`id`),
+  ADD KEY `nilai_alternatif_id_index` (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `id_2` (`id`);
 
 --
 -- Indexes for table `password_resets`
@@ -406,9 +406,9 @@ ALTER TABLE `password_resets`
 -- Indexes for table `pelamar`
 --
 ALTER TABLE `pelamar`
-  ADD PRIMARY KEY (`id_pelamar`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `pelamar_id_user_index` (`id_user`),
-  ADD KEY `pelamar_id_lowongan_index` (`id_lowongan`);
+  ADD KEY `pelamar_id_index` (`id`);
 
 --
 -- Indexes for table `users`
@@ -425,37 +425,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bobot_kriteria`
 --
 ALTER TABLE `bobot_kriteria`
-  MODIFY `id_bobot_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
-  MODIFY `id_soal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  MODIFY `id_hasil_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
-  MODIFY `id_jadwal_tes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `lowongan`
 --
 ALTER TABLE `lowongan`
-  MODIFY `id_lowongan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -467,13 +467,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
-  MODIFY `id_nilai_alternatif` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `pelamar`
 --
 ALTER TABLE `pelamar`
-  MODIFY `id_pelamar` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -489,45 +489,45 @@ ALTER TABLE `users`
 -- Constraints for table `bobot_kriteria`
 --
 ALTER TABLE `bobot_kriteria`
-  ADD CONSTRAINT `bobot_kriteria_id_kriteria_foreign` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `bobot_kriteria_id_foreign` FOREIGN KEY (`id`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `daftar_soal`
 --
 ALTER TABLE `daftar_soal`
-  ADD CONSTRAINT `daftar_soal_id_jadwal_tes_foreign` FOREIGN KEY (`id_jadwal_tes`) REFERENCES `jadwal_tes` (`id_jadwal_tes`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `daftar_soal_id_foreign` FOREIGN KEY (`id`) REFERENCES `jadwal_tes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `hasil_tes`
 --
 ALTER TABLE `hasil_tes`
-  ADD CONSTRAINT `hasil_tes_id_pelamar_foreign` FOREIGN KEY (`id_pelamar`) REFERENCES `pelamar` (`id_pelamar`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `hasil_tes_id_soal_foreign` FOREIGN KEY (`id_soal_tes`) REFERENCES `daftar_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `hasil_tes_id_foreign` FOREIGN KEY (`id`) REFERENCES `pelamar` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hasil_tes_id_foreign` FOREIGN KEY (`id_tes`) REFERENCES `daftar_soal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `jadwal_tes`
 --
 ALTER TABLE `jadwal_tes`
-  ADD CONSTRAINT `jadwal_tes_id_lowongan_foreign` FOREIGN KEY (`id_lowongan`) REFERENCES `lowongan` (`id_lowongan`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `jadwal_tes_id_foreign` FOREIGN KEY (`id`) REFERENCES `lowongan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  ADD CONSTRAINT `kriteria_id_lowongan_foreign` FOREIGN KEY (`id_lowongan`) REFERENCES `lowongan` (`id_lowongan`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `kriteria_id_foreign` FOREIGN KEY (`id`) REFERENCES `lowongan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `nilai_alternatif`
 --
 ALTER TABLE `nilai_alternatif`
-  ADD CONSTRAINT `nilai_alternatif_id_bobot_kriteria_foreign` FOREIGN KEY (`id_bobot_kriteria`) REFERENCES `bobot_kriteria` (`id_bobot_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `nilai_alternatif_id_pelamar_foreign` FOREIGN KEY (`id_pelamar`) REFERENCES `pelamar` (`id_pelamar`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `nilai_alternatif_id_foreign` FOREIGN KEY (`id`) REFERENCES `bobot_kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_alternatif_id_foreign` FOREIGN KEY (`id`) REFERENCES `pelamar` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pelamar`
 --
 ALTER TABLE `pelamar`
-  ADD CONSTRAINT `pelamar_id_lowongan_foreign` FOREIGN KEY (`id_lowongan`) REFERENCES `lowongan` (`id_lowongan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pelamar_id_foreign` FOREIGN KEY (`id`) REFERENCES `lowongan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pelamar_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

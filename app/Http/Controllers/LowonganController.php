@@ -43,7 +43,7 @@ class LowonganController extends Controller
 
     public function home()
     {
-        $lowongan = lowongan::orderBy('id_lowongan', 'desc')->get();
+        $lowongan = lowongan::orderBy('id', 'desc')->get();
         $pelamar = Pelamar::all();
 
         return view('lowongan.home', compact('lowongan', 'pelamar'));

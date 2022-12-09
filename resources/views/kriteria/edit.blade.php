@@ -12,10 +12,10 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <form action="{{route('kriteria.update', $data->id_kriteria)}}" method="POST" class="col-md-12">
+                            <form action="{{route('kriteria.update', $data->id)}}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id_lowongan" class="form-control" value="{{$data->id_lowongan}}" hidden>
+                                    <input type="text" name="id" class="form-control" value="{{$data->id}}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama Kriteria <span class="text-danger">*</span></label>
@@ -34,7 +34,7 @@
                                     <input type="number" name="bobot_preferensi" class="form-control" max="100" value="{{$data->bobot_preferensi}}" required>
                                 </div>
                                 <div class="float-right">
-                                    <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}" class="btn btn-danger">Batal</a>
+                                    <a href="{{ route('kriteria.index', ['id' => $data->id]) }}" class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Edit</button>
                                 </div>
                             </form>

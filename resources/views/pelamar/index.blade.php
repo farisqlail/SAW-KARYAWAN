@@ -48,11 +48,11 @@
                                     <td><a href="{{ asset('storage/file/ijazah/'.$data->ijazah) }}" class="btn btn-sm btn-info" target="blank" download="{{ $data->ijazah }}">Download Ijazah</a></td>
 
                                     <td class="text-center">
-                                        <form action="{{route('pelamar.hapus',['id' => $data->id_pelamar])}}" method="POST">
+                                        <form action="{{route('pelamar.hapus',['id' => $data->id])}}" method="POST">
                                             @csrf
                                             @if(Auth()->user()->role == "admin")
-                                            {{-- <a href="{{route('kriteria.index',['id' => $data->id_pelamar])}}" class="btn btn-sm btn-info">Kriteria</a>
-                                            <a href="{{route('lowongan.edit',['id' => $data->id_pelamar])}}" class="btn btn-sm btn-warning">Edit</a> --}}
+                                            {{-- <a href="{{route('kriteria.index',['id' => $data->id])}}" class="btn btn-sm btn-info">Kriteria</a>
+                                            <a href="{{route('lowongan.edit',['id' => $data->id])}}" class="btn btn-sm btn-warning">Edit</a> --}}
                                             <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                             @endif
                                         </form>

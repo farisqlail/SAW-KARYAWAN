@@ -11,7 +11,7 @@
 
                     <div class="container">
 
-                        <form action="{{ route('hasil.store', $pelamar->id_pelamar) }}" method="post">
+                        <form action="{{ route('hasil.store', $pelamar->id) }}" method="post">
                             @csrf
 
                             <div class="form-group">

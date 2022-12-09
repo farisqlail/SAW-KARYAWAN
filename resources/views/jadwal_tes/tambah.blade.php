@@ -16,10 +16,10 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="nama">Pilih Lowongan<span class="text-danger">*</span></label>
-                                    <select name="id_lowongan" class="form-control" required>
+                                    <select name="id" class="form-control" required>
                                         <option value="">-</option>
                                         @foreach ($lowongan as $data)
-                                            <option value="{{ $data->id_lowongan }}">{{ $data->posisi_lowongan }}</option>
+                                            <option value="{{ $data->id }}">{{ $data->posisi_lowongan }}</option>
                                         @endforeach
 
                                     </select>

@@ -1,7 +1,7 @@
 @extends('layouts.user')
 
 @section('content')
-<img src="{{ asset('assets/img/Daftar.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+{{-- <img src="{{ asset('assets/img/Daftar.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset=""> --}}
 
     <main id="main">
         <div class="container mt-5 mb-5">
@@ -79,14 +79,14 @@
                                     @if (Auth::guest())
                                         <div class="button-group mt-5" align="right">
                                             @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
-                                                <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
+                                                <a href="{{ route('lowongan.detail', $data->id) }}"
                                                     class="btn btn-outline-primary">Lihat Detail</a>
                                                 <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
                                             @endif
                                         </div>
                                     @else
                                         <div class="button-group" align="right">
-                                            <a href="{{ route('lowongan.detail', $data->id_lowongan) }}"
+                                            <a href="{{ route('lowongan.detail', $data->id) }}"
                                                 class="btn btn-outline-primary">Lihat Detail</a>
                                             @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
                                                 @php
@@ -100,7 +100,7 @@
                                                     @endif
                                                 @endforeach
                                                 @if (!$check)
-                                                    <a href="{{ route('pelamar.tambah', $data->id_lowongan) }}"
+                                                    <a href="{{ route('pelamar.tambah', $data->id) }}"
                                                         class="btn-get-started">Lamar</a>
                                                 @endif
                                             @endif

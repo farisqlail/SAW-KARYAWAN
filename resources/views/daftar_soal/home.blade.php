@@ -32,7 +32,7 @@
                         <tbody>
                             @if (!empty($daftarsoal))
                                 @foreach ($daftarsoal as $data)
-                                    <div class="modal fade" id="unggah-jawaban{{ $data->id_soal }}" tabindex="-1"
+                                    <div class="modal fade" id="unggah-jawaban{{ $data->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -49,12 +49,12 @@
 
                                                         {{ csrf_field() }}
 
-                                                        <input type="number" name="id_soal_tes"
-                                                            value="{{ $data->id_soal }}" hidden>
-                                                        <input type="number" name="id_pelamar" value="{{ $pelamarGet }}"
+                                                        <input type="number" name="id_tes"
+                                                            value="{{ $data->id }}" hidden>
+                                                        <input type="number" name="id" value="{{ $pelamarGet }}"
                                                             hidden>
-                                                        <input type="number" name="id_lowongan"
-                                                            value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                                                        <input type="number" name="id"
+                                                            value="{{ $pelamar[0]->id }}" hidden>
                                                         <div class="form-group">
                                                             <span class="text-danger">Unggah jawabanmu disini, pastikan
                                                                 jawaban yang kamu unggah sesuai soal!</span><br>
@@ -76,7 +76,7 @@
                                     </div>
 
                                     @if ($data->hasil_tes_count > 0)
-                                        <div class="modal fade" id="ubah-jawaban{{ $data->hasil_tes->id_hasil_tes }}"
+                                        <div class="modal fade" id="ubah-jawaban{{ $data->hasil_tes->id }}"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -89,17 +89,17 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="{{ route('jawaban.update', $data->hasil_tes->id_hasil_tes) }}"
+                                                        <form action="{{ route('jawaban.update', $data->hasil_tes->id) }}"
                                                             method="POST" enctype="multipart/form-data">
                                                             {{ csrf_field() }}
                                                             {{ method_field('PATCH') }}
 
-                                                            <input type="number" name="id_soal_tes"
-                                                                value="{{ $data->id_soal }}" hidden>
-                                                            <input type="number" name="id_pelamar"
+                                                            <input type="number" name="id_tes"
+                                                                value="{{ $data->id }}" hidden>
+                                                            <input type="number" name="id"
                                                                 value="{{ $pelamarGet }}" hidden>
-                                                            <input type="number" name="id_lowongan"
-                                                                value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                                                            <input type="number" name="id"
+                                                                value="{{ $pelamar[0]->id }}" hidden>
                                                             <div class="form-group">
                                                                 <span class="text-danger">Unggah jawabanmu disini,
                                                                     pastikan
@@ -135,13 +135,13 @@
                                             @if ($data->hasil_tes_count == 0)
                                                 <a href=""
                                                     class="btn btn-success" data-toggle="modal"
-                                                    data-target="#unggah-jawaban{{ $data->id_soal }}">Unggah Jawaban</a>
+                                                    data-target="#unggah-jawaban{{ $data->id }}">Unggah Jawaban</a>
                                             @else
                                                 <a href="{{ asset('storage/file/jawaban/' . $data->hasil_tes->jawaban) }}"
                                                     class="btn btn-success btn-md" target="blank">Unduh Jawaban</a>
                                                     <br> <br>
                                                 <a href="" class="btn btn-danger btn-md" data-toggle="modal"
-                                                    data-target="#ubah-jawaban{{ $data->hasil_tes->id_hasil_tes }}" >Ubah Jawaban</a>
+                                                    data-target="#ubah-jawaban{{ $data->hasil_tes->id }}" >Ubah Jawaban</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -159,9 +159,9 @@
                 {{ csrf_field() }}
 
 
-                <input type="number" name="id_soal_tes" value="{{ $daftarsoal[0]->id_soal }}" hidden>
-                <input type="number" name="id_pelamar" value="{{ $pelamarGet }}" hidden>
-                <input type="number" name="id_lowongan" value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                <input type="number" name="id_tes" value="{{ $daftarsoal[0]->id }}" hidden>
+                <input type="number" name="id" value="{{ $pelamarGet }}" hidden>
+                <input type="number" name="id" value="{{ $pelamar[0]->id }}" hidden>
                 <div class="form-group">
                     <h3>Unggah Jawaban</h3><br>
                     <span>Jika sudah menyelesaikan soal unggah jawabanmu disini</span><br>

@@ -26,10 +26,10 @@ class DaftarSoalController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $jadwaltes = JadwalTes::find($id);
-            $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->get();
+            $daftarsoal = DaftarSoal::where('id', $id)->get();
             $lowongan = DB::table('jadwal_tes')
-                ->join('lowongan', 'lowongan.id_lowongan', '=', 'jadwal_tes.id_lowongan')
-                ->where('jadwal_tes.id_jadwal_tes', $id)
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')
+                ->where('jadwal_tes.id', $id)
                 ->first();
             return view('daftar_soal.index', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
         } else {
@@ -42,36 +42,36 @@ class DaftarSoalController extends Controller
 
         $user = Auth::user()->id;
         $pelamar = Pelamar::with('user', 'hasil_tes')->where('id_user', $user)->get();
-        $pelamarGet = $pelamar[0]->id_pelamar;
+        $pelamarGet = $pelamar[0]->id;
         // dd($pelamarGet);
         $jadwaltes = JadwalTes::find($id);
         // dd($jadwaltes);
-        $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
-            $q->where('id_pelamar', $pelamarGet);
+        $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+            $q->where('id', $pelamarGet);
         }])
             // ->where(function($q) use ($pelamarGet){
             //     $q->whereHas('hasil_tes', function($q) use ($pelamarGet) {
-            //         $q->where('id_pelamar', $pelamarGet);
+            //         $q->where('id', $pelamarGet);
             //     })
             //     ->orWhereHas('hasil_tes', function($q) use ($pelamarGet) {
-            //         $q->where('id_pelamar', '!=', $pelamarGet);
+            //         $q->where('id', '!=', $pelamarGet);
             //     });
             // })
             ->with(['hasil_tes' => function ($q) use ($pelamarGet) {
-                $q->where('id_pelamar', $pelamarGet);
+                $q->where('id', $pelamarGet);
             }])
             ->get();
 
         if ($daftarsoal->isEmpty()) {
-            $daftarsoal = $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
-                $q->where('id_pelamar', $pelamarGet);
+            $daftarsoal = $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+                $q->where('id', $pelamarGet);
             }])->get();
         }
 
         // ->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
-        //     $q->where('id_pelamar', $pelamarGet);
+        //     $q->where('id', $pelamarGet);
         // })->with(['hasil_tes' => function($q) use ($pelamarGet) {
-        //     $q->where('id_pelamar', $pelamarGet);
+        //     $q->where('id', $pelamarGet);
         // }])
 
 
@@ -115,7 +115,7 @@ class DaftarSoalController extends Controller
             Alert::success('Berhasil', 'Berhasil menambah soal');
 
             $daftar_soal = new DaftarSoal();
-            $daftar_soal->id_jadwal_tes = $request->get('id_jadwal_tes');
+            $daftar_soal->id = $request->get('id');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = $request->get('bobot');
             if ($request->file('file_soal')) {
@@ -127,7 +127,7 @@ class DaftarSoalController extends Controller
             }
         }
         $daftar_soal->save();
-        return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
+        return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id]);
     }
 
 
@@ -192,7 +192,7 @@ class DaftarSoalController extends Controller
             }
         }
         $daftar_soal->save();
-        return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
+        return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id]);
     }
 
     /**
@@ -206,6 +206,6 @@ class DaftarSoalController extends Controller
         $daftar_soal = DaftarSoal::find($id);
         $daftar_soal->delete();
         File::delete('upload/' . $daftar_soal->file_soal);
-        return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
+        return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id]);
     }
 }

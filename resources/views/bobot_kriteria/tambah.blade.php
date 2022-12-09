@@ -15,8 +15,8 @@
                             <form action="{{ route('bobot_kriteria.simpan') }}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id_kriteria" class="form-control"
-                                        value="{{ $kriteria->id_kriteria }}" hidden>
+                                    <input type="text" name="id" class="form-control"
+                                        value="{{ $kriteria->id }}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label for="keterangan_bobot">Keterangan Bobot <span
@@ -28,7 +28,7 @@
                                     <input type="number" name="nilai_bobot" class="form-control" min="1" required>
                                 </div>
                                 <div class="float-right">
-                                    <a href="{{ route('bobot_kriteria.index', ['id' => $kriteria->id_kriteria]) }}"
+                                    <a href="{{ route('bobot_kriteria.index', ['id' => $kriteria->id]) }}"
                                         class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Tambah</button>
                                 </div>

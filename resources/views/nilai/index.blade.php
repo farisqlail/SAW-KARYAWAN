@@ -10,7 +10,7 @@
                     <div class="float-right">
                         <a href="{{route('alternatif.tambah')}}" class="btn btn-success">Tambah</a>
                         <div class="float-right">
-                            <a href="{{ route('jawaban.index', ['id' => $hasilTes->id_lowongan]) }}" class="btn btn-danger">Kembali</a>
+                            <a href="{{ route('jawaban.index', ['id' => $hasilTes->id]) }}" class="btn btn-danger">Kembali</a>
                            
                         </div>
                     </div>

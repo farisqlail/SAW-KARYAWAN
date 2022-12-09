@@ -14,9 +14,9 @@
                     {{ csrf_field() }}
 
 
-                    <input type="number" name="id_soal_tes" value="{{ $daftarsoal->id_soal }}" hidden>
-                    <input type="number" name="id_pelamar" value="{{ $pelamarGet }}" hidden>
-                    <input type="number" name="id_lowongan" value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                    <input type="number" name="id_tes" value="{{ $daftarsoal->id }}" hidden>
+                    <input type="number" name="id" value="{{ $pelamarGet }}" hidden>
+                    <input type="number" name="id" value="{{ $pelamar[0]->id }}" hidden>
                     <div class="form-group">
                         <span class="text-danger">Unggah jawabanmu disini, pastikan jawaban yang kamu unggah sesuai soal!</span><br>
                         <input type="file" class="btn btn-warning mt-3" name="jawaban" value="Unggah Jawaban">

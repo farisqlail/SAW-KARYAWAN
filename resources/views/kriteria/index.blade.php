@@ -9,7 +9,7 @@
                         <h2 class="float-left">Kriteria {{ $lowongan->posisi_lowongan }}</h2>
                         <div class="float-right">
                             <a href="{{ route('lowongan.index') }}" class="btn btn-danger">Kembali</a>
-                            <a href="{{ route('kriteria.tambah', ['id' => $lowongan->id_lowongan]) }}"
+                            <a href="{{ route('kriteria.tambah', ['id' => $lowongan->id]) }}"
                                 class="btn btn-success">Tambah</a>
                         </div>
                     </div>
@@ -45,12 +45,12 @@
                                                 </td>
                                                 <td class="text-center">
 
-                                                    <a href="{{ route('bobot_kriteria.index', ['id' => $data->id_kriteria]) }}"
+                                                    <a href="{{ route('bobot_kriteria.index', ['id' => $data->id]) }}"
                                                         class="btn btn-sm btn-info">Bobot kriteria</a>
-                                                    <a href="{{ route('kriteria.edit', ['id' => $data->id_kriteria]) }}"
+                                                    <a href="{{ route('kriteria.edit', ['id' => $data->id]) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
                                                     <a href="#" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $data->id_kriteria }}">Hapus</a>
+                                                        data-id="{{ $data->id }}">Hapus</a>
 
                                                 </td>
                                             </tr>

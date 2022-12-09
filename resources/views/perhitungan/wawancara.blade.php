@@ -29,7 +29,7 @@
                                                 <td>{{ $data->nama_pelamar }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
                                                 <td align="center">
-                                                    <a href="{{ route('hasil.wawancara', $data->id_pelamar) }}" class="btn btn-sm btn-success">Hasil</a>
+                                                    <a href="{{ route('hasil.wawancara', $data->id) }}" class="btn btn-sm btn-success">Hasil</a>
                                                 </td>
                                             </tr>
                                         @endforeach

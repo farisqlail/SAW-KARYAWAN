@@ -25,7 +25,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <form enctype="multipart/form-data" action="{{route('lowongan.update',$lowongan->id_lowongan)}}" method="POST" class="col-md-12">
+                        <form enctype="multipart/form-data" action="{{route('lowongan.update',$lowongan->id)}}" method="POST" class="col-md-12">
                             @csrf
                             <div class="form-group">
                                 <label for="nama">Posisi Lowongan <span class="text-danger">*</span></label>

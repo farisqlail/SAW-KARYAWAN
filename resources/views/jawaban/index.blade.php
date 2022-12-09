@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {{-- @include('jawaban.nilai', [$hasilTes[0]->id_hasil_tes]) --}}
+    {{-- @include('jawaban.nilai', [$hasilTes[0]->id]) --}}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -40,8 +40,8 @@
                                                     <a href="{{ route('jawaban.detail', $data) }}"
                                                         class="btn btn-success">Detail Jawaban</a>
 
-                                                    {{-- <a href="{{ route('jawaban.nilai', $data->id_hasil_tes) }}"
-                            data-toggle="modal" data-target="#nilaiJawaban{{ $data->id_hasil_tes }}" class="btn btn-info">Nilai Jawaban</a> --}}
+                                                    {{-- <a href="{{ route('jawaban.nilai', $data->id) }}"
+                            data-toggle="modal" data-target="#nilaiJawaban{{ $data->id }}" class="btn btn-info">Nilai Jawaban</a> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -99,7 +99,7 @@ class RegisterController extends Controller
             'jenis_kelamin' => $data['jenis_kelamin'],
             'alamat' => $data['alamat'],	
             'password' => Hash::make($data['password']),
-            'role' => 'customer'
+            'role' => 'user'
         ]);
     }   
 }
