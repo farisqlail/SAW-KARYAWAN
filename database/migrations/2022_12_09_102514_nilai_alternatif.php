@@ -15,8 +15,8 @@ class NilaiAlternatif extends Migration
     {
         Schema::create('nilai_alternatif', function (Blueprint $table) { 
             $table->id();
-            $table->integer('id');
-            $table->integer('id');
+            $table->integer('id_pelamar');
+            $table->integer('id_bobot_kriteria');
             $table->timestamps();
          });
     }

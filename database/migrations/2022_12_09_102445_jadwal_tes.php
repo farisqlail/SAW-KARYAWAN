@@ -15,7 +15,7 @@ class JadwalTes extends Migration
     {
         Schema::create('jadwal_tes', function (Blueprint $table) { 
             $table->id();
-            $table->integer('id');
+            $table->integer('id_lowongan');
             $table->date('tanggal');
             $table->date('durasi');
             $table->timestamps();

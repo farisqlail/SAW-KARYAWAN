@@ -16,7 +16,7 @@ class Pelamar extends Migration
         Schema::create('pelamar', function (Blueprint $table) { 
             $table->id();
             $table->integer('id_user');
-            $table->integer('id');
+            $table->integer('id_lowongan');
             $table->string('nama_pelamar');
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');

@@ -15,9 +15,9 @@ class HasilTes extends Migration
     {
         Schema::create('hasil_tes', function (Blueprint $table) { 
             $table->id();
-            $table->integer('id_tes');
-            $table->integer('id');
-            $table->integer('id');
+            $table->integer('id_soal_tes');
+            $table->integer('id_pelamar');
+            $table->integer('id_lowongan');
             $table->string('jawaban');
             $table->integer('nilai');
             $table->timestamps();

@@ -15,7 +15,7 @@ class Kriteria extends Migration
     {
         Schema::create('kriteria', function (Blueprint $table) { 
             $table->id();
-            $table->integer('id');
+            $table->integer('id_lowongan');
             $table->string('nama_kriteria');
             $table->string('atribut');
             $table->integer('bobot_preferensi');

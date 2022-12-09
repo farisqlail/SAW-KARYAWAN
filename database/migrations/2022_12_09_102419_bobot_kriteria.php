@@ -15,7 +15,7 @@ class BobotKriteria extends Migration
     {
         Schema::create('bobot_kriteria', function (Blueprint $table) {
             $table->id();
-            $table->integer('id');
+            $table->integer('id_kriteria');
             $table->string('nama_bobot');
             $table->integer('jumlah_bobot');
             $table->timestamps();
