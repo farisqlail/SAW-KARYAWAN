@@ -14,7 +14,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="myTable" style="width: 98%;">
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
