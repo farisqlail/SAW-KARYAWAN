@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Aplikasi Rekrutmen Cv.Lintas Nusa</title>
+    <title>Aplikasi Rekrutmen PT.Jayaland</title>
     <!-- Scripts -->
     @if (Route::current()->getName() == 'login' || Route::current()->getName() == 'register')
         <script src="{{ asset('js/app.js') }}" defer></script>
