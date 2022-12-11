@@ -99,6 +99,11 @@
               <i class="fas fa-users"></i>
                 <span>Tambah Pengguna</span></a>
         </li>
+        <li class="nav-item {{ 'role' == request()->segment(1) ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('role.index') }}">
+            <i class="fas fa-user-tag"></i>
+              <span>Role</span></a>
+      </li>
     @endif
 
 </ul>

@@ -8,11 +8,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Tambah Pengguna</h2>
+                        <h2 class="float-left">Tambah Role</h2>
                         <div class="float-right">
 
                             {{-- <a href="{{ route('user-akses.tambah') }}" class="btn btn-success">Tambah</a> --}}
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tambahUser">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tambahRole">
                                 Tambah Data
                             </button>
 
@@ -20,42 +20,23 @@
                     </div>
 
                     {{-- Modal Tambah --}}
-                    <div class="modal fade" id="tambahUser" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="tambahRole" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Tambah Role</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('user-akses.store') }}" method="post">
+                                    <form action="{{ route('role.store') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama Lengkap</label>
-                                            <input type="text" class="form-control" name="name"
-                                                placeholder="Nama Lengkap ...">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Email</label>
-                                            <input type="email" class="form-control" name="email"
-                                                placeholder="Email ...">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Role</label>
-                                            <select name="role" class="form-control" id="">
-                                                <option value="">Pilih Role</option>
-                                                <option value="direksi">Direksi</option>
-                                                <option value="hrd">HRD</option>
-                                                <option value="divisi">Divisi</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Nama Divisi</label>
-                                            <input type="text" class="form-control" name="division_name"
-                                                placeholder="Nama Divisi ...">
+                                            <label for="">Nama Role</label>
+                                            <input type="text" class="form-control" name="name_role"
+                                                placeholder="Nama Role ...">
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -74,22 +55,19 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Nama</th>
-                                        <th class="text-center">Email</th>
-                                        <th class="text-center">Role</th>
-                                        <th class="text-center">Nama Divisi</th>
+                                        <th class="text-center">Nama Role</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (!empty($user))
-                                        @foreach ($user as $data)
-                                            <div class="modal fade" id="tambahUser{{ $data->id }}" tabindex="-1"
+                                    @if (!empty($role))
+                                        @foreach ($role as $data)
+                                            <div class="modal fade" id="editRole{{ $data->id }}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Pengguna
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Role
                                                             </h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
@@ -97,35 +75,19 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="{{ route('user-akses.update', $data->id) }}"
+                                                            <form action="{{ route('role.update', $data->id) }}"
                                                                 method="post">
                                                                 {{ method_field('PUT') }}
                                                                 @csrf
                                                                 <div class="form-group">
-                                                                    <label for="">Nama Lengkap</label>
+                                                                    <label for="">Nama Role</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="name" value="{{ $data->name }}">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="">Email</label>
-                                                                    <input type="email" class="form-control"
-                                                                        name="email" value="{{ $data->email }}">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="">Role</label>
-                                                                    <select name="role" class="form-control"
-                                                                        id="">
-                                                                        <option value="">Pilih Role</option>
-                                                                        <option value="direksi">Direksi</option>
-                                                                        <option value="hrd">HRD</option>
-                                                                        <option value="divisi">Divisi</option>
-                                                                    </select>
+                                                                        name="name_role" value="{{ $data->name_role }}">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Password Baru</label>
                                                                     <input type="password" class="form-control"
-                                                                        name="password"
-                                                                        value="{{ $data->password }}">
+                                                                        name="password" value="{{ $data->password }}">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Nama Divisi</label>
@@ -145,14 +107,11 @@
                                             </div>
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->name }}</td>
-                                                <td>{{ $data->email }}</td>
-                                                <td>{{ $data->role }}</td>
-                                                <td>{{ $data->division_name }}</td>
+                                                <td>{{ $data->name_role }}</td>
                                                 <td>
                                                     {{-- @if (Auth()->user()->role == 'admin') --}}
                                                     <button type="button" class="btn btn-info btn-sm"
-                                                        data-toggle="modal" data-target="#tambahUser{{ $data->id }}">
+                                                        data-toggle="modal" data-target="#editRole{{ $data->id }}">
                                                         Edit
                                                     </button>
                                                     <a href="#" data-id="{{ $data->id }}"
@@ -182,7 +141,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $('.delete').click(function() {
-            var userId = $(this).attr('data-id');
+            var roleId = $(this).attr('data-id');
             swal({
                     title: "Apakah kamu yakin ?",
                     text: "Apa kamu yakin ingin menghapus data ini",
@@ -192,7 +151,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location = "/admin/user-akses/hapus/" + userId + ""
+                        window.location = "/admin/role/hapus/" + roleId + ""
                         swal("Data berhasil dihapus", {
                             icon: "success",
                         });
