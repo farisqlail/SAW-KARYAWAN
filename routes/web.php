@@ -130,6 +130,8 @@ Route::prefix('/cetak')->group(function ()
     Route::get('/admin/cetak-seleksi-2/{id}', 'PerhitunganController@laporan2')->name('seleksi.dua');
 });
 
+Route::resource('/user-akses', 'UserAksesController');
+Route::get('/admin/user-akses/hapus/{id}', 'UserAksesController@destroy')->name('user-akses.hapus');
 // Route::get('/debug-sentry', function () {
 //     throw new Exception('My first Sentry error!');
 // });

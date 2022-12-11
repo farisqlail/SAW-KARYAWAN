@@ -94,6 +94,11 @@
               <i class="fas fa-vote-yea"></i>
                 <span>Seleksi Pelamar</span></a>
         </li>
+        <li class="nav-item {{ 'pengguna' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('user-akses.index') }}">
+              <i class="fas fa-vote-yea"></i>
+                <span>Tambah Pengguna</span></a>
+        </li>
     @endif
 
 </ul>
