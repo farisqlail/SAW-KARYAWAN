@@ -96,7 +96,7 @@
         </li>
         <li class="nav-item {{ 'pengguna' == request()->segment(1) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('user-akses.index') }}">
-              <i class="fas fa-vote-yea"></i>
+              <i class="fas fa-users"></i>
                 <span>Tambah Pengguna</span></a>
         </li>
     @endif

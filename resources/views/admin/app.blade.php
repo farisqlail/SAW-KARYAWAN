@@ -16,11 +16,13 @@
     @endif
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('assets/img/icon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon"
+        href="https://1.bp.blogspot.com/-CcugBBm05_U/XYhBh7erO4I/AAAAAAAAB9o/TPrw60NpZ4grqUlkOpn8pKU1lPrFhDjmQCNcBGAsYHQ/s1600/jayaland.png"
+        type="image/x-icon">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
-    <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">

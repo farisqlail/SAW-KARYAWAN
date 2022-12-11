@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
+        <div class="row justify-content-start">
+            {{-- <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-header-icon card-header-primary">
                         <div class="card-icon">
@@ -20,34 +20,27 @@
                         
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-md-4">
-                <div class="card" style="padding-bottom: 60px;">
-                    <div class="card-header card-header-icon card-header-success">
-                        <div class="card-icon">
-                            <i class="material-icons">schedule</i>
-                        </div>
-                    </div>
+                <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Rekrutmen Berlangsung</h4>
                         <h3>{{ $lowonganBerlaku }}</h3>
+                        <i class="fas fa-clock fa-4x float-right" style="color:rgba(255, 79, 79, 0.702);"></i>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card" style="padding-bottom: 60px;" >
-                    <div class="card-header card-header-icon card-header-rose">
-                        <div class="card-icon">
-                            <i class="material-icons">check</i>
-                        </div>
-                    </div>
+                <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Rekrutmen Selesai</h4>
-                        <h3>{{ $lowonganBerakhir }}</h3>
+                    <h3>{{ $lowonganBerakhir }}</h3>
+                    <i class="fas fa-calendar-check fa-4x float-right" style="color: rgba(49, 210, 49, 0.716);"></i>
                     </div>
                 </div>
             </div>
         </div>
+        
 
         <br>
         <div class="card">
