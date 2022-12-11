@@ -214,7 +214,7 @@ class PerhitunganController extends Controller
     {
 
         $lowongan = lowongan::all();
-        $lowonganId = $lowongan[0]->id;
+        $lowonganId = Lowongan::select('id')->get();
         $jadwalTes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
         // dd($jadwalTes);
         return view('perhitungan.lowongan', ['jadwalTes' => $jadwalTes]);

@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Aplikasi Rekrutmen Cv.Lintas Nusa</title>
+    <title>Aplikasi Rekrutmen PT.Jayaland</title>
     <!-- Scripts -->
     @if (Route::current()->getName() == 'login' || Route::current()->getName() == 'register')
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,71 +20,34 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-    <style>
-        .form-inline>* {
-            margin: 5px 3px;
-        }
-
-        .brand {
-            width: 50px;
-            height: 50px;
-            overflow: hidden;
-            border-radius: 50%;
-            margin: 10px auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, .05);
-            position: relative;
-            z-index: 1;
-        }
-
-        .brand img {
-            width: 100%;
-        }
-
-        .homeimg {
-            width: 120px;
-            height: 110px;
-            overflow: hidden;
-            margin: 10px auto;
-        }
-
-    </style>
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- CSS Files -->
-    <link href="{{ asset('assets/css/material-dashboard.css?v=2.1.2') }}" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{ asset('assets/demo/demo.css') }}" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
 
-<body>
-    <div class="wrapper">
-        <div id="app">
+<body id="page-top">
 
-            @include('admin.sidebar')
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        @include('admin.sidebar')
 
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                @include('admin.navbar')
 
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </div>
         </div>
-        <div class="main-panel">
-
-            @include('admin.navbar')
-            <!-- Navbar -->
-
-            <!-- End Navbar -->
-
-            <main class="py-4">
-                @yield('content')
-
-            </main>
-        </div>
-    </div>
     </div>
 
 
@@ -126,9 +89,21 @@
     <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
+    <!-- Bootstrap core JavaScript-->
+    {{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
 
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="{{ asset('assets/js/material-dashboard.js?v=2.1.2') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{ asset('assets/demo/demo.js') }}"></script>
     <!-- Library for adding dinamically elements -->

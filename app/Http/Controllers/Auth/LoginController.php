@@ -25,7 +25,6 @@ class LoginController extends Controller
     public function authenticated()
     {
         if (Auth::user()->role == 'admin') {
-            dd(Auth::user());
             // return view('admin.dashboard');
             Alert::success('Selamat Datang Kembali', 'Selamat datang lagi admin');
             return redirect()->route('home');

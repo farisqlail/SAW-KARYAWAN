@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="purple" data-background-color="white" data-image="{{ asset('assets/img/sidebar-1.jpg') }}">
+{{-- <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{ asset('assets/img/sidebar-1.jpg') }}">
   <div class="logo">
     <div class="brand">
       <img src="{{asset('assets/img/icon.png')}}" alt="logo">
@@ -17,7 +17,7 @@
       </li>
       @guest
       @else
-      @if(Auth()->user()->role == "admin")
+      @if (Auth()->user()->role == 'admin')
       <li class="{{'lowongan' == request()->segment(1) ? 'active' : ''}}">
         <a class="nav-link" href="{{route('lowongan.index')}}">
           <i class="material-icons">insert_chart</i>
@@ -37,7 +37,7 @@
         </a>
       </li>
       @endif
-      @if(Auth()->user()->role == "customer")
+      @if (Auth()->user()->role == 'customer')
       <li class="{{'lowongan' == request()->segment(1) ? 'active' : ''}}">
         <a class="nav-link" href="{{route('lowongan.home')}}">
           <i class="material-icons">insert_chart</i>
@@ -49,4 +49,52 @@
 
 
     </ul>
-  </div>
+  </div> --}}
+
+
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <img src="{{ asset('assets/img/logo-jayaland.png') }}" class="img-fluid" width="200px" alt="">
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ url('admin/home') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    {{-- <!-- Heading -->
+    <div class="sidebar-heading">
+        Interface
+    </div> --}}
+
+    @if (Auth()->user()->role == 'admin')
+        <li class="nav-item {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('lowongan.index') }}">
+                <i class="fas fa-user-tie"></i>
+                <span>Lowongan</span></a>
+        </li>
+        <li class="nav-item {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('jadwal_tes.index') }}">
+                <i class="fas fa-clock"></i>
+                <span>Jadwal Tes</span></a>
+        </li>
+        <li class="nav-item {{ 'perhitungan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('perhitungan.pelamar') }}">
+              <i class="fas fa-vote-yea"></i>
+                <span>Seleksi Pelamar</span></a>
+        </li>
+    @endif
+
+</ul>
+<!-- End of Sidebar -->
