@@ -162,13 +162,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rekrutmen PT. Jayaland</title>
-    
+
     <link rel="shortcut icon"
-    href="https://1.bp.blogspot.com/-CcugBBm05_U/XYhBh7erO4I/AAAAAAAAB9o/TPrw60NpZ4grqUlkOpn8pKU1lPrFhDjmQCNcBGAsYHQ/s1600/jayaland.png"
-    type="image/x-icon">
+        href="https://1.bp.blogspot.com/-CcugBBm05_U/XYhBh7erO4I/AAAAAAAAB9o/TPrw60NpZ4grqUlkOpn8pKU1lPrFhDjmQCNcBGAsYHQ/s1600/jayaland.png"
+        type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -578,15 +578,32 @@
                             </div>
                             <div class="modal-body" style="padding: 2rem; padding-top: 0; padding-bottom: 0">
                                 <ul class="navbar-nav responsive me-auto mt-2 mt-lg-0">
-                                    <li class="nav-item active position-relative">
-                                        <a class="nav-link main" style="color: #243142;" href="#">Beranda</a>
+                                    <li
+                                        class="nav-item position-relative {{ 'home' == request()->segment(1) ? 'active' : '' }}">
+                                        <a class="nav-link" style="color: #243142;"
+                                            href="{{ route('home.user') }}">Beranda</a>
                                     </li>
-                                    <li class="nav-item position-relative">
-                                        <a class="nav-link" href="#">Lowongan</a>
+                                    <li
+                                        class="nav-item position-relative {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('lowongan.home') }}">Lowongan</a>
                                     </li>
-                                    <li class="nav-item position-relative">
-                                        <a class="nav-link" href="#">About</a>
+                                    <li
+                                        class="nav-item position-relative {{ 'tentang' == request()->segment(1) ? 'active' : '' }}">
+                                        <a class="nav-link" href="#">Tentang</a>
                                     </li>
+                                    @auth
+                                        <li
+                                            class="nav-item position-relative {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}">
+                                            <a class="nav-link" href="{{ route('soal-tes.home') }}">
+                                                Tes Online</a>
+                                        </li>
+
+                                        <li
+                                            class="nav-item position-relative {{ 'pelamar' == request()->segment(1) ? 'active' : '' }}">
+                                            <a class="nav-link"
+                                                href="{{ route('pelamar.riwayat', Auth::user()->id) }}">Riwayat Lamaran</a>
+                                        </li>
+                                    @endauth
                                     {{-- <li class="nav-item position-relative">
                                         <a class="nav-link" data-bs-toggle="collapse" href="#collapse" role="button"
                                             aria-expanded="false" aria-controls="collapse">
@@ -619,10 +636,31 @@
                                     </li> --}}
                                 </ul>
                             </div>
-                            <div class="modal-footer border-0" style="padding: 2rem; padding-top: 0.75rem">
-                                <button class="btn btn-default btn-no-fill">Sign In</button>
-                                <button class="btn btn-fill text-white">Register</button>
-                            </div>
+                            @auth
+                                <div class="d-flex">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default btn-no-fill dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{ Auth::user()->name }}
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                                                    document.getElementById('logout-form').submit();">Logout</a>
+                                            </li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="modal-footer border-0" style="padding: 2rem; padding-top: 0.75rem">
+                                    <button class="btn btn-default btn-no-fill">Sign In</button>
+                                    <button class="btn btn-fill text-white">Register</button>
+                                </div>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -636,17 +674,21 @@
                             class="nav-item position-relative {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('lowongan.home') }}">Lowongan</a>
                         </li>
+                        <li
+                            class="nav-item position-relative {{ 'tentang' == request()->segment(1) ? 'active' : '' }}">
+                            <a class="nav-link" href="#">Tentang</a>
+                        </li>
                         @auth
                             <li
-                                class="nav-item position-relative {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}>
-                                <a href="{{ route('soal-tes.home') }}">
-                                Tes Online</a>
+                                class="nav-item position-relative {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('soal-tes.home') }}">
+                                    Tes Online</a>
                             </li>
 
-                            <li class="nav-item position-relative {{ 'pelamar' == request()->segment(1) ? 'active' : '' }}>
-                                <a class="nav-link
-                                scrollto {{ 'pelamar' == request()->segment(1) ? 'active' : '' }}"
-                                href="{{ route('pelamar.riwayat', Auth::user()->id) }}">Riwayat Lamaran</a>
+                            <li
+                                class="nav-item position-relative {{ 'pelamar' == request()->segment(1) ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('pelamar.riwayat', Auth::user()->id) }}">Riwayat
+                                    Lamaran</a>
                             </li>
                         @endauth
                         {{-- <li class="nav-item my-auto">
@@ -688,9 +730,14 @@
                                     {{ Auth::user()->name }}
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item"
-                                            {{-- href="{{ route('pelamar.profile', Auth::user()->id) }}">Profile</a></li> --}}
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                                        document.getElementById('logout-form').submit();">Logout</a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                 </ul>
                             </div>
                         </div>

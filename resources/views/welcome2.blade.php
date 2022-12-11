@@ -5,7 +5,7 @@
         <div class="mx-auto d-flex flex-lg-row flex-column hero">
             <!-- Left Column -->
             <div
-                class="left-column flex-lg-grow-1 d-flex flex-column align-items-lg-start text-lg-start align-items-center text-center">
+                class="left-column flex-lg-grow-1 d-flex flex-column align-items-lg-start text-lg-start align-items-center text-left">
                 <h1 class="title-text-big">
                     Website<br class="d-lg-block d-none" />
                     <span style="color: #FF7468">Rekrutmen</span><br class="d-lg-block d-none" />
