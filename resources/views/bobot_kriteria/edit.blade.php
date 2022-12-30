@@ -15,7 +15,7 @@
                             <form action="{{route('bobot_kriteria.update', $data->id)}}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id" class="form-control" value="{{$data->id}}" hidden>
+                                    <input type="text" name="id_kriteria" class="form-control" value="{{$data->id}}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label for="keterangan_bobot">Keterangan Bobot <span class="text-danger">*</span></label>

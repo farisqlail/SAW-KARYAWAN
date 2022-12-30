@@ -8,7 +8,7 @@ class JadwalTes extends Model
 {
     protected $table        = 'jadwal_tes';
     protected $primaryKey   = 'id';
-    protected $fillable     = ['tanggal','durasi_tes','id'];
+    protected $fillable     = ['tanggal_notif', 'tanggal','durasi_tes','id'];
     protected $hidden       = ['created_at','updated_at'];
 
     public function lowongan() {

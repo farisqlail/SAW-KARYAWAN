@@ -17,7 +17,7 @@ class Kriteria extends Migration
             $table->id();
             $table->integer('id_lowongan');
             $table->string('nama_kriteria');
-            $table->string('atribut');
+            $table->string('atribut_kriteria');
             $table->integer('bobot_preferensi');
             $table->timestamps();
         });

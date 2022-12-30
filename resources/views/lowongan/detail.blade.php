@@ -1,12 +1,12 @@
 @extends('layouts.user')
 
-<img src="{{ asset('assets/img/Detail.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+{{-- <img src="{{ asset('assets/img/Detail.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset=""> --}}
 
 @section('content')
     <div class="container">
         <div class="d-flex justify-content-center">
 
-            <div class="card" style="margin-top: 100px; width: 50rem; border: none;">
+            <div class="card mt-5 mb-5" style="border: none;">
                 <div class="card-body">
                     <h4>{{ $lowongan->posisi_lowongan }}</h4>
                     <br>
@@ -42,7 +42,7 @@
                                 @endforeach
                                 @if (!$check)
                                     <a href="{{ route('pelamar.tambah', $lowongan->id) }}"
-                                        class="btn-get-started">Lamar</a>
+                                        class="btn btn-get text-white d-inline-flex">Lamar</a>
                                 @endif
                             @endif
 

@@ -141,7 +141,7 @@ class JadwalTesController extends Controller
             Alert::success('Berhasil', 'Jadwal tes berhasil ditambahkan');
 
             $jadwal_tes = new JadwalTes();
-            $jadwal_tes->id = $request->get('id');
+            $jadwal_tes->id_lowongan = $request->get('id');
             $jadwal_tes->tanggal_notif = $request->get('tanggal_notif');
             $jadwal_tes->tanggal = $request->get('tanggal');
             $jadwal_tes->durasi_tes = $request->get('batas');
@@ -172,8 +172,8 @@ class JadwalTesController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $jadwal_tes = DB::table('jadwal_tes')
-                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')
-                ->where('id', $id)
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')
+                ->where('id_lowongan', $id)
                 ->first();
             $lowongan = lowongan::all();
             return view('jadwal_tes.edit', ['jadwal_tes' => $jadwal_tes, 'lowongan' => $lowongan]);
@@ -192,7 +192,6 @@ class JadwalTesController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
-            'id' => 'required',
             'tanggal' => "required",
             'batas' => "required",
 
@@ -205,7 +204,7 @@ class JadwalTesController extends Controller
             Alert::success('Berhasil', 'Jadwal tes berhasil diubah');
 
             $jadwal_tes = JadwalTes::find($id);
-            $jadwal_tes->id = $request->get('id');
+            $jadwal_tes->id_lowongan = $request->get('id');
             $jadwal_tes->tanggal_notif = $request->get('tanggal_notif');
             $jadwal_tes->tanggal = $request->get('tanggal');
             $jadwal_tes->durasi_tes = $request->get('batas');

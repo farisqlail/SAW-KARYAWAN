@@ -47,6 +47,9 @@ Route::prefix('/lowongan')->group(function ()
     Route::get('/admin/bobot_kriteria/edit/{id}', 'BobotKriteriaController@edit')->name('bobot_kriteria.edit');
     Route::post('/admin/bobot_kriteria/edit/{id}', 'BobotKriteriaController@update')->name('bobot_kriteria.update');
     Route::get('/admin/bobot_kriteria/hapus/{id}', 'BobotKriteriaController@destroy')->name('bobot_kriteria.hapus');
+
+    Route::get('/{id}/melamar', 'PelamarController@create')->name('lowongam.pelamar.tambah');
+    Route::post('/melamar', 'PelamarController@store')->name('lowongan.pelamar.simpan');
 });
 
 
@@ -94,8 +97,6 @@ Route::prefix('/pelamar')->group(function ()
     Route::post('/hasil/wawancara/{id}', 'PelamarController@storeWawancara')->name('hasil.store');
     Route::post('/seleksi-pelamar/{id}', 'PelamarController@update')->name('pelamar.update');
     Route::get('/admin', 'PelamarController@index')->name('pelamar.index');
-    Route::get('/{id}/melamar', 'PelamarController@create')->name('pelamar.tambah');
-    Route::post('/melamar', 'PelamarController@store')->name('pelamar.simpan');
     // Route::get('/edit/{id}', 'PelamarController@edit')->name('pelamar.ubah');
     Route::post('/tolak-seleksi-satu', 'PelamarController@tolakSatu')->name('pelamar.tolak.satu');
     Route::post('/tolak-seleksi-dua', 'PelamarController@tolakDua')->name('pelamar.tolak.dua');

@@ -6,12 +6,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="float-left">Bobot Kriteria untuk Kriteria {{$kriteria->nama_kriteria}}</h3>
-                        <div class="float-right">
-                            <a href="{{ route('kriteria.index', ['id' => $kriteria->id]) }}" class="btn btn-danger">Kembali</a>
-                            <a href="{{ route('bobot_kriteria.tambah', ['id' => $kriteria->id]) }}"
-                                class="btn btn-success">Tambah</a>
-                        </div>
+                        @if (!empty($kriteria))
+                            <h3 class="float-left">Bobot Kriteria untuk Kriteria {{ $kriteria->nama_kriteria }}</h3>
+                            <div class="float-right">
+                                <a href="{{ route('kriteria.index', ['id' => $kriteria->id]) }}"
+                                    class="btn btn-danger">Kembali</a>
+                                <a href="{{ route('bobot_kriteria.tambah', ['id' => $kriteria->id]) }}"
+                                    class="btn btn-success">Tambah</a>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="card-body">
@@ -20,7 +23,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kriteria</th>
+                                        {{-- <th>Kriteria</th> --}}
                                         <th>Keterangan</th>
                                         <th>Nilai Bobot</th>
                                         <th class="text-center" style="width:20%">Aksi</th>
@@ -29,17 +32,17 @@
                                 <tbody>
                                     @if (!empty($bobot_kriteria))
                                         @foreach ($bobot_kriteria as $data)
-
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $datakriteria->nama_kriteria }}</td>
+                                                {{-- <td>{{ $datakriteria[0]->nama_kriteria }}</td> --}}
                                                 <td>{{ $data->nama_bobot }}</td>
                                                 <td>{{ $data->jumlah_bobot }}</td>
                                                 <td class="text-center">
 
                                                     <a href="{{ route('bobot_kriteria.edit', ['id' => $data->id]) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
-                                                    <a href="#" class="btn btn-sm btn-danger delete" data-id="{{ $data->id }}">Hapus</a>
+                                                    <a href="#" class="btn btn-sm btn-danger delete"
+                                                        data-id="{{ $data->id }}">Hapus</a>
 
                                                 </td>
                                             </tr>

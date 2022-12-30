@@ -13,7 +13,7 @@
                 <br>
             </form>
 
-            <div class="row" style="margin-top: 50px">
+            <div class="row mt-3">
                 @foreach ($lowongan as $data)
                     @if ($data->status_lowongan == 'Seleksi Selesai')
                     @else
@@ -80,14 +80,14 @@
                                         <div class="button-group mt-5" align="right">
                                             @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
                                                 <a href="{{ route('lowongan.detail', $data->id) }}"
-                                                    class="btn btn-outline-primary">Lihat Detail</a>
-                                                <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
+                                                    class="btn btn-outline-info">Lihat Detail</a>
+                                                <a href="{{ route('login') }}" class="btn btn-success">Lamar</a>
                                             @endif
                                         </div>
                                     @else
                                         <div class="button-group" align="right">
                                             <a href="{{ route('lowongan.detail', $data->id) }}"
-                                                class="btn btn-outline-primary">Lihat Detail</a>
+                                                class="btn btn-outline-info">Lihat Detail</a>
                                             @if (\Carbon\Carbon::parse($data->berlaku_sampai) > date('Y-m-d'))
                                                 @php
                                                     $check = false;
@@ -100,8 +100,8 @@
                                                     @endif
                                                 @endforeach
                                                 @if (!$check)
-                                                    <a href="{{ route('pelamar.tambah', $data->id) }}"
-                                                        class="btn-get-started">Lamar</a>
+                                                    <a href="{{ url('/lowongan'. "/" .$data->id. "/melamar") }}"
+                                                        class="btn btn-success">Lamar</a>
                                                 @endif
                                             @endif
                                         </div>

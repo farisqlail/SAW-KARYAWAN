@@ -53,7 +53,6 @@ class KriteriaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'id' => 'required',
             'nama_kriteria' => "required",
             'atribut_kriteria' => "required",
             'bobot_preferensi' => "required",
@@ -67,7 +66,7 @@ class KriteriaController extends Controller
             Alert::success('Berhasil', 'Data kriteria berhasil ditambahkan');
 
             $kriteria = new Kriteria();
-            $kriteria->id = $request->get('id');
+            $kriteria->id_lowongan = $request->get('id_lowongan');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
             $kriteria->bobot_preferensi = $request->get('bobot_preferensi');
@@ -128,7 +127,7 @@ class KriteriaController extends Controller
             Alert::success('Berhasil', 'Data kriteria berhasil diubah');
 
             $kriteria = Kriteria::find($id);
-            $kriteria->id = $request->get('id');
+            $kriteria->id_lowongan = $request->get('id_lowongan');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
             $kriteria->bobot_preferensi = $request->get('bobot_preferensi');

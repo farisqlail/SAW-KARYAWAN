@@ -15,7 +15,7 @@
                             <form action="{{ route('bobot_kriteria.simpan') }}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id" class="form-control"
+                                    <input type="text" name="id_kriteria" class="form-control"
                                         value="{{ $kriteria->id }}" hidden>
                                 </div>
                                 <div class="form-group">

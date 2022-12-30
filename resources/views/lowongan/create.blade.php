@@ -1,13 +1,13 @@
 @extends('layouts.user')
 
-<img src="{{ asset('assets/img/Form.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+{{-- <img src="{{ asset('assets/img/Form.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset=""> --}}
 
 @section('content')
     <main id="main">
 
         <div class="container">
-            <div class="row justify-content-center" style="margin-top: 50px;">
-                <div class="col-md-8">
+            <div class="row " style="margin-top: 50px;">
+                <div class="col-md-12">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
 
                         <div class="card-body">
@@ -22,29 +22,31 @@
                                     </div>
                                 @endif
 
-                                <form enctype="multipart/form-data" action="{{ route('pelamar.simpan') }}" method="POST"
-                                    class="col-md-12 needs-validation" novalidate>
+                                <form enctype="multipart/form-data" action="{{ route('lowongan.pelamar.simpan') }}"
+                                    method="POST" class="col-md-12 needs-validation" novalidate>
                                     @csrf
 
                                     <div class="form-group">
-                                        <input type="text" name="id_user" class="form-control" value="{{ Auth::id() }}"
-                                            hidden>
+                                        <input type="text" name="id_user" class="form-control"
+                                            value="{{ Auth::id() }}" hidden>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="id" class="form-control"
+                                        <input type="text" name="id_lowongan" class="form-control"
                                             value="{{ $lowongan->id }}" hidden>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Nama Lengkap <span class="text-danger">*</span></label>
+                                                <label for="">Nama Lengkap <span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" name="nama_pelamar" required class="form-control"
                                                     value="{{ Auth::user()->name }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Tanggal Lahir <span class="text-danger">*</span></label>
+                                                <label for="">Tanggal Lahir <span
+                                                        class="text-danger">*</span></label>
                                                 <input type="date" name="tanggal_lahir" required class="form-control"
                                                     value="{{ Auth::user()->tanggal_lahir }}">
                                             </div>
@@ -53,7 +55,8 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Tempat Lahir <span class="text-danger">*</span></label>
+                                                <label for="">Tempat Lahir <span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" name="tempat_lahir" required class="form-control"
                                                     value="{{ Auth::user()->tempat_lahir }}">
                                             </div>
@@ -76,9 +79,28 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Jenis Kelamin <span class="text-danger">*</span></label>
+                                                <label for="">Jenis Kelamin <span
+                                                        class="text-danger">*</span></label>
                                                 <div class="row mt-2">
-                                                    @if (Auth::user()->jenis_kelamin == 'Laki-laki')
+                                                    <div class="col-md-6">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="jenis_kelamin" id="jenis_kelamin">
+                                                            <label class="form-check-label" for="jenis_kelamin">
+                                                                Laki - Laki
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="jenis_kelamin" id="jenis_kelamin">
+                                                            <label class="form-check-label" for="jenis_kelamin">
+                                                                Perempuan
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    {{-- @if (Auth::user()->jenis_kelamin == 'Laki-laki')
                                                         <div class="col-md-6">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
@@ -98,8 +120,8 @@
                                                                 </label>
                                                             </div>
                                                         </div>
-                                                    @elseif(Auth::user()->jenis_kelamin == 'Perempuan')
-                                                        <div class="col-md-6">
+                                                    @elseif(Auth::user()->jenis_kelamin == 'Perempuan') --}}
+                                                    {{-- <div class="col-md-6">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
                                                                     name="jenis_kelamin" id="jenis_kelamin">
@@ -118,7 +140,7 @@
                                                                 </label>
                                                             </div>
                                                         </div>
-                                                    @endif
+                                                    @endif --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -135,8 +157,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Alamat <span class="text-danger">*</span></label>
-                                                <textarea name="alamat" id="" cols="30" rows="5" required
-                                                    class="form-control">{{ Auth::user()->alamat }}</textarea>
+                                                <textarea name="alamat" id="" cols="30" rows="5" required class="form-control">{{ Auth::user()->alamat }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -148,9 +169,9 @@
                                                 @foreach ($kriteria as $kriteria)
                                                     <div class="form-group">
                                                         <label for="Kriteria">{{ $kriteria->nama_kriteria }}</label>
-                                                        <select name="{{ $kriteria->id }}"
-                                                            class="form-control">
-                                                            <option value="">-- Pilih {{ $kriteria->nama_kriteria }}--
+                                                        <select name="{{ $kriteria->id }}" class="form-control">
+                                                            <option value="">-- Pilih
+                                                                {{ $kriteria->nama_kriteria }}--
                                                             </option>
                                                             @foreach ($bobot_kriteria as $bobot)
                                                                 @if ($kriteria->id == $bobot->id)
@@ -179,7 +200,8 @@
 
                             <div class="form-group mt-3">
                                 <label for="">Ijazah</label><br>
-                                <input name="ijazah" class="form-control-file mt-2 " id="ijazah" type="file" required />
+                                <input name="ijazah" class="form-control-file mt-2 " id="ijazah" type="file"
+                                    required />
                                 @if ($errors->has('ijazah'))
                                     <span class="text-danger">{{ $errors->first('ijazah') }}</span>
                                 @endif
@@ -219,7 +241,7 @@
                         </div>
 
                         <div class="lamar-btn mt-3" align="right">
-                            <button type="button" class="btn-get-started" style="border: none;" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-get text-white d-inline-flex" style="border: none;" data-bs-toggle="modal"
                                 data-bs-target="#lamar">
                                 Lamar
                             </button>

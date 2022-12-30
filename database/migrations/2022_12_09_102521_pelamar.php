@@ -25,11 +25,12 @@ class Pelamar extends Migration
             $table->string('no_telepon');
             $table->string('jenis_kelamin');
             $table->string('cv');
+            $table->string('ijazah');
             $table->string('pas_foto');
-            $table->string('seleksi_satu');
-            $table->string('seleksi_dua');
-            $table->string('status_dokumen');
-            $table->integer('nila_tes');
+            $table->string('seleksi_satu')->nullable();
+            $table->string('seleksi_dua')->nullable();
+            $table->string('status_dokumen')->nullable();
+            $table->integer('nila_tes')->nullable();
             $table->timestamps();
          });
     }

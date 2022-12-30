@@ -15,7 +15,7 @@
                             <form action="{{route('kriteria.simpan')}}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id" class="form-control" value="{{$lowongan->id}}" hidden>
+                                    <input type="text" name="id_lowongan" class="form-control" value="{{$lowongan->id}}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama Kriteria <span class="text-danger">*</span></label>

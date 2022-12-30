@@ -115,7 +115,7 @@ class DaftarSoalController extends Controller
             Alert::success('Berhasil', 'Berhasil menambah soal');
 
             $daftar_soal = new DaftarSoal();
-            $daftar_soal->id = $request->get('id');
+            $daftar_soal->id_jadwal_tes = $request->get('id');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = $request->get('bobot');
             if ($request->file('file_soal')) {
@@ -152,7 +152,8 @@ class DaftarSoalController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $daftar_soal = DaftarSoal::find($id);
-            return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal]);
+            $jadwaltes = JadwalTes::find($id);
+            return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal, 'jadwaltes' => $jadwaltes]);
         } else {
             abort(404);
         }
@@ -180,6 +181,7 @@ class DaftarSoalController extends Controller
             Alert::success('Berhasil', 'Berhasil mengubah soal');
 
             $daftar_soal = DaftarSoal::find($id);
+            $daftar_soal->id_jadwal_tes = $request->get('id');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = $request->get('bobot');
             if ($request->file('file_soal')) {

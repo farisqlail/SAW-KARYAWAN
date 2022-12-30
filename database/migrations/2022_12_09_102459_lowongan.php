@@ -19,7 +19,7 @@ class Lowongan extends Migration
             $table->date('berlaku_sampai');
             $table->text('deskripsi_pekerjaan');
             $table->text('deskripsi_persyaratan');
-            $table->string('status_lowongan');
+            $table->string('status_lowongan')->nullable();
             $table->timestamps();
          });
     }

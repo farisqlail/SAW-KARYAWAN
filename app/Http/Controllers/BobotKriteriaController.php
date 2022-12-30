@@ -18,11 +18,11 @@ class BobotKriteriaController extends Controller
      */
     public function index($id)
     {
-        dd(Auth::user());
         if (Auth::user()->role == 'admin') {
             $kriteria = Kriteria::find($id);
             $datakriteria = Kriteria::where('id', $id)->first();
-            $data = BobotKriteria::where('id', $id)->get();
+            $data = BobotKriteria::where('id_kriteria', $id)->get();
+            // dd($data);
             return view('bobot_kriteria.index', ['bobot_kriteria' => $data, 'kriteria' => $kriteria, 'datakriteria' => $datakriteria]);
         } else {
             abort(404);
@@ -53,7 +53,6 @@ class BobotKriteriaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'id' => 'required',
             'keterangan_bobot' => "required",
             'nilai_bobot' => "required",
 
@@ -66,13 +65,14 @@ class BobotKriteriaController extends Controller
             Alert::success('Berhasil', 'Data bobot kriteria berhasil ditambahkan');
 
             $bobot_kriteria = new BobotKriteria();
-            $bobot_kriteria->id = $request->get('id');
+            $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
             $bobot_kriteria->jumlah_bobot = $request->get('nilai_bobot');
             $bobot_kriteria->save();
-            return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id]);
+            // dd($bobot_kriteria->id_kriteria);
+            return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id_kriteria]);
         }
-        return redirect(route('bobot_kriteria'));
+        return redirect()->route('bobot_kriteria');
     }
 
     /**
@@ -112,7 +112,6 @@ class BobotKriteriaController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
-            'id' => 'required',
             'keterangan_bobot' => "required",
             'nilai_bobot' => "required",
 
@@ -125,13 +124,13 @@ class BobotKriteriaController extends Controller
             Alert::success('Berhasil', 'Data bobot kriteria berhasil diubah');
 
             $bobot_kriteria = BobotKriteria::find($id);
-            $bobot_kriteria->id = $request->get('id');
+            $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
             $bobot_kriteria->jumlah_bobot = $request->get('nilai_bobot');
             $bobot_kriteria->save();
-            return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id]);
+            return redirect()->route('bobot_kriteria.index', ['id_kriteria' => $bobot_kriteria->id_kriteria]);
         }
-        return redirect(route('bobot_kriteria'));
+        return redirect()->route('bobot_kriteria');
     }
 
     /**
@@ -144,6 +143,6 @@ class BobotKriteriaController extends Controller
     {
         $bobot_kriteria = BobotKriteria::find($id);
         $bobot_kriteria->delete();
-        return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id]);
+        return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id_kriteria]);
     }
 }
