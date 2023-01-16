@@ -65,6 +65,8 @@
                                                     @elseif($data->status_approve == 'direksi')
                                                         <span class="badge badge-warning">Menunggu approvement
                                                             Direksi</span>
+                                                    @elseif($data->status_approve == 'tolak direksi')
+                                                        <span class="badge badge-danger">Lowongan ditolak direksi</span>
                                                     @else
                                                         <span class="badge badge-success">Approvement</span>
                                                     @endif
@@ -96,6 +98,10 @@
                                                                 Setujui
                                                             </a>
                                                         @endif
+                                                        <a href="{{ route('lowongan.tolakDireksi', $data->id) }}"
+                                                            class="btn btn-sm btn-danger">
+                                                            Tolak
+                                                        </a>
                                                         <a href="{{ route('lowongan.detailAdmin', $data->id) }}"
                                                             class="btn btn-sm btn-info">
                                                             Detail

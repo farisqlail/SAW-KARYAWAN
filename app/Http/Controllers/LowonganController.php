@@ -105,7 +105,9 @@ class LowonganController extends Controller
             $lowongan->deskripsi_pekerjaan = $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
             $lowongan->status_approve = 'hrd';
+
             $lowongan->save();
+            
             return redirect()->route('lowongan.index');
         }
     }
@@ -117,7 +119,9 @@ class LowonganController extends Controller
 
         $lowongan = lowongan::findOrFail($id);
         $lowongan->status_approve = 'direksi';
+
         $lowongan->save();
+
         return redirect()->route('lowongan.index');
     }
 
@@ -128,7 +132,9 @@ class LowonganController extends Controller
 
         $lowongan = lowongan::findOrFail($id);
         $lowongan->status_approve = 'selesai';
+
         $lowongan->save();
+
         return redirect()->route('lowongan.index');
     }
 
@@ -139,7 +145,9 @@ class LowonganController extends Controller
 
         $lowongan = lowongan::findOrFail($id);
         $lowongan->status_approve = 'tolak direksi';
+
         $lowongan->save();
+
         return redirect()->route('lowongan.index');
     }
 
@@ -217,7 +225,10 @@ class LowonganController extends Controller
             $lowongan->berlaku_sampai = $request->get('berlaku');
             $lowongan->deskripsi_pekerjaan = $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
+            $lowongan->status_approve = 'hrd';
+
             $lowongan->save();
+
             return redirect()->route('lowongan.index');
         }
     }
