@@ -48,7 +48,7 @@
                                                 <label for="">Tanggal Lahir <span
                                                         class="text-danger">*</span></label>
                                                 <input type="date" name="tanggal_lahir" required class="form-control"
-                                                    value="{{ Auth::user()->tanggal_lahir }}">
+                                                    >
                                             </div>
                                         </div>
                                     </div>
@@ -58,14 +58,14 @@
                                                 <label for="">Tempat Lahir <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="tempat_lahir" required class="form-control"
-                                                    value="{{ Auth::user()->tempat_lahir }}">
+                                                    >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Agama <span class="text-danger">*</span></label>
                                                 <select name="agama" class="form-control" required>
-                                                    <option value="{{ Auth::user()->agama }}">{{ Auth::user()->agama }}
+                                                    <option value="">Pilih agama
                                                     </option>
                                                     <option value="Islam">Islam</option>
                                                     <option value="Kristen">Kristen</option>
@@ -148,7 +148,7 @@
                                             <div class="form-group">
                                                 <label for="">No Telepon <span class="text-danger">*</span></label>
                                                 <input type="number" name="no_telepon" required class="form-control"
-                                                    value="{{ Auth::user()->no_telepon }}">
+                                                    >
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Alamat <span class="text-danger">*</span></label>
-                                                <textarea name="alamat" id="" cols="30" rows="5" required class="form-control">{{ Auth::user()->alamat }}</textarea>
+                                                <textarea name="alamat" id="" cols="30" rows="5" required class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>

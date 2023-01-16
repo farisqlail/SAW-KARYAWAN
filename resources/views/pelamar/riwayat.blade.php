@@ -22,7 +22,7 @@
                             <tr class="text-center">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->lowongan->posisi_lowongan }}</td>
-                                <td>{{ $data->lowongan->created_at->toFormattedDateString() }}</td>
+                                {{-- <td>{{ $data->lowongan->created_at->toFormattedDateString() }}</td> --}}
                                 <td>
                                     @if ($data->seleksi_satu == null && $data->seleksi_dua == null)
                                         <span class="text-warning">Lamaran belum ada status</span>

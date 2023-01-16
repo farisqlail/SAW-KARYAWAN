@@ -83,7 +83,7 @@ class PelamarController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // dd($validator->errors());
+            dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
 
@@ -121,6 +121,7 @@ class PelamarController extends Controller
             }
 
             // dd($pelamar);
+
             $pelamar->save();
 
             $bobot_kriteria = BobotKriteria::all();
