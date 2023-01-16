@@ -10,29 +10,40 @@
                     <div class="card-header">
                         <h2 class="float-left">Lowongan</h2>
                         <div class="float-right">
-
-                            <a href="{{ route('lowongan.tambah') }}" class="btn btn-success">Tambah</a>
+                            @if (Auth::user()->role == 'admin')
+                                <a href="{{ route('lowongan.tambah') }}" class="btn btn-success">Tambah</a>
+                            @elseif (Auth::user()->role == 'divisi')
+                                <a href="{{ route('lowongan.tambah') }}" class="btn btn-success">Tambah</a>
+                            @endif
 
                         </div>
                     </div>
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="myTable" style="width: 98%;">
+                            <table class="table" id="myTable" style="width: 98%;">
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Posisi Lowongan</th>
                                         <th class="text-center">Berlaku Sampai</th>
                                         <th class="text-center">Status Lowongan</th>
+                                        <th class="text-center">Status Approve</th>
                                         <th class="text-center">Deskripsi Lowongan</th>
-                                        <th>Aksi</th>
+                                        @if (Auth::user()->role == 'admin')
+                                            <th>Aksi</th>
+                                        @elseif(Auth::user()->role == 'divisi')
+                                            <th>Aksi</th>
+                                        @elseif(Auth::user()->role == 'direksi')
+                                            <th>Aksi</th>
+                                        @elseif(Auth::user()->role == 'hrd')
+                                            <th>Aksi</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (!empty($lowongan))
                                         @foreach ($lowongan as $data)
-                                        
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
@@ -48,16 +59,59 @@
                                                         <span class="badge badge-danger">Seleksi Selesai</span>
                                                     @endif
                                                 </td>
+                                                <td align="center">
+                                                    @if ($data->status_approve == 'hrd')
+                                                        <span class="badge badge-warning">Menunggu approvement HRD</span>
+                                                    @elseif($data->status_approve == 'direksi')
+                                                        <span class="badge badge-warning">Menunggu approvement
+                                                            Direksi</span>
+                                                    @else
+                                                        <span class="badge badge-success">Approvement</span>
+                                                    @endif
+                                                </td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->deskripsi_pekerjaan, 30) !!}</td>
-                                                <td >
-                                                        {{-- @if (Auth()->user()->role == 'admin') --}}
-                                                            <a href="{{ route('kriteria.index', ['id' => $data->id]) }}"
-                                                                class="btn btn-sm btn-info btn-sm">Kriteria</a>
-                                                            <a href="{{ route('lowongan.edit', ['id' => $data->id]) }}"
-                                                                class="btn btn-sm btn-warning btn-sm">Edit</a>
-                                                                <a href="#" data-id="{{ $data->id }}" class="btn btn-sm btn-danger delete">
-                                                                    Hapus
-                                                                </a>
+                                                <td>
+                                                    @if (Auth()->user()->role == 'admin')
+                                                        <a href="{{ route('kriteria.index', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-info btn-sm">Kriteria</a>
+                                                        <a href="{{ route('lowongan.edit', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-warning btn-sm">Edit</a>
+                                                        <a href="#" data-id="{{ $data->id }}"
+                                                            class="btn btn-sm btn-danger delete">
+                                                            Hapus
+                                                        </a>
+                                                    @elseif (Auth()->user()->role == 'divisi')
+                                                        <a href="{{ route('kriteria.index', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-info btn-sm">Kriteria</a>
+                                                        <a href="{{ route('lowongan.edit', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-warning btn-sm">Edit</a>
+                                                        <a href="#" data-id="{{ $data->id }}"
+                                                            class="btn btn-sm btn-danger delete">
+                                                            Hapus
+                                                        </a>
+                                                    @elseif(Auth::user()->role == 'direksi')
+                                                        @if ($data->status_approve != 'selesai')
+                                                            <a href="{{ route('lowongan.approveDireksi', $data->id) }}"
+                                                                class="btn btn-sm btn-success">
+                                                                Setujui
+                                                            </a>
+                                                        @endif
+                                                        <a href="{{ route('lowongan.detailAdmin', $data->id) }}"
+                                                            class="btn btn-sm btn-info">
+                                                            Detail
+                                                        </a>
+                                                    @elseif(Auth::user()->role == 'hrd')
+                                                        @if ($data->status_approve != 'direksi')
+                                                            <a href="{{ route('lowongan.approveHrd', $data->id) }}"
+                                                                class="btn btn-sm btn-success">
+                                                                Ajukan ke direksi
+                                                            </a>
+                                                        @endif
+                                                        <a href="{{ route('lowongan.detailAdmin', $data->id) }}"
+                                                            class="btn btn-sm btn-info">
+                                                            Detail
+                                                        </a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -76,30 +130,29 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-</script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    $('.delete').click(function() {
-        var lowonganId = $(this).attr('data-id');
-        swal({
-                title: "Apakah kamu yakin ?",
-                text: "Apa kamu yakin ingin menghapus data ini",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    window.location = "/lowongan/admin/hapus/" + lowonganId + ""
-                    swal("Data berhasil dihapus", {
-                        icon: "success",
-                    });
-                } else {
-                    swal("Data tidak jadi dihapus");
-                }
-            });
-    });
-    
-</script>
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $('.delete').click(function() {
+            var lowonganId = $(this).attr('data-id');
+            swal({
+                    title: "Apakah kamu yakin ?",
+                    text: "Apa kamu yakin ingin menghapus data ini",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location = "/lowongan/admin/hapus/" + lowonganId + ""
+                        swal("Data berhasil dihapus", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Data tidak jadi dihapus");
+                    }
+                });
+        });
+    </script>
 @endsection

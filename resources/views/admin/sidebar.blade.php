@@ -91,19 +91,67 @@
         </li>
         <li class="nav-item {{ 'perhitungan' == request()->segment(1) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('perhitungan.pelamar') }}">
-              <i class="fas fa-vote-yea"></i>
+                <i class="fas fa-vote-yea"></i>
                 <span>Seleksi Pelamar</span></a>
         </li>
         <li class="nav-item {{ 'pengguna' == request()->segment(1) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('user-akses.index') }}">
-              <i class="fas fa-users"></i>
+                <i class="fas fa-users"></i>
                 <span>Tambah Pengguna</span></a>
         </li>
         <li class="nav-item {{ 'role' == request()->segment(1) ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('role.index') }}">
-            <i class="fas fa-user-tag"></i>
-              <span>Role</span></a>
-      </li>
+            <a class="nav-link" href="{{ route('role.index') }}">
+                <i class="fas fa-user-tag"></i>
+                <span>Role</span></a>
+        </li>
+    @elseif(Auth()->user()->role == 'direksi')
+        <li class="nav-item {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('lowongan.index') }}">
+                <i class="fas fa-user-tie"></i>
+                <span>Lowongan</span></a>
+        </li>
+        <li class="nav-item {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('jadwal_tes.index') }}">
+                <i class="fas fa-clock"></i>
+                <span>Jadwal Tes</span></a>
+        </li>
+        <li class="nav-item {{ 'perhitungan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('perhitungan.pelamar') }}">
+                <i class="fas fa-vote-yea"></i>
+                <span>Seleksi Pelamar</span></a>
+        </li>
+        <li class="nav-item {{ 'pengguna' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('user-akses.index') }}">
+                <i class="fas fa-users"></i>
+                <span>Tambah Pengguna</span></a>
+        </li>
+        <li class="nav-item {{ 'role' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('role.index') }}">
+                <i class="fas fa-user-tag"></i>
+                <span>Role</span></a>
+        </li>
+    @elseif(Auth()->user()->role == 'hrd')
+        <li class="nav-item {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('lowongan.index') }}">
+                <i class="fas fa-user-tie"></i>
+                <span>Lowongan</span></a>
+        </li>
+        <li class="nav-item {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('jadwal_tes.index') }}">
+                <i class="fas fa-clock"></i>
+                <span>Jadwal Tes</span></a>
+        </li>
+        <li class="nav-item {{ 'perhitungan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('perhitungan.pelamar') }}">
+                <i class="fas fa-vote-yea"></i>
+                <span>Seleksi Pelamar</span></a>
+        </li>
+    @elseif(Auth()->user()->role == 'divisi')
+        <li class="nav-item {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('lowongan.index') }}">
+                <i class="fas fa-user-tie"></i>
+                <span>Lowongan</span></a>
+        </li>
     @endif
 
 </ul>

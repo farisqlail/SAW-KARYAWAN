@@ -27,6 +27,18 @@ class JadwalTesController extends Controller
             $jadwal_tes = DB::table('jadwal_tes')
                 ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
             return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
+        } else if (Auth::user()->role == 'direksi') {
+            $jadwal_tes = DB::table('jadwal_tes')
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
+            return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
+        } else if (Auth::user()->role == 'hrd') {
+            $jadwal_tes = DB::table('jadwal_tes')
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
+            return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
+        } else if (Auth::user()->role == 'divisi') {
+            $jadwal_tes = DB::table('jadwal_tes')
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
+            return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
         } else {
             abort(404);
         }
@@ -37,7 +49,7 @@ class JadwalTesController extends Controller
 
         $user = Auth::user()->id;
         $pelamar = Pelamar::where('id_user', $user)->get();
-        // dd($pelamar);
+        // dd($pelamar); 
 
         if (!empty($pelamar)) {
             foreach ($pelamar as $data) {
@@ -52,7 +64,6 @@ class JadwalTesController extends Controller
                     ->where('lowongan.id', $pelamarGet)
                     ->get();
             }
-            // dd($pelamar->count() > 0);
 
             // if($pelamar[0]->seleksi_satu == 'Diterima'){
 
@@ -109,6 +120,24 @@ class JadwalTesController extends Controller
     public function create()
     {
         if (Auth::user()->role == 'admin') {
+            $daftarsoal = DaftarSoal::all();
+            $lowongan = lowongan::all();
+
+            $daftarsoaltes = HasilTes::all();
+            return view('jadwal_tes.tambah', ['lowongan' => $lowongan, 'daftarsoal' => $daftarsoal, 'daftarsoaltes' => $daftarsoaltes]);
+        } else if (Auth::user()->role == 'direksi') {
+            $daftarsoal = DaftarSoal::all();
+            $lowongan = lowongan::all();
+
+            $daftarsoaltes = HasilTes::all();
+            return view('jadwal_tes.tambah', ['lowongan' => $lowongan, 'daftarsoal' => $daftarsoal, 'daftarsoaltes' => $daftarsoaltes]);
+        } else if (Auth::user()->role == 'hrd') {
+            $daftarsoal = DaftarSoal::all();
+            $lowongan = lowongan::all();
+
+            $daftarsoaltes = HasilTes::all();
+            return view('jadwal_tes.tambah', ['lowongan' => $lowongan, 'daftarsoal' => $daftarsoal, 'daftarsoaltes' => $daftarsoaltes]);
+        } else if (Auth::user()->role == 'divisi') {
             $daftarsoal = DaftarSoal::all();
             $lowongan = lowongan::all();
 
@@ -171,6 +200,27 @@ class JadwalTesController extends Controller
     public function edit($id)
     {
         if (Auth::user()->role == 'admin') {
+            $jadwal_tes = DB::table('jadwal_tes')
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')
+                ->where('id_lowongan', $id)
+                ->first();
+            $lowongan = lowongan::all();
+            return view('jadwal_tes.edit', ['jadwal_tes' => $jadwal_tes, 'lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'direksi') {
+            $jadwal_tes = DB::table('jadwal_tes')
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')
+                ->where('id_lowongan', $id)
+                ->first();
+            $lowongan = lowongan::all();
+            return view('jadwal_tes.edit', ['jadwal_tes' => $jadwal_tes, 'lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'hrd') {
+            $jadwal_tes = DB::table('jadwal_tes')
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')
+                ->where('id_lowongan', $id)
+                ->first();
+            $lowongan = lowongan::all();
+            return view('jadwal_tes.edit', ['jadwal_tes' => $jadwal_tes, 'lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'divisi') {
             $jadwal_tes = DB::table('jadwal_tes')
                 ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')
                 ->where('id_lowongan', $id)

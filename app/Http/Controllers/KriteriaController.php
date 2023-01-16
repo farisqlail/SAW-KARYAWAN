@@ -24,6 +24,24 @@ class KriteriaController extends Controller
             $nilai = $data->sum('bobot_preferensi');
             // dd($nilai);
             return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
+        } else if (Auth::user()->role == 'direksi') {
+            $lowongan = lowongan::find($id);
+            $data = Kriteria::where('id', $id)->get();
+            $nilai = $data->sum('bobot_preferensi');
+            // dd($nilai);
+            return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
+        } else if (Auth::user()->role == 'hrd') {
+            $lowongan = lowongan::find($id);
+            $data = Kriteria::where('id', $id)->get();
+            $nilai = $data->sum('bobot_preferensi');
+            // dd($nilai);
+            return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
+        } else if (Auth::user()->role == 'divisi') {
+            $lowongan = lowongan::find($id);
+            $data = Kriteria::where('id', $id)->get();
+            $nilai = $data->sum('bobot_preferensi');
+            // dd($nilai);
+            return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
         } else {
             abort(404);
         }
@@ -37,6 +55,15 @@ class KriteriaController extends Controller
     public function create($id)
     {
         if (Auth::user()->role == 'admin') {
+            $lowongan = lowongan::find($id);
+            return view('kriteria.tambah', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'direksi') {
+            $lowongan = lowongan::find($id);
+            return view('kriteria.tambah', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'hrd') {
+            $lowongan = lowongan::find($id);
+            return view('kriteria.tambah', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'divisi') {
             $lowongan = lowongan::find($id);
             return view('kriteria.tambah', ['lowongan' => $lowongan]);
         } else {
@@ -96,6 +123,15 @@ class KriteriaController extends Controller
     public function edit($id)
     {
         if (Auth::user()->role == 'admin') {
+            $kriteria = Kriteria::find($id);
+            return view('kriteria.edit', ['data' => $kriteria]);
+        } else if (Auth::user()->role == 'direksi') {
+            $kriteria = Kriteria::find($id);
+            return view('kriteria.edit', ['data' => $kriteria]);
+        } else if (Auth::user()->role == 'hrd') {
+            $kriteria = Kriteria::find($id);
+            return view('kriteria.edit', ['data' => $kriteria]);
+        } else if (Auth::user()->role == 'divisi') {
             $kriteria = Kriteria::find($id);
             return view('kriteria.edit', ['data' => $kriteria]);
         } else {

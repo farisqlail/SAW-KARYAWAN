@@ -24,6 +24,24 @@ class BobotKriteriaController extends Controller
             $data = BobotKriteria::where('id_kriteria', $id)->get();
             // dd($data);
             return view('bobot_kriteria.index', ['bobot_kriteria' => $data, 'kriteria' => $kriteria, 'datakriteria' => $datakriteria]);
+        } else if (Auth::user()->role == 'direksi') {
+            $kriteria = Kriteria::find($id);
+            $datakriteria = Kriteria::where('id', $id)->first();
+            $data = BobotKriteria::where('id_kriteria', $id)->get();
+            // dd($data);
+            return view('bobot_kriteria.index', ['bobot_kriteria' => $data, 'kriteria' => $kriteria, 'datakriteria' => $datakriteria]);
+        } else if (Auth::user()->role == 'hrd') {
+            $kriteria = Kriteria::find($id);
+            $datakriteria = Kriteria::where('id', $id)->first();
+            $data = BobotKriteria::where('id_kriteria', $id)->get();
+            // dd($data);
+            return view('bobot_kriteria.index', ['bobot_kriteria' => $data, 'kriteria' => $kriteria, 'datakriteria' => $datakriteria]);
+        } else if (Auth::user()->role == 'divisi') {
+            $kriteria = Kriteria::find($id);
+            $datakriteria = Kriteria::where('id', $id)->first();
+            $data = BobotKriteria::where('id_kriteria', $id)->get();
+            // dd($data);
+            return view('bobot_kriteria.index', ['bobot_kriteria' => $data, 'kriteria' => $kriteria, 'datakriteria' => $datakriteria]);
         } else {
             abort(404);
         }
@@ -37,6 +55,15 @@ class BobotKriteriaController extends Controller
     public function create($id)
     {
         if (Auth::user()->role == 'admin') {
+            $kriteria = Kriteria::find($id);
+            return view('bobot_kriteria.tambah', ['kriteria' => $kriteria]);
+        } else if (Auth::user()->role == 'direksi') {
+            $kriteria = Kriteria::find($id);
+            return view('bobot_kriteria.tambah', ['kriteria' => $kriteria]);
+        } else if (Auth::user()->role == 'hrd') {
+            $kriteria = Kriteria::find($id);
+            return view('bobot_kriteria.tambah', ['kriteria' => $kriteria]);
+        } else if (Auth::user()->role == 'divisi') {
             $kriteria = Kriteria::find($id);
             return view('bobot_kriteria.tambah', ['kriteria' => $kriteria]);
         } else {
@@ -95,6 +122,15 @@ class BobotKriteriaController extends Controller
     public function edit($id)
     {
         if (Auth::user()->role == 'admin') {
+            $bobot_kriteria = BobotKriteria::find($id);
+            return view('bobot_kriteria.edit', ['data' => $bobot_kriteria]);
+        } else if (Auth::user()->role == 'direksi') {
+            $bobot_kriteria = BobotKriteria::find($id);
+            return view('bobot_kriteria.edit', ['data' => $bobot_kriteria]);
+        } else if (Auth::user()->role == 'hrd') {
+            $bobot_kriteria = BobotKriteria::find($id);
+            return view('bobot_kriteria.edit', ['data' => $bobot_kriteria]);
+        } else if (Auth::user()->role == 'divisi') {
             $bobot_kriteria = BobotKriteria::find($id);
             return view('bobot_kriteria.edit', ['data' => $bobot_kriteria]);
         } else {

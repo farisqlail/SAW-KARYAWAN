@@ -114,14 +114,14 @@
             </div>
 
             <div class="col-md-12 card-deck mt-4">
-                <div class="card">
+                <div class="card mb-5">
                     <div class="card-header">
                         <h3>Perankingan Hasil Perhitungan SAW</h3>
 
                         {{-- <a href="{{ route('seleksi.satu', $rangking[0]['idLowongan']) }}"
                             class="btn btn-success mt-5">Cetak
                             Rekap</a> --}}
-                        <div class=" mt-5">
+                        {{-- <div class=" mt-5">
                             <form action="{{ route('pelamar.tolak.satu') }}" method="post" id="formSort">
                                 @csrf
                                 <div class="row">
@@ -136,7 +136,7 @@
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-danger">Seleksi</button>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

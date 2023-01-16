@@ -8,7 +8,11 @@
                     <div class="card-header">
                         <h2 class="float-left">Jadwal Tes</h2>
                         <div class="float-right">
-                            <a href="{{ route('jadwal_tes.tambah') }}" class="btn btn-success">Tambah</a>
+                            @if (Auth::user()->role == 'admin')
+                                <a href="{{ route('jadwal_tes.tambah') }}" class="btn btn-success">Tambah</a>
+                            @elseif (Auth::user()->role == 'hrd')
+                                <a href="{{ route('jadwal_tes.tambah') }}" class="btn btn-success">Tambah</a>
+                            @endif
                         </div>
                     </div>
 
@@ -22,7 +26,11 @@
                                         <th class="text-center">Tanggal Tes</th>
                                         <th class="text-center">Tanggal Notif</th>
                                         <th class="text-center">Batas Pengumpulan</th>
-                                        <th class="text-center" style="width:40%">Aksi</th>
+                                        @if (Auth::user()->role == 'admin')
+                                            <th class="text-center" style="width:40%">Aksi</th>
+                                        @elseif (Auth::user()->role == 'hrd')
+                                            <th class="text-center" style="width:40%">Aksi</th>
+                                        @endif
 
                                     </tr>
                                 </thead>
@@ -35,17 +43,33 @@
                                                 <td>{{ $data->tanggal }}</td>
                                                 <td>{{ $data->tanggal_notif }}</td>
                                                 <td>{{ $data->durasi_tes }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('daftar_soal.index', ['id' => $data->id]) }}"
-                                                        class="btn btn-sm btn-info">Daftar Soal</a>
-                                                    <a href="{{ route('jawaban.index', $data->id) }}"
-                                                        class="btn btn-sm btn-info">Nilai</a>
-                                                    <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id]) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
-                                                    <a href="{{ route('jadwal_tes.notif', $data->id) }}" class="btn btn-sm btn-info">Beri Notif</a>
-                                                    <a href="#" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $data->id }}">Hapus</a>
-                                                </td>
+                                                @if (Auth::user()->role == 'admin')
+                                                    <td class="text-center">
+                                                        <a href="{{ route('daftar_soal.index', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-info">Daftar Soal</a>
+                                                        <a href="{{ route('jawaban.index', $data->id) }}"
+                                                            class="btn btn-sm btn-info">Nilai</a>
+                                                        <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-warning">Edit</a>
+                                                        <a href="{{ route('jadwal_tes.notif', $data->id) }}"
+                                                            class="btn btn-sm btn-info">Beri Notif</a>
+                                                        <a href="#" class="btn btn-sm btn-danger delete"
+                                                            data-id="{{ $data->id }}">Hapus</a>
+                                                    </td>
+                                                @elseif(Auth::user()->role == 'hrd')
+                                                    <td class="text-center">
+                                                        <a href="{{ route('daftar_soal.index', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-info">Daftar Soal</a>
+                                                        <a href="{{ route('jawaban.index', $data->id) }}"
+                                                            class="btn btn-sm btn-info">Nilai</a>
+                                                        <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-warning">Edit</a>
+                                                        <a href="{{ route('jadwal_tes.notif', $data->id) }}"
+                                                            class="btn btn-sm btn-info">Beri Notif</a>
+                                                        <a href="#" class="btn btn-sm btn-danger delete"
+                                                            data-id="{{ $data->id }}">Hapus</a>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     @else
@@ -88,5 +112,4 @@
                 });
         });
     </script>
-
 @endsection

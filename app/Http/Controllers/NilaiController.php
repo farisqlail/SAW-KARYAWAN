@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Alternatif;
+use App\NilaiAlternatif;
 use App\Crip;
 use App\Kriteria;
 use App\Pelamar;
@@ -46,7 +46,7 @@ class NilaiController extends Controller
     {
         $data = array_values($request->except('_token'));
 //        $data = Crip::find($data);
-        $alternatif = Alternatif::find($id);
+        $alternatif = NilaiAlternatif::find($id);
         $alternatif->crip()->sync($data);
         return redirect(route('alternatif'));
     }
@@ -96,7 +96,7 @@ class NilaiController extends Controller
     {
         $data = array_values($request->except('_token'));
 //        $data = Crip::find($data);
-        $alternatif = Alternatif::find($id);
+        $alternatif = NilaiAlternatif::find($id);
         $alternatif->crip()->sync($data);
         return redirect(route('nilai'));
     }

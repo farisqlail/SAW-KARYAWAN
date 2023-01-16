@@ -1,7 +1,6 @@
 @extends('admin.app')
 
 @section('content')
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -39,18 +38,27 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('perhitungan.validasi', $data) }}"
-                                                        class="btn btn-sm btn-danger">Validasi</a>
+                                                    @if (Auth::user()->role == 'admin')
+                                                        <a href="{{ route('perhitungan.validasi', $data) }}"
+                                                            class="btn btn-sm btn-danger">Validasi</a>
+                                                    @elseif (Auth::user()->role == 'hrd')
+                                                        <a href="{{ route('perhitungan.validasi', $data) }}"
+                                                            class="btn btn-sm btn-danger">Validasi</a>
+                                                    @elseif (Auth::user()->role == 'direksi')
+                                                        <a href="{{ route('perhitungan.validasi', $data) }}"
+                                                            class="btn btn-sm btn-outline-info">Lihat Data Pelamar</a>
+                                                    @endif
 
                                                     @if (\Carbon\Carbon::parse($data->berlaku_sampai) < \Carbon\Carbon::now())
                                                         <a href="{{ route('perhitungan.index', $data) }}"
                                                             class="btn btn-sm btn-info">Seleksi 1</a>
-                                                            @if ($data->durasi_tes < \Carbon\Carbon::now())
+                                                        @if ($data->durasi_tes < \Carbon\Carbon::now())
                                                             <a href="{{ Route('perhitungan.dua', $data) }}"
                                                                 class="btn btn-sm btn-success">Seleksi 2</a>
-                                                                
-                                                             <a href="{{ route('wawancara') }}" class="btn btn-sm btn-info">Wawancara</a>   
-                                                            @endif
+
+                                                            <a href="{{ route('wawancara') }}"
+                                                                class="btn btn-sm btn-info">Wawancara</a>
+                                                        @endif
                                                     @endif
                                                 </td>
                                             </tr>

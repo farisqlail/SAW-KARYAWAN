@@ -22,6 +22,15 @@ class LowonganController extends Controller
         if (Auth::user()->role == 'admin') {
             $lowongan = lowongan::all();
             return view('lowongan.index', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'direksi') {
+            $lowongan = lowongan::all();
+            return view('lowongan.index', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'hrd') {
+            $lowongan = lowongan::all();
+            return view('lowongan.index', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'divisi') {
+            $lowongan = lowongan::all();
+            return view('lowongan.index', ['lowongan' => $lowongan]);
         } else {
             abort(404);
         }
@@ -43,7 +52,7 @@ class LowonganController extends Controller
 
     public function home()
     {
-        $lowongan = lowongan::orderBy('id', 'desc')->get();
+        $lowongan = lowongan::where('status_approve', 'selesai')->orderBy('id', 'desc')->get();
         $pelamar = Pelamar::all();
 
         return view('lowongan.home', compact('lowongan', 'pelamar'));
@@ -57,6 +66,12 @@ class LowonganController extends Controller
     public function create()
     {
         if (Auth::user()->role == 'admin') {
+            return view('lowongan.tambah');
+        } else if (Auth::user()->role == 'direksi') {
+            return view('lowongan.tambah');
+        } else if (Auth::user()->role == 'hrd') {
+            return view('lowongan.tambah');
+        } else if (Auth::user()->role == 'divisi') {
             return view('lowongan.tambah');
         } else {
             abort(404);
@@ -82,16 +97,50 @@ class LowonganController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            Alert::success('Berhasil', 'Data lowongan berhasil ditambahkan');
+            Alert::success('Berhasil', 'Data lowongan berhasil ditambahkan menunggu approve dari hrd');
 
             $lowongan = new lowongan();
             $lowongan->posisi_lowongan = $request->get('posisi');
             $lowongan->berlaku_sampai = $request->get('berlaku');
             $lowongan->deskripsi_pekerjaan = $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
+            $lowongan->status_approve = 'hrd';
             $lowongan->save();
             return redirect()->route('lowongan.index');
         }
+    }
+
+    public function approveHrd(Request $request, $id)
+    {
+
+        Alert::success('Berhasil', 'Data lowongan berhasil approve dari hrd menunggu approvement dari direksi');
+
+        $lowongan = lowongan::findOrFail($id);
+        $lowongan->status_approve = 'direksi';
+        $lowongan->save();
+        return redirect()->route('lowongan.index');
+    }
+
+    public function approveDireksi(Request $request, $id)
+    {
+
+        Alert::success('Berhasil', 'Data lowongan berhasil approve');
+
+        $lowongan = lowongan::findOrFail($id);
+        $lowongan->status_approve = 'selesai';
+        $lowongan->save();
+        return redirect()->route('lowongan.index');
+    }
+
+    public function tolakDireksi(Request $request, $id)
+    {
+
+        Alert::success('Berhasil', 'Data lowongan ditolak');
+
+        $lowongan = lowongan::findOrFail($id);
+        $lowongan->status_approve = 'tolak direksi';
+        $lowongan->save();
+        return redirect()->route('lowongan.index');
     }
 
     /**
@@ -108,6 +157,14 @@ class LowonganController extends Controller
         return view('lowongan.detail', ['lowongan' => $lowongan, 'pelamar' => $pelamar]);
     }
 
+    public function detailAdmin($id)
+    {
+        $lowongan = lowongan::find($id);
+        $pelamar = Pelamar::all();
+
+        return view('lowongan.detailAdmin', ['lowongan' => $lowongan, 'pelamar' => $pelamar]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -117,6 +174,15 @@ class LowonganController extends Controller
     public function edit($id)
     {
         if (Auth::user()->role == 'admin') {
+            $lowongan = lowongan::find($id);
+            return view('lowongan.edit', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'direksi') {
+            $lowongan = lowongan::find($id);
+            return view('lowongan.edit', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'hrd') {
+            $lowongan = lowongan::find($id);
+            return view('lowongan.edit', ['lowongan' => $lowongan]);
+        } else if (Auth::user()->role == 'divisi') {
             $lowongan = lowongan::find($id);
             return view('lowongan.edit', ['lowongan' => $lowongan]);
         } else {

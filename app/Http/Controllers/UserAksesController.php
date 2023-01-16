@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserAksesController extends Controller
 {
@@ -63,7 +64,7 @@ class UserAksesController extends Controller
             $user->name = $request->get('name');
             $user->email = $request->get('email');
             $user->role = $request->get('role');
-            $user->password = $name_clean;
+            $user->password = Hash::make($name_clean);
             $user->division_name = $request->get('division_name');
 
             $user->save();
@@ -124,7 +125,7 @@ class UserAksesController extends Controller
             $user->name = $request->get('name');
             $user->email = $request->get('email');
             $user->role = $request->get('role');
-            $user->password = $request->get('password');
+            $user->password = Hash::make($request->get('password'));
             $user->division_name = $request->get('division_name');
 
             $user->save();

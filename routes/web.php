@@ -28,11 +28,15 @@ Route::prefix('/lowongan')->group(function ()
     Route::get('/daftar-lowongan', 'LowonganController@home')->name('lowongan.home');
     Route::get('/tambah', 'LowonganController@create')->name('lowongan.tambah');
     Route::get('/detail/{id}', 'LowonganController@show')->name('lowongan.detail');
+    Route::get('/detail/lowongan/{id}', 'LowonganController@detailAdmin')->name('lowongan.detailAdmin');
     Route::post('/tambah', 'LowonganController@store')->name('lowongan.simpan');
     Route::get('/admin/edit/{id}', 'LowonganController@edit')->name('lowongan.edit');
     Route::post('/admin/edit/{id}', 'LowonganController@update')->name('lowongan.update');
     Route::get('/admin/hapus/{id}', 'LowonganController@delete')->name('lowongan.delete');
     Route::get('/admin/hapus/{id}', 'LowonganController@destroy')->name('lowongan.hapus');
+    Route::get('/admin/approve/hrd/{id}', 'LowonganController@approveHrd')->name('lowongan.approveHrd');
+    Route::get('/admin/approve/direksi/{id}', 'LowonganController@approveDireksi')->name('lowongan.approveDireksi');
+    Route::get('/admin/tolak/direksi/{id}', 'LowonganController@tolakDireksi')->name('lowongan.tolakDireksi');
     //Kriteria
     Route::get('/admin/kriteria/{id}', 'KriteriaController@index')->name('kriteria.index');
     Route::get('/admin/kriteria/{id}/tambah', 'KriteriaController@create')->name('kriteria.tambah');

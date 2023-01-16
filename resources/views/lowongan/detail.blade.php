@@ -40,10 +40,10 @@
                                         @endphp
                                     @endif
                                 @endforeach
-                                @if (!$check)
+                                {{-- @if (!$check)
                                     <a href="{{ route('pelamar.tambah', $lowongan->id) }}"
                                         class="btn btn-get text-white d-inline-flex">Lamar</a>
-                                @endif
+                                @endif --}}
                             @endif
 
                         </div>

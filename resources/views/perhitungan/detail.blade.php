@@ -123,15 +123,24 @@
                     </div>
 
                     <div class="button-validasi mt-4" align="right">
-                        <form action="{{ route('pelamar.statusDokumen', $pelamar->id) }}" method="post"
-                            id="formx">
+                        <form action="{{ route('pelamar.statusDokumen', $pelamar->id) }}" method="post" id="formx">
                             {{ csrf_field() }}
-                            @if ($pelamar->status_dokumen == null)
-                                <input type="submit" name="submit" class="btn btn-danger btn-sm"
-                                    value="Dokumen Tidak Valid">
+                            @if (Auth::user()->role == 'admin')
+                                @if ($pelamar->status_dokumen == null)
+                                    <input type="submit" name="submit" class="btn btn-danger btn-sm"
+                                        value="Dokumen Tidak Valid">
 
-                                <input type="submit" name="submit" class="btn btn-success btn-sm"
-                                    data-uia="login-submit-button" value="Dokumen Valid">
+                                    <input type="submit" name="submit" class="btn btn-success btn-sm"
+                                        data-uia="login-submit-button" value="Dokumen Valid">
+                                @endif
+                            @elseif(Auth::user()->role == 'hrd')
+                                @if ($pelamar->status_dokumen == null)
+                                    <input type="submit" name="submit" class="btn btn-danger btn-sm"
+                                        value="Dokumen Tidak Valid">
+
+                                    <input type="submit" name="submit" class="btn btn-success btn-sm"
+                                        data-uia="login-submit-button" value="Dokumen Valid">
+                                @endif
                             @endif
                         </form>
                     </div>

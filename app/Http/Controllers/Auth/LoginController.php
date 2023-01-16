@@ -25,16 +25,36 @@ class LoginController extends Controller
     public function authenticated()
     {
         if (Auth::user()->role == 'admin') {
+            // dd(Auth::user()->role);
             // return view('admin.dashboard');
             Alert::success('Selamat Datang Kembali', 'Selamat datang lagi admin');
             return redirect()->route('home');
 
+        } else if (Auth::user()->role == 'divisi') {
+            // dd(Auth::user()->role);
+            // return view('admin.dashboard');
+            Alert::success('Selamat Datang Kembali', 'Selamat datang lagi '.Auth::user()->name);
+            return redirect()->route('home');
+
+        } else if (Auth::user()->role == 'hrd') {
+            // dd(Auth::user()->role);
+            // return view('admin.dashboard');
+            Alert::success('Selamat Datang Kembali', 'Selamat datang lagi '.Auth::user()->name);
+            return redirect()->route('home');
+
+        } else if (Auth::user()->role == 'direksi') {
+            // dd(Auth::user()->role);
+            // return view('admin.dashboard');
+            Alert::success('Selamat Datang Kembali', 'Selamat datang lagi '.Auth::user()->name);
+            return redirect()->route('home');
+
         } else {
+            // dd(Auth::user()->role);
             // return view('hrd.dashboard');
             Alert::success('Selamat Datang', 'Selamat Datang ' . Auth::user()->name);
             return redirect()->route('lowongan.home');
         }
-    
+
         return redirect()->route('login');
     }
 
