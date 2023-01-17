@@ -80,7 +80,7 @@
                                             <form action="{{route('jadwal_tes.hapussoal',['id' => $data->id])}}" method="POST">
                                                 @csrf
                                                 <input type="text" name="id" class="form-control" value="{{$data->id}}" hidden>
-                                                <input type="text" name="id_tes" class="form-control" value="{{$data->id_tes}}" hidden>
+                                                <input type="text" name="id" class="form-control" value="{{$data->id}}" hidden>
                                                 <button type="submit" class="btn btn-sm btn-danger">Hapus Soal</button>
                                             </form>
                                         </td>

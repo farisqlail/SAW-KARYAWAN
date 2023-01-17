@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SoalTes extends Model
 {
     protected $table        = 'soal_tes';
-    protected $primaryKey   = 'id_tes';
-    protected $fillable     = ['id','id'];
+    protected $primaryKey   = 'id';
+    protected $fillable     = ['id'];
     protected $hidden       = ['created_at','updated_at'];
 
     public function daftar_soal() {
@@ -20,6 +20,6 @@ class SoalTes extends Model
     }
     
     public function hasil_tes() {
-        return $this->hasMany(HasilTes::class,'id_tes', 'id_tes');
+        return $this->hasMany(HasilTes::class,'id', 'id');
     }
 }

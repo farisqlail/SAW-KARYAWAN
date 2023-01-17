@@ -14,7 +14,7 @@
                     {{ csrf_field() }}
 
 
-                    <input type="number" name="id_tes" value="{{ $daftarsoal->id }}" hidden>
+                    <input type="number" name="id" value="{{ $daftarsoal->id }}" hidden>
                     <input type="number" name="id" value="{{ $pelamarGet }}" hidden>
                     <input type="number" name="id" value="{{ $pelamar[0]->id }}" hidden>
                     <div class="form-group">

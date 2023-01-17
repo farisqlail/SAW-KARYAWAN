@@ -183,7 +183,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.dokumenValid', ['data' => $pelamar, 'jadwalTes' => $jadwalTes], function ($message) use ($pelamar) {
                 $message
-                    ->from('lintasnusa1990@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
             });
@@ -201,7 +201,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.dokumenTidakValid', ['data' => $pelamar], function ($message) use ($pelamar) {
                 $message
-                    ->from('lintasnusa@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
             });
@@ -226,7 +226,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos', ['data' => $pelamar, 'jadwalTes' => $jadwalTes], function ($message) use ($pelamar) {
                 $message
-                    ->from('lintasnusa1990@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
             });
@@ -244,7 +244,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak', ['data' => $pelamar], function ($message) use ($pelamar) {
                 $message
-                    ->from('lintasnusa@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
             });
@@ -278,7 +278,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos', ['data' => $data, 'jadwalTes' => $jadwalTes], function ($message) use ($data) {
                 $message
-                    ->from('lintasnusa@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($data->user->email, $data->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
             });
@@ -294,7 +294,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak', ['data' => $data], function ($message) use ($data) {
                 $message
-                    ->from('lintasnusa@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($data->user->email, $data->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
             });
@@ -317,7 +317,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos2', ['data' => $data], function ($message) use ($data) {
                 $message
-                    ->from('lintasnusa1990@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($data->user->email, $data->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
             });
@@ -335,7 +335,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak2', ['data' => $data], function ($message) use ($data) {
                 $message
-                    ->from('lintasnusa@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($data->user->email, $data->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
             });
@@ -383,7 +383,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.wawancaraTolak', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
                 $message
-                    ->from('lintasnusa1990@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
             });
@@ -393,7 +393,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.wawancaraTerima', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
                 $message
-                    ->from('lintasnusa1990@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($pelamar->user->email, $pelamar->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
             });
@@ -423,7 +423,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos2', ['data' => $data], function ($message) use ($data) {
                 $message
-                    ->from('lintasnusa1990@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($data->user->email, $data->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
             });
@@ -439,7 +439,7 @@ class PelamarController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.tolak2', ['data' => $data], function ($message) use ($data) {
                 $message
-                    ->from('lintasnusa@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($data->user->email, $data->nama_pelamar)
                     ->subject('Balasan Lamaran Posisi ' . $data->lowongan->posisi_lowongan);
             });

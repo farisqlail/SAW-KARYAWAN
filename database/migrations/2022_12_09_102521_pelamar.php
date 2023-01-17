@@ -30,7 +30,7 @@ class Pelamar extends Migration
             $table->string('seleksi_satu')->nullable();
             $table->string('seleksi_dua')->nullable();
             $table->string('status_dokumen')->nullable();
-            $table->integer('nila_tes')->nullable();
+            $table->integer('nilai_tes')->nullable();
             $table->timestamps();
          });
     }

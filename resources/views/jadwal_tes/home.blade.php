@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-<img src="{{ asset('assets/img/Tes.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+{{-- <img src="{{ asset('assets/img/Tes.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset=""> --}}
 
 @section('content')
 

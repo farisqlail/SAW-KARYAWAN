@@ -85,7 +85,7 @@ INSERT INTO `daftar_soal` (`id`, `id`, `soal`, `file_soal`, `bobot_soal`, `creat
 
 CREATE TABLE `hasil_tes` (
   `id` int(10) UNSIGNED NOT NULL,
-  `id_tes` int(10) UNSIGNED DEFAULT NULL,
+  `id` int(10) UNSIGNED DEFAULT NULL,
   `id` int(10) UNSIGNED DEFAULT NULL,
   `id` int(10) UNSIGNED NOT NULL,
   `jawaban` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `hasil_tes` (
 -- Dumping data for table `hasil_tes`
 --
 
-INSERT INTO `hasil_tes` (`id`, `id_tes`, `id`, `id`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
+INSERT INTO `hasil_tes` (`id`, `id`, `id`, `id`, `jawaban`, `nilai`, `created_at`, `updated_at`) VALUES
 (25, 1, 23, 1, '1656140634.csv', 80, '2022-06-25 00:03:54', '2022-06-26 20:18:20'),
 (26, 2, 23, 1, '1656140644.csv', 80, '2022-06-25 00:04:04', '2022-06-26 20:18:25');
 
@@ -356,7 +356,7 @@ ALTER TABLE `daftar_soal`
 --
 ALTER TABLE `hasil_tes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `hasil_tes_id_index` (`id_tes`),
+  ADD KEY `hasil_tes_id_index` (`id`),
   ADD KEY `hasil_tes_id_index` (`id`),
   ADD KEY `id` (`id`);
 
@@ -502,7 +502,7 @@ ALTER TABLE `daftar_soal`
 --
 ALTER TABLE `hasil_tes`
   ADD CONSTRAINT `hasil_tes_id_foreign` FOREIGN KEY (`id`) REFERENCES `pelamar` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `hasil_tes_id_foreign` FOREIGN KEY (`id_tes`) REFERENCES `daftar_soal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `hasil_tes_id_foreign` FOREIGN KEY (`id`) REFERENCES `daftar_soal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `jadwal_tes`

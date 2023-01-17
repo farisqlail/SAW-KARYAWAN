@@ -19,7 +19,7 @@ class HasilTes extends Migration
             $table->integer('id_pelamar');
             $table->integer('id_lowongan');
             $table->string('jawaban');
-            $table->integer('nilai');
+            $table->integer('nilai')->nullable();
             $table->timestamps();
          });
     }

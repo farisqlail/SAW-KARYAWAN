@@ -1,5 +1,5 @@
 @extends('layouts.user')
-<img src="{{ asset('assets/img/Tes.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset="">
+{{-- <img src="{{ asset('assets/img/Tes.png') }}" class="img-fluid" style="margin-top: 80px;" alt="" srcset=""> --}}
 @section('content')
 
     {{-- @include('jawaban.jawaban') --}}
@@ -48,13 +48,13 @@
                                                         enctype="multipart/form-data">
 
                                                         {{ csrf_field() }}
-
-                                                        <input type="number" name="id_tes"
+{{-- {{ $pelamar[0]->id_lowongan}} --}}
+                                                        <input type="number" name="id_soal_tes"
                                                             value="{{ $data->id }}" hidden>
-                                                        <input type="number" name="id" value="{{ $pelamarGet }}"
-                                                            hidden>
-                                                        <input type="number" name="id"
-                                                            value="{{ $pelamar[0]->id }}" hidden>
+                                                        {{-- <input type="number" name="id" value="{{ $pelamarGet }}"
+                                                            hidden> --}}
+                                                        <input type="number" name="id_lowongan"
+                                                            value="{{ $pelamar[0]->id_lowongan }}" hidden>
                                                         <div class="form-group">
                                                             <span class="text-danger">Unggah jawabanmu disini, pastikan
                                                                 jawaban yang kamu unggah sesuai soal!</span><br>
@@ -94,12 +94,12 @@
                                                             {{ csrf_field() }}
                                                             {{ method_field('PATCH') }}
 
-                                                            <input type="number" name="id_tes"
+                                                            <input type="number" name="id_soal_tes"
                                                                 value="{{ $data->id }}" hidden>
-                                                            <input type="number" name="id"
-                                                                value="{{ $pelamarGet }}" hidden>
-                                                            <input type="number" name="id"
-                                                                value="{{ $pelamar[0]->id }}" hidden>
+                                                            {{-- <input type="number" name="id"
+                                                                value="{{ $pelamarGet }}" hidden> --}}
+                                                            <input type="number" name="id_lowongan"
+                                                                value="{{ $pelamar[0]->id_lowongan }}" hidden>
                                                             <div class="form-group">
                                                                 <span class="text-danger">Unggah jawabanmu disini,
                                                                     pastikan

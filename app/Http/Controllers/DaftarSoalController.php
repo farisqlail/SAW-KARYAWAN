@@ -64,12 +64,11 @@ class DaftarSoalController extends Controller
     public function home($id)
     {
 
-        $user = Auth::user()->id;
-        $pelamar = Pelamar::with('user', 'hasil_tes')->where('id_user', $user)->get();
+        $user       = Auth::user()->id;
+        $pelamar    = Pelamar::with('user', 'hasil_tes')->where('id_user', $user)->get();
         $pelamarGet = $pelamar[0]->id;
-        // dd($pelamarGet);
-        $jadwaltes = JadwalTes::find($id);
-        // dd($jadwaltes);
+        $jadwaltes  = JadwalTes::find($id);
+
         $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
             $q->where('id', $pelamarGet);
         }])

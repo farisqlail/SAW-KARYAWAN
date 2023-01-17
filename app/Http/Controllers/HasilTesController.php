@@ -64,7 +64,7 @@ class HasilTesController extends Controller
         $pelamarGet = $pelamar[0]->id;
 
         $jadwaltes = JadwalTes::find($id);
-        $daftarsoal = DaftarSoal::join('hasil_tes', 'hasil_tes.id_tes', '=', 'daftar_soal.id')
+        $daftarsoal = DaftarSoal::join('hasil_tes', 'hasil_tes.id', '=', 'daftar_soal.id')
             ->where('id', $id)
             ->where('hasil_tes.id', $pelamarGet)
             ->get();
@@ -93,9 +93,9 @@ class HasilTesController extends Controller
 
             $hasilTes = new HasilTes();
 
-            $hasilTes->id_tes = $request->get('id_tes');
-            $hasilTes->id = $request->get('id');
-            $hasilTes->id = $request->get('id');
+            $hasilTes->id_soal_tes = $request->get('id_soal_tes');
+            $hasilTes->id_pelamar = Auth::user()->id;
+            $hasilTes->id_lowongan = $request->get('id_lowongan');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -133,9 +133,9 @@ class HasilTesController extends Controller
 
             $hasilTes = HasilTes::findOrFail($id);
 
-            $hasilTes->id_tes = $request->get('id_tes');
-            $hasilTes->id = $request->get('id');
-            $hasilTes->id = $request->get('id');
+            $hasilTes->id_soal_tes = $request->get('id_soal_tes');
+            $hasilTes->id_pelamar = Auth::user()->id;
+            $hasilTes->id_lowongan = $request->get('id_lowongan');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -199,15 +199,15 @@ class HasilTesController extends Controller
 
             $hasilTes->save();
 
-            $NA = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
-                ->where('id', $hasilTes->id)
-                ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+            $NA = HasilTes::select('id_soal_tes', DB::raw('sum(nilai * bobot_soal) as hasil'))
+                ->where('id_soal_tes', $hasilTes->id)
+                ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')
                 ->where('hasil_tes.id', '=', $hasilTes->id)
-                ->groupBy('id')
+                ->groupBy('id_soal_tes')
                 ->get();
-            $nilai = $NA->toArray();
+            $nilai      = $NA->toArray();
             $sum_nilai  = array_sum(array_column($nilai, 'hasil'));
-            $total=$sum_nilai / 100;
+            $total      = $sum_nilai / 100;
 
             Pelamar::where('id', $hasilTes->id)->update(['nilai_tes' => $total]);
         }

@@ -23,7 +23,7 @@
                     @if (Auth::guest())
                         <div class="button-group" align="right">
 
-                            <a href="{{ route('login') }}" class="btn-get-started">Lamar</a>
+                            {{-- <a href="{{ route('login') }}" class="btn-get-started">Lamar</a> --}}
                         </div>
                     @else
                         <div class="button-group" align="right">

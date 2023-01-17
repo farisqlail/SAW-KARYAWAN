@@ -16,7 +16,7 @@ class DaftarSoal extends Model
     }
     
     public function hasil_tes() {
-        return $this->hasOne(HasilTes::class,'id_tes', 'id');
+        return $this->hasOne(HasilTes::class,'id', 'id');
     }
     
 }

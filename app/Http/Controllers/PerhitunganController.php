@@ -331,9 +331,9 @@ class PerhitunganController extends Controller
                     return redirect()->back();
                 } else {
                     // $hasilTes = HasilTes::select('id', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
-                    //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                    //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                     //     ->where('hasil_tes.id', '=', $id)
-                    //     // ->where('hasil_tes.id_tes', '=', $daftarSoalGet)
+                    //     // ->where('hasil_tes.id', '=', $daftarSoalGet)
                     //     ->groupBy('id', 'bobot_soal')
                     //     ->get();
 
@@ -342,7 +342,7 @@ class PerhitunganController extends Controller
                     foreach ($pelamar as $data) {
                         $nilai = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
                             ->where('id', $data->id)
-                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                             ->where('hasil_tes.id', '=', $id)
                             ->groupBy('id')
                             ->get();
@@ -393,9 +393,9 @@ class PerhitunganController extends Controller
                     return redirect()->back();
                 } else {
                     // $hasilTes = HasilTes::select('id', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
-                    //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                    //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                     //     ->where('hasil_tes.id', '=', $id)
-                    //     // ->where('hasil_tes.id_tes', '=', $daftarSoalGet)
+                    //     // ->where('hasil_tes.id', '=', $daftarSoalGet)
                     //     ->groupBy('id', 'bobot_soal')
                     //     ->get();
 
@@ -404,7 +404,7 @@ class PerhitunganController extends Controller
                     foreach ($pelamar as $data) {
                         $nilai = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
                             ->where('id', $data->id)
-                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                             ->where('hasil_tes.id', '=', $id)
                             ->groupBy('id')
                             ->get();
@@ -455,9 +455,9 @@ class PerhitunganController extends Controller
                     return redirect()->back();
                 } else {
                     // $hasilTes = HasilTes::select('id', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
-                    //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                    //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                     //     ->where('hasil_tes.id', '=', $id)
-                    //     // ->where('hasil_tes.id_tes', '=', $daftarSoalGet)
+                    //     // ->where('hasil_tes.id', '=', $daftarSoalGet)
                     //     ->groupBy('id', 'bobot_soal')
                     //     ->get();
 
@@ -466,7 +466,7 @@ class PerhitunganController extends Controller
                     foreach ($pelamar as $data) {
                         $nilai = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
                             ->where('id', $data->id)
-                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                             ->where('hasil_tes.id', '=', $id)
                             ->groupBy('id')
                             ->get();
@@ -617,9 +617,9 @@ class PerhitunganController extends Controller
                 return redirect()->back();
             } else {
                 // $hasilTes = HasilTes::select('id', 'bobot_soal', DB::raw('sum(nilai) as nilai'))
-                //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                 //     ->where('hasil_tes.id', '=', $id)
-                //     // ->where('hasil_tes.id_tes', '=', $daftarSoalGet)
+                //     // ->where('hasil_tes.id', '=', $daftarSoalGet)
                 //     ->groupBy('id', 'bobot_soal')
                 //     ->get();
 
@@ -653,7 +653,7 @@ class PerhitunganController extends Controller
                 foreach ($pelamar as $data) {
                     $nilai = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
                         ->where('id', $data->id)
-                        ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_tes')
+                        ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
                         ->where('hasil_tes.id', '=', $id)
                         ->groupBy('id')
                         ->get();

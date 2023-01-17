@@ -74,8 +74,9 @@ class JadwalTesController extends Controller
             // } else {
             //     return view('jadwal_tes.gagal',);
             // }
+
             if ($pelamar->count() > 0) {
-                if ($pelamar[0]->seleksi_satu == "Diterima") {
+                if ($pelamar[0]->status_dokumen == "Dokumen Valid") {
 
                     return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
                 } else if ($pelamar[0]->seleksi_satu == "Ditolak") {
@@ -102,7 +103,7 @@ class JadwalTesController extends Controller
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.notif', ['data' => $item, 'jadwal_tes' => $jadwal_tes], function ($message) use ($item) {
                 $message
-                    ->from('lintasnusa1990@gmail.com')
+                    ->from('jayalandta@gmail.com')
                     ->to($item->user->email, $item->nama_pelamar)
                     ->subject('Notifikasi ' . $item->lowongan->posisi_lowongan);
             });

@@ -65,7 +65,7 @@ Route::prefix('/daftar_soal')->group(function ()
     Route::get('/admin/edit/{id}', 'DaftarSoalController@edit')->name('daftar_soal.edit');
     Route::post('/admin/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
     Route::get('/admin/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
-    Route::get('/admin/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
+    Route::get('/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
     
 });
 
