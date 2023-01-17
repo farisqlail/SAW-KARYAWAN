@@ -47,8 +47,8 @@ class JadwalTesController extends Controller
     public function home()
     {
 
-        $user = Auth::user()->id;
-        $pelamar = Pelamar::where('id_user', $user)->get();
+        $user       = Auth::user()->id;
+        $pelamar    = Pelamar::where('id_user', $user)->get();
         // dd($pelamar); 
 
         if (!empty($pelamar)) {
@@ -96,8 +96,8 @@ class JadwalTesController extends Controller
     {
 
         $jadwal_tes = JadwalTes::find($id);
-        $lowongan = Lowongan::where('id',$jadwal_tes->id)->first();
-        $pelamar = Pelamar::where('id', $lowongan->id)->where('seleksi_satu', 'Diterima')->get();
+        $lowongan   = Lowongan::where('id',$jadwal_tes->id)->first();
+        $pelamar    = Pelamar::where('id', $lowongan->id)->where('seleksi_satu', 'Diterima')->get();
 
         foreach ($pelamar as $item) {
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);

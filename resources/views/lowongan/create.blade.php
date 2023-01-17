@@ -85,7 +85,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
-                                                                name="jenis_kelamin" id="jenis_kelamin">
+                                                                name="jenis_kelamin" id="jenis_kelamin" value="Laki-laki">
                                                             <label class="form-check-label" for="jenis_kelamin">
                                                                 Laki - Laki
                                                             </label>
@@ -94,7 +94,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
-                                                                name="jenis_kelamin" id="jenis_kelamin">
+                                                                name="jenis_kelamin" id="jenis_kelamin" value="Perempuan">
                                                             <label class="form-check-label" for="jenis_kelamin">
                                                                 Perempuan
                                                             </label>

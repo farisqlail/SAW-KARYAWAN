@@ -29,7 +29,7 @@
                                                 <td align="center">
                                                     @if ($data->berlaku_sampai > date('Y-m-d') && $data->status_lowongan == null)
                                                         <span class="badge badge-success">Pendaftaran</span>
-                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == null)
+                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == 'seleksi 1')
                                                         <span class="badge badge-warning">Seleksi 1</span>
                                                     @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == 'Seleksi 2')
                                                         <span class="badge badge-warning">Seleksi 2</span>
@@ -40,18 +40,18 @@
                                                 <td class="text-center">
                                                     @if (Auth::user()->role == 'admin')
                                                         <a href="{{ route('perhitungan.validasi', $data) }}"
-                                                            class="btn btn-sm btn-danger">Validasi</a>
+                                                            class="btn btn-sm btn-danger">Seleksi 1</a>
                                                     @elseif (Auth::user()->role == 'hrd')
                                                         <a href="{{ route('perhitungan.validasi', $data) }}"
-                                                            class="btn btn-sm btn-danger">Validasi</a>
+                                                            class="btn btn-sm btn-danger">Seleksi 1</a>
                                                     @elseif (Auth::user()->role == 'direksi')
                                                         <a href="{{ route('perhitungan.validasi', $data) }}"
                                                             class="btn btn-sm btn-outline-info">Lihat Data Pelamar</a>
                                                     @endif
 
                                                     @if (\Carbon\Carbon::parse($data->berlaku_sampai) < \Carbon\Carbon::now())
-                                                        <a href="{{ route('perhitungan.index', $data) }}"
-                                                            class="btn btn-sm btn-info">Seleksi 1</a>
+                                                        {{-- <a href="{{ route('perhitungan.index', $data) }}"
+                                                            class="btn btn-sm btn-info">Seleksi 1</a> --}}
                                                         @if ($data->durasi_tes < \Carbon\Carbon::now())
                                                             <a href="{{ Route('perhitungan.dua', $data) }}"
                                                                 class="btn btn-sm btn-success">Seleksi 2</a>
