@@ -494,7 +494,9 @@ class PerhitunganController extends Controller
             $tes = HasilTes::all();
             $low = Lowongan::find($id);
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
-            $alternatif = Pelamar::where('id_lowongan', $id)->get();
+            dd($kriteria);
+            // $alternatif = Pelamar::where('id_lowongan', $id)->get();
+            $alternatif = Kriteria::join('bobot_kriteria', 'bobot_kriteria.id_kriteria', '=', 'kriteria.id')->where('bobot_kriteria.id_kriteria', '=', 'kriteria.id')->get();
             foreach ($tes as $hasilTes) {
                 if (HasilTes::all()->count() == null) {
 

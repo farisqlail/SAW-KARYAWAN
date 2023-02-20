@@ -75,8 +75,8 @@
                                         </div>
                                     </div>
 
-                                    @if ($data->hasil_tes_count > 0)
-                                        <div class="modal fade" id="ubah-jawaban{{ $data->hasil_tes->id }}"
+                                    @if ($hasil_tes !== 0)
+                                        <div class="modal fade" id="ubah-jawaban{{ $hasil_tes[0]->id }}"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -89,7 +89,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="{{ route('jawaban.update', $data->hasil_tes->id) }}"
+                                                        <form action="{{ route('jawaban.update', $hasil_tes[0]->id) }}"
                                                             method="POST" enctype="multipart/form-data">
                                                             {{ csrf_field() }}
                                                             {{ method_field('PATCH') }}
@@ -98,6 +98,7 @@
                                                                 value="{{ $data->id }}" hidden>
                                                             {{-- <input type="number" name="id"
                                                                 value="{{ $pelamarGet }}" hidden> --}}
+                                                                {{$pelamar}}
                                                             <input type="number" name="id_lowongan"
                                                                 value="{{ $pelamar[0]->id_lowongan }}" hidden>
                                                             <div class="form-group">
@@ -132,16 +133,18 @@
                                         </td>
 
                                         <td align="center" colspan="2">
-                                            @if ($data->hasil_tes_count == 0)
+                                            @if ($hasil_tes == null)
                                                 <a href=""
                                                     class="btn btn-success" data-toggle="modal"
                                                     data-target="#unggah-jawaban{{ $data->id }}">Unggah Jawaban</a>
                                             @else
-                                                <a href="{{ asset('storage/file/jawaban/' . $data->hasil_tes->jawaban) }}"
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ asset('storage/file/jawaban/' . $hasil_tes[0]['jawaban']) }}"
                                                     class="btn btn-success btn-md" target="blank">Unduh Jawaban</a>
                                                     <br> <br>
-                                                <a href="" class="btn btn-danger btn-md" data-toggle="modal"
-                                                    data-target="#ubah-jawaban{{ $data->hasil_tes->id }}" >Ubah Jawaban</a>
+                                                <a href="" class="btn btn-danger btn-md ml-3" data-toggle="modal"
+                                                    data-target="#ubah-jawaban{{ $hasil_tes[0]->id }}" >Ubah Jawaban</a>
+                                            </div>
                                             @endif
                                         </td>
                                     </tr>

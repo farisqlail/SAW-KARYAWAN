@@ -53,12 +53,9 @@ class PelamarController extends Controller
     {
         $lowongan = lowongan::find($id);
         $pelamar = Pelamar::all();
-        $kriteria = DB::table('kriteria')
-            ->where('id', '=', $id)
-            ->get();
+        $kriteria = Kriteria::where('id_lowongan', $id)->get();
         $bobot_kriteria = BobotKriteria::all();
 
-        // dd($kriteria);
 
         return view('lowongan.create', ['lowongan' => $lowongan, 'kriteria' => $kriteria, 'bobot_kriteria' => $bobot_kriteria, 'pelamar' => $pelamar]);
     }

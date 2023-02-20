@@ -20,25 +20,25 @@ class KriteriaController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $lowongan = lowongan::find($id);
-            $data = Kriteria::where('id', $id)->get();
+            $data = Kriteria::where('id_lowongan', $id)->get();
             $nilai = $data->sum('bobot_preferensi');
             // dd($nilai);
             return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
         } else if (Auth::user()->role == 'direksi') {
             $lowongan = lowongan::find($id);
-            $data = Kriteria::where('id', $id)->get();
+            $data = Kriteria::where('id_lowongan', $id)->get();
             $nilai = $data->sum('bobot_preferensi');
             // dd($nilai);
             return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
         } else if (Auth::user()->role == 'hrd') {
             $lowongan = lowongan::find($id);
-            $data = Kriteria::where('id', $id)->get();
+            $data = Kriteria::where('id_lowongan', $id)->get();
             $nilai = $data->sum('bobot_preferensi');
             // dd($nilai);
             return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
         } else if (Auth::user()->role == 'divisi') {
             $lowongan = lowongan::find($id);
-            $data = Kriteria::where('id', $id)->get();
+            $data = Kriteria::where('id_lowongan', $id)->get();
             $nilai = $data->sum('bobot_preferensi');
             // dd($nilai);
             return view('kriteria.index', ['kriteria' => $data, 'lowongan' => $lowongan, 'nilai' => $nilai]);
@@ -97,8 +97,10 @@ class KriteriaController extends Controller
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
             $kriteria->bobot_preferensi = $request->get('bobot_preferensi');
+
             $kriteria->save();
-            return redirect()->route('kriteria.index', ['id' => $kriteria->id]);
+
+            return redirect(route('kriteria.index', $kriteria->id_lowongan));
         }
         return redirect(route('kriteria'));
     }
@@ -149,7 +151,6 @@ class KriteriaController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
-            'id' => 'required',
             'nama_kriteria' => "required",
             'atribut_kriteria' => "required",
             'bobot_preferensi' => "required",
@@ -168,8 +169,10 @@ class KriteriaController extends Controller
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
             $kriteria->bobot_preferensi = $request->get('bobot_preferensi');
             $kriteria->save();
+
+            return redirect(route('kriteria.index', $kriteria->id_lowongan));
         }
-        return redirect(route('kriteria.index', ['id' => $kriteria->id]));
+        return redirect(route('kriteria'));
     }
 
     /**
@@ -182,6 +185,6 @@ class KriteriaController extends Controller
     {
         $kriteria = Kriteria::find($id);
         $kriteria->delete();
-        return redirect(route('kriteria.index', ['id' => $kriteria->id]));
+        return redirect(route('kriteria.index', $kriteria->id_lowongan));
     }
 }

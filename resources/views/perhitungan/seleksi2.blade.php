@@ -36,7 +36,7 @@
                                                     <td>{{ $bk->nama_bobot }}</td>
                                                 @endforeach
 
-                                                {{-- <td>{{ $data->bobotKriteria->nama_bobot }}</td> --}}
+                                                {{-- <td>{{ $data }}</td> --}}
                                             </tr>
                                         @endforeach
                                         {{-- @else
@@ -78,8 +78,9 @@
                                         @foreach ($alternatif as $data)
                                             <tr>
                                                 <td>{{ $data->nama_pelamar }}</td>
-                                                <?php $total = 0;
-                                                $nilai_normalisasi = 0; ?>
+                                                @php $total = 0;
+                                                $nilai_normalisasi = 0; @endphp
+
                                                 @foreach ($data->bobot as $crip)
                                                     @if ($crip->kriteria->atribut_kriteria == 'cost')
                                                         <?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id] / $crip->jumlah_bobot; ?>

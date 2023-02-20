@@ -9,7 +9,7 @@
                         @if (!empty($kriteria))
                             <h3 class="float-left">Bobot Kriteria untuk Kriteria {{ $kriteria->nama_kriteria }}</h3>
                             <div class="float-right">
-                                <a href="{{ route('kriteria.index', ['id' => $kriteria->id]) }}"
+                                <a href="{{ route('kriteria.index', $kriteria->id_lowongan) }}"
                                     class="btn btn-danger">Kembali</a>
                                 <a href="{{ route('bobot_kriteria.tambah', ['id' => $kriteria->id]) }}"
                                     class="btn btn-success">Tambah</a>

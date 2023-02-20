@@ -15,7 +15,7 @@
                             <form action="{{route('kriteria.update', $data->id)}}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="id_lowongan" class="form-control" value="{{$data->id}}" hidden>
+                                    <input type="text" name="id_lowongan" class="form-control" value="{{$data->id_lowongan}}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama Kriteria <span class="text-danger">*</span></label>

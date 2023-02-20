@@ -47,8 +47,7 @@
                                             <div class="form-group">
                                                 <label for="">Tanggal Lahir <span
                                                         class="text-danger">*</span></label>
-                                                <input type="date" name="tanggal_lahir" required class="form-control"
-                                                    >
+                                                <input type="date" name="tanggal_lahir" required class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -57,8 +56,7 @@
                                             <div class="form-group">
                                                 <label for="">Tempat Lahir <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" name="tempat_lahir" required class="form-control"
-                                                    >
+                                                <input type="text" name="tempat_lahir" required class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -147,8 +145,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">No Telepon <span class="text-danger">*</span></label>
-                                                <input type="number" name="no_telepon" required class="form-control"
-                                                    >
+                                                <input type="number" name="no_telepon" required class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -166,15 +163,15 @@
                                     <div class="row mt-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                @foreach ($kriteria as $kriteria)
+                                                @foreach ($kriteria as $kt)
                                                     <div class="form-group">
-                                                        <label for="Kriteria">{{ $kriteria->nama_kriteria }}</label>
-                                                        <select name="{{ $kriteria->id }}" class="form-control">
+                                                        <label for="Kriteria">{{ $kt->nama_kriteria }}</label>
+                                                        <select name="{{ $kt->id }}" class="form-control">
                                                             <option value="">-- Pilih
-                                                                {{ $kriteria->nama_kriteria }}--
+                                                                {{ $kt->nama_kriteria }}--
                                                             </option>
                                                             @foreach ($bobot_kriteria as $bobot)
-                                                                @if ($kriteria->id == $bobot->id)
+                                                                @if ($kt->id == $bobot->id_kriteria)
                                                                     <option value="{{ $bobot->id }}">
                                                                         {{ $bobot->nama_bobot }}</option>
                                                                 @else
@@ -241,8 +238,8 @@
                         </div>
 
                         <div class="lamar-btn mt-3" align="right">
-                            <button type="button" class="btn btn-get text-white d-inline-flex" style="border: none;" data-bs-toggle="modal"
-                                data-bs-target="#lamar">
+                            <button type="button" class="btn btn-get text-white d-inline-flex" style="border: none;"
+                                data-bs-toggle="modal" data-bs-target="#lamar">
                                 Lamar
                             </button>
                             {{-- <button type="submit" class="btn-get-started" style="border: none;">Lamar</button> --}}

@@ -80,26 +80,24 @@ class DaftarSoalController extends Controller
             //         $q->where('id', '!=', $pelamarGet);
             //     });
             // })
-            ->with(['hasil_tes' => function ($q) use ($pelamarGet) {
-                $q->where('id', $pelamarGet);
-            }])
+            // ->with(['hasil_tes' => function ($q) use ($pelamarGet) {
+            //     $q->where('id', $pelamarGet);
+            // }])
             ->get();
 
         if ($daftarsoal->isEmpty()) {
             $daftarsoal = $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
                 $q->where('id', $pelamarGet);
-            }])->get();
+            }])->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
+                    $q->where('id', $pelamarGet);
+                })->with(['hasil_tes' => function($q) use ($pelamarGet) {
+                    $q->where('id', $pelamarGet);
+                }])->get();
         }
 
-        // ->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
-        //     $q->where('id', $pelamarGet);
-        // })->with(['hasil_tes' => function($q) use ($pelamarGet) {
-        //     $q->where('id', $pelamarGet);
-        // }])
+        $hasilTes = HasilTes::where('id_soal_tes', $id)->get();
 
-
-        // dd($daftarsoal);
-        return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar]);
+        return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar, 'hasil_tes' => $hasilTes]);
     }
 
     /**

@@ -30,8 +30,8 @@ class HasilTesController extends Controller
             ->where('hasil_tes.id', $id)
             ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
+            dd($pelamar); 
         $lowongan = lowongan::where('id', $id)->first();
-        // dd($pelamar); 
 
         return view('jawaban.index', [
             'pelamar' => $pelamar,
