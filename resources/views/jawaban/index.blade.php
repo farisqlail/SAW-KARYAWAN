@@ -36,7 +36,6 @@
                                                 <td>{{ $data->posisi_lowongan }}</td>
 
                                                 <td class="text-center">
-
                                                     <a href="{{ route('jawaban.detail', $data) }}"
                                                         class="btn btn-success">Detail Jawaban</a>
 

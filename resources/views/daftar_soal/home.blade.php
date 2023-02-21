@@ -48,13 +48,12 @@
                                                         enctype="multipart/form-data">
 
                                                         {{ csrf_field() }}
-{{-- {{ $pelamar[0]->id_lowongan}} --}}
                                                         <input type="number" name="id_soal_tes"
                                                             value="{{ $data->id }}" hidden>
-                                                        {{-- <input type="number" name="id" value="{{ $pelamarGet }}"
-                                                            hidden> --}}
+                                                        <input type="number" name="id" value="{{ $pelamarGet }}"
+                                                            hidden>
                                                         <input type="number" name="id_lowongan"
-                                                            value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                                                            value="{{ $data->id_lowongan }}" hidden>
                                                         <div class="form-group">
                                                             <span class="text-danger">Unggah jawabanmu disini, pastikan
                                                                 jawaban yang kamu unggah sesuai soal!</span><br>
@@ -75,7 +74,7 @@
                                         </div>
                                     </div>
 
-                                    @if ($hasil_tes !== 0)
+                                    @if (count($hasil_tes) > 0)
                                         <div class="modal fade" id="ubah-jawaban{{ $hasil_tes[0]->id }}"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -96,11 +95,10 @@
 
                                                             <input type="number" name="id_soal_tes"
                                                                 value="{{ $data->id }}" hidden>
-                                                            {{-- <input type="number" name="id"
-                                                                value="{{ $pelamarGet }}" hidden> --}}
-                                                                {{$pelamar}}
-                                                            <input type="number" name="id_lowongan"
-                                                                value="{{ $pelamar[0]->id_lowongan }}" hidden>
+                                                            <input type="number" name="id_user"
+                                                                value="{{ $pelamar[0]->id }}" hidden>
+                                                                <input type="number" name="id_lowongan"
+                                                                value="{{ $data->id_lowongan }}" hidden>
                                                             <div class="form-group">
                                                                 <span class="text-danger">Unggah jawabanmu disini,
                                                                     pastikan
@@ -115,7 +113,6 @@
                                                                 <button type="submit" class="btn btn-primary">Save
                                                                     changes</button>
                                                             </div>
-                                                            {{-- <button type="submit" class="btn btn-primary">Uggah Jawaban</button> --}}
                                                         </form>
                                                     </div>
                                                 </div>
@@ -133,7 +130,7 @@
                                         </td>
 
                                         <td align="center" colspan="2">
-                                            @if ($hasil_tes == null)
+                                            @if (count($hasil_tes) == 0)
                                                 <a href=""
                                                     class="btn btn-success" data-toggle="modal"
                                                     data-target="#unggah-jawaban{{ $data->id }}">Unggah Jawaban</a>

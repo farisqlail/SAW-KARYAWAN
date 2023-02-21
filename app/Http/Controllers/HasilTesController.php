@@ -25,12 +25,12 @@ class HasilTesController extends Controller
     public function index($id)
     {
         $pelamar = Pelamar::select('pelamar.id', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
-            ->join('hasil_tes', 'hasil_tes.id', '=', 'pelamar.id')
+            ->join('hasil_tes', 'hasil_tes.id_pelamar', '=', 'pelamar.id')
             ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
-            ->where('hasil_tes.id', $id)
+            ->where('lowongan.id', $id)
             ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
-            dd($pelamar); 
+        // dd($pelamar); 
         $lowongan = lowongan::where('id', $id)->first();
 
         return view('jawaban.index', [
@@ -41,8 +41,8 @@ class HasilTesController extends Controller
 
     public function detail($id)
     {
-
-        $hasilTes = HasilTes::with('pelamar', 'daftar_soal')->where('id', $id)->get();
+        // $hasilTes = HasilTes::with('pelamar', 'daftar_soal')->where('id', $id)->get();
+        $hasilTes = HasilTes::select('hasil_tes.id','hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->groupBy('id')->get();
         // dd($hasilTes);
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
@@ -94,7 +94,7 @@ class HasilTesController extends Controller
             $hasilTes = new HasilTes();
 
             $hasilTes->id_soal_tes = $request->get('id_soal_tes');
-            $hasilTes->id_pelamar = Auth::user()->id;
+            $hasilTes->id_pelamar = $request->get('id_user');
             $hasilTes->id_lowongan = $request->get('id_lowongan');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
@@ -134,7 +134,7 @@ class HasilTesController extends Controller
             $hasilTes = HasilTes::findOrFail($id);
 
             $hasilTes->id_soal_tes = $request->get('id_soal_tes');
-            $hasilTes->id_pelamar = Auth::user()->id;
+            $hasilTes->id_pelamar = $request->get('id_user');
             $hasilTes->id_lowongan = $request->get('id_lowongan');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
@@ -168,9 +168,11 @@ class HasilTesController extends Controller
      */
     public function edit($id)
     {
-        $hasilTes = HasilTes::find($id);
+        $hasilTes = HasilTes::join('pelamar', 'pelamar.id', '=', 'hasil_tes.id_pelamar')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->get();
         // dd($hasilTes);
-        return view('jawaban.nilai', ['hasilTes' => $hasilTes]);
+        $pelamar = Pelamar::where('id', $id)->first();
+        // dd($hasilTes);
+        return view('jawaban.nilai', ['hasilTes' => $hasilTes, 'pelamar' => $pelamar]);
     }
 
     /**
@@ -180,7 +182,7 @@ class HasilTesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateNilai(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
             'nilai' => 'required',
@@ -190,7 +192,7 @@ class HasilTesController extends Controller
             dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-
+            echo "else";
             Alert::success('Berhasil', 'Jawaban berhasil dinilai');
 
             $hasilTes = HasilTes::findOrFail($id);
@@ -200,7 +202,7 @@ class HasilTesController extends Controller
             $hasilTes->save();
 
             $NA = HasilTes::select('id_soal_tes', DB::raw('sum(nilai * bobot_soal) as hasil'))
-                ->where('id_soal_tes', $hasilTes->id)
+                ->where('id_soal_tes', $hasilTes->id_soal_tes)
                 ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')
                 ->where('hasil_tes.id', '=', $hasilTes->id)
                 ->groupBy('id_soal_tes')
@@ -209,10 +211,10 @@ class HasilTesController extends Controller
             $sum_nilai  = array_sum(array_column($nilai, 'hasil'));
             $total      = $sum_nilai / 100;
 
-            Pelamar::where('id', $hasilTes->id)->update(['nilai_tes' => $total]);
+            Pelamar::where('id', $hasilTes->id_pelamar)->update(['nilai_tes' => $total]);
+            return redirect()->back();
         }
-
-        return redirect()->back();
+        echo "nggak";
     }
 
     /**

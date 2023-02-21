@@ -17,6 +17,7 @@
                             @csrf
                             <div class="form-group">
                                     <input type="text" name="id" class="form-control" value="{{$jadwaltes->id}}" hidden>
+                                    <input type="text" name="id_lowongan" class="form-control" value="{{$lowongan[0]->id}}" hidden>
                                 </div>
                             <div class="form-group">
                                 <label for="soal">Soal<span class="text-danger">*</span></label>

@@ -16,6 +16,7 @@ class DaftarSoal extends Migration
         Schema::create('daftar_soal', function (Blueprint $table) {
             $table->id();
             $table->integer('id_jadwal_tes');
+            $table->integer('id_lowongan');
             $table->string('soal');
             $table->string('file_soal');
             $table->integer('bobot_soal');

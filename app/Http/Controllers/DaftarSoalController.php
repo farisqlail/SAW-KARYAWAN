@@ -96,7 +96,7 @@ class DaftarSoalController extends Controller
         }
 
         $hasilTes = HasilTes::where('id_soal_tes', $id)->get();
-
+        // dd($pelamar);
         return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar, 'hasil_tes' => $hasilTes]);
     }
 
@@ -115,10 +115,15 @@ class DaftarSoalController extends Controller
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
         } else if (Auth::user()->role == 'hrd') {
             $jadwaltes = JadwalTes::find($id);
-            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
+            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->get();
+
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
+
         } else if (Auth::user()->role == 'divisi') {
             $jadwaltes = JadwalTes::find($id);
-            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
+            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->get();
+
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
         } else {
             abort(404);
         }
@@ -146,6 +151,8 @@ class DaftarSoalController extends Controller
 
             $daftar_soal = new DaftarSoal();
             $daftar_soal->id_jadwal_tes = $request->get('id');
+            $daftar_soal->id_pelamar = $request->get('id_user');
+            $daftar_soal->id_lowongan = $request->get('id_lowongan');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = $request->get('bobot');
             if ($request->file('file_soal')) {
@@ -191,11 +198,15 @@ class DaftarSoalController extends Controller
         } else if (Auth::user()->role == 'hrd') {
             $daftar_soal = DaftarSoal::find($id);
             $jadwaltes = JadwalTes::find($id);
-            return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal, 'jadwaltes' => $jadwaltes]);
+            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->get();
+
+            return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal, 'jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'divisi') {
             $daftar_soal = DaftarSoal::find($id);
             $jadwaltes = JadwalTes::find($id);
-            return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal, 'jadwaltes' => $jadwaltes]);
+            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->get();
+
+            return view('daftar_soal.edit', ['daftar_soal' => $daftar_soal, 'jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
         } else {
             abort(404);
         }
@@ -224,6 +235,8 @@ class DaftarSoalController extends Controller
 
             $daftar_soal = DaftarSoal::find($id);
             $daftar_soal->id_jadwal_tes = $request->get('id');
+            $daftar_soal->id_pelamar = $request->get('id_user');
+            $daftar_soal->id_lowongan = $request->get('id_lowongan');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = $request->get('bobot');
             if ($request->file('file_soal')) {
