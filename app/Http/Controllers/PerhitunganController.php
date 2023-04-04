@@ -494,9 +494,22 @@ class PerhitunganController extends Controller
             $tes = HasilTes::all();
             $low = Lowongan::find($id);
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
-            dd($kriteria);
             // $alternatif = Pelamar::where('id_lowongan', $id)->get();
-            $alternatif = Kriteria::join('bobot_kriteria', 'bobot_kriteria.id_kriteria', '=', 'kriteria.id')->where('bobot_kriteria.id_kriteria', '=', 'kriteria.id')->get();
+            // $alternatif = BobotKriteria::
+            //     // select('bobot_kriteria.id', 'id_kriteria', 'nama_bobot', 'jumlah_bobot', 'kriteria.id_lowongan', 'nama_kriteria', 'atribut_kriteria', 'bobot_preferensi', 'pelamar.id_user', 'nama_pelamar', 'nilai_tes')
+            //     join('kriteria', 'kriteria.id', '=', 'bobot_kriteria.id_kriteria')
+            //     ->join('lowongan', 'lowongan.id', '=', 'id_lowongan')
+            //     ->join('pelamar', 'pelamar.id_lowongan', '=', 'lowongan.id')
+            //     ->groupBy('pelamar.id_user', 'bobot_kriteria.id', 'id_kriteria', 'kriteria.id_lowongan', 'nama_bobot', 'jumlah_bobot',  'nama_kriteria', 'atribut_kriteria', 'bobot_preferensi', 'nilai_tes', 'nama_pelamar')
+            //     ->select('pelamar.id_user', 'bobot_kriteria.id', 'id_kriteria', 'nama_bobot', 'jumlah_bobot', 'kriteria.id_lowongan', 'nama_kriteria', 'atribut_kriteria', 'bobot_preferensi', 'nama_pelamar', 'nilai_tes')
+            //     ->get();
+            $alternatif = Pelamar::join('lowongan', 'lowongan.id', '=', 'pelamar.id_lowongan')
+                ->join('kriteria', 'kriteria.id_lowongan', '=', 'lowongan.id')
+                ->join('bobot_kriteria', 'bobot_kriteria.id_kriteria', '=', 'kriteria.id')
+                ->select('pelamar.id_user', 'bobot_kriteria.id', 'bobot_kriteria.id_kriteria', 'bobot_kriteria.nama_bobot', 'bobot_kriteria.jumlah_bobot', 'kriteria.id_lowongan', 'kriteria.nama_kriteria', 'kriteria.atribut_kriteria', 'kriteria.bobot_preferensi', 'pelamar.nama_pelamar', 'pelamar.nilai_tes')
+                ->groupBy('pelamar.id_user')
+                ->get();
+            dd($alternatif);
             foreach ($tes as $hasilTes) {
                 if (HasilTes::all()->count() == null) {
 
@@ -509,11 +522,12 @@ class PerhitunganController extends Controller
                     foreach ($kriteria as $krit) {
                         $kode_krit[$krit->id] = [];
                         foreach ($alternatif as $al) {
-                            foreach ($al->bobot as $bobot) {
-                                if ($bobot->kriteria->id == $krit->id) {
-                                    $kode_krit[$krit->id][] = $bobot->jumlah_bobot;
-                                }
+                            // dd($al);
+                            // foreach ($al->bobot as $bobot) {
+                            if ($al->id_kriteria == $krit->id) {
+                                $kode_krit[$krit->id][] = $al->jumlah_bobot;
                             }
+                            // }
                         }
 
                         if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id])) {

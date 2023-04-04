@@ -30,6 +30,8 @@
                                             <th class="text-center" style="width:40%">Aksi</th>
                                         @elseif (Auth::user()->role == 'hrd')
                                             <th class="text-center" style="width:40%">Aksi</th>
+                                        @elseif (Auth::user()->role == 'divisi')
+                                            <th class="text-center" style="width:40%">Aksi</th>
                                         @endif
 
                                     </tr>
@@ -58,16 +60,19 @@
                                                     </td>
                                                 @elseif(Auth::user()->role == 'hrd')
                                                     <td class="text-center">
-                                                        <a href="{{ route('daftar_soal.index', ['id' => $data->id]) }}"
-                                                            class="btn btn-sm btn-info">Daftar Soal</a>
-                                                        <a href="{{ route('jawaban.index', $data->id) }}"
-                                                            class="btn btn-sm btn-info">Nilai</a>
                                                         <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id]) }}"
                                                             class="btn btn-sm btn-warning">Edit</a>
                                                         <a href="{{ route('jadwal_tes.notif', $data->id) }}"
                                                             class="btn btn-sm btn-info">Beri Notif</a>
                                                         <a href="#" class="btn btn-sm btn-danger delete"
                                                             data-id="{{ $data->id }}">Hapus</a>
+                                                    </td>
+                                                @elseif(Auth()->user()->role == 'divisi')
+                                                    <td class="text-center">
+                                                        <a href="{{ route('daftar_soal.index', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-info">Daftar Soal</a>
+                                                        <a href="{{ route('jawaban.index', $data->id) }}"
+                                                            class="btn btn-sm btn-info">Nilai</a>
                                                     </td>
                                                 @endif
                                             </tr>
