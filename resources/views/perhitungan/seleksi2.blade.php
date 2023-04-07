@@ -32,11 +32,9 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $data->nama_pelamar }}</td>
-                                                @foreach ($data->bobot_kriteria as $bk)
-                                                    <td>{{ $bk->nama_bobot }}</td>
-                                                @endforeach
-
-                                                {{-- <td>{{ $data }}</td> --}}
+                                                <td>{{ $data->nama_bobot }}</td>
+                                                {{-- @foreach ($data->bobot_kriteria as $bk)
+                                                @endforeach --}}
                                             </tr>
                                         @endforeach
                                         {{-- @else
@@ -81,7 +79,7 @@
                                                 @php $total = 0;
                                                 $nilai_normalisasi = 0; @endphp
 
-                                                @foreach ($data->bobot as $crip)
+                                                {{-- @foreach ($data->bobot as $crip)
                                                     @if ($crip->kriteria->atribut_kriteria == 'cost')
                                                         <?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id] / $crip->jumlah_bobot; ?>
                                                     @elseif($crip->kriteria->atribut_kriteria == 'benefit')
@@ -89,7 +87,7 @@
                                                     @endif
                                                     <?php $total = $total + $bobot[$crip->kriteria->id] * $nilai_normalisasi; ?>
                                                     <td>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</td>
-                                                @endforeach
+                                                @endforeach --}}
                                                 <?php $rangking[] = [
                                                     'total' => $total,
                                                     'kode' => $data->id,
