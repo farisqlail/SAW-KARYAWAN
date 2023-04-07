@@ -23,9 +23,19 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" name="keterangan_bobot" class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="nilai_crip">Nilai Bobot<span class="text-danger">*</span></label>
-                                    <input type="number" name="nilai_bobot" class="form-control" min="1" required>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="bobot_awal">Bobot Awal <span class="text-danger">*</span></label>
+                                            <input type="text" name="bobot_awal" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="bobot_akhir">Bobot Akhir <span class="text-danger">*</span></label>
+                                            <input type="text" name="bobot_akhir" class="form-control" required>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="float-right">
                                     <a href="{{ route('bobot_kriteria.index', ['id' => $kriteria->id]) }}"

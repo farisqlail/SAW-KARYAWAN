@@ -15,9 +15,11 @@ class BobotKriteria extends Migration
     {
         Schema::create('bobot_kriteria', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_kriteria');
+            $table->bigInteger('id_kriteria')->index()->unsigned()->nullable();
+            $table->foreign('id_kriteria')->references('id')->on('kriteria')->onDelete('cascade');
             $table->string('nama_bobot');
-            $table->integer('jumlah_bobot');
+            $table->double('bobot_awal')->default(0);
+            $table->double('bobot_akhir')->default(0);
             $table->timestamps();
         });
     }

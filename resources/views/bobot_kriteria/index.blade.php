@@ -36,7 +36,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 {{-- <td>{{ $datakriteria[0]->nama_kriteria }}</td> --}}
                                                 <td>{{ $data->nama_bobot }}</td>
-                                                <td>{{ $data->jumlah_bobot }}</td>
+                                                <td>{{ $data->bobot_awal }} - {{$data->bobot_akhir}}</td>
                                                 <td class="text-center">
 
                                                     <a href="{{ route('bobot_kriteria.edit', ['id' => $data->id]) }}"

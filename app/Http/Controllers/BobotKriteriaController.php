@@ -81,12 +81,11 @@ class BobotKriteriaController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'keterangan_bobot' => "required",
-            'nilai_bobot' => "required",
-
+            'bobot_awal' => "required|numeric",
+            'bobot_akhir' => "required|numeric|gt:bobot_awal"
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
             Alert::success('Berhasil', 'Data bobot kriteria berhasil ditambahkan');
@@ -94,9 +93,9 @@ class BobotKriteriaController extends Controller
             $bobot_kriteria = new BobotKriteria();
             $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
-            $bobot_kriteria->jumlah_bobot = $request->get('nilai_bobot');
+            $bobot_kriteria->bobot_awal = $request->get('bobot_awal');
+            $bobot_kriteria->bobot_akhir = $request->get('bobot_akhir');
             $bobot_kriteria->save();
-            // dd($bobot_kriteria->id_kriteria);
             return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id_kriteria]);
         }
         return redirect()->route('bobot_kriteria');
@@ -149,8 +148,8 @@ class BobotKriteriaController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'keterangan_bobot' => "required",
-            'nilai_bobot' => "required",
-
+            'bobot_awal' => "required|numeric",
+            'bobot_akhir' => "required|numeric|gt:bobot_awal"
         ]);
 
         if ($validator->fails()) {
@@ -162,9 +161,10 @@ class BobotKriteriaController extends Controller
             $bobot_kriteria = BobotKriteria::find($id);
             $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
-            $bobot_kriteria->jumlah_bobot = $request->get('nilai_bobot');
+            $bobot_kriteria->bobot_awal = $request->get('bobot_awal');
+            $bobot_kriteria->bobot_akhir = $request->get('bobot_akhir');
             $bobot_kriteria->save();
-            return redirect()->route('bobot_kriteria.index', ['id_kriteria' => $bobot_kriteria->id_kriteria]);
+            return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id_kriteria]);
         }
         return redirect()->route('bobot_kriteria');
     }
