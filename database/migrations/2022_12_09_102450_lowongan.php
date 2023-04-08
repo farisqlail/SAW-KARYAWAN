@@ -13,8 +13,10 @@ class Lowongan extends Migration
      */
     public function up()
     {
-        Schema::create('lowongan', function (Blueprint $table) { 
+        Schema::create('lowongan', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_user')->index()->unsigned()->nullable();
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('posisi_lowongan');
             $table->date('berlaku_sampai');
             $table->text('deskripsi_pekerjaan');

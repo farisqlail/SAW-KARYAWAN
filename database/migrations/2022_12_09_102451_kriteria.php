@@ -13,9 +13,10 @@ class Kriteria extends Migration
      */
     public function up()
     {
-        Schema::create('kriteria', function (Blueprint $table) { 
+        Schema::create('kriteria', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_lowongan');
+            $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
+            $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
             $table->string('nama_kriteria');
             $table->string('atribut_kriteria');
             $table->integer('bobot_preferensi');
