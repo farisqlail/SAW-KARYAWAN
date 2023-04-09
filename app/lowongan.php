@@ -12,13 +12,13 @@ class lowongan extends Model
     protected $hidden       = ['created_at','updated_at'];
 
     public function pelamar() {
-        return $this->hasMany(Pelamar::class,'id', 'id');
+        return $this->hasMany(Pelamar::class,'id_lowongan', 'id');
     }
 
     public function kriteria() {
-        return $this->hasMany(Kriteria::class,'id', 'id');
+        return $this->hasMany(Kriteria::class,'id_lowongan', 'id');
     }
-    
+
     public function jadwal_tes() {
         return $this->hasMany(JadwalTes::class,'id', 'id');
     }

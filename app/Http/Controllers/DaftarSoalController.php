@@ -65,38 +65,31 @@ class DaftarSoalController extends Controller
     {
 
         $user       = Auth::user()->id;
-        $pelamar    = Pelamar::with('user', 'hasil_tes')->where('id_user', $user)->get();
-        $pelamarGet = $pelamar[0]->id;
+        $pelamar    = Pelamar::with('user', 'hasil_tes')->where('id_user', $user)->firstOrFail();
+        $pelamarGet = $pelamar->id;
         $jadwaltes  = JadwalTes::find($id);
 
         $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
-            $q->where('id', $pelamarGet);
-        }])
-            // ->where(function($q) use ($pelamarGet){
-            //     $q->whereHas('hasil_tes', function($q) use ($pelamarGet) {
-            //         $q->where('id', $pelamarGet);
-            //     })
-            //     ->orWhereHas('hasil_tes', function($q) use ($pelamarGet) {
-            //         $q->where('id', '!=', $pelamarGet);
-            //     });
-            // })
-            // ->with(['hasil_tes' => function ($q) use ($pelamarGet) {
-            //     $q->where('id', $pelamarGet);
-            // }])
-            ->get();
+            return $q->where('id_pelamar', $pelamarGet);
+        }])->get();
 
         if ($daftarsoal->isEmpty()) {
             $daftarsoal = $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
-                $q->where('id', $pelamarGet);
+                $q->where('id_pelamar', $pelamarGet);
             }])->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
-                    $q->where('id', $pelamarGet);
-                })->with(['hasil_tes' => function($q) use ($pelamarGet) {
-                    $q->where('id', $pelamarGet);
-                }])->get();
+                $q->where('id_pelamar', $pelamarGet);
+            })->with(['hasil_tes' => function ($q) use ($pelamarGet) {
+                $q->where('id_pelamar', $pelamarGet);
+            }])->get();
         }
 
+        $daftarsoal = tap($daftarsoal)->transform(function ($data) use ($pelamarGet) {
+            $data->hasil_tes = $data->hasil_tes()->where('id_pelamar', $pelamarGet)->firstOrFail();
+            return $data;
+        });
+
         $hasilTes = HasilTes::where('id_soal_tes', $id)->get();
-        // dd($pelamar);
+
         return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar, 'hasil_tes' => $hasilTes]);
     }
 
@@ -109,19 +102,19 @@ class DaftarSoalController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $jadwaltes = JadwalTes::find($id);
-            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
+            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes,  'lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'direksi') {
             $jadwaltes = JadwalTes::find($id);
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
         } else if (Auth::user()->role == 'hrd') {
             $jadwaltes = JadwalTes::find($id);
-            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->get();
+            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
 
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
-
         } else if (Auth::user()->role == 'divisi') {
             $jadwaltes = JadwalTes::find($id);
-            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->get();
+            $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
 
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'lowongan' => $lowongan]);
         } else {
@@ -151,7 +144,6 @@ class DaftarSoalController extends Controller
 
             $daftar_soal = new DaftarSoal();
             $daftar_soal->id_jadwal_tes = $request->get('id');
-            $daftar_soal->id_pelamar = $request->get('id_user');
             $daftar_soal->id_lowongan = $request->get('id_lowongan');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = $request->get('bobot');

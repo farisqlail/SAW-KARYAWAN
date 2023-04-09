@@ -68,7 +68,6 @@ class PelamarController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make(request()->all(), [
             'nama_pelamar' => 'required',
             'tanggal_lahir' => 'required',
@@ -77,64 +76,70 @@ class PelamarController extends Controller
             'cv' => 'required|mimes:pdf|max:3024',
             'ijazah' => 'required|mimes:pdf|max:3024',
             'pas_foto' => 'required|mimes:jpeg,png,jpg|max:1024',
+            'kriteria' => 'required',
+            'kriteria.*' => 'required'
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
 
-            Alert::success('Berhasil Melamar', 'Lamaran kamu sudah kami terima');
+            DB::beginTransaction();
 
-            $pelamar = new Pelamar();
+            try {
+                $pelamar = new Pelamar();
+                $pelamar->id_lowongan = $request->get('id_lowongan');
+                $pelamar->id_user = $request->get('id_user');
+                // $pelamar->id = $request->get('id');
+                $pelamar->nama_pelamar = $request->get('nama_pelamar');
+                $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
+                $pelamar->tempat_lahir = $request->get('tempat_lahir');
+                $pelamar->agama = $request->get('agama');
+                $pelamar->alamat = $request->get('alamat');
+                $pelamar->no_telepon = $request->get('no_telepon');
+                $pelamar->jenis_kelamin = $request->get('jenis_kelamin');
+                if ($request->hasFile('cv')) {
+                    $file = $request->file('cv');
+                    $filename = time() . '.' . $file->getClientOriginalExtension();
+                    $pelamar->cv = $filename;
+                    Storage::putFileAs("public/file/cv", $file, $filename);
+                }
+                if ($request->hasFile('ijazah')) {
+                    $file = $request->file('ijazah');
+                    $filename = time() . '.' . $file->getClientOriginalExtension();
+                    $pelamar->ijazah = $filename;
+                    Storage::putFileAs("public/file/ijazah", $file, $filename);
+                }
+                if ($request->hasFile('pas_foto')) {
+                    $file = $request->file('pas_foto');
+                    $filename = time() . '.' . $file->getClientOriginalExtension();
+                    $pelamar->pas_foto = $filename;
+                    Storage::putFileAs("public/images/pas_foto", $file, $filename);
+                }
 
-            $pelamar->id_lowongan = $request->get('id_lowongan');
-            $pelamar->id_user = $request->get('id_user');
-            // $pelamar->id = $request->get('id');
-            $pelamar->nama_pelamar = $request->get('nama_pelamar');
-            $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
-            $pelamar->tempat_lahir = $request->get('tempat_lahir');
-            $pelamar->agama = $request->get('agama');
-            $pelamar->alamat = $request->get('alamat');
-            $pelamar->no_telepon = $request->get('no_telepon');
-            $pelamar->jenis_kelamin = $request->get('jenis_kelamin');
-            if ($request->hasFile('cv')) {
-                $file = $request->file('cv');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $pelamar->cv = $filename;
-                Storage::putFileAs("public/file/cv", $file, $filename);
+                $pelamar->save();
+
+                $kriteria_id = $request->get('kriteria_id');
+
+                $kriteria = $request->get('kriteria');
+
+                foreach ($kriteria_id as $key => $k) {
+                    $nilai_alternatif = new NilaiAlternatif();
+                    $nilai_alternatif->id_pelamar = $pelamar->id;
+                    $nilai_alternatif->id_bobot_kriteria = $kriteria[$key];
+                    $nilai_alternatif->save();
+                }
+
+                DB::commit();
+
+                Alert::success('Berhasil Melamar', 'Lamaran kamu sudah kami terima');
+
+                return redirect()->route('lowongan.home');
+
+            } catch (\Exception $th) {
+                DB::rollBack();
+                dd($th->getMessage());
             }
-            if ($request->hasFile('ijazah')) {
-                $file = $request->file('ijazah');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $pelamar->ijazah = $filename;
-                Storage::putFileAs("public/file/ijazah", $file, $filename);
-            }
-            if ($request->hasFile('pas_foto')) {
-                $file = $request->file('pas_foto');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $pelamar->pas_foto = $filename;
-                Storage::putFileAs("public/images/pas_foto", $file, $filename);
-            }
-
-            // dd($pelamar);
-
-            $pelamar->save();
-
-            $bobot_kriteria = BobotKriteria::all();
-
-            $kriteria = DB::table('kriteria')
-                ->where('id', '=', $request->get('id'))
-                ->get();
-            foreach ($kriteria as $kriteria) {
-                $nilai_alternatif = new NilaiAlternatif();
-                $nilai_alternatif->id = $pelamar->id;
-                $nilai_alternatif->id = $request->get($kriteria->id);
-                $nilai_alternatif->save();
-            }
-
-
-            return redirect()->route('lowongan.home');
         }
     }
 
@@ -187,7 +192,7 @@ class PelamarController extends Controller
             // dd($jadwalTes);
             $pelamar->save();
 
-            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id]);
+            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id_lowongan]);
         } elseif ($request->submit == 'Dokumen Tidak Valid') {
 
             Alert::success('Berhasil', 'Dokumen pelamar tidak valid!');
@@ -205,7 +210,7 @@ class PelamarController extends Controller
 
             $pelamar->save();
 
-            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id]);;
+            return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id_lowongan]);;
         }
     }
 
@@ -351,9 +356,6 @@ class PelamarController extends Controller
             ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
 
-        // $lowongan = lowongan::where('id', $id)->first();
-        // dd($pelamar); 
-
         return view('perhitungan.wawancara', [
             'pelamar' => $pelamar
         ]);
@@ -375,7 +377,7 @@ class PelamarController extends Controller
 
         $pelamar->hasil_wawancara = $request->wawancara;
         $pelamar->status_wawancara = 'Ditolak';
-        
+
         if ($pelamar->hasil_wawancara == 'Ditolak') {
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.wawancaraTolak', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
@@ -386,7 +388,7 @@ class PelamarController extends Controller
             });
         } else {
             $pelamar->status_wawancara = 'Diterima';
-            
+
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.wawancaraTerima', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
                 $message
@@ -396,7 +398,7 @@ class PelamarController extends Controller
             });
         }
         $pelamar->save();
-        
+
         return redirect()->route('wawancara');
     }
 

@@ -26,11 +26,10 @@ class HasilTesController extends Controller
     {
         $pelamar = Pelamar::select('pelamar.id', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
             ->join('hasil_tes', 'hasil_tes.id_pelamar', '=', 'pelamar.id')
-            ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
+            ->join('lowongan', 'lowongan.id', '=', 'pelamar.id_lowongan')
             ->where('lowongan.id', $id)
-            ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
+            ->groupBy('pelamar.id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
-        // dd($pelamar); 
         $lowongan = lowongan::where('id', $id)->first();
 
         return view('jawaban.index', [
@@ -41,9 +40,7 @@ class HasilTesController extends Controller
 
     public function detail($id)
     {
-        // $hasilTes = HasilTes::with('pelamar', 'daftar_soal')->where('id', $id)->get();
         $hasilTes = HasilTes::select('hasil_tes.id','hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->groupBy('id')->get();
-        // dd($hasilTes);
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
             'hasilTes' => $hasilTes,
@@ -91,10 +88,11 @@ class HasilTesController extends Controller
 
             Alert::success('Berhasil Upload', 'Jawaban diperiksa terlebih dahulu');
 
-            $hasilTes = new HasilTes();
+            $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
 
+            $hasilTes = new HasilTes();
             $hasilTes->id_soal_tes = $request->get('id_soal_tes');
-            $hasilTes->id_pelamar = $request->get('id_user');
+            $hasilTes->id_pelamar = $pelamar->id;
             $hasilTes->id_lowongan = $request->get('id_lowongan');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');
@@ -125,16 +123,16 @@ class HasilTesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
 
             Alert::success('Berhasil Ubah Jawaban', 'Jawaban diperiksa terlebih dahulu');
 
+            $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
             $hasilTes = HasilTes::findOrFail($id);
 
             $hasilTes->id_soal_tes = $request->get('id_soal_tes');
-            $hasilTes->id_pelamar = $request->get('id_user');
+            $hasilTes->id_pelamar = $pelamar->id;
             $hasilTes->id_lowongan = $request->get('id_lowongan');
             if ($request->hasFile('jawaban')) {
                 $file = $request->file('jawaban');

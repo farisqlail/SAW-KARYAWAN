@@ -48,39 +48,18 @@ class JadwalTesController extends Controller
     {
 
         $user       = Auth::user()->id;
-        $pelamar    = Pelamar::where('id_user', $user)->get();
-        // dd($pelamar); 
+        $pelamar    = Pelamar::where('id_user', $user)->firstOrFail();
+        
+        if ($pelamar) {
 
-        if (!empty($pelamar)) {
-            foreach ($pelamar as $data) {
+            $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id',)
+                ->where('lowongan.id', $pelamar->id_lowongan)
+                ->get();
 
-                $pelamar = Pelamar::with('user')->where('id_user', $user)
-                    ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
-                    ->get();
-
-                $pelamarGet = $data->id;
-
-                $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id',)
-                    ->where('lowongan.id', $pelamarGet)
-                    ->get();
-            }
-
-            // if($pelamar[0]->seleksi_satu == 'Diterima'){
-
-            //     return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-            // } elseif(Pelamar::whereNull('seleksi_satu')->get()) {
-
-            //     return view('jadwal_tes.gagal',);
-            // } else {
-            //     return view('jadwal_tes.gagal',);
-            // }
-
-            if ($pelamar->count() > 0) {
-                if ($pelamar[0]->status_dokumen == "Dokumen Valid") {
-
+            if ($jadwal_tes->count() > 0) {
+                if ($pelamar->status_dokumen == "Dokumen Valid") {
                     return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
-                } else if ($pelamar[0]->seleksi_satu == "Ditolak") {
-
+                } else if ($pelamar->seleksi_satu == "Ditolak") {
                     return view('jadwal_tes.gagal');
                 } elseif (Pelamar::whereNull('seleksi_satu')->get()) {
                     return view('jadwal_tes.gagal');
@@ -96,7 +75,7 @@ class JadwalTesController extends Controller
     {
 
         $jadwal_tes = JadwalTes::find($id);
-        $lowongan   = Lowongan::where('id',$jadwal_tes->id)->first();
+        $lowongan   = Lowongan::where('id', $jadwal_tes->id)->first();
         $pelamar    = Pelamar::where('id', $lowongan->id)->where('seleksi_satu', 'Diterima')->get();
 
         foreach ($pelamar as $item) {
@@ -107,9 +86,8 @@ class JadwalTesController extends Controller
                     ->to($item->user->email, $item->nama_pelamar)
                     ->subject('Notifikasi ' . $item->lowongan->posisi_lowongan);
             });
-
         }
-        
+
         return redirect()->back();
     }
 

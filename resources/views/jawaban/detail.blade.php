@@ -10,7 +10,7 @@
                     <div class="card-header">
                         <h2 class="float-left">Hasil Tes {{ $pelamar->nama_pelamar }}</h2>
                         <div class="float-right">
-                            <a href="{{ route('jawaban.index', ['id' => $pelamar->id]) }}" class="btn btn-danger">Kembali</a>
+                            <a href="{{ route('jawaban.index', ['id' => $pelamar->id_lowongan]) }}" class="btn btn-danger">Kembali</a>
 
                         </div>
                     </div>

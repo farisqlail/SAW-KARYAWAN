@@ -24,19 +24,9 @@
                                     <input type="text" name="keterangan_bobot" class="form-control"
                                         value="{{ $data->nama_bobot }}">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="bobot_awal">Bobot Awal <span class="text-danger">*</span></label>
-                                            <input type="text" name="bobot_awal" value="{{ $data->bobot_awal }}" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="bobot_akhir">Bobot Akhir <span class="text-danger">*</span></label>
-                                            <input type="text" name="bobot_akhir" value="{{ $data->bobot_akhir }}" class="form-control" required>
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="jumlah_bobot">Jumlah Bobot <span class="text-danger">*</span></label>
+                                    <input type="number" name="jumlah_bobot" value="{{ $data->jumlah_bobot }}" class="form-control" required>
                                 </div>
                                 <div class="float-right">
                                     <a href="{{ route('bobot_kriteria.index', ['id' => $data->id]) }}"

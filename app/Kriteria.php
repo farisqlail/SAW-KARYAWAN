@@ -14,9 +14,9 @@ class Kriteria extends Model
     public function lowongan() {
         return $this->belongsTo(lowongan::class,'id', 'id');
     }
-    
+
     public function bobot_kriteria() {
-        return $this->hasMany(BobotKriteria::class,'id', 'id');
+        return $this->hasMany(BobotKriteria::class,'id_kriteria', 'id');
     }
 
     public function pelamar() {

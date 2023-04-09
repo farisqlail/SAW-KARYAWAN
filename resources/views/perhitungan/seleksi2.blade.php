@@ -24,25 +24,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $no = 1;
-                                        @endphp
 
                                         @foreach ($alternatif as $data)
                                             <tr>
-                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->nama_pelamar }}</td>
-                                                <td>{{ $data->nama_bobot }}</td>
-                                                {{-- @foreach ($data->bobot_kriteria as $bk)
-                                                @endforeach --}}
+                                                @foreach ($data->bobot_kriteria as $item)
+                                                    <td>{{ $item->nama_bobot }}</td>
+                                                @endforeach
                                             </tr>
                                         @endforeach
-                                        {{-- @else
-                                        <tr>
-                                            <td colspan="{{ count($pelamar) + 1 }}" class="text-center">Data tidak
-                                                ditemukan</td>
-                                        </tr>
-                                    @endif --}}
+
                                     </tbody>
                                 </table>
                             </div>
@@ -63,47 +55,22 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">Nama Pelamar</th>
-                                        <?php $bobot = []; ?>
                                         @foreach ($kriteria as $krit)
-                                            <?php $bobot[$krit->id] = $krit->bobot_preferensi; ?>
                                             <th class="text-center">{{ $krit->nama_kriteria }}</th>
                                         @endforeach
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (!empty($alternatif))
-                                        <?php $rangking = []; ?>
-                                        @foreach ($alternatif as $data)
-                                            <tr>
-                                                <td>{{ $data->nama_pelamar }}</td>
-                                                @php $total = 0;
-                                                $nilai_normalisasi = 0; @endphp
-
-                                                {{-- @foreach ($data->bobot as $crip)
-                                                    @if ($crip->kriteria->atribut_kriteria == 'cost')
-                                                        <?php $nilai_normalisasi = $kode_krit[$crip->kriteria->id] / $crip->jumlah_bobot; ?>
-                                                    @elseif($crip->kriteria->atribut_kriteria == 'benefit')
-                                                        <?php $nilai_normalisasi = $crip->jumlah_bobot / $kode_krit[$crip->kriteria->id]; ?>
-                                                    @endif
-                                                    <?php $total = $total + $bobot[$crip->kriteria->id] * $nilai_normalisasi; ?>
-                                                    <td>{{ number_format($nilai_normalisasi, 2, ',', '.') }}</td>
-                                                @endforeach --}}
-                                                <?php $rangking[] = [
-                                                    'total' => $total,
-                                                    'kode' => $data->id,
-                                                    'nama' => $data->nama_pelamar,
-                                                    'idLowongan' => $data->id,
-                                                    'seleksi_1' => $data->seleksi_satu,
-                                                    'date' => $data->created_at,
-                                                ]; ?>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                    @forelse ($perhitungan as $item)
                                         <tr>
-                                            <td colspan="{{ count($kriteria) + 1 }}" class="text-center">Data tidak
-                                                ditemukan</td>
+                                            <td>{{ $item['nama_pelamar'] }}</td>
+                                            @forelse ($item['data'] as $data)
+                                                <td>{{ $data['hitung'] }}</td>
+                                            @empty
+                                            @endforelse
                                         </tr>
-                                    @endif
+                                    @empty
+                                    @endforelse
                                 </tbody>
                             </table>
                             <p style="color: red;">Keterangan: Rentang nilai diantara 0 hingga 1</p>
@@ -111,25 +78,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        {{-- <a href="{{ route('seleksi.dua', $lowongan) }}" class="btn btn-md btn-success mt-5">Cetak
-                        Rekap</a> --}}
-        <div class="float-right mt-5">
-            {{-- <form action="{{ route('pelamar.tolak.dua') }}" method="post" id="formSort">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="" class="text-dark mt-3" align="left">Jumlah yang Lolos : </label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" name="sorting" class="form-control" placeholder="Sorting">
-                                </div>
-                                <div class="col-md-4">
-                                    <button type="submit" name="submit" class="btn btn-danger">Seleksi</button>
-                                </div>
-                            </div>
-                        </form> --}}
         </div>
 
 
@@ -153,13 +101,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($hasilTes as $data)
+                                    @foreach ($perangkingan as $data)
                                         <tr>
-                                            <input type="text" name="id[]" value="{{ $data['id'] }}" form="formSort"
-                                                hidden>
-                                            <input type="text" name="total[]" value="($data['total'])" form="formSort"
-                                                hidden>
-
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data['nama_pelamar'] }}</td>
                                             <td>{{ number_format($data['total']) }}</td>
@@ -174,20 +117,20 @@
                                                 @endif
                                             </td>
                                             <td align="center">
-                                                <form action="{{ route('pelamar.seleksi.dua', $data['id']) }}"
+                                                <form action="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}"
                                                     method="post">
                                                     {{ csrf_field() }}
 
-                                                    <a href="{{ route('seleksi.detail', $data['id']) }}"
+                                                    <a href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
                                                         class="btn btn-info">Lihat Detail</a>
 
                                                     @if ($data['status'] == null)
                                                         <input type="submit" name="submit"
-                                                            href="{{ route('pelamar.seleksi.dua', $data['id']) }}"
+                                                            href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}"
                                                             class="btn btn-success" value="Terima">
 
                                                         <input type="submit" name="submit"
-                                                            href="{{ route('pelamar.seleksi.dua', $data['id']) }}"
+                                                            href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}"
                                                             class="btn btn-danger" value="Tolak">
                                                     @endif
                                                 </form>

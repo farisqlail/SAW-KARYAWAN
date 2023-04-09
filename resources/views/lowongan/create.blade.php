@@ -164,9 +164,10 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 @foreach ($kriteria as $kt)
+                                                <input type="hidden" name="kriteria_id[]" value="{{$kt->id}}">
                                                     <div class="form-group">
                                                         <label for="Kriteria">{{ $kt->nama_kriteria }}</label>
-                                                        <select name="{{ $kt->id }}" class="form-control">
+                                                        <select name="kriteria[]" required class="form-control">
                                                             <option value="">-- Pilih
                                                                 {{ $kt->nama_kriteria }}--
                                                             </option>

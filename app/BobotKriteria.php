@@ -12,15 +12,15 @@ class BobotKriteria extends Model
     protected $hidden       = ['created_at','updated_at'];
 
     public function kriteria() {
-        return $this->belongsTo(Kriteria::class,'id', 'id');
+        return $this->belongsTo(Kriteria::class,'id_kriteria', 'id');
     }
 
     public function pelamar() {
-        return $this->belongsToMany(Pelamar::class, 'nilai_alternatif','id', 'id');
+        return $this->belongsToMany(Pelamar::class, 'nilai_alternatif','id_bobot_kriteria', 'id_pelamar');
     }
-    
+
     public function nilai_alternatif() {
-        return $this->hasMany(NilaiAlternatif::class,'id', 'id');
+        return $this->hasMany(NilaiAlternatif::class,'id_bobot_kriteria', 'id');
     }
 
     public function pelamar2(){
