@@ -15,8 +15,12 @@ class DaftarSoal extends Migration
     {
         Schema::create('daftar_soal', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_jadwal_tes');
-            $table->integer('id_lowongan');
+            $table->bigInteger('id_kriteria')->index()->unsigned()->nullable();
+            $table->foreign('id_kriteria')->references('id')->on('kriteria')->onDelete('cascade');
+            $table->bigInteger('id_jadwal_tes')->index()->unsigned()->nullable();
+            $table->foreign('id_jadwal_tes')->references('id')->on('jadwal_tes')->onDelete('cascade');
+            $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
+            $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
             $table->string('soal');
             $table->string('file_soal');
             $table->integer('bobot_soal');

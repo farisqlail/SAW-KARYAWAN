@@ -9,14 +9,20 @@ class DaftarSoal extends Model
     protected $table        = 'daftar_soal';
     protected $primaryKey   = 'id';
     // protected $fillable     = ['soal','file_soal','bobot_soal','id', 'id'];
-    protected $hidden       = ['created_at','updated_at'];
+    protected $hidden       = ['created_at', 'updated_at'];
 
-    public function jadwal_tes() {
-        return $this->belongsTo(JadwalTes::class,'id', 'id');
+    public function jadwal_tes()
+    {
+        return $this->belongsTo(JadwalTes::class, 'id', 'id');
     }
 
-    public function hasil_tes() {
-        return $this->hasMany(HasilTes::class,'id_soal_tes', 'id');
+    public function hasil_tes()
+    {
+        return $this->hasMany(HasilTes::class, 'id_soal_tes', 'id');
     }
 
+    public function kriteria()
+    {
+        return $this->belongsTo(Kriteria::class, 'id_kriteria', 'id');
+    }
 }

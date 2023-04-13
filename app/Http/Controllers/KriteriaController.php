@@ -83,7 +83,7 @@ class KriteriaController extends Controller
             'nama_kriteria' => "required",
             'atribut_kriteria' => "required",
             'bobot_preferensi' => "required",
-
+            'tampil_di_pelamar' => "required"
         ]);
 
         if ($validator->fails()) {
@@ -94,6 +94,7 @@ class KriteriaController extends Controller
 
             $kriteria = new Kriteria();
             $kriteria->id_lowongan = $request->get('id_lowongan');
+            $kriteria->tampil_di_pelamar = $request->get('tampil_di_pelamar');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
             $kriteria->bobot_preferensi = $request->get('bobot_preferensi');
@@ -154,7 +155,7 @@ class KriteriaController extends Controller
             'nama_kriteria' => "required",
             'atribut_kriteria' => "required",
             'bobot_preferensi' => "required",
-
+            'tampil_di_pelamar' => "required"
         ]);
 
         if ($validator->fails()) {
@@ -165,6 +166,7 @@ class KriteriaController extends Controller
 
             $kriteria = Kriteria::find($id);
             $kriteria->id_lowongan = $request->get('id_lowongan');
+            $kriteria->tampil_di_pelamar = $request->get('tampil_di_pelamar');
             $kriteria->nama_kriteria = $request->get('nama_kriteria');
             $kriteria->atribut_kriteria = $request->get('atribut_kriteria');
             $kriteria->bobot_preferensi = $request->get('bobot_preferensi');

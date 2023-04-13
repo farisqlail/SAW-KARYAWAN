@@ -13,10 +13,12 @@ class NilaiAlternatif extends Migration
      */
     public function up()
     {
-        Schema::create('nilai_alternatif', function (Blueprint $table) { 
+        Schema::create('nilai_alternatif', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_pelamar');
-            $table->integer('id_bobot_kriteria');
+            $table->bigInteger('id_pelamar')->index()->unsigned()->nullable();
+            $table->foreign('id_pelamar')->references('id')->on('pelamar')->onDelete('cascade');
+            $table->bigInteger('id_bobot_kriteria')->index()->unsigned()->nullable();
+            $table->foreign('id_bobot_kriteria')->references('id')->on('bobot_kriteria')->onDelete('cascade');
             $table->timestamps();
          });
     }

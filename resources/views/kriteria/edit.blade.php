@@ -30,11 +30,18 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="tampil_di_pelamar">Tampil di Pelamar <span class="text-danger">*</span></label>
+                                    <select name="tampil_di_pelamar" required class="form-control">
+                                        <option value="1" @if($data->tampil_di_pelamar == 1) selected @endif >Ya</option>
+                                        <option value="0" @if($data->tampil_di_pelamar == 0) selected @endif >Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="bobot">Bobot Preferensi (%)<span class="text-danger">*</span></label>
                                     <input type="number" name="bobot_preferensi" class="form-control" max="100" value="{{$data->bobot_preferensi}}" required>
                                 </div>
                                 <div class="float-right">
-                                    <a href="{{ route('kriteria.index', ['id' => $data->id]) }}" class="btn btn-danger">Batal</a>
+                                    <a href="{{ route('kriteria.index', ['id' => $data->id_lowongan]) }}" class="btn btn-danger">Batal</a>
                                     <button type="submit" class="btn btn-success">Edit</button>
                                 </div>
                             </form>

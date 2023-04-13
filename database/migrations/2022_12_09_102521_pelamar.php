@@ -13,10 +13,12 @@ class Pelamar extends Migration
      */
     public function up()
     {
-        Schema::create('pelamar', function (Blueprint $table) { 
+        Schema::create('pelamar', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
-            $table->integer('id_lowongan');
+            $table->bigInteger('id_user')->index()->unsigned()->nullable();
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
+            $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
             $table->string('nama_pelamar');
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');

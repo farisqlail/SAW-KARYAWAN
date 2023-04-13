@@ -17,7 +17,17 @@
                                 <div class="form-group">
                                     <input type="text" name="id" class="form-control" value="{{ $jadwaltes->id }}"
                                         hidden>
-                                        <input type="text" name="id_lowongan" class="form-control" value="{{$lowongan[0]->id}}" hidden>
+                                    <input type="text" name="id_lowongan" class="form-control"
+                                        value="{{ $lowongan[0]->id }}" hidden>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kriteria">Kriteria <span class="text-danger">*</span></label>
+                                    <select name="kriteria" id="kriteria" required class="form-control">
+                                        @forelse ($kriteria as $item)
+                                            <option value="{{ $item->id }}" @if($item->id == $daftar_soal->id_kriteria) selected @endif >{{ $item->nama_kriteria }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="soal">Soal<span class="text-danger">*</span></label>

@@ -30,6 +30,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="tampil_di_pelamar">Tampil di Pelamar <span class="text-danger">*</span></label>
+                                    <select name="tampil_di_pelamar" id="tampil_di_pelamar" required class="form-control">
+                                        <option value="1">Ya</option>
+                                        <option value="0">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="bobot">Bobot Preferensi (%)<span class="text-danger">*</span></label>
                                     <input type="number" name="bobot_preferensi" class="form-control" max="100" required>
                                 </div>

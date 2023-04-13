@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="float-left">Daftar Soal Tes untuk Posisi {{$lowongan->posisi_lowongan}}</h3>
+                        <h3 class="float-left">Daftar Soal Tes untuk Posisi {{ $lowongan->posisi_lowongan }}</h3>
                         <div class="float-right">
                             <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Kembali</a>
                             <a href="{{ route('daftar_soal.tambah', ['id' => $jadwaltes->id]) }}"
@@ -20,6 +20,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
+                                        <th class="text-center">Kriteria</th>
                                         <th class="text-center">Soal</th>
                                         <th class="text-center">File Soal</th>
                                         <th class="text-center">Bobot Soal</th>
@@ -31,8 +32,10 @@
                                         @foreach ($daftarsoal as $data)
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $data->kriteria->nama_kriteria }}</td>
                                                 <td>{{ $data->soal }}</td>
-                                                <td ><a href="/upload/{{ $data->file_soal }}" class="btn btn-success"><i class="fas fa-download"></i> &nbsp; Unduh File</a></td>
+                                                <td><a href="/upload/{{ $data->file_soal }}" class="btn btn-success"><i
+                                                            class="fas fa-download"></i> &nbsp; Unduh File</a></td>
                                                 <td>{{ $data->bobot_soal }}</td>
                                                 <td class="text-center">
 

@@ -23,6 +23,7 @@
                                         <th class="text-center">Kriteria</th>
                                         <th class="text-center">Atribut</th>
                                         <th class="text-center">Bobot (%)</th>
+                                        <th class="text-center">Tampil di Pelamar</th>
                                         <th class="text-center" style="width: 30%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,10 +40,11 @@
                                                 <td>{{ $data->nama_kriteria }}</td>
                                                 <td>{{ $data->atribut_kriteria }}</td>
                                                 <td class="text-center">
-                                                    
+
                                                         {{ $data->bobot_preferensi }}<br>
-                                                    
+
                                                 </td>
+                                                <td>{{ $data->tampil_di_pelamar == 1 ? 'Ya' : 'Tidak' }}</td>
                                                 <td class="text-center">
 
                                                     <a href="{{ route('bobot_kriteria.index', ['id' => $data->id]) }}"

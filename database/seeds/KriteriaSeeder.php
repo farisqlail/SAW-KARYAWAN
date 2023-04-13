@@ -17,43 +17,50 @@ class KriteriaSeeder extends Seeder
                 'id_lowongan' => 1,
                 'nama_kriteria' => 'IPK',
                 'atribut_kriteria' => 'benefit',
-                'bobot_preferensi' => 15
+                'bobot_preferensi' => 15,
+                'tampil_di_pelamar' => 1
             ],
             [
                 'id_lowongan' => 1,
                 'nama_kriteria' => 'USIA',
                 'atribut_kriteria' => 'cost',
-                'bobot_preferensi' => 10
+                'bobot_preferensi' => 10,
+                'tampil_di_pelamar' => 1
             ],
             [
                 'id_lowongan' => 1,
                 'nama_kriteria' => 'PENGALAMAN',
                 'atribut_kriteria' => 'benefit',
-                'bobot_preferensi' => 10
+                'bobot_preferensi' => 10,
+                'tampil_di_pelamar' => 1
             ],
             [
                 'id_lowongan' => 1,
                 'nama_kriteria' => 'EXPERT DALAM MENGGUNAKAN LARAVEL',
                 'atribut_kriteria' => 'benefit',
-                'bobot_preferensi' => 20
+                'bobot_preferensi' => 20,
+                'tampil_di_pelamar' => 1
             ],
             [
                 'id_lowongan' => 1,
                 'nama_kriteria' => 'PAHAM PEMROGRAMAN JAVASCRIPT',
                 'atribut_kriteria' => 'benefit',
-                'bobot_preferensi' => 20
+                'bobot_preferensi' => 20,
+                'tampil_di_pelamar' => 1
             ],
             [
                 'id_lowongan' => 1,
                 'nama_kriteria' => 'PAHAM PEMROGRAMAN PHP',
                 'atribut_kriteria' => 'benefit',
-                'bobot_preferensi' => 15
+                'bobot_preferensi' => 15,
+                'tampil_di_pelamar' => 1
             ],
             [
                 'id_lowongan' => 1,
                 'nama_kriteria' => 'PSIKOTES',
                 'atribut_kriteria' => 'benefit',
-                'bobot_preferensi' => 10
+                'bobot_preferensi' => 10,
+                'tampil_di_pelamar' => 1
             ]
         ];
 

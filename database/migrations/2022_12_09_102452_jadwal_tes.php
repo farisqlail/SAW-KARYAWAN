@@ -13,9 +13,10 @@ class JadwalTes extends Migration
      */
     public function up()
     {
-        Schema::create('jadwal_tes', function (Blueprint $table) { 
+        Schema::create('jadwal_tes', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_lowongan');
+            $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
+            $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
             $table->date('tanggal_notif');
             $table->date('tanggal');
             $table->date('durasi_tes');

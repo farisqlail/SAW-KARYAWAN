@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Kriteria extends Migration
+class HasilTes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,18 @@ class Kriteria extends Migration
      */
     public function up()
     {
-        Schema::create('kriteria', function (Blueprint $table) {
+        Schema::create('hasil_tes', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_soal_tes')->index()->unsigned()->nullable();
+            $table->foreign('id_soal_tes')->references('id')->on('daftar_soal')->onDelete('cascade');
+            $table->bigInteger('id_pelamar')->index()->unsigned()->nullable();
+            $table->foreign('id_pelamar')->references('id')->on('pelamar')->onDelete('cascade');
             $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
             $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
-            $table->string('nama_kriteria');
-            $table->string('atribut_kriteria');
-            $table->integer('bobot_preferensi');
-            $table->tinyInteger('tampil_di_pelamar');
+            $table->string('jawaban');
+            $table->integer('nilai')->nullable();
             $table->timestamps();
-        });
+         });
     }
 
     /**
