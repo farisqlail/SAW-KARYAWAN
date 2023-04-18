@@ -53,7 +53,7 @@ class PelamarController extends Controller
     {
         $lowongan = lowongan::find($id);
         $pelamar = Pelamar::all();
-        $kriteria = Kriteria::where('id_lowongan', $id)->get();
+        $kriteria = Kriteria::where('id_lowongan', $id)->where('tampil_di_pelamar', 1)->get();
         $bobot_kriteria = BobotKriteria::all();
 
 
@@ -135,7 +135,6 @@ class PelamarController extends Controller
                 Alert::success('Berhasil Melamar', 'Lamaran kamu sudah kami terima');
 
                 return redirect()->route('lowongan.home');
-
             } catch (\Exception $th) {
                 DB::rollBack();
                 dd($th->getMessage());

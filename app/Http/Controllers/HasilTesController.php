@@ -14,6 +14,7 @@ use App\Pelamar;
 use App\DaftarSoal;
 use App\JadwalTes;
 use App\lowongan;
+use App\BobotKriteria;
 
 class HasilTesController extends Controller
 {
@@ -40,7 +41,8 @@ class HasilTesController extends Controller
 
     public function detail($id)
     {
-        $hasilTes = HasilTes::select('hasil_tes.id','hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->groupBy('id')->get();
+        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal','id_soal_tes')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->groupBy('id')->get();
+
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
             'hasilTes' => $hasilTes,
@@ -183,36 +185,37 @@ class HasilTesController extends Controller
     public function updateNilai(Request $request, $id)
     {
         $validator = Validator::make(request()->all(), [
-            'nilai' => 'required',
+            'bobot' => 'required',
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
-            echo "else";
             Alert::success('Berhasil', 'Jawaban berhasil dinilai');
 
+            $bobot_kriteria = BobotKriteria::findOrFail($request->get('bobot'));
+           
             $hasilTes = HasilTes::findOrFail($id);
 
-            $hasilTes->nilai = $request->get('nilai');
+            $hasilTes->nilai = $bobot_kriteria->jumlah_bobot;
+
+            $hasilTes->id_bobot_kriteria = $bobot_kriteria->id;
 
             $hasilTes->save();
 
-            $NA = HasilTes::select('id_soal_tes', DB::raw('sum(nilai * bobot_soal) as hasil'))
-                ->where('id_soal_tes', $hasilTes->id_soal_tes)
-                ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')
-                ->where('hasil_tes.id', '=', $hasilTes->id)
-                ->groupBy('id_soal_tes')
-                ->get();
-            $nilai      = $NA->toArray();
-            $sum_nilai  = array_sum(array_column($nilai, 'hasil'));
-            $total      = $sum_nilai / 100;
+            // $NA = HasilTes::select('id_soal_tes', DB::raw('sum(nilai * bobot_soal) as hasil'))
+            //     ->where('id_soal_tes', $hasilTes->id_soal_tes)
+            //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')
+            //     ->where('hasil_tes.id', '=', $hasilTes->id)
+            //     ->groupBy('id_soal_tes')
+            //     ->get();
+            // $nilai      = $NA->toArray();
+            // $sum_nilai  = array_sum(array_column($nilai, 'hasil'));
+            // $total      = $sum_nilai / 100;
 
-            Pelamar::where('id', $hasilTes->id_pelamar)->update(['nilai_tes' => $total]);
+            // Pelamar::where('id', $hasilTes->id_pelamar)->update(['nilai_tes' => $total]);
             return redirect()->back();
         }
-        echo "nggak";
     }
 
     /**
@@ -224,5 +227,24 @@ class HasilTesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getBobotKriteria(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $id = $request->get('id_soal_tes');
+
+            $id_pelamar = $request->get('id_pelamar');
+
+            $daftarsoal = DaftarSoal::findOrFail($id);
+
+            $bobot_kriteria = BobotKriteria::where('id_kriteria', $daftarsoal->id_kriteria)->get();
+
+            $hasil_tes = HasilTes::where('id_pelamar', $id_pelamar)->where('id_soal_tes', $id)->first();
+
+
+            return response()->json(['data' => $bobot_kriteria, 'hasil_tes' => $hasil_tes, 'status' => true]);
+        }
     }
 }

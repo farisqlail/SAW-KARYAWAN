@@ -22,7 +22,7 @@ Route::get('/admin/home', 'HomeController@index')->name('home');
 //LOWONGAN
 Route::prefix('/lowongan')->group(function ()
 {
-    
+
     Route::get('/lowongan/search', 'LowonganController@search')->name('lowongan.search');
     Route::get('/admin', 'LowonganController@index')->name('lowongan.index');
     Route::get('/daftar-lowongan', 'LowonganController@home')->name('lowongan.home');
@@ -66,7 +66,7 @@ Route::prefix('/daftar_soal')->group(function ()
     Route::post('/admin/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
     Route::get('/admin/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
     Route::get('/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
-    
+
 });
 
 Route::prefix('/jadwal_tes')->group(function ()
@@ -87,6 +87,7 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::get('/hasil-tes/{id}', 'HasilTesController@index')->name('jawaban.index');
     Route::get('/jawaban/unggah/{id}', 'HasilTesController@create')->name('jawaban.unggah');
     Route::get('/jawaban/detail/{id}', 'HasilTesController@detail')->name('jawaban.detail');
+    Route::get('/jawaban/bobot-kriteria', 'HasilTesController@getBobotKriteria')->name('jawaban.bobot-kriteria');
     Route::post('/jawaban', 'HasilTesController@store')->name('jawaban.store');
     Route::get('/nilai-jawaban/{id}', 'HasilTesController@edit')->name('jawaban.nilai');
     Route::put('/nilai-jawaban/{id}', 'HasilTesController@updateNilai')->name('jawaban.nilai.update');

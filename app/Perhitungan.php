@@ -36,6 +36,28 @@ class Perhitungan extends Model
                 $arr_y[] = $y;
             }
 
+            foreach ($pelamar->hasil_tes as $key => $hasil_tes) {
+
+                if ($hasil_tes->daftar_soal->kriteria->atribut_kriteria == 'benefit') {
+                    $max = HasilTes::where('id_soal_tes', $hasil_tes->id_soal_tes)->where('id_lowongan', $id_lowongan)->max('nilai');
+                    $hitung = $hasil_tes->nilai / $max;
+                } else {
+                    $max = HasilTes::where('id_soal_tes', $hasil_tes->id_soal_tes)->where('id_lowongan', $id_lowongan)->min('nilai');
+                    $hitung = $min / $hasil_tes->nilai;
+                }
+
+                $bobot_kriteria = BobotKriteria::join('hasil_tes','hasil_tes.id_bobot_kriteria','bobot_kriteria.id')->first();
+
+                $y['nama_bobot_kriteria'] = $bobot_kriteria->nama_bobot;
+                $y['id_bobot_kriteria'] = $bobot_kriteria->id;
+                $y['id_alternatif'] = $alternatif->id;
+                $y['hitung'] = $hitung;
+                $y['normalisasi'] = $hitung * ($hasil_tes->daftar_soal->kriteria->bobot_preferensi / 100);
+
+                $arr_y[] = $y;
+
+            }
+
             $x['nama_pelamar'] = $pelamar->nama_pelamar;
             $x['id_pelamar'] = $pelamar->id;
             $x['status_dokumen'] = $pelamar->status_dokumen;

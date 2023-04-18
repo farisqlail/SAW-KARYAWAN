@@ -49,7 +49,7 @@ class JadwalTesController extends Controller
 
         $user       = Auth::user()->id;
         $pelamar    = Pelamar::where('id_user', $user)->firstOrFail();
-        
+
         if ($pelamar) {
 
             $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id',)

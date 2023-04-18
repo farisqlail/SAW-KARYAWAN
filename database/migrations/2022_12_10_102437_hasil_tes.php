@@ -21,6 +21,8 @@ class HasilTes extends Migration
             $table->foreign('id_pelamar')->references('id')->on('pelamar')->onDelete('cascade');
             $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
             $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
+            $table->bigInteger('id_bobot_kriteria')->index()->unsigned()->nullable();
+            $table->foreign('id_bobot_kriteria')->references('id')->on('bobot_kriteria')->onDelete('cascade');
             $table->string('jawaban');
             $table->integer('nilai')->nullable();
             $table->timestamps();

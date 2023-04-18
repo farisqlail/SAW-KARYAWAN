@@ -156,91 +156,57 @@ class PerhitunganController extends Controller
     {
 
         if (Auth::user()->role == 'admin') {
-            $lowongan = lowongan::all();
             $lowonganGet = $id;
-            // dd($lowonganGet);
+
             $low = lowongan::find($id);
+
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
+
             $alternatif = Pelamar::where('id_lowongan', $id)->get();
-            // dd($alternatif);
+
             $kode_krit = [];
-            foreach ($kriteria as $krit) {
-                $kode_krit[$krit->id] = [];
-                foreach ($alternatif as $al) {
-                    foreach ($al->bobot as $bobot) {
-                        if ($bobot->kriteria->id == $krit->id) {
-                            $kode_krit[$krit->id][] = $bobot->jumlah_bobot;
-                        }
-                    }
-                }
 
-                if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id])) {
+            $perhitungan =  Perhitungan::get_perhitungan($lowonganGet);
 
-                    $kode_krit[$krit->id] = min($kode_krit[$krit->id]);
-                } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id])) {
+            $perangkingan = Perhitungan::perangkingan($perhitungan);
 
-                    $kode_krit[$krit->id] = max($kode_krit[$krit->id]);
-                }
-                // else {
-                //     Alert::error('Maaf', 'Data belum ada');
+            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'seleksi 1']);
 
-                //     $kode_krit[$krit->id] = 1;
-
-                //     return redirect()->back();
-                // }
-            }
-
-            //        return json_encode($kode_krit);
             return view('perhitungan.validasi', [
                 'kriteria'      => $kriteria,
                 'alternatif'    => $alternatif,
                 'kode_krit'     => $kode_krit,
                 'lowonganGet'   => $lowonganGet,
-                'low'           => $low
+                'low'           => $low,
+                'perangkingan' => $perangkingan
             ]);
+
         } else if (Auth::user()->role == 'direksi') {
-            $lowongan = lowongan::all();
             $lowonganGet = $id;
-            // dd($lowonganGet);
+
             $low = lowongan::find($id);
+
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
+
             $alternatif = Pelamar::where('id_lowongan', $id)->get();
-            // dd($alternatif);
+
             $kode_krit = [];
-            foreach ($kriteria as $krit) {
-                $kode_krit[$krit->id] = [];
-                foreach ($alternatif as $al) {
-                    foreach ($al->bobot as $bobot) {
-                        if ($bobot->kriteria->id == $krit->id) {
-                            $kode_krit[$krit->id][] = $bobot->jumlah_bobot;
-                        }
-                    }
-                }
 
-                if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id])) {
+            $perhitungan =  Perhitungan::get_perhitungan($lowonganGet);
 
-                    $kode_krit[$krit->id] = min($kode_krit[$krit->id]);
-                } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id])) {
+            $perangkingan = Perhitungan::perangkingan($perhitungan);
 
-                    $kode_krit[$krit->id] = max($kode_krit[$krit->id]);
-                }
-                // else {
-                //     Alert::error('Maaf', 'Data belum ada');
+            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'seleksi 1']);
 
-                //     $kode_krit[$krit->id] = 1;
-
-                //     return redirect()->back();
-                // }
-            }
-
-            //        return json_encode($kode_krit);
             return view('perhitungan.validasi', [
                 'kriteria'      => $kriteria,
                 'alternatif'    => $alternatif,
                 'kode_krit'     => $kode_krit,
                 'lowonganGet'   => $lowonganGet,
-                'low'           => $low
+                'low'           => $low,
+                'perangkingan' => $perangkingan
             ]);
+
         } else if (Auth::user()->role == 'hrd') {
             $lowonganGet = $id;
 
@@ -302,160 +268,60 @@ class PerhitunganController extends Controller
     public function perhitungan2($id)
     {
         if (Auth::user()->role == 'admin') {
-            $lowongan = lowongan::find($id);
-            $daftarSoal = DaftarSoal::all();
-            $daftarSoalGet = $daftarSoal[0]->id;
             $tes = HasilTes::all();
+
             $low = lowongan::find($id);
+
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
+
             $alternatif = Pelamar::where('id_lowongan', $id)->get();
-            foreach ($tes as $hasilTes) {
-                if (HasilTes::all()->count() == null) {
 
-                    Alert::error('Maaf', 'Data belum ada');
-                    return redirect()->back();
-                } else {
-                    $kode_krit = [];
-                    foreach ($kriteria as $krit) {
-                        $kode_krit[$krit->id] = [];
-                        foreach ($alternatif as $al) {
-                            foreach ($al->bobot as $bobot) {
-                                if ($bobot->kriteria->id == $krit->id) {
-                                    $kode_krit[$krit->id][] = $bobot->jumlah_bobot;
-                                }
-                            }
-                        }
+            $perhitungan =  Perhitungan::get_perhitungan($id);
 
-                        if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id])) {
+            $perangkingan = Perhitungan::perangkingan($perhitungan);
 
-                            $kode_krit[$krit->id] = min($kode_krit[$krit->id]);
-                        } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id])) {
+            if (HasilTes::where('id_lowongan', $id)->count() == 0) {
 
-                            $kode_krit[$krit->id] = max($kode_krit[$krit->id]);
-                        }
-                        // else {
-                        //     Alert::error('Maaf', 'Data belum ada');
+                Alert::error('Maaf', 'Data belum ada');
 
-                        //     $kode_krit[$krit->id] = 1;
+                return redirect()->back();
 
-                        //     return redirect()->back();
-                        // }
-                    }
-
-                    $ar = [];
-                    $pelamar = Pelamar::all();
-                    foreach ($pelamar as $data) {
-                        $nilai = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
-                            ->where('id', $data->id)
-                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
-                            ->where('hasil_tes.id', '=', $id)
-                            ->groupBy('id')
-                            ->get();
-
-                        if ($nilai->isNotEmpty()) {
-                            $nilai = $nilai->toArray();
-                            $nilai = array_sum(array_column($nilai, 'hasil'));
-                            $nilai = $nilai / 100;
-
-                            $x['nama_pelamar'] = $data->nama_pelamar;
-                            $x['status'] = $data->seleksi_dua;
-                            $x['id'] = $data->id;
-
-                            $x['total'] = $nilai;
-                            array_push($ar, $x);
-                        }
-                    }
-                    if (empty($ar)) {
-                        Alert::error('Maaf', 'Data belum ada');
-
-                        return redirect()->back();
-                    }
-                    array_multisort(array_column($ar, 'total'), SORT_DESC, $ar);
-                    // usort($ar, function ($a, $b) {
-                    //     return $a['total'] <=> $b['total'];
-                    // });
-                    // rsort($ar);
-                    // dd($ar);
-                    return view('perhitungan.seleksi2', [
-                        'daftarSoal'    => $daftarSoal,
-                        'hasilTes'      => $ar,
-                        'lowongan'      => $lowongan,
-                        'low'   => $low
-                    ]);
-                }
+            } else {
+                return view('perhitungan.seleksi2', [
+                    'kriteria'      => $kriteria,
+                    'alternatif'    => $alternatif,
+                    'perhitungan' => $perhitungan,
+                    'perangkingan' => $perangkingan,
+                    'low'   => $low
+                ]);
             }
-            // dd($hasilTes);
         } else if (Auth::user()->role == 'direksi') {
-            $lowongan = lowongan::find($id);
-            $daftarSoal = DaftarSoal::all();
             $tes = HasilTes::all();
+
             $low = lowongan::find($id);
+
             $kriteria = Kriteria::where('id_lowongan', $id)->get();
+
             $alternatif = Pelamar::where('id_lowongan', $id)->get();
-            foreach ($tes as $hasilTes) {
-                if (HasilTes::all()->count() == null) {
 
-                    Alert::error('Maaf', 'Data belum ada');
-                    return redirect()->back();
-                } else {
-                    $kode_krit = [];
-                    foreach ($kriteria as $krit) {
-                        $kode_krit[$krit->id] = [];
-                        foreach ($alternatif as $al) {
-                            foreach ($al->bobot as $bobot) {
-                                if ($bobot->kriteria->id == $krit->id) {
-                                    $kode_krit[$krit->id][] = $bobot->jumlah_bobot;
-                                }
-                            }
-                        }
+            $perhitungan =  Perhitungan::get_perhitungan($id);
 
-                        if ($krit->atribut_kriteria == 'cost' && !empty($kode_krit[$krit->id])) {
+            $perangkingan = Perhitungan::perangkingan($perhitungan);
 
-                            $kode_krit[$krit->id] = min($kode_krit[$krit->id]);
-                        } elseif ($krit->atribut_kriteria == 'benefit' && !empty($kode_krit[$krit->id])) {
+            if (HasilTes::where('id_lowongan', $id)->count() == 0) {
 
-                            $kode_krit[$krit->id] = max($kode_krit[$krit->id]);
-                        }
-                    }
+                Alert::error('Maaf', 'Data belum ada');
 
-                    $ar = [];
-                    $pelamar = Pelamar::all();
-                    foreach ($pelamar as $data) {
-                        $nilai = HasilTes::select('id', DB::raw('sum(nilai * bobot_soal) as hasil'))
-                            ->where('id', $data->id)
-                            ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id')
-                            ->where('hasil_tes.id', '=', $id)
-                            ->groupBy('id')
-                            ->get();
+                return redirect()->back();
 
-                        if ($nilai->isNotEmpty()) {
-                            $nilai = $nilai->toArray();
-                            $nilai = array_sum(array_column($nilai, 'hasil'));
-                            $nilai = $nilai / 100;
-
-                            $x['nama_pelamar'] = $data->nama_pelamar;
-                            $x['status'] = $data->seleksi_dua;
-                            $x['id'] = $data->id;
-
-                            $x['total'] = $nilai;
-                            array_push($ar, $x);
-                        }
-                    }
-                    if (empty($ar)) {
-
-                        Alert::error('Maaf', 'Data belum ada');
-
-                        return redirect()->back();
-
-                    }
-                    array_multisort(array_column($ar, 'total'), SORT_DESC, $ar);
-                    return view('perhitungan.seleksi2', [
-                        'daftarSoal'    => $daftarSoal,
-                        'hasilTes'      => $ar,
-                        'lowongan'      => $lowongan,
-                        'low'   => $low
-                    ]);
-                }
+            } else {
+                return view('perhitungan.seleksi2', [
+                    'kriteria'      => $kriteria,
+                    'alternatif'    => $alternatif,
+                    'perhitungan' => $perhitungan,
+                    'perangkingan' => $perangkingan,
+                    'low'   => $low
+                ]);
             }
         } else if (Auth::user()->role == 'hrd') {
 

@@ -16,8 +16,9 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <form enctype="multipart/form-data" action="{{ route('jawaban.nilai.update', [$hasilTes[0]->id]) }}"
-                                method="POST" class="col-md-12" id="form-nilaiJawaban">
+                            <form enctype="multipart/form-data"
+                                action="{{ route('jawaban.nilai.update', [$hasilTes[0]->id]) }}" method="POST"
+                                class="col-md-12" id="form-nilaiJawaban">
                                 @csrf
                                 {{ method_field('PUT') }}
                                 <div class="form-group">

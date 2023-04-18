@@ -105,7 +105,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data['nama_pelamar'] }}</td>
-                                            <td>{{ number_format($data['total']) }}</td>
+                                            <td>{{ $data['hasil_normalisasi'] }}</td>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 @if ($data['status'] == 'Diterima')

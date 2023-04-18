@@ -70,12 +70,12 @@ class DaftarSoalController extends Controller
         $pelamarGet = $pelamar->id;
         $jadwaltes  = JadwalTes::find($id);
 
-        $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+        $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
             return $q->where('id_pelamar', $pelamarGet);
         }])->get();
 
         if ($daftarsoal->isEmpty()) {
-            $daftarsoal = $daftarsoal = DaftarSoal::where('id', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+            $daftarsoal = $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
                 $q->where('id_pelamar', $pelamarGet);
             }])->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
                 $q->where('id_pelamar', $pelamarGet);
@@ -85,7 +85,8 @@ class DaftarSoalController extends Controller
         }
 
         $daftarsoal = tap($daftarsoal)->transform(function ($data) use ($pelamarGet) {
-            $data->hasil_tes = $data->hasil_tes()->where('id_pelamar', $pelamarGet)->firstOrFail();
+            $hasiltes = $data->hasil_tes()->where('id_pelamar', $pelamarGet)->first();
+            $data->hasil_tes = $hasiltes ? $hasiltes : 0 ;
             return $data;
         });
 
