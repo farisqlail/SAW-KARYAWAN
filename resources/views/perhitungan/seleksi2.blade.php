@@ -24,17 +24,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        @foreach ($alternatif as $data)
+                                        @forelse ($perhitungan as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->nama_pelamar }}</td>
-                                                @foreach ($data->bobot_kriteria as $item)
-                                                    <td>{{ $item->nama_bobot }}</td>
-                                                @endforeach
+                                                <td>{{ $item['nama_pelamar'] }}</td>
+                                                @forelse ($item['data'] as $data)
+                                                    <td>{{ $data['nama_bobot_kriteria'] }}</td>
+                                                @empty
+                                                @endforelse
                                             </tr>
-                                        @endforeach
-
+                                        @empty
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

@@ -55,9 +55,6 @@
                                                         @if ($data->durasi_tes < \Carbon\Carbon::now()->toDateString())
                                                             <a href="{{ Route('perhitungan.dua', $data) }}"
                                                                 class="btn btn-sm btn-success">Seleksi 2</a>
-
-                                                            <a href="{{ route('wawancara') }}"
-                                                                class="btn btn-sm btn-info">Wawancara</a>
                                                         @endif
                                                     @endif
                                                 </td>
