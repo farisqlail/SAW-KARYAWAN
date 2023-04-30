@@ -29,11 +29,11 @@
                                                 <td align="center">
                                                     @if ($data->berlaku_sampai > date('Y-m-d') && $data->status_lowongan == null)
                                                         <span class="badge badge-success">Pendaftaran</span>
-                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == 'seleksi 1')
+                                                    @elseif($data->status_lowongan == 'seleksi 1')
                                                         <span class="badge badge-warning">Seleksi 1</span>
-                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == 'Seleksi 2')
+                                                    @elseif($data->status_lowongan == 'Seleksi 2')
                                                         <span class="badge badge-warning">Seleksi 2</span>
-                                                    @elseif($data->berlaku_sampai < date('Y-m-d') && $data->status_lowongan == 'Seleksi Selesai')
+                                                    @elseif($data->status_lowongan == 'Seleksi Selesai')
                                                         <span class="badge badge-danger">Seleksi Selesai</span>
                                                     @endif
                                                 </td>
@@ -55,6 +55,10 @@
                                                         @if ($data->durasi_tes < \Carbon\Carbon::now()->toDateString())
                                                             <a href="{{ Route('perhitungan.dua', $data) }}"
                                                                 class="btn btn-sm btn-success">Seleksi 2</a>
+
+                                                        @endif
+
+                                                        @if ($data->durasi_tes < \Carbon\Carbon::now()->toDateString() && $data->status_lowongan == 'Seleksi 2')
                                                             <a href="{{ Route('wawancara') }}"
                                                                 class="btn btn-sm btn-success">Wawancara</a>
                                                         @endif

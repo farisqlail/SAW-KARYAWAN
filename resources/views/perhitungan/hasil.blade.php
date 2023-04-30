@@ -13,22 +13,26 @@
 
                         <form action="{{ route('hasil.store', $pelamar->id) }}" method="post">
                             @csrf
+                            <div class="form-group">
+                                <label for="status">status</label>
+                                <select name="status" required class="form-control">
+                                    <option @if($pelamar->status_wawancara == 'Ditolak') selected @endif value="Ditolak">Ditolak</option>
+                                    <option  @if($pelamar->status_wawancara == 'Diterima') selected @endif value="Diterima">Diterima</option>
 
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="nama">Hasil Wawancara<span class="text-danger">*</span></label><br>
                                 <textarea name="wawancara" id="wawancara" class="form-control">
-                                @if (!empty($pelamar))
-{{ $pelamar->wawancara }}
-@endif
+
+{{ $pelamar->hasil_wawancara }}
+
                         </textarea>
                             </div>
 
                             <div class="button mb-3" align="right">
-                                <button class="btn btn-danger" type="submit" name="tolak">
-                                    {{-- <input type="text" name="tolak" hidden> --}}
-                                    Tolak
-                                </button>
-                                <button class="btn btn-success" type="submit">Terima</button>
+
+                                <button class="btn btn-success" type="submit">Submit</button>
                             </div>
 
                         </form>

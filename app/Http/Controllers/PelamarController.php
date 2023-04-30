@@ -383,9 +383,11 @@ class PelamarController extends Controller
         $pelamar = Pelamar::findOrFail($id);
 
         $pelamar->hasil_wawancara = $request->wawancara;
-        $pelamar->status_wawancara = 'Ditolak';
 
-        if ($pelamar->hasil_wawancara == 'Ditolak') {
+        $pelamar->status_wawancara = $request->status;
+
+        if ($pelamar->status_wawancara == 'Ditolak') {
+
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.wawancaraTolak', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
                 $message
@@ -394,7 +396,6 @@ class PelamarController extends Controller
                     ->subject('Balasan Lamaran Posisi ' . $pelamar->lowongan->posisi_lowongan);
             });
         } else {
-            $pelamar->status_wawancara = 'Diterima';
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.wawancaraTerima', ['pelamar' => $pelamar], function ($message) use ($pelamar) {
