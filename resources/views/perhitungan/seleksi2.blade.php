@@ -121,16 +121,18 @@
                                                     method="post">
                                                     {{ csrf_field() }}
 
+                                                    <input type="hidden" name="id_lowongan" value="{{$low->id}}">
+
                                                     <a href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
                                                         class="btn btn-info">Lihat Detail</a>
 
                                                     @if ($data['status'] == null)
                                                         <input type="submit" name="submit"
-                                                            href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}"
+                                                            href="{{ route('pelamar.seleksi.dua', ['id' => $data['id_pelamar']]) }}"
                                                             class="btn btn-success" value="Terima">
 
                                                         <input type="submit" name="submit"
-                                                            href="{{ route('pelamar.seleksi.dua', $data['id_pelamar']) }}"
+                                                            href="{{ route('pelamar.seleksi.dua', ['id' => $data['id_pelamar']]) }}"
                                                             class="btn btn-danger" value="Tolak">
                                                     @endif
                                                 </form>

@@ -311,6 +311,10 @@ class PelamarController extends Controller
 
             Alert::success('Berhasil', 'Pelamar sudah diterima & akan mengirim email lanjut');
 
+            $lowongan  = lowongan::findOrFail($request->get('id_lowongan'));
+            $lowongan->status_lowongan = "Seleksi 2";
+            $lowongan->save();
+
             $data = Pelamar::findOrFail($id);
             // dd($pelamar->lowongan->posisi_lowongan);
             $data->seleksi_dua = 'Diterima';
@@ -329,6 +333,10 @@ class PelamarController extends Controller
         } elseif ($request->submit == 'Tolak') {
 
             Alert::success('Berhasil', 'Pelamar sudah ditolak & akan mengirim email lanjut');
+
+            $lowongan  = lowongan::findOrFail($request->get('id_lowongan'));
+            $lowongan->status_lowongan = "Seleksi 2";
+            $lowongan->save();
 
             $data = Pelamar::findOrFail($id);
             $data->seleksi_dua = 'Ditolak';
