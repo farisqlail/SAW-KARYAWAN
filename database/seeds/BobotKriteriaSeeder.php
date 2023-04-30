@@ -195,27 +195,27 @@ class BobotKriteriaSeeder extends Seeder
         $C7 = [
             [
                 'id_kriteria' => 7,
-                'nama_bobot' => 'Psikotes 0 - 60',
+                'nama_bobot' => 'SOAL PEMROGRAMAN 0 - 60',
                 'jumlah_bobot' => 1
             ],
             [
                 'id_kriteria' => 7,
-                'nama_bobot' => 'Psikotes 61 - 70',
+                'nama_bobot' => 'SOAL PEMROGRAMAN 61 - 70',
                 'jumlah_bobot' => 2
             ],
             [
                 'id_kriteria' => 7,
-                'nama_bobot' => 'Psikotes 71 - 80',
+                'nama_bobot' => 'SOAL PEMROGRAMAN 71 - 80',
                 'jumlah_bobot' => 3
             ],
             [
                 'id_kriteria' => 7,
-                'nama_bobot' => 'Psikotes 81 - 90',
+                'nama_bobot' => 'SOAL PEMROGRAMAN 81 - 90',
                 'jumlah_bobot' => 4
             ],
             [
                 'id_kriteria' => 7,
-                'nama_bobot' => 'Psikotes 91 - 100',
+                'nama_bobot' => 'SOAL PEMROGRAMAN 91 - 100',
                 'jumlah_bobot' => 5
             ],
         ];

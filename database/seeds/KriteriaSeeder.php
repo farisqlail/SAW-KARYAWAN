@@ -57,7 +57,7 @@ class KriteriaSeeder extends Seeder
             ],
             [
                 'id_lowongan' => 1,
-                'nama_kriteria' => 'PSIKOTES',
+                'nama_kriteria' => 'SOAL PEMROGRAMAN',
                 'atribut_kriteria' => 'benefit',
                 'bobot_preferensi' => 10,
                 'tampil_di_pelamar' => 1
