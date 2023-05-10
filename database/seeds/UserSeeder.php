@@ -38,7 +38,8 @@ class UserSeeder extends Seeder
             'name' => 'developer',
             'email' => 'developer@gmail.com',
             'role' => 'divisi',
-            'password' => Hash::make('developer123')
+            'password' => Hash::make('developer123'),
+            'division_name' => 'developer'
         ]);
     }
 }

@@ -15,6 +15,7 @@ class LowonganSeeder extends Seeder
     {
         DB::table('lowongan')->insert([
             'posisi_lowongan' => 'Programmer',
+            'divisi' => 'developer',
             'id_user' => 4,
             'berlaku_sampai' => Carbon::create('2023', '12', '12'),
             'deskripsi_pekerjaan' => 'Fungsi

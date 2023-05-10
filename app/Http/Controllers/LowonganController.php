@@ -29,7 +29,8 @@ class LowonganController extends Controller
             $lowongan = lowongan::all();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'divisi') {
-            $lowongan = lowongan::all();
+            $divisi = auth()->user()->division_name;
+            $lowongan = lowongan::where('divisi', $divisi)->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else {
             abort(404);
@@ -106,8 +107,12 @@ class LowonganController extends Controller
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
             $lowongan->status_approve = 'hrd';
 
+            if (auth()->user()->role == 'divisi') {
+                $lowongan->divisi = auth()->user()->division_name;
+            }
+
             $lowongan->save();
-            
+
             return redirect()->route('lowongan.index');
         }
     }
