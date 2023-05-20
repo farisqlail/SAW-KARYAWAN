@@ -95,7 +95,6 @@ class LowonganController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return back()->withErrors($validator->errors());
         } else {
             Alert::success('Berhasil', 'Data lowongan berhasil ditambahkan menunggu approve dari hrd');
@@ -106,6 +105,7 @@ class LowonganController extends Controller
             $lowongan->deskripsi_pekerjaan = $request->get('deskripsi_pekerjaan');
             $lowongan->deskripsi_persyaratan = $request->get('deskripsi_persyaratan');
             $lowongan->status_approve = 'hrd';
+            $lowongan->id_user = auth()->user()->id;
 
             if (auth()->user()->role == 'divisi') {
                 $lowongan->divisi = auth()->user()->division_name;
@@ -150,6 +150,19 @@ class LowonganController extends Controller
 
         $lowongan = lowongan::findOrFail($id);
         $lowongan->status_approve = 'tolak direksi';
+
+        $lowongan->save();
+
+        return redirect()->route('lowongan.index');
+    }
+
+    public function tolakHrd(Request $request, $id)
+    {
+
+        Alert::success('Berhasil', 'Data lowongan ditolak');
+
+        $lowongan = lowongan::findOrFail($id);
+        $lowongan->status_approve = 'tolak hrd';
 
         $lowongan->save();
 

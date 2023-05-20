@@ -67,6 +67,8 @@
                                                             Direksi</span>
                                                     @elseif($data->status_approve == 'tolak direksi')
                                                         <span class="badge badge-danger">Lowongan ditolak direksi</span>
+                                                    @elseif($data->status_approve == 'tolak hrd')
+                                                        <span class="badge badge-danger">Lowongan ditolak hrd</span>
                                                     @else
                                                         <span class="badge badge-success">Approvement</span>
                                                     @endif
@@ -107,10 +109,14 @@
                                                             Detail
                                                         </a>
                                                     @elseif(Auth::user()->role == 'hrd')
-                                                        @if ($data->status_approve != 'direksi')
+                                                        @if ($data->status_approve != 'direksi' && $data->status_approve == 'hrd')
                                                             <a href="{{ route('lowongan.approveHrd', $data->id) }}"
                                                                 class="btn btn-sm btn-success">
                                                                 Ajukan ke direksi
+                                                            </a>
+                                                            <a href="{{ route('lowongan.tolakHrd', $data->id) }}"
+                                                                class="btn btn-sm btn-danger">
+                                                                Tolak
                                                             </a>
                                                         @endif
                                                         <a href="{{ route('lowongan.detailAdmin', $data->id) }}"

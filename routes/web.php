@@ -37,6 +37,7 @@ Route::prefix('/lowongan')->group(function ()
     Route::get('/admin/approve/hrd/{id}', 'LowonganController@approveHrd')->name('lowongan.approveHrd');
     Route::get('/admin/approve/direksi/{id}', 'LowonganController@approveDireksi')->name('lowongan.approveDireksi');
     Route::get('/admin/tolak/direksi/{id}', 'LowonganController@tolakDireksi')->name('lowongan.tolakDireksi');
+    Route::get('/admin/tolak/hrd/{id}', 'LowonganController@tolakHrd')->name('lowongan.tolakHrd');
     //Kriteria
     Route::get('/admin/kriteria/{id}', 'KriteriaController@index')->name('kriteria.index');
     Route::get('/admin/kriteria/{id}/tambah', 'KriteriaController@create')->name('kriteria.tambah');
