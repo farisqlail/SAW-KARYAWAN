@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Pelamar</h2>
+                        <h2 class="float-left">Data Pelamar</h2>
 
                     </div>
 
@@ -15,10 +15,10 @@
                             <table class="table" id="myTable" style="width: 98%;">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">Lowongan</th>
-                                        <th class="text-center">Nama</th>
-                                        <th class="text-center">Tgl Lahir</th>
+                                        <th >No</th>
+                                        <th >Lowongan</th>
+                                        <th >Nama</th>
+                                        <th >Tgl Lahir</th>
                                     </tr>
                                 </thead>
                                 <tbody>

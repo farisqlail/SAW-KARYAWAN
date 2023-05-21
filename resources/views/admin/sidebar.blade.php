@@ -146,6 +146,11 @@
                 <i class="fas fa-vote-yea"></i>
                 <span>Seleksi Pelamar</span></a>
         </li>
+        <li class="nav-item {{ 'pelamar' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('pelamar.index') }}">
+                <i class="fas fa-vote-yea"></i>
+                <span>Data Pelamar</span></a>
+        </li>
     @elseif(Auth()->user()->role == 'divisi')
         <li class="nav-item {{ 'lowongan' == request()->segment(1) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('lowongan.index') }}">

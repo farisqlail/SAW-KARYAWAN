@@ -17,7 +17,7 @@
                         <h4>{{ $pelamar }}</h4>
                         <h4 class="card-title">Pelamar yang menunggu seleksi 2 : </h4>
                         <h4>{{ $pelamars2 }}</h4>
-                        
+
                     </div>
                 </div>
             </div> --}}
@@ -34,13 +34,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Rekrutmen Selesai</h4>
-                    <h3>{{ $lowonganBerakhir }}</h3>
-                    <i class="fas fa-calendar-check fa-4x float-right" style="color: rgba(49, 210, 49, 0.716);"></i>
+                        <h3>{{ $lowonganBerakhir }}</h3>
+                        <i class="fas fa-calendar-check fa-4x float-right" style="color: rgba(49, 210, 49, 0.716);"></i>
                     </div>
                 </div>
             </div>
         </div>
-        
+
 
         <br>
         <div class="card">
@@ -74,11 +74,27 @@
                         </tbody>
                     </table> --}}
 
-                    <div id="chart"></div>
+                <div id="chart"></div>
+            </div>
+        </div>
+
+        @if (auth()->user()->role == 'direksi')
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Data Pelamar</h3>
+
+                        <div id="chartPelamar"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        @endif
+
     </div>
+
+
 @endsection
 
 @section('script')
@@ -133,10 +149,74 @@
                     name: "Jumlah Pelamar",
                     colorByPoint: true,
                     data: @php echo json_encode($a);
-                     @endphp
+                    @endphp
                 }],
-                
+
             });
+
+
         });
     </script>
+
+    @if (auth()->user()->role =='direksi')
+        <script>
+             $.ajax({
+                url: "{{ route('chart.pelamar') }}",
+                method: "GET",
+                success: function(response) {
+                    console.log(response);
+
+                    Highcharts.chart('chartPelamar', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Data Pelamar'
+                        },
+                        subtitle: {
+                            text: 'Data pelamar'
+                        },
+                        accessibility: {
+                            announceNewData: {
+                                enabled: true
+                            }
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Total pelamar'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y:.0f}'
+                                }
+                            }
+                        },
+
+                        tooltip: {
+                            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                            pointFormat: '<span style="color:{point.color}">{point.date} <br>{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+                        },
+
+                        series: [{
+                            name: "Jumlah Pelamar",
+                            colorByPoint: true,
+                            data: response.data
+                        }],
+
+                    });
+                }
+            })
+        </script>
+    @endif
 @endsection
