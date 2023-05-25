@@ -180,7 +180,6 @@ class PerhitunganController extends Controller
                 'low'           => $low,
                 'perangkingan' => $perangkingan
             ]);
-
         } else if (Auth::user()->role == 'direksi') {
             $lowonganGet = $id;
 
@@ -206,7 +205,6 @@ class PerhitunganController extends Controller
                 'low'           => $low,
                 'perangkingan' => $perangkingan
             ]);
-
         } else if (Auth::user()->role == 'hrd') {
             $lowonganGet = $id;
 
@@ -285,7 +283,6 @@ class PerhitunganController extends Controller
                 Alert::error('Maaf', 'Data belum ada');
 
                 return redirect()->back();
-
             } else {
                 return view('perhitungan.seleksi2', [
                     'kriteria'      => $kriteria,
@@ -313,7 +310,6 @@ class PerhitunganController extends Controller
                 Alert::error('Maaf', 'Data belum ada');
 
                 return redirect()->back();
-
             } else {
                 return view('perhitungan.seleksi2', [
                     'kriteria'      => $kriteria,
@@ -342,7 +338,6 @@ class PerhitunganController extends Controller
                 Alert::error('Maaf', 'Data belum ada');
 
                 return redirect()->back();
-
             } else {
                 return view('perhitungan.seleksi2', [
                     'kriteria'      => $kriteria,
@@ -368,30 +363,33 @@ class PerhitunganController extends Controller
         if (Auth::user()->role == 'admin') {
             $pelamar = Pelamar::find($id);
             $kriteria = Kriteria::where('id', $pelamar->id)->get();
-            $alternatif = Pelamar::where('id', $id)->get();
+            $bobot_kriteria = BobotKriteria::where('id_pelamar', $id)->join('hasil_tes', 'hasil_tes.id_bobot_kriteria', 'bobot_kriteria.id')->join('kriteria', 'kriteria.id', 'bobot_kriteria.id_kriteria')->get();
+
             $pel = NilaiAlternatif::join('bobot_kriteria', 'bobot_kriteria.id', '=', 'nilai_alternatif.id')
                 ->join('kriteria', 'kriteria.id', '=', 'bobot_kriteria.id')
                 ->where('nilai_alternatif.id', $id)
                 ->get(['nama_bobot', 'nama_kriteria']);
-            return view('perhitungan.detail', ['pelamar' => $pelamar, 'kriteria' => $kriteria, 'alternatif' => $pel]);
+            return view('perhitungan.detail', ['bobot_kriteria' => $bobot_kriteria, 'pelamar' => $pelamar, 'kriteria' => $kriteria, 'alternatif' => $pel]);
         } else if (Auth::user()->role == 'direksi') {
             $pelamar = Pelamar::find($id);
             $kriteria = Kriteria::where('id', $pelamar->id)->get();
-            $alternatif = Pelamar::where('id', $id)->get();
+            $bobot_kriteria = BobotKriteria::where('id_pelamar', $id)->join('hasil_tes', 'hasil_tes.id_bobot_kriteria', 'bobot_kriteria.id')->join('kriteria', 'kriteria.id', 'bobot_kriteria.id_kriteria')->get();
+
             $pel = NilaiAlternatif::join('bobot_kriteria', 'bobot_kriteria.id', '=', 'nilai_alternatif.id')
                 ->join('kriteria', 'kriteria.id', '=', 'bobot_kriteria.id')
                 ->where('nilai_alternatif.id', $id)
                 ->get(['nama_bobot', 'nama_kriteria']);
-            return view('perhitungan.detail', ['pelamar' => $pelamar, 'kriteria' => $kriteria, 'alternatif' => $pel]);
+            return view('perhitungan.detail', ['bobot_kriteria' => $bobot_kriteria, 'pelamar' => $pelamar, 'kriteria' => $kriteria, 'alternatif' => $pel]);
         } else if (Auth::user()->role == 'hrd') {
             $pelamar = Pelamar::find($id);
-            $kriteria = Kriteria::where('id', $pelamar->id)->get();
-            $alternatif = Pelamar::where('id', $id)->get();
+            $kriteria = Kriteria::where('id_lowongan', $pelamar->id_lowongan)->get();
+            $bobot_kriteria = BobotKriteria::where('id_pelamar', $id)->join('hasil_tes', 'hasil_tes.id_bobot_kriteria', 'bobot_kriteria.id')->join('kriteria', 'kriteria.id', 'bobot_kriteria.id_kriteria')->get();
+
             $pel = NilaiAlternatif::join('bobot_kriteria', 'bobot_kriteria.id', '=', 'nilai_alternatif.id')
                 ->join('kriteria', 'kriteria.id', '=', 'bobot_kriteria.id')
                 ->where('nilai_alternatif.id', $id)
                 ->get(['nama_bobot', 'nama_kriteria']);
-            return view('perhitungan.detail', ['pelamar' => $pelamar, 'kriteria' => $kriteria, 'alternatif' => $pel]);
+            return view('perhitungan.detail', ['bobot_kriteria' => $bobot_kriteria, 'pelamar' => $pelamar, 'kriteria' => $kriteria, 'alternatif' => $pel]);
         } else {
             abort(404);
         }

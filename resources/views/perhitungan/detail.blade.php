@@ -99,6 +99,24 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Kriteria Lowongan</h5>
+                                <ul>
+                                    @forelse ($pelamar->bobot as $item)
+                                        <li>{{ $item->kriteria->nama_kriteria }} : {{ $item->nama_bobot }}</li>
+                                    @empty
+                                    @endforelse
+
+                                    @forelse ($bobot_kriteria as $item)
+                                        <li>{{ $item->nama_kriteria }} : {{ $item->nama_bobot }}</li>
+                                    @empty
+                                    @endforelse
+
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -162,7 +180,7 @@
         function removeLoader() {
             $("#loadingDiv").fadeOut(500, function() {
                 // fadeOut complete. Remove the loading div
-                $("#loadingDiv").remove(); //makes page more lightweight 
+                $("#loadingDiv").remove(); //makes page more lightweight
             });
         }
 

@@ -84,6 +84,7 @@ class HomeController extends Controller
 
                 array_push($a, $x);
             }
+
             // dd($a);
             $jumlah = lowongan::withCount('pelamar')
                 ->orderBy('posisi_lowongan')
@@ -177,6 +178,21 @@ class HomeController extends Controller
             ]);
         } else {
             abort(404);
+        }
+    }
+
+
+    public function chartPelamar(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $pelamar = Pelamar::selectRaw('year(created_at) name, count(*) y')
+                ->groupBy('name')
+                ->orderBy('name', 'desc')
+                ->get();
+
+            return response()->json(['status' => true, 'data' => $pelamar]);
+
         }
     }
 }

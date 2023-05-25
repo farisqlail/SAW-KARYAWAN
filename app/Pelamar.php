@@ -38,7 +38,7 @@ class Pelamar extends Model
 
     public function bobot()
     {
-        return $this->belongsToMany(BobotKriteria::class, 'nilai_alternatif', 'id', 'id');
+        return $this->belongsToMany(BobotKriteria::class, 'nilai_alternatif', 'id_pelamar', 'id_bobot_kriteria');
     }
 
     public function nilai_alternatif()
