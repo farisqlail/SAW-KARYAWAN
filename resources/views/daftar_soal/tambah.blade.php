@@ -25,7 +25,7 @@
                                     <label for="kriteria">Kriteria <span class="text-danger">*</span></label>
                                     <select name="kriteria" id="kriteria" required class="form-control">
                                         @forelse ($kriteria as $item)
-                                            <option value="{{$item->id}}">{{$item->nama_kriteria}}</option>
+                                            <option value="{{ $item->id }}">{{ $item->nama_kriteria }}</option>
                                         @empty
                                         @endforelse
                                     </select>

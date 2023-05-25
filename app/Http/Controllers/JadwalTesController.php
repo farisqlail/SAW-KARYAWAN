@@ -48,10 +48,10 @@ class JadwalTesController extends Controller
     {
 
         $user       = Auth::user()->id;
-        $pelamar    = Pelamar::where('id_user', $user)->firstOrFail();
+        $pelamar    = Pelamar::where('id_user', $user)->first();
 
+        
         if ($pelamar) {
-
             $jadwal_tes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id',)
                 ->where('lowongan.id', $pelamar->id_lowongan)
                 ->get();
@@ -61,13 +61,14 @@ class JadwalTesController extends Controller
                     return view('jadwal_tes.home', ['jadwal_tes' => $jadwal_tes, 'pelamar' => $pelamar]);
                 } else if ($pelamar->seleksi_satu == "Ditolak") {
                     return view('jadwal_tes.gagal');
-                } elseif (Pelamar::whereNull('seleksi_satu')->get()) {
+                } else if (Pelamar::whereNull('seleksi_satu')->get()) {
                     return view('jadwal_tes.gagal');
                 }
             } else {
-
                 return view('jadwal_tes.gagal');
             }
+        } else {
+            return view('jadwal_tes.gagal');
         }
     }
 

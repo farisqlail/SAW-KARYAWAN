@@ -81,7 +81,7 @@ Route::prefix('/jadwal_tes')->group(function ()
     Route::post('/admin/edit/{id}', 'JadwalTesController@update')->name('jadwal_tes.update');
     Route::get('/admin/jadwal/hapus/{id}', 'JadwalTesController@destroy')->name('jadwal_tes.hapus');
     Route::get('/admin/notif/{id}', 'JadwalTesController@notif')->name('jadwal_tes.notif');
-    Route::get('/admin/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
+    Route::get('/jadwal', 'JadwalTesController@home')->name('soal-tes.home');
 
     //Jawaban
     Route::get('/hasil-tes/{id}', 'HasilTesController@index')->name('jawaban.index');
