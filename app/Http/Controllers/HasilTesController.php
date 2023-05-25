@@ -41,7 +41,7 @@ class HasilTesController extends Controller
 
     public function detail($id)
     {
-        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal','id_soal_tes')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->groupBy('id')->get();
+        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal','id_soal_tes')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->get();
 
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
@@ -194,7 +194,7 @@ class HasilTesController extends Controller
             Alert::success('Berhasil', 'Jawaban berhasil dinilai');
 
             $bobot_kriteria = BobotKriteria::findOrFail($request->get('bobot'));
-           
+
             $hasilTes = HasilTes::findOrFail($id);
 
             $hasilTes->nilai = $bobot_kriteria->jumlah_bobot;
