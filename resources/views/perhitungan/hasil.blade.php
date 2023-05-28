@@ -15,24 +15,26 @@
                             @csrf
                             <div class="form-group">
                                 <label for="status">status</label>
-                                <select name="status" required class="form-control">
-                                    <option @if($pelamar->status_wawancara == 'Ditolak') selected @endif value="Ditolak">Ditolak</option>
-                                    <option  @if($pelamar->status_wawancara == 'Diterima') selected @endif value="Diterima">Diterima</option>
+                                <select name="status" @if (!empty($pelamar->status_wawancara)) disabled @endif required
+                                    class="form-control">
+                                    <option @if ($pelamar->status_wawancara == 'Ditolak') selected @endif value="Ditolak">Ditolak
+                                    </option>
+                                    <option @if ($pelamar->status_wawancara == 'Diterima') selected @endif value="Diterima">Diterima
+                                    </option>
 
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="nama">Hasil Wawancara<span class="text-danger">*</span></label><br>
-                                <textarea name="wawancara" id="wawancara" class="form-control">
-
-{{ $pelamar->hasil_wawancara }}
-
-                        </textarea>
+                                <textarea name="wawancara" @if (!empty($pelamar->status_wawancara)) readonly @endif id="wawancara" class="form-control">
+                                {{ $pelamar->hasil_wawancara }}
+                                </textarea>
                             </div>
 
                             <div class="button mb-3" align="right">
-
-                                <button class="btn btn-success" type="submit">Submit</button>
+                                @if (empty($pelamar->status_wawancara))
+                                    <button class="btn btn-success" type="submit">Submit</button>
+                                @endif
                             </div>
 
                         </form>

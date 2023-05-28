@@ -36,8 +36,9 @@ class JadwalTesController extends Controller
                 ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
             return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
         } else if (Auth::user()->role == 'divisi') {
+            $division_name = Auth::user()->division_name;
             $jadwal_tes = DB::table('jadwal_tes')
-                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->get();
+                ->join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id')->where('lowongan.divisi', $division_name)->get();
             return view('jadwal_tes.index', ['jadwal_tes' => $jadwal_tes]);
         } else {
             abort(404);
