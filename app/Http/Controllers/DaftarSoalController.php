@@ -138,7 +138,6 @@ class DaftarSoalController extends Controller
         $validator = Validator::make(request()->all(), [
             'kriteria' => 'required',
             'soal' => 'required',
-            'bobot' => "required",
             'file_soal' => "required",
         ]);
 
@@ -152,7 +151,7 @@ class DaftarSoalController extends Controller
             $daftar_soal->id_lowongan = $request->get('id_lowongan');
             $daftar_soal->id_kriteria = $request->get('kriteria');
             $daftar_soal->soal = $request->get('soal');
-            $daftar_soal->bobot_soal = $request->get('bobot');
+            $daftar_soal->bobot_soal = 0;
             if ($request->file('file_soal')) {
                 $file = $request->file('file_soal');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -225,8 +224,7 @@ class DaftarSoalController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'kriteria' => 'required',
-            'soal' => 'required',
-            'bobot' => "required"
+            'soal' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -238,7 +236,7 @@ class DaftarSoalController extends Controller
             $daftar_soal->id_jadwal_tes = $request->get('id');
             $daftar_soal->id_lowongan = $request->get('id_lowongan');
             $daftar_soal->soal = $request->get('soal');
-            $daftar_soal->bobot_soal = $request->get('bobot');
+            $daftar_soal->bobot_soal = 0;
             if ($request->file('file_soal')) {
                 $file = $request->file('file_soal');
                 $tujuan_upload = 'upload';

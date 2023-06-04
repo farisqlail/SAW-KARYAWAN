@@ -23,7 +23,7 @@
                                         <th class="text-center">Kriteria</th>
                                         <th class="text-center">Soal</th>
                                         <th class="text-center">File Soal</th>
-                                        <th class="text-center">Bobot Soal</th>
+                                        {{-- <th class="text-center">Bobot Soal</th> --}}
                                         <th class="text-center" style="width:30%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -36,7 +36,7 @@
                                                 <td>{{ $data->soal }}</td>
                                                 <td><a href="/upload/{{ $data->file_soal }}" class="btn btn-success"><i
                                                             class="fas fa-download"></i> &nbsp; Unduh File</a></td>
-                                                <td>{{ $data->bobot_soal }}</td>
+                                                {{-- <td>{{ $data->bobot_soal }}</td> --}}
                                                 <td class="text-center">
 
                                                     <a href="{{ route('daftar_soal.edit', ['id' => $data->id]) }}"

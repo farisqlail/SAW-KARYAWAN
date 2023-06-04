@@ -27,6 +27,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $arr = [];
+
+        for ($i = date('Y'); $i <= date('Y') + 1; $i++) {
+            $arr[] = $i;
+        }
+
+
         if (Auth::user()->role == 'admin') {
             $pelamarv = Pelamar::whereNull('status_dokumen')->count();
             $pelamar = Pelamar::where('status_dokumen', 'Dokumen Valid')->whereNull('seleksi_satu')->count();
@@ -62,7 +70,8 @@ class HomeController extends Controller
                 'lowonganBerakhir'  => $lowonganBerakhir,
                 'riwayat'           => $riwayat,
                 'jumlah'            => $jumlah,
-                'a'                 => $a
+                'a'                 => $a,
+                'tahun' => $arr
             ]);
         } else if (Auth::user()->role == 'direksi') {
             $pelamarv = Pelamar::whereNull('status_dokumen')->count();
@@ -100,7 +109,8 @@ class HomeController extends Controller
                 'lowonganBerakhir'  => $lowonganBerakhir,
                 'riwayat'           => $riwayat,
                 'jumlah'            => $jumlah,
-                'a'                 => $a
+                'a'                 => $a,
+                'tahun' => $arr
             ]);
         } else if (Auth::user()->role == 'hrd') {
             $pelamarv = Pelamar::whereNull('status_dokumen')->count();
@@ -137,7 +147,8 @@ class HomeController extends Controller
                 'lowonganBerakhir'  => $lowonganBerakhir,
                 'riwayat'           => $riwayat,
                 'jumlah'            => $jumlah,
-                'a'                 => $a
+                'a'                 => $a,
+                'tahun' => $arr
             ]);
         } else if (Auth::user()->role == 'divisi') {
             $pelamarv = Pelamar::whereNull('status_dokumen')->count();
@@ -174,7 +185,8 @@ class HomeController extends Controller
                 'lowonganBerakhir'  => $lowonganBerakhir,
                 'riwayat'           => $riwayat,
                 'jumlah'            => $jumlah,
-                'a'                 => $a
+                'a'                 => $a,
+                'tahun' => $arr
             ]);
         } else {
             abort(404);
@@ -186,13 +198,18 @@ class HomeController extends Controller
     {
         if ($request->ajax()) {
 
+            $periode_awal = $request->get('periode_awal');
+
+            $periode_akhir = $request->get('periode_akhir');
+
             $pelamar = Pelamar::selectRaw('year(created_at) name, count(*) y')
+                ->whereYear('created_at','>=', $periode_awal)
+                ->whereYear('created_at','<=', $periode_akhir)
                 ->groupBy('name')
                 ->orderBy('name', 'desc')
                 ->get();
 
             return response()->json(['status' => true, 'data' => $pelamar]);
-
         }
     }
 }

@@ -34,11 +34,11 @@
                                     <input type="text" name="soal" required class="form-control"
                                         value="{{ $daftar_soal->soal }}">
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="bobot">Bobot Soal<span class="text-danger">*</span></label>
                                     <input type="number" name="bobot" required class="form-control" max="100"
                                         value="{{ $daftar_soal->bobot_soal }}">
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="file_soal">File Soal<span class="text-danger">*</span></label>
                                 </div>
