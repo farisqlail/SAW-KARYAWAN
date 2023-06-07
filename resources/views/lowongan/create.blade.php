@@ -166,7 +166,8 @@
                                                 @foreach ($kriteria as $kt)
                                                 <input type="hidden" name="kriteria_id[]" value="{{$kt->id}}">
                                                     <div class="form-group">
-                                                        <label for="Kriteria">{{ $kt->nama_kriteria }}</label>
+                                                        <label for="Kriteria">{{ $kt->nama_kriteria }} <span
+                                                            class="text-danger">*</span></label>
                                                         <select name="kriteria[]" required class="form-control">
                                                             <option value="">-- Pilih
                                                                 {{ $kt->nama_kriteria }}--
@@ -189,7 +190,8 @@
                             </div>
 
                             <div class="form-group mt-2">
-                                <label for="">CV</label><br>
+                                <label for="">CV <span
+                                    class="text-danger">*</span></label><br>
                                 <input name="cv" class="form-control-file mt-2" type="file" required />
                                 @if ($errors->has('cv'))
                                     <span class="text-danger">{{ $errors->first('cv') }}</span>
@@ -197,7 +199,8 @@
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="">Ijazah</label><br>
+                                <label for="">Ijazah <span
+                                    class="text-danger">*</span></label><br>
                                 <input name="ijazah" class="form-control-file mt-2 " id="ijazah" type="file"
                                     required />
                                 @if ($errors->has('ijazah'))
@@ -206,7 +209,8 @@
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="">Pas Foto</label><br>
+                                <label for="">Pas Foto <span
+                                    class="text-danger">*</span></label><br>
                                 <input name="pas_foto" class="form-control-file mt-2" type="file" required />
                                 @if ($errors->has('pas_foto'))
                                     <span class="text-danger">{{ $errors->first('pas_foto') }}</span>

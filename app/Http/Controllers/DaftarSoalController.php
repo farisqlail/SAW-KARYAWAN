@@ -86,7 +86,7 @@ class DaftarSoalController extends Controller
 
         $daftarsoal = tap($daftarsoal)->transform(function ($data) use ($pelamarGet) {
             $hasiltes = $data->hasil_tes()->where('id_pelamar', $pelamarGet)->first();
-            $data->hasil_tes = $hasiltes ? $hasiltes : 0 ;
+            $data->hasil_tes = $hasiltes ? $hasiltes : 0;
             return $data;
         });
 
