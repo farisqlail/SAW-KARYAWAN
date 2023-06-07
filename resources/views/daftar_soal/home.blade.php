@@ -140,6 +140,8 @@
                                                 <a href="" class="btn btn-danger btn-md ml-3" data-toggle="modal"
                                                     data-target="#ubah-jawaban{{ $data->hasil_tes->id }}">Ubah Jawaban</a>
                                             </div>
+                                            <span class="text-danger">Jawaban dapat diubah sampai
+                                                {{ $jadwaltes->durasi_tes }} </span>
                                         @endif
                                     </td>
                                 </tr>
