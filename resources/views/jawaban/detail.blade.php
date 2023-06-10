@@ -9,6 +9,7 @@
                     <div class="card-header">
                         <h2 class="float-left">Hasil Tes {{ $pelamar->nama_pelamar }}</h2>
                         <div class="float-right">
+                            <button type="button" data-toggle="modal" data-target="#nilaiSemuaJawaban" class="btn btn-primary">Nilai Semua Jawaban</button>
                             <a href="{{ route('jawaban.index', ['id' => $pelamar->id_lowongan]) }}"
                                 class="btn btn-danger">Kembali</a>
                         </div>
@@ -66,6 +67,42 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="nilaiSemuaJawaban" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nilai Semua Jawaban
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" id="formNilai"
+                        action="{{ route('jawaban.nilai.update', [$pelamar->id]) }}" method="POST" class="col-md-12"
+                        id="form-nilaiSemuaJawaban">
+                        @csrf
+                        {{ method_field('PUT') }}
+
+                        <input type="hidden" name="status" value="semua">
+
+                        <div class="form-group">
+                            <label for="nilai">Nilai<span class="text-danger">*</span></label>
+                            <input type="number" name="nilai" class="form-control" min="0" max="100"
+                                required>
+                        </div>
+                        <div class="modal-footer" style="border:none;">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Nilai</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="modal fade" id="nilaiJawaban" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -85,12 +122,13 @@
                         <div class="form-group">
                             <label for="bobot">Bobot<span class="text-danger">*</span></label>
                             <select required name="bobot" id="bobot" class="form-control" required>
-
-                                {{-- <option value="Islam">Islam</option> --}}
-
                             </select>
                         </div>
-
+                        <div class="form-group">
+                            <label for="nilai">Nilai<span class="text-danger">*</span></label>
+                            <input type="number" name="nilai" id="nilai" class="form-control" min="0" max="100"
+                                required>
+                        </div>
                         <div class="modal-footer" style="border:none;">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success">Nilai</button>
@@ -128,17 +166,21 @@
                         if (response) {
                             var data = response.data;
 
+                            var hasil_tes = response?.hasil_tes;
+
+                            $('#nilai').val(hasil_tes.nilai);
+
                             for (let index = 0; index < data.length; index++) {
 
                                 const element = data[index];
 
-                                if(element.id == response?.hasil_tes?.id_bobot_kriteria){
+                                if (element.id == response?.hasil_tes?.id_bobot_kriteria) {
                                     $("#bobot").append(
-                                    ` <option selected value="${element.id}">${element.jumlah_bobot}</option>`
+                                        ` <option selected value="${element.id}">${element.jumlah_bobot} | ${element.nama_bobot}</option>`
                                     );
-                                }else{
+                                } else {
                                     $("#bobot").append(
-                                    ` <option value="${element.id}">${element.jumlah_bobot}</option>`
+                                        ` <option value="${element.id}">${element.jumlah_bobot} | ${element.nama_bobot}</option>`
                                     );
                                 }
 

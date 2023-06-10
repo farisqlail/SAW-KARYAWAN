@@ -68,6 +68,7 @@ class PelamarController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make(request()->all(), [
             'nama_pelamar' => 'required',
             'tanggal_lahir' => 'required',
@@ -81,7 +82,7 @@ class PelamarController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors());
+            return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
 
             DB::beginTransaction();

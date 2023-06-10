@@ -40,16 +40,16 @@ class Perhitungan extends Model
 
                 if (!empty($hasil_tes->id_bobot_kriteria)) {
                     if ($hasil_tes->daftar_soal->kriteria->atribut_kriteria == 'benefit') {
-                        $max = HasilTes::where('id_soal_tes', $hasil_tes->id_soal_tes)->where('id_lowongan', $id_lowongan)->max('nilai');
+                        $max = HasilTes::where('id_soal_tes', $hasil_tes->id_soal_tes)->where('id_lowongan', $id_lowongan)->max('bobot');
 
                         if ($max > 0) {
-                            $hitung = $hasil_tes->nilai / $max;
+                            $hitung = $hasil_tes->bobot / $max;
                         } else {
                             $hitung = 0;
                         }
                     } else {
-                        $max = HasilTes::where('id_soal_tes', $hasil_tes->id_soal_tes)->where('id_lowongan', $id_lowongan)->min('nilai');
-                        $hitung = $min / $hasil_tes->nilai;
+                        $max = HasilTes::where('id_soal_tes', $hasil_tes->id_soal_tes)->where('id_lowongan', $id_lowongan)->min('bobot');
+                        $hitung = $min / $hasil_tes->bobot;
                     }
 
                     $bobot_kriteria = BobotKriteria::where('id_pelamar', $pelamar->id)->join('hasil_tes', 'hasil_tes.id_bobot_kriteria', 'bobot_kriteria.id')->first();

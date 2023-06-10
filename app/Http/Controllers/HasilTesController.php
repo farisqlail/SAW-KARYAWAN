@@ -15,6 +15,7 @@ use App\DaftarSoal;
 use App\JadwalTes;
 use App\lowongan;
 use App\BobotKriteria;
+use Kriteria;
 
 class HasilTesController extends Controller
 {
@@ -41,7 +42,7 @@ class HasilTesController extends Controller
 
     public function detail($id)
     {
-        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal','id_soal_tes')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->get();
+        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal', 'id_soal_tes')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->get();
 
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
@@ -184,37 +185,91 @@ class HasilTesController extends Controller
      */
     public function updateNilai(Request $request, $id)
     {
-        $validator = Validator::make(request()->all(), [
-            'bobot' => 'required',
-        ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator->errors());
-        } else {
+        $status = $request->get('status');
+
+        $nilai = $request->get('nilai');
+
+        if ($status == 'semua') {
+
+            $validator = Validator::make(request()->all(), [
+                'nilai' => 'required|integer|min:0|max:100',
+            ]);
+
+            $id_pelamar = $id;
+
+            $pelamar = Pelamar::findOrFail($id_pelamar);
+
+            $id_lowongan = $pelamar->id_lowongan;
+
+            $bobot_kriteria = BobotKriteria::whereHas('kriteria', function ($query) use ($id_lowongan) {
+                return $query->where('id_lowongan', $id_lowongan)->where('tampil_di_pelamar', 0);
+            })->get();
+
+
+            $daftarsoal = DaftarSoal::where('id_lowongan', $id_lowongan)->get();
+
+            foreach ($daftarsoal as $key => $value) {
+
+                foreach ($bobot_kriteria as $key => $row) {
+                    $cek = $this->getNumber($row->nama_bobot, $nilai);
+
+                    if ($cek) {
+
+                        $hasilTes = HasilTes::where('id_soal_tes', $value->id)->where('id_bobot_kriteria', $row->id)->where('id_pelamar', $id_pelamar)->first();
+
+                        if ($hasilTes) {
+                            $hasilTes->nilai = $nilai;
+                            $hasilTes->bobot = $row->jumlah_bobot;
+                            $hasilTes->id_bobot_kriteria =  $row->id;
+                            $hasilTes->save();
+                        } else {
+                            HasilTes::where('id_soal_tes', $value->id)->where('id_pelamar', $id_pelamar)->update([
+                                'nilai' => $nilai,
+                                'bobot' => $row->jumlah_bobot,
+                                'id_bobot_kriteria' => $row->id
+                            ]);
+                        }
+                    }else {
+                        return redirect()->back()->withErrors(['data nilai tidak valid']);
+                    }
+                }
+            }
+
             Alert::success('Berhasil', 'Jawaban berhasil dinilai');
 
-            $bobot_kriteria = BobotKriteria::findOrFail($request->get('bobot'));
-
-            $hasilTes = HasilTes::findOrFail($id);
-
-            $hasilTes->nilai = $bobot_kriteria->jumlah_bobot;
-
-            $hasilTes->id_bobot_kriteria = $bobot_kriteria->id;
-
-            $hasilTes->save();
-
-            // $NA = HasilTes::select('id_soal_tes', DB::raw('sum(nilai * bobot_soal) as hasil'))
-            //     ->where('id_soal_tes', $hasilTes->id_soal_tes)
-            //     ->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')
-            //     ->where('hasil_tes.id', '=', $hasilTes->id)
-            //     ->groupBy('id_soal_tes')
-            //     ->get();
-            // $nilai      = $NA->toArray();
-            // $sum_nilai  = array_sum(array_column($nilai, 'hasil'));
-            // $total      = $sum_nilai / 100;
-
-            // Pelamar::where('id', $hasilTes->id_pelamar)->update(['nilai_tes' => $total]);
             return redirect()->back();
+        } else {
+            $validator = Validator::make(request()->all(), [
+                'bobot' => 'required',
+                'nilai' => 'required|integer|min:0|max:100'
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator->errors());
+            } else {
+                Alert::success('Berhasil', 'Jawaban berhasil dinilai');
+
+                $bobot_kriteria = BobotKriteria::findOrFail($request->get('bobot'));
+
+                $cek = $this->getNumber($bobot_kriteria->nama_bobot, $nilai);
+
+                if ($cek) {
+                    $hasilTes = HasilTes::findOrFail($id);
+
+                    $hasilTes->bobot = $bobot_kriteria->jumlah_bobot;
+
+                    $hasilTes->nilai = $nilai;
+
+                    $hasilTes->id_bobot_kriteria = $bobot_kriteria->id;
+
+                    $hasilTes->save();
+
+                    return redirect()->back();
+                } else {
+                    return redirect()->back()->withErrors(['data nilai tidak valid']);
+                }
+            }
         }
     }
 
@@ -245,6 +300,25 @@ class HasilTesController extends Controller
 
 
             return response()->json(['data' => $bobot_kriteria, 'hasil_tes' => $hasil_tes, 'status' => true]);
+        }
+    }
+
+    public function getNumber($string, $nilai)
+    {
+        preg_match_all('/\d+/', $string, $matches);
+        $numbers = isset($matches[0]) ? $matches[0] : null;
+
+        if ($numbers) {
+            if (isset($numbers[0]) && isset($numbers[1])) {
+
+                if ($nilai >= $numbers[0] && $nilai <= $numbers[1]) {
+                    return ['status' =>  true, 'data' => $numbers];
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
         }
     }
 }

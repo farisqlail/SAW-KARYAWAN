@@ -4,22 +4,26 @@
     <div class="container">
         <div class="row justify-content-start">
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Rekrutmen Berlangsung</h4>
-                        <h3>{{ $lowonganBerlaku }}</h3>
-                        <i class="fas fa-clock fa-4x float-right" style="color:rgba(255, 79, 79, 0.702);"></i>
+                <a href="{{ route('lowongan.index') }}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Rekrutmen Berlangsung</h4>
+                            <h3>{{ $lowonganBerlaku }}</h3>
+                            <i class="fas fa-clock fa-4x float-right" style="color:rgba(255, 79, 79, 0.702);"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Rekrutmen Selesai</h4>
-                        <h3>{{ $lowonganBerakhir }}</h3>
-                        <i class="fas fa-calendar-check fa-4x float-right" style="color: rgba(49, 210, 49, 0.716);"></i>
+                <a href="{{ route('lowongan.index') }}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Rekrutmen Selesai</h4>
+                            <h3>{{ $lowonganBerakhir }}</h3>
+                            <i class="fas fa-calendar-check fa-4x float-right" style="color: rgba(49, 210, 49, 0.716);"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -145,10 +149,10 @@
         <script>
             $(document).ready(function() {
 
-                chartPelamarFn($('#periode_awal').find(':selected').val(),$('#periode_akhir').find(':selected').val())
+                chartPelamarFn($('#periode_awal').find(':selected').val(), $('#periode_akhir').find(':selected').val())
 
 
-                $('#periode_awal, #periode_akhir').on('change', function(){
+                $('#periode_awal, #periode_akhir').on('change', function() {
                     var periode_awal = $('#periode_awal').find(':selected').val();
                     var periode_akhir = $('#periode_akhir').find(':selected').val();
 
@@ -156,68 +160,68 @@
                 })
 
 
-                function chartPelamarFn(awal, akhir){
+                function chartPelamarFn(awal, akhir) {
                     $.ajax({
-                    url: "{{ route('chart.pelamar') }}",
-                    method: "GET",
-                    data: {
-                        periode_awal:awal,
-                        periode_akhir: akhir
-                    },
-                    success: function(response) {
-                        console.log(response);
+                        url: "{{ route('chart.pelamar') }}",
+                        method: "GET",
+                        data: {
+                            periode_awal: awal,
+                            periode_akhir: akhir
+                        },
+                        success: function(response) {
+                            console.log(response);
 
-                        Highcharts.chart('chartPelamar', {
-                            chart: {
-                                type: 'column'
-                            },
-                            title: {
-                                text: 'Data Pelamar'
-                            },
-                            subtitle: {
-                                text: 'Data pelamar'
-                            },
-                            accessibility: {
-                                announceNewData: {
-                                    enabled: true
-                                }
-                            },
-                            xAxis: {
-                                type: 'category'
-                            },
-                            yAxis: {
+                            Highcharts.chart('chartPelamar', {
+                                chart: {
+                                    type: 'column'
+                                },
                                 title: {
-                                    text: 'Total pelamar'
-                                }
-
-                            },
-                            legend: {
-                                enabled: false
-                            },
-                            plotOptions: {
-                                series: {
-                                    borderWidth: 0,
-                                    dataLabels: {
-                                        enabled: true,
-                                        format: '{point.y:.0f}'
+                                    text: 'Data Pelamar'
+                                },
+                                subtitle: {
+                                    text: 'Data pelamar'
+                                },
+                                accessibility: {
+                                    announceNewData: {
+                                        enabled: true
                                     }
-                                }
-                            },
+                                },
+                                xAxis: {
+                                    type: 'category'
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'Total pelamar'
+                                    }
 
-                            tooltip: {
-                                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                                pointFormat: '<span style="color:{point.color}">{point.date} <br>{point.name}</span>: <b>{point.y:.0f}</b><br/>'
-                            },
+                                },
+                                legend: {
+                                    enabled: false
+                                },
+                                plotOptions: {
+                                    series: {
+                                        borderWidth: 0,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '{point.y:.0f}'
+                                        }
+                                    }
+                                },
 
-                            series: [{
-                                name: "Jumlah Pelamar",
-                                colorByPoint: true,
-                                data: response.data
-                            }],
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                                    pointFormat: '<span style="color:{point.color}">{point.date} <br>{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+                                },
 
-                        });
-                    }
-                })
+                                series: [{
+                                    name: "Jumlah Pelamar",
+                                    colorByPoint: true,
+                                    data: response.data
+                                }],
+
+                            });
+                        }
+                    })
                 }
 
 
