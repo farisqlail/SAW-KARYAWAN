@@ -22,22 +22,19 @@
                             <tr class="text-center">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->lowongan->posisi_lowongan }}</td>
-                                {{-- <td>{{ $data->lowongan->created_at->toFormattedDateString() }}</td> --}}
+                                <td>{{ $data->created_at }}</td>
                                 <td>
                                     @if ($data->seleksi_satu == null && $data->seleksi_dua == null)
                                         <span class="text-warning">Lamaran belum ada status</span>
-                                    @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == null)
+                                    @elseif ($data->status_dokumen == 'Dokumen Valid' && $data->seleksi_dua == 'Diterima')
+                                        <span class="text-success">Lolos Seleksi Tahap 2 <br>
+                                            (Silahkan Datang Ke Perusahaan Untuk Mengikuti Wawancara)
+                                        </span>
+                                    @elseif($data->status_dokumen == 'Dokumen Valid')
                                         <span class="text-success">Lolos Seleksi Tahap 1 <br>
                                             (Silahkan Mengikuti Tes Online) </span>
-                                    @elseif ($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Diterima')
-                                        <span class="text-success">Lolos Seleksi Tahap 2 <br>
-                                            (Silahkan Datang Ke Perusahaan Untuk Mengikuti Wawancara) </span>
-
-                                    @elseif($data->seleksi_satu == 'Ditolak' && $data->seleksi_dua == null)
+                                    @elseif($data->seleksi_satu == 'Dokumen Tidak Valid' || $data->seleksi_dua == 'Ditolak')
                                         <span class="text-danger">Lamaran Ditolak</span>
-                                    @elseif($data->seleksi_satu == 'Diterima' && $data->seleksi_dua == 'Ditolak')
-                                        <span class="text-danger">Lamaran Ditolak</span>
-
                                     @endif
                                 </td>
                             </tr>

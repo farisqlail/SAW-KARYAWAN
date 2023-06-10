@@ -31,6 +31,7 @@ class Pelamar extends Migration
             $table->string('pas_foto');
             $table->string('seleksi_satu')->nullable();
             $table->string('seleksi_dua')->nullable();
+            $table->string('catatan_seleksi_satu')->nullable();
             $table->string('status_wawancara')->nullable();
             $table->string('hasil_wawancara')->nullable();
             $table->string('status_dokumen')->nullable();
