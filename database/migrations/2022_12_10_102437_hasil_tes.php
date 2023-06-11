@@ -25,6 +25,7 @@ class HasilTes extends Migration
             $table->foreign('id_bobot_kriteria')->references('id')->on('bobot_kriteria')->onDelete('cascade');
             $table->string('jawaban');
             $table->integer('nilai')->nullable();
+            $table->integer('bobot')->nullable();
             $table->timestamps();
          });
     }
