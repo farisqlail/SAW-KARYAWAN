@@ -59,7 +59,7 @@
                                                         @endif
 
                                                         @if ($data->durasi_tes < \Carbon\Carbon::now()->toDateString() && $data->status_lowongan == 'Seleksi 2')
-                                                            <a href="{{ Route('wawancara') }}"
+                                                            <a href="{{ route('wawancara',[$data->id_lowongan]) }}"
                                                                 class="btn btn-sm btn-success">Wawancara</a>
                                                         @endif
                                                     @endif

@@ -105,7 +105,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::prefix('/pelamar')->group(function ()
     {
-        Route::get('/wawancara', 'PelamarController@wawancara')->name('wawancara');
+        Route::get('/wawancara/{id}', 'PelamarController@wawancara')->name('wawancara');
         Route::get('/hasil/wawancara/{id}', 'PelamarController@hasilwawancara')->name('hasil.wawancara');
         Route::post('/hasil/wawancara/{id}', 'PelamarController@storeWawancara')->name('hasil.store');
         Route::post('/seleksi-pelamar/{id}', 'PelamarController@update')->name('pelamar.update');

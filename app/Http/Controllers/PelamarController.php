@@ -193,12 +193,13 @@ class PelamarController extends Controller
             $pelamar->save();
 
             return redirect()->route('perhitungan.validasi', ['id' => $pelamar->id_lowongan]);
-        } elseif ($request->submit == 'Dokumen Tidak Valid') {
+        } elseif ($request->status == 'Dokumen Tidak Valid') {
 
             Alert::success('Berhasil', 'Dokumen pelamar tidak valid!');
 
             $pelamar = Pelamar::findOrFail($id);
             $pelamar->status_dokumen = 'Dokumen Tidak Valid';
+            $pelamar->catatan_seleksi_satu = $request->get('catatan');
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.dokumenTidakValid', ['data' => $pelamar], function ($message) use ($pelamar) {
@@ -356,11 +357,12 @@ class PelamarController extends Controller
         }
     }
 
-    public function wawancara()
+    public function wawancara($id)
     {
         $pelamar = Pelamar::select('pelamar.id', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
             ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
             ->where('seleksi_dua', 'Diterima')
+            ->where('lowongan.id', $id)
             ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
 

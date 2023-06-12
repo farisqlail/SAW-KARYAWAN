@@ -145,17 +145,17 @@
                             {{ csrf_field() }}
                             @if (Auth::user()->role == 'admin')
                                 @if ($pelamar->status_dokumen == null)
-                                    <input type="submit" name="submit" class="btn btn-danger btn-sm"
-                                        value="Dokumen Tidak Valid">
+                                <button type="button" id="btnTolak" class="btn btn-danger btnTolak btn-sm" data-url="{{ route('pelamar.statusDokumen', $pelamar->id) }}"> Dokumen Tidak Valid</button>
 
                                     <input type="submit" name="submit" class="btn btn-success btn-sm"
                                         data-uia="login-submit-button" value="Dokumen Valid">
                                 @endif
                             @elseif(Auth::user()->role == 'hrd')
                                 @if ($pelamar->status_dokumen == null)
-                                    <input type="submit" name="submit" class="btn btn-danger btn-sm"
-                                        value="Dokumen Tidak Valid">
+                                    {{-- <input type="submit" name="submit" class="btn btn-danger btn-sm"
+                                        value="Dokumen Tidak Valid"> --}}
 
+                                        <button type="button" id="btnTolak" class="btn btn-danger btnTolak btn-sm" data-url="{{ route('pelamar.statusDokumen', $pelamar->id) }}"> Dokumen Tidak Valid</button>
                                     <input type="submit" name="submit" class="btn btn-success btn-sm"
                                         data-uia="login-submit-button" value="Dokumen Valid">
                                 @endif
@@ -168,9 +168,40 @@
         </div>
 
     </div>
+
+    <div class="modal fade" id="modalTolak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Catatan Dokumen Tidak Valid
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  id="formTolak"
+                        action="#" method="POST" >
+                        @csrf
+                        <input type="hidden" name="status" value="Dokumen Tidak Valid">
+
+                        <div class="form-group">
+                            <label for="catatan">Catatan<span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="catatan" required id="catatan" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer" style="border:none;">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
-@push('scripts')
+@section('script')
     <script>
         $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
         $(window).on('load', function() {
@@ -184,8 +215,21 @@
             });
         }
 
+        $(document).ready(function() {
+            $('#btnTolak').on('click', function() {
+
+                var url = $(this).data('url');
+
+                $('#catatan').empty();
+
+                $('#formTolak').attr('action', url);
+
+                $('#modalTolak').modal('show');
+            })
+        })
+
         $(window).load(function() {
             $('#loading').hide();
         });
     </script>
-@endpush
+@endsection

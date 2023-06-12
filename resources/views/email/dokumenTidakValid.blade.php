@@ -1,8 +1,8 @@
 @extends('beautymail::templates.minty')
 
 @section('content')
-@include('beautymail::templates.minty.contentStart')
-   
+    @include('beautymail::templates.minty.contentStart')
+
     <tr>
         <td class="title">
             Yth.
@@ -14,8 +14,12 @@
     </tr>
     <tr>
         <td class="paragraph">
-            Menindak lanjuti lamaran yang anda ajukan untuk lowongan <b>{{ $data->lowongan->posisi_lowongan }}</b>, melalui surat ini kami sampaikan
+            Menindak lanjuti lamaran yang anda ajukan untuk lowongan <b>{{ $data->lowongan->posisi_lowongan }}</b>, melalui
+            surat ini kami sampaikan
             bahwa dokumen anda tidak valid.
+
+            Berikut catatan terkait dokumen anda:
+            {{ $data->catatan_seleksi_satu }} ,
 
             Atas perhatiannya kami sampaikan terimakasih.
         </td>
