@@ -410,7 +410,7 @@ class PelamarController extends Controller
         }
         $pelamar->save();
 
-        return redirect()->route('wawancara');
+        return redirect()->route('wawancara',[$pelamar->lowongan->id]);
     }
 
     public function tolakDua(Request $request)

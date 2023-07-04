@@ -120,6 +120,11 @@
                 <i class="fas fa-vote-yea"></i>
                 <span>Seleksi Pelamar</span></a>
         </li>
+        <li class="nav-item {{ 'laporan' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.laporan.index') }}">
+                <i class="fas fa-file"></i>
+                <span>Laporan</span></a>
+        </li>
         <li class="nav-item {{ 'pengguna' == request()->segment(1) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('user-akses.index') }}">
                 <i class="fas fa-users"></i>

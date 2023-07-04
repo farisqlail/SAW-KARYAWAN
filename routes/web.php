@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -22,13 +23,12 @@ Route::get('/lowongan/search', 'LowonganController@search')->name('lowongan.sear
 
 Route::get('/lowongan/detail/{id}', 'LowonganController@show')->name('lowongan.detail');
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/home', 'HomeController@index')->name('home');
 
 
     //LOWONGAN
-    Route::prefix('/lowongan')->group(function ()
-    {
+    Route::prefix('/lowongan')->group(function () {
 
 
         Route::get('/admin', 'LowonganController@index')->name('lowongan.index');
@@ -65,8 +65,7 @@ Route::group(['middleware' => 'auth'], function(){
     });
 
 
-    Route::prefix('/daftar_soal')->group(function ()
-    {
+    Route::prefix('/daftar_soal')->group(function () {
         Route::get('/admin/{id}', 'DaftarSoalController@index')->name('daftar_soal.index');
         Route::get('/admin/{id}/tambah', 'DaftarSoalController@create')->name('daftar_soal.tambah');
         Route::post('/admin/tambah', 'DaftarSoalController@store')->name('daftar_soal.simpan');
@@ -74,11 +73,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/admin/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
         Route::get('/admin/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
         Route::get('/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
-
     });
 
-    Route::prefix('/jadwal_tes')->group(function ()
-    {
+    Route::prefix('/jadwal_tes')->group(function () {
         Route::get('/admin', 'JadwalTesController@index')->name('jadwal_tes.index');
         Route::get('/admin/tambah', 'JadwalTesController@create')->name('jadwal_tes.tambah');
         Route::post('/admin/tambah', 'JadwalTesController@store')->name('jadwal_tes.simpan');
@@ -103,8 +100,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::patch('/jawaban/edit/{id}', 'HasilTesController@updateJawaban')->name('jawaban.update');
     });
 
-    Route::prefix('/pelamar')->group(function ()
-    {
+    Route::prefix('/pelamar')->group(function () {
         Route::get('/wawancara/{id}', 'PelamarController@wawancara')->name('wawancara');
         Route::get('/hasil/wawancara/{id}', 'PelamarController@hasilwawancara')->name('hasil.wawancara');
         Route::post('/hasil/wawancara/{id}', 'PelamarController@storeWawancara')->name('hasil.store');
@@ -119,8 +115,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/validasi-dokumen/{id}', 'PelamarController@statusDokumen')->name('pelamar.statusDokumen');
     });
 
-    Route::prefix('/perhitungan')->group(function ()
-    {
+    Route::prefix('/perhitungan')->group(function () {
         Route::get('/admin/seleksi-1/{id}', 'PerhitunganController@index')->name('perhitungan.index');
         Route::get('/admin/seleksi-pelamar', 'PerhitunganController@lowongan')->name('perhitungan.pelamar');
         Route::get('/admin/seleksi-detail/{id}', 'PerhitunganController@detail')->name('seleksi.detail');
@@ -132,18 +127,19 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/pdf/pasFoto/{id}', 'PerhitunganController@pasFoto')->name('perhitungan.pasFoto');
     });
 
-    Route::prefix('/email')->group(function ()
-    {
+    Route::prefix('/email')->group(function () {
         Route::get('/email/{id}', 'PelamarController@email')->name('email.index');
     });
 
-    route::group(['prefix' => 'admin','namespace' => 'Admin'], function(){
-        route::resource('pelamar','PelamarController');
+    route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+        route::resource('pelamar', 'PelamarController');
     });
 
+    route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+        route::resource('laporan', 'LaporanController');
+    });
 
-    Route::prefix('/cetak')->group(function ()
-    {
+    Route::prefix('/cetak')->group(function () {
         Route::get('/admin/cetak-seleksi-1/{id}', 'PerhitunganController@laporan1')->name('seleksi.satu');
         Route::get('/admin/cetak-seleksi-2/{id}', 'PerhitunganController@laporan2')->name('seleksi.dua');
     });
@@ -157,6 +153,4 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/chart-pelamar', 'HomeController@chartPelamar')->name('chart.pelamar');
-
 });
-
