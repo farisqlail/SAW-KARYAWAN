@@ -33,9 +33,9 @@ class LaporanController extends Controller
 
             $pelamar = Pelamar::query();
 
-            if ($kategori == 'seleksi 1') {
+            if ($kategori == 'Seleksi 1') {
                 $pelamar->where('status_dokumen', 'Dokumen Valid');
-            } elseif ($kategori == 'seleksi 2') {
+            } elseif ($kategori == 'Seleksi 2') {
                 $pelamar->where('seleksi_dua', 'Diterima');
             } else {
                 $pelamar->where('status_wawancara', 'Diterima');

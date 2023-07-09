@@ -78,10 +78,30 @@ class Perhitungan extends Model
         return $arr;
     }
 
+    // public static function perangkingan($data)
+    // {
+    //     foreach($data as $dt){
+    //         if($dt['status'] !== 'Ditolak'){
+    //             $keys = array_column($dt, 'hasil_normalisasi');
+    //             array_multisort($keys, SORT_DESC, $dt);
+    //             return $dt;
+    //         }
+    //     }
+    // }
     public static function perangkingan($data)
     {
-        $keys = array_column($data, 'hasil_normalisasi');
-        array_multisort($keys, SORT_DESC, $data);
-        return $data;
+        $sortedData = [];
+    
+        foreach ($data as $dt) {
+            if ($dt['status'] !== 'Ditolak') {
+                $sortedData[] = $dt;
+            }
+        }
+    
+        usort($sortedData, function ($a, $b) {
+            return $b['hasil_normalisasi'] <=> $a['hasil_normalisasi'];
+        });
+    
+        return $sortedData;
     }
 }

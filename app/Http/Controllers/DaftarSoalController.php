@@ -120,7 +120,7 @@ class DaftarSoalController extends Controller
             $jadwaltes = JadwalTes::find($id);
             $kriteria = Kriteria::where('id_lowongan', $jadwaltes->id_lowongan)->where('tampil_di_pelamar', 0)->get();
             $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
-
+            
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'lowongan' => $lowongan, 'kriteria' => $kriteria]);
         } else {
             abort(404);
@@ -159,8 +159,9 @@ class DaftarSoalController extends Controller
                 $tujuan_upload = 'upload';
                 $file->move($tujuan_upload, $filename);
             }
+            
+            $daftar_soal->save();
         }
-        $daftar_soal->save();
         return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
     }
 

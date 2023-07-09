@@ -170,7 +170,7 @@ class PerhitunganController extends Controller
 
             $perangkingan = Perhitungan::perangkingan($perhitungan);
 
-            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'seleksi 1']);
+            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'Seleksi 1']);
 
             return view('perhitungan.validasi', [
                 'kriteria'      => $kriteria,
@@ -195,7 +195,7 @@ class PerhitunganController extends Controller
 
             $perangkingan = Perhitungan::perangkingan($perhitungan);
 
-            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'seleksi 1']);
+            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'Seleksi 1']);
 
             return view('perhitungan.validasi', [
                 'kriteria'      => $kriteria,
@@ -220,7 +220,7 @@ class PerhitunganController extends Controller
 
             $perangkingan = Perhitungan::perangkingan($perhitungan);
 
-            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'seleksi 1']);
+            lowongan::where('id', $lowonganGet)->update(['status_lowongan' => 'Seleksi 1']);
 
             return view('perhitungan.validasi', [
                 'kriteria'      => $kriteria,
