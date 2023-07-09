@@ -359,11 +359,11 @@ class PelamarController extends Controller
 
     public function wawancara($id)
     {
-        $pelamar = Pelamar::select('pelamar.id', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
-            ->join('lowongan', 'lowongan.id', '=', 'pelamar.id')
+        $pelamar = Pelamar::select('pelamar.id', 'pelamar.id_lowongan', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
+            ->join('lowongan', 'lowongan.id', '=', 'pelamar.id_lowongan')
             ->where('seleksi_dua', 'Diterima')
             ->where('lowongan.id', $id)
-            ->groupBy('id', 'nama_pelamar', 'posisi_lowongan')
+            ->groupBy('id', 'id_lowongan', 'nama_pelamar', 'posisi_lowongan')
             ->get();
 
         return view('perhitungan.wawancara', [
