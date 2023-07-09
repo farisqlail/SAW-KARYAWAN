@@ -48,11 +48,11 @@
                                     <div class="form-group">
                                         <label for="kategori">Kategori</label>
                                         <select class="form-control" name="kategori" required id="kategori">
-                                            <option @if ('seleksi 1' == request('kategori')) selected @endif value="seleksi 1">
+                                            <option @if ('Seleksi 1' == request('kategori')) selected @endif value="Seleksi 1">
                                                 Seleksi 1</option>
-                                            <option @if ('seleksi 2' == request('kategori')) selected @endif value="seleksi 2">
+                                            <option @if ('Seleksi 2' == request('kategori')) selected @endif value="Seleksi 2">
                                                 Seleksi 2</option>
-                                            <option @if ('wawancara' == request('kategori')) selected @endif value="wawancara">
+                                            <option @if ('Wawancara' == request('kategori')) selected @endif value="Wawancara">
                                                 Wawancara</option>
 
                                         </select>

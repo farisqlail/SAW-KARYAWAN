@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         $arr = [];
 
-        for ($i = date('Y'); $i <= date('Y') + 1; $i++) {
+        for ($i = date('Y') - 2; $i <= date('Y') + 1; $i++) {
             $arr[] = $i;
         }
 
@@ -98,7 +98,7 @@ class HomeController extends Controller
             $jumlah = lowongan::withCount('pelamar')
                 ->orderBy('posisi_lowongan')
                 ->pluck('pelamar_count');
-            // dd($riwayat);
+            // dd($riwayat);z
 
 
             return view('home', [
@@ -110,7 +110,7 @@ class HomeController extends Controller
                 'riwayat'           => $riwayat,
                 'jumlah'            => $jumlah,
                 'a'                 => $a,
-                'tahun' => $arr
+                'tahun'             => $arr
             ]);
         } else if (Auth::user()->role == 'hrd') {
             $pelamarv = Pelamar::whereNull('status_dokumen')->count();
@@ -197,17 +197,18 @@ class HomeController extends Controller
     public function chartPelamar(Request $request)
     {
         if ($request->ajax()) {
-
+            // dd($request->get('periode_awal'));
             $periode_awal = $request->get('periode_awal');
 
             $periode_akhir = $request->get('periode_akhir');
 
-            $pelamar = Pelamar::selectRaw('year(created_at) name, count(*) y')
+            $pelamar = Pelamar::selectRaw('YEAR(created_at) AS name, count(*) y')
                 ->whereYear('created_at','>=', $periode_awal)
                 ->whereYear('created_at','<=', $periode_akhir)
                 ->groupBy('name')
                 ->orderBy('name', 'desc')
                 ->get();
+                
 
             return response()->json(['status' => true, 'data' => $pelamar]);
         }
