@@ -11,6 +11,7 @@
                     </div>
 
                     <div class="card-body">
+                        @include('alert')
                         <div class="row">
                             <form action="{{ route('bobot_kriteria.update', $data->id) }}" method="POST" class="col-md-12">
                                 @csrf
@@ -27,6 +28,20 @@
                                 <div class="form-group">
                                     <label for="jumlah_bobot">Jumlah Bobot <span class="text-danger">*</span></label>
                                     <input type="number" name="jumlah_bobot" value="{{ $data->jumlah_bobot }}" class="form-control" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nilai_awal">Nilai Awal <span class="text-danger">*</span></label>
+                                            <input type="text" value="{{ $data->nilai_awal }}" name="nilai_awal" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nilai_akhir">Nilai Akhir <span class="text-danger">*</span></label>
+                                            <input type="text" value="{{ $data->nilai_akhir }}" name="nilai_akhir" class="form-control" required>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="float-right">
                                     <a href="{{ route('bobot_kriteria.index', ['id' => $data->id]) }}"

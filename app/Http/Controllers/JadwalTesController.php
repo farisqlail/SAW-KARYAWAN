@@ -144,7 +144,7 @@ class JadwalTesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
+          
             return back()->withErrors($validator->errors());
         } else {
             Alert::success('Berhasil', 'Jadwal tes berhasil ditambahkan');
@@ -228,7 +228,7 @@ class JadwalTesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
+          
             return back()->withErrors($validator->errors());
         } else {
             Alert::success('Berhasil', 'Jadwal tes berhasil diubah');

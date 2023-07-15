@@ -137,19 +137,30 @@
                                                 <a href="{{ asset('storage/file/jawaban/' . $data->hasil_tes->jawaban) }}"
                                                     class="btn btn-success btn-md" target="blank">Unduh Jawaban</a>
                                                 <br> <br>
-                                                <a href="" class="btn btn-danger btn-md ml-3" data-toggle="modal"
-                                                    data-target="#ubah-jawaban{{ $data->hasil_tes->id }}">Ubah Jawaban</a>
+                                                @if (\Carbon\Carbon::now() < \Carbon\Carbon::parse($jadwaltes->durasi_tes))
+                                                    <a href="" class="btn btn-danger btn-md ml-3"
+                                                        data-toggle="modal"
+                                                        data-target="#ubah-jawaban{{ $data->hasil_tes->id }}">Ubah
+                                                        Jawaban</a>
+                                                @endif
                                             </div>
-                                            <span class="text-danger">Jawaban dapat diubah sampai
-                                                {{ $jadwaltes->durasi_tes }} </span>
+                                            <span class="text-danger">
+
+                                                @if (\Carbon\Carbon::now() > \Carbon\Carbon::parse($jadwaltes->durasi_tes))
+                                                    Jawaban Tidak Dapat di ubah lagi
+                                                @else
+                                                    Jawaban dapat diubah sampai
+                                                    {{ $jadwaltes->durasi_tes }}
+                                            </span>
                                         @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                            @endif
+                            </td>
                             </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                        </tr>
                         @endif
                     </tbody>
                 </table>

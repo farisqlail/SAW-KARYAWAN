@@ -49,7 +49,8 @@
                                             <div class="form-group">
                                                 <label for="">Tanggal Lahir <span
                                                         class="text-danger">*</span></label>
-                                                <input type="date" name="tanggal_lahir" value="{{old('tanggal_lahir')}}" required class="form-control">
+                                                <input type="date" name="tanggal_lahir"
+                                                    value="{{ old('tanggal_lahir') }}" required class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -58,7 +59,8 @@
                                             <div class="form-group">
                                                 <label for="">Tempat Lahir <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" name="tempat_lahir" value="{{old('tempat_lahir')}}" required class="form-control">
+                                                <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}"
+                                                    required class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -67,11 +69,16 @@
                                                 <select name="agama" class="form-control" required>
                                                     <option value="">Pilih agama
                                                     </option>
-                                                    <option @if(old('agama') == 'Islam') selected @endif value="Islam">Islam</option>
-                                                    <option @if(old('agama') == 'Kristen') selected @endif value="Kristen">Kristen</option>
-                                                    <option @if(old('agama') == 'Katolik') selected @endif value="Katolik">Katolik</option>
-                                                    <option @if(old('agama') == 'Buddha') selected @endif value="Buddha">Buddha</option>
-                                                    <option @if(old('agama') == 'Hindu') selected @endif value="Hindu">Hindu</option>
+                                                    <option @if (old('agama') == 'Islam') selected @endif
+                                                        value="Islam">Islam</option>
+                                                    <option @if (old('agama') == 'Kristen') selected @endif
+                                                        value="Kristen">Kristen</option>
+                                                    <option @if (old('agama') == 'Katolik') selected @endif
+                                                        value="Katolik">Katolik</option>
+                                                    <option @if (old('agama') == 'Buddha') selected @endif
+                                                        value="Buddha">Buddha</option>
+                                                    <option @if (old('agama') == 'Hindu') selected @endif
+                                                        value="Hindu">Hindu</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -85,7 +92,9 @@
                                                     <div class="col-md-6">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
-                                                                name="jenis_kelamin" @if(old('jenis_kelamin') == 'Laki-laki') checked @endif id="jenis_kelamin" value="Laki-laki">
+                                                                name="jenis_kelamin"
+                                                                @if (old('jenis_kelamin') == 'Laki-laki') checked @endif
+                                                                id="jenis_kelamin" value="Laki-laki">
                                                             <label class="form-check-label" for="jenis_kelamin">
                                                                 Laki - Laki
                                                             </label>
@@ -94,7 +103,9 @@
                                                     <div class="col-md-6">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
-                                                                name="jenis_kelamin" @if(old('jenis_kelamin') == 'Perempuan') checked @endif id="jenis_kelamin" value="Perempuan">
+                                                                name="jenis_kelamin"
+                                                                @if (old('jenis_kelamin') == 'Perempuan') checked @endif
+                                                                id="jenis_kelamin" value="Perempuan">
                                                             <label class="form-check-label" for="jenis_kelamin">
                                                                 Perempuan
                                                             </label>
@@ -147,7 +158,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">No Telepon <span class="text-danger">*</span></label>
-                                                <input type="number" name="no_telepon" value="{{old('no_telepon')}}" required class="form-control">
+                                                <input type="number" name="no_telepon" value="{{ old('no_telepon') }}"
+                                                    required class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +168,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Alamat <span class="text-danger">*</span></label>
-                                                <textarea name="alamat" id="" cols="30" rows="5" required class="form-control">{{old('alamat')}}</textarea>
+                                                <textarea name="alamat" id="" cols="30" rows="5" required class="form-control">{{ old('alamat') }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -166,22 +178,26 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 @foreach ($kriteria as $key => $kt)
-                                                <input type="hidden" name="kriteria_id[]" value="{{$kt->id}}">
+                                                    <input type="hidden" name="kriteria_id[]"
+                                                        value="{{ $kt->id }}">
                                                     <div class="form-group">
-                                                        <label for="Kriteria">{{ $kt->nama_kriteria }} <span
-                                                            class="text-danger">*</span></label>
-                                                        <select name="kriteria[]" required class="form-control">
+                                                        <label for="kriteria">{{ $kt->nama_kriteria }} <span
+                                                                class="text-danger">*</span></label>
+                                                        {{-- <select name="kriteria[]" required class="form-control">
                                                             <option value="">-- Pilih
                                                                 {{ $kt->nama_kriteria }}--
                                                             </option>
                                                             @foreach ($bobot_kriteria as $bobot)
                                                                 @if ($kt->id == $bobot->id_kriteria)
-                                                                    <option @if(old('kriteria')) @if(old('kriteria')[$key] == $bobot->id) selected @endif @endif value="{{ $bobot->id }}">
+                                                                    <option @if (old('kriteria')) @if (old('kriteria')[$key] == $bobot->id) selected @endif @endif value="{{ $bobot->id }}">
                                                                         {{ $bobot->nama_bobot }}</option>
                                                                 @else
                                                                 @endif
                                                             @endforeach
-                                                        </select>
+                                                        </select> --}}
+                                                        <input type="text" name="kriteria[]" id="kriteria"
+                                                        @if (old('kriteria')) value="{{ old('kriteria')[$key] }}"  @endif  required
+                                                            class="form-control">
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -192,8 +208,7 @@
                             </div>
 
                             <div class="form-group mt-2">
-                                <label for="">CV <span
-                                    class="text-danger">*</span></label><br>
+                                <label for="">CV <span class="text-danger">*</span></label><br>
                                 <input name="cv" class="form-control-file mt-2" type="file" required />
                                 @if ($errors->has('cv'))
                                     <span class="text-danger">{{ $errors->first('cv') }}</span>
@@ -201,8 +216,7 @@
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="">Ijazah <span
-                                    class="text-danger">*</span></label><br>
+                                <label for="">Ijazah <span class="text-danger">*</span></label><br>
                                 <input name="ijazah" class="form-control-file mt-2 " id="ijazah" type="file"
                                     required />
                                 @if ($errors->has('ijazah'))
@@ -211,8 +225,7 @@
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="">Pas Foto <span
-                                    class="text-danger">*</span></label><br>
+                                <label for="">Pas Foto <span class="text-danger">*</span></label><br>
                                 <input name="pas_foto" class="form-control-file mt-2" type="file" required />
                                 @if ($errors->has('pas_foto'))
                                     <span class="text-danger">{{ $errors->first('pas_foto') }}</span>

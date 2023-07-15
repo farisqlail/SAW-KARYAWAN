@@ -19,6 +19,8 @@ class BobotKriteria extends Migration
             $table->foreign('id_kriteria')->references('id')->on('kriteria')->onDelete('cascade');
             $table->string('nama_bobot');
             $table->double('jumlah_bobot')->default(0);
+            $table->double('nilai_awal')->default(0);
+            $table->double('nilai_akhir')->default(0);
             $table->timestamps();
         });
     }

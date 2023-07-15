@@ -24,7 +24,7 @@
                                 <td>{{ $data->lowongan->posisi_lowongan }}</td>
                                 <td>{{ $data->created_at }}</td>
                                 <td>
-                                    @if ($data->seleksi_satu == null && $data->seleksi_dua == null)
+                                    @if ($data->seleksi_satu == null && $data->seleksi_dua == null && $data->status_dokumen == null)
                                         <span class="text-warning">Lamaran belum ada status</span>
                                     @elseif ($data->status_dokumen == 'Dokumen Valid' && $data->seleksi_dua == 'Diterima')
                                         <span class="text-success">Lolos Seleksi Tahap 2 <br>

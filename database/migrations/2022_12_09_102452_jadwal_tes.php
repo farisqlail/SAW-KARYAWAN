@@ -18,8 +18,10 @@ class JadwalTes extends Migration
             $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
             $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
             $table->date('tanggal_notif');
-            $table->date('tanggal');
-            $table->date('durasi_tes');
+            $table->timestamp('tanggal');
+            $table->timestamp('durasi_tes')->nullable();
+            $table->time('waktu_awal')->nullable();
+            $table->time('waktu_akhir')->nullable();
             $table->timestamps();
          });
     }
