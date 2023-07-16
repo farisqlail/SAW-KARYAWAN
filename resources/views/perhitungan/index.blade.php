@@ -170,7 +170,7 @@
                                                 form="formSort" hidden>
                                             <td>{{ $no2++ }}</td>
                                             <td>{{ $t['nama'] }}</td>
-                                            <td>{{ number_format($t['total'], 2, ',', '.') }}</td>
+                                            <td>{{ number_format(round($t['total'], 2, ',', '.')) }}</td>
                                             <td>{{ $a++ }}</td>
                                             <td>
                                                 @if ($t['seleksi_1'] == 'Diterima')
