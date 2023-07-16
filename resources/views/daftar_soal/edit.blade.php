@@ -18,7 +18,7 @@
                                     <input type="text" name="id" class="form-control" value="{{ $jadwaltes->id }}"
                                         hidden>
                                     <input type="text" name="id_lowongan" class="form-control"
-                                        value="{{ $lowongan[0]->id }}" hidden>
+                                        value="{{ $daftar_soal->id_lowongan }}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label for="kriteria">Kriteria <span class="text-danger">*</span></label>

@@ -87,9 +87,16 @@ class KriteriaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
+
             return back()->withErrors($validator->errors());
         } else {
+
+            $sum = Kriteria::where('id_lowongan', $request->get('id_lowongan'))->sum('bobot_preferensi');
+
+            if($sum >= 100){
+                return redirect()->back()->withErrors(['Jumlah bobot kriteria sudah 100']);
+            }
+
             Alert::success('Berhasil', 'Data kriteria berhasil ditambahkan');
 
             $kriteria = new Kriteria();
@@ -159,7 +166,7 @@ class KriteriaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
+
             return back()->withErrors($validator->errors());
         } else {
             Alert::success('Berhasil', 'Data kriteria berhasil diubah');

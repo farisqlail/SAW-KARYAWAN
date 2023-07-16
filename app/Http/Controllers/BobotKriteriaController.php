@@ -81,7 +81,9 @@ class BobotKriteriaController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'keterangan_bobot' => "required",
-            'jumlah_bobot' => "required|integer"
+            'jumlah_bobot' => "required|integer",
+            'nilai_awal' => "required|min:0|numeric",
+            'nilai_akhir' => "required|gt:nilai_awal|numeric",
         ]);
 
         if ($validator->fails()) {
@@ -93,6 +95,8 @@ class BobotKriteriaController extends Controller
             $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
             $bobot_kriteria->jumlah_bobot = $request->get('jumlah_bobot');
+            $bobot_kriteria->nilai_awal = $request->get('nilai_awal');
+            $bobot_kriteria->nilai_akhir = $request->get('nilai_akhir');
             $bobot_kriteria->save();
             return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id_kriteria]);
         }
@@ -146,7 +150,9 @@ class BobotKriteriaController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'keterangan_bobot' => "required",
-            'jumlah_bobot' => "required|integer"
+            'jumlah_bobot' => "required|integer",
+            'nilai_awal' => "required|min:0|numeric",
+            'nilai_akhir' => "required|gt:nilai_awal|numeric",
         ]);
 
         if ($validator->fails()) {
@@ -158,6 +164,8 @@ class BobotKriteriaController extends Controller
             $bobot_kriteria->id_kriteria = $request->get('id_kriteria');
             $bobot_kriteria->nama_bobot = $request->get('keterangan_bobot');
             $bobot_kriteria->jumlah_bobot = $request->get('jumlah_bobot');
+            $bobot_kriteria->nilai_awal = $request->get('nilai_awal');
+            $bobot_kriteria->nilai_akhir = $request->get('nilai_akhir');
             $bobot_kriteria->save();
             return redirect()->route('bobot_kriteria.index', ['id' => $bobot_kriteria->id_kriteria]);
         }

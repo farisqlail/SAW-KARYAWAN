@@ -12,6 +12,7 @@
 
                     <div class="card-body">
                         <div class="row">
+                            @include('alert')
                             <form action="{{route('kriteria.simpan')}}" method="POST" class="col-md-12">
                                 @csrf
                                 <div class="form-group">

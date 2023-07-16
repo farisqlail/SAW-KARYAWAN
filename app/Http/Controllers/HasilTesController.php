@@ -212,7 +212,7 @@ class HasilTesController extends Controller
             foreach ($daftarsoal as $key => $value) {
 
                 foreach ($bobot_kriteria as $key => $row) {
-                    $cek = $this->getNumber($row->nama_bobot, $nilai);
+                    $cek = BobotKriteria::where('id_kriteria', $row->id_kriteria)->where('nilai_awal', '<=', floatval($nilai))->where('nilai_akhir', '>=', floatval($nilai))->first();
 
                     if ($cek) {
 
@@ -230,7 +230,7 @@ class HasilTesController extends Controller
                                 'id_bobot_kriteria' => $row->id
                             ]);
                         }
-                    }else {
+                    } else {
                         return redirect()->back()->withErrors(['data nilai tidak valid']);
                     }
                 }
@@ -241,7 +241,7 @@ class HasilTesController extends Controller
             return redirect()->back();
         } else {
             $validator = Validator::make(request()->all(), [
-                'bobot' => 'required',
+                // 'bobot' => 'required',
                 'nilai' => 'required|integer|min:0|max:100'
             ]);
 
@@ -250,18 +250,17 @@ class HasilTesController extends Controller
             } else {
                 Alert::success('Berhasil', 'Jawaban berhasil dinilai');
 
-                $bobot_kriteria = BobotKriteria::findOrFail($request->get('bobot'));
+                $hasilTes = HasilTes::findOrFail($id);
 
-                $cek = $this->getNumber($bobot_kriteria->nama_bobot, $nilai);
+                $cek = BobotKriteria::where('id_kriteria', $hasilTes->daftar_soal->id_kriteria)->where('nilai_awal', '<=', floatval($nilai))->where('nilai_akhir', '>=', floatval($nilai))->first();
 
                 if ($cek) {
-                    $hasilTes = HasilTes::findOrFail($id);
 
-                    $hasilTes->bobot = $bobot_kriteria->jumlah_bobot;
+                    $hasilTes->bobot = $cek->jumlah_bobot;
 
                     $hasilTes->nilai = $nilai;
 
-                    $hasilTes->id_bobot_kriteria = $bobot_kriteria->id;
+                    $hasilTes->id_bobot_kriteria = $cek->id;
 
                     $hasilTes->save();
 

@@ -51,7 +51,7 @@
                                                 <td align="center">
                                                     @if ($data->berlaku_sampai > date('Y-m-d') && $data->status_lowongan == null)
                                                         <span class="badge badge-success">Pendaftaran</span>
-                                                    @elseif($data->status_lowongan == strtolower('Seleksi 1'))
+                                                    @elseif(strtolower($data->status_lowongan) == strtolower('Seleksi 1'))
                                                         <span class="badge badge-warning">Seleksi 1</span>
                                                     @elseif($data->status_lowongan == 'Seleksi 2')
                                                         <span class="badge badge-warning">Seleksi 2</span>

@@ -78,7 +78,7 @@ class PelamarController extends Controller
             'ijazah' => 'required|mimes:pdf|max:3024',
             'pas_foto' => 'required|mimes:jpeg,png,jpg|max:1024',
             'kriteria' => 'required',
-            'kriteria.*' => 'required'
+            'kriteria.*' => 'required|numeric|min:0'
         ]);
 
         if ($validator->fails()) {
@@ -125,9 +125,17 @@ class PelamarController extends Controller
                 $kriteria = $request->get('kriteria');
 
                 foreach ($kriteria_id as $key => $k) {
+
+                    $cek = BobotKriteria::where('id_kriteria', $k)->where('nilai_awal','<=', floatval($kriteria[$key]))->where('nilai_akhir','>=', floatval($kriteria[$key]))->first();
+
+                    if(!$cek){
+                        return redirect()->back()->withErrors('Data nilai tidak ditemukan')->withInput();
+                    }
+
                     $nilai_alternatif = new NilaiAlternatif();
                     $nilai_alternatif->id_pelamar = $pelamar->id;
-                    $nilai_alternatif->id_bobot_kriteria = $kriteria[$key];
+                    $nilai_alternatif->id_bobot_kriteria = $cek->id;
+                    $nilai_alternatif->nilai = $kriteria[$key];
                     $nilai_alternatif->save();
                 }
 

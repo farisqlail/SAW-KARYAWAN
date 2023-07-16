@@ -119,11 +119,7 @@
                         id="form-nilaiJawaban">
                         @csrf
                         {{ method_field('PUT') }}
-                        <div class="form-group">
-                            <label for="bobot">Bobot<span class="text-danger">*</span></label>
-                            <select required name="bobot" id="bobot" class="form-control" required>
-                            </select>
-                        </div>
+
                         <div class="form-group">
                             <label for="nilai">Nilai<span class="text-danger">*</span></label>
                             <input type="number" name="nilai" id="nilai" class="form-control" min="0" max="100"
@@ -169,23 +165,6 @@
                             var hasil_tes = response?.hasil_tes;
 
                             $('#nilai').val(hasil_tes.nilai);
-
-                            for (let index = 0; index < data.length; index++) {
-
-                                const element = data[index];
-
-                                if (element.id == response?.hasil_tes?.id_bobot_kriteria) {
-                                    $("#bobot").append(
-                                        ` <option selected value="${element.id}">${element.jumlah_bobot} | ${element.nama_bobot}</option>`
-                                    );
-                                } else {
-                                    $("#bobot").append(
-                                        ` <option value="${element.id}">${element.jumlah_bobot} | ${element.nama_bobot}</option>`
-                                    );
-                                }
-
-
-                            }
                         }
                     }
                 })

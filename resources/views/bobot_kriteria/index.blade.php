@@ -26,6 +26,8 @@
                                         {{-- <th>Kriteria</th> --}}
                                         <th>Keterangan</th>
                                         <th>Nilai Bobot</th>
+                                        <th>Nilai Awal</th>
+                                        <th>Nilai Akhir</th>
                                         <th class="text-center" style="width:20%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -37,6 +39,8 @@
                                                 {{-- <td>{{ $datakriteria[0]->nama_kriteria }}</td> --}}
                                                 <td>{{ $data->nama_bobot }}</td>
                                                 <td>{{ $data->jumlah_bobot }}</td>
+                                                <td>{{ $data->nilai_awal }}</td>
+                                                <td>{{ $data->nilai_akhir }}</td>
                                                 <td class="text-center">
 
                                                     <a href="{{ route('bobot_kriteria.edit', ['id' => $data->id]) }}"
