@@ -49,17 +49,16 @@
                                                             class="btn btn-sm btn-outline-info">Lihat Data Pelamar</a>
                                                     @endif
 
-                                                    @if (\Carbon\Carbon::parse($data->berlaku_sampai) < \Carbon\Carbon::now())
+                                                    @if ($data->status_lowongan == 'Seleksi 2')
                                                         {{-- <a href="{{ route('perhitungan.index', $data) }}"
                                                             class="btn btn-sm btn-info">Seleksi 1</a> --}}
-                                                        @if ($data->durasi_tes < \Carbon\Carbon::now()->toDateString())
+                                                        @if ($data->status_lowongan == 'Seleksi 2')
                                                             <a href="{{ Route('perhitungan.dua', $data) }}"
                                                                 class="btn btn-sm btn-success">Seleksi 2</a>
-
                                                         @endif
 
-                                                        @if ($data->durasi_tes < \Carbon\Carbon::now()->toDateString() && $data->status_lowongan == 'Seleksi 2')
-                                                            <a href="{{ route('wawancara',[$data->id_lowongan]) }}"
+                                                        @if (\Carbon\Carbon::parse($data->durasi_tes) < \Carbon\Carbon::now() && $data->status_lowongan == 'Seleksi 2')
+                                                            <a href="{{ route('wawancara', [$data->id_lowongan]) }}"
                                                                 class="btn btn-sm btn-success">Wawancara</a>
                                                         @endif
                                                     @endif

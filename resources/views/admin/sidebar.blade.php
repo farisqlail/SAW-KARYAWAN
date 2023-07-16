@@ -163,10 +163,10 @@
                 <span>Lowongan</span></a>
         </li>
         <li class="nav-item {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('jadwal_tes.index') }}">
-              <i class="fas fa-clock"></i>
-              <span>Jadwal Tes</span></a>
-      </li>
+            <a class="nav-link" href="{{ route('jadwal_tes.index') }}">
+                <i class="fas fa-clock"></i>
+                <span>Jadwal Tes</span></a>
+        </li>
     @endif
 
 </ul>
