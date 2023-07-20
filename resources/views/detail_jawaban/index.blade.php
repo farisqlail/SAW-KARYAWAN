@@ -6,11 +6,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="float-left">Daftar Soal Tes untuk Posisi {{ $lowongan->posisi_lowongan }}</h3>
+                        <h3 class="float-left">Jawaban untuk soal {{ $daftarsoal->soal }}</h3>
                         <div class="float-right">
-                            <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Kembali</a>
-                            <a href="{{ route('daftar_soal.tambah', ['id' => $jadwaltes->id]) }}"
+                            <a href="{{ route('daftar_soal.index', ['id' => $daftarsoal->id_jadwal_tes]) }}"
+                                class="btn btn-danger">Kembali</a>
+                            @if(count($detailJawaban) == 0)
+                            <a href="{{ route('detail_jawaban.tambah', $daftarsoal->id) }}"
                                 class="btn btn-success">Tambah</a>
+                            @endif
                         </div>
                     </div>
 
@@ -20,31 +23,25 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Kriteria</th>
-                                        <th class="text-center">Soal</th>
-                                        {{-- <th class="text-center">File Soal</th> --}}
-                                        {{-- <th class="text-center">Bobot Soal</th> --}}
-                                        <th class="text-center" style="width:30%">Aksi</th>
+                                        <th class="text-center">Jawaban A</th>
+                                        <th class="text-center">Jawaban B</th>
+                                        <th class="text-center">Jawaban C</th>
+                                        <th class="text-center">Jawaban D</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (!empty($daftarsoal))
-                                        @foreach ($daftarsoal as $data)
+                                    @if (!empty($detailJawaban))
+                                        @foreach ($detailJawaban as $data)
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->kriteria->nama_kriteria }}</td>
-                                                <td>{{ $data->soal }}</td>
-                                                {{-- <td><a href="/upload/{{ $data->file_soal }}" class="btn btn-success"><i
-                                                            class="fas fa-download"></i> &nbsp; Unduh File</a></td> --}}
-                                                {{-- <td>{{ $data->bobot_soal }}</td> --}}
+                                                <td>{{ $data->jawaban_a }}</td>
+                                                <td>{{ $data->jawaban_b }}</td>
+                                                <td>{{ $data->jawaban_c }}</td>
+                                                <td>{{ $data->jawaban_d }}</td>
                                                 <td class="text-center">
-
-                                                    <a href="{{ route('daftar_soal.edit', ['id' => $data->id]) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
-                                                    <a href="{{ route('detail_jawaban.index', ['id' => $data->id]) }}" class="btn btn-sm btn-info">Jawaban</a>
-                                                    <a href="#" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $data->id }}">Hapus</a>
-
+                                                    <a href="{{ route('detail_jawaban.edit', ['id' => $data->id]) }}"
+                                                        class="btn btn-warning">Edit</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -65,7 +62,7 @@
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
+    {{-- <script>
         $('.delete').click(function() {
             var soalId = $(this).attr('data-id');
             swal({
@@ -86,5 +83,5 @@
                     }
                 });
         });
-    </script>
+    </script> --}}
 @endsection

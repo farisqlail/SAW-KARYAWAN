@@ -32,16 +32,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="soal">Soal<span class="text-danger">*</span></label>
-                                    <input type="text" name="soal" required class="form-control">
+                                    {{-- <input type="text" name="soal" required class="form-control"> --}}
+                                    <textarea name="soal" class="form-control" cols="30" rows="3"></textarea>
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="bobot">Bobot Soal<span class="text-danger">*</span></label>
-                                    <input type="number" name="bobot" required class="form-control" max="100">
-                                </div> --}}
-                                <div class="form-group">
-                                    <label for="file_soal">File Soal<span class="text-danger">*</span></label>
-                                </div>
-                                <input name="file_soal" class="form-control" type="file" required />
+                                
                                 <br>
                                 <div class="float-right">
                                     <a href="{{ route('daftar_soal.index', ['id' => $jadwaltes->id]) }}"

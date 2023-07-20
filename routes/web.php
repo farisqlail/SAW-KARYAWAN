@@ -73,6 +73,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/admin/edit/{id}', 'DaftarSoalController@update')->name('daftar_soal.update');
         Route::get('/admin/hapus/{id}', 'DaftarSoalController@destroy')->name('daftar_soal.hapus');
         Route::get('/soal-tes/{id}', 'DaftarSoalController@home')->name('daftar_soal.home');
+
+        Route::get('/admin/{id}/jawaban', 'DetailJawabanController@index')->name('detail_jawaban.index');
+        Route::get('/admin/{id}/jawaban/tambah', 'DetailJawabanController@create')->name('detail_jawaban.tambah');
+        Route::post('/admin/tambah', 'DetailJawabanController@store')->name('detail_jawaban.simpan');
+        Route::get('/admin/{id}/jawaban/edit', 'DetailJawabanController@edit')->name('detail_jawaban.edit');
+        Route::post('/admin/edit/{id}', 'DetailJawabanController@update')->name('detail_jawaban.update');
+        Route::get('/admin/hapus/{id}', 'DetailJawabanController@destroy')->name('detail_jawaban.hapus');
     });
 
     Route::prefix('/jadwal_tes')->group(function () {

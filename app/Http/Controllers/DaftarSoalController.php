@@ -8,6 +8,8 @@ use App\JadwalTes;
 use App\Kriteria;
 use App\lowongan;
 use App\Pelamar;
+use App\DetailJawaban;
+use App\Pertanyaan;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -138,7 +140,6 @@ class DaftarSoalController extends Controller
         $validator = Validator::make(request()->all(), [
             'kriteria' => 'required',
             'soal' => 'required',
-            'file_soal' => "required",
         ]);
 
         if ($validator->fails()) {
@@ -147,24 +148,19 @@ class DaftarSoalController extends Controller
             Alert::success('Berhasil', 'Berhasil menambah soal');
 
             $daftar_soal = new DaftarSoal();
+            $soal = new Pertanyaan();
             $daftar_soal->id_jadwal_tes = $request->get('id');
             $daftar_soal->id_lowongan = $request->get('id_lowongan');
             $daftar_soal->id_kriteria = $request->get('kriteria');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = 0;
-            if ($request->file('file_soal')) {
-                $file = $request->file('file_soal');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $daftar_soal->file_soal  = $filename;
-                $tujuan_upload = 'upload';
-                $file->move($tujuan_upload, $filename);
-            }
+            $soal->soal = $request->get('soal');
             
             $daftar_soal->save();
+            $soal->save();
         }
         return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
     }
-
 
     /**
      * Display the specified resource.
