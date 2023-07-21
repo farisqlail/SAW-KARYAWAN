@@ -74,6 +74,8 @@ class PelamarController extends Controller
             'tanggal_lahir' => 'required',
             'no_telepon' => 'required',
             'jenis_kelamin' => 'required',
+            'ipk' => 'required',
+            'pengalaman' => 'required',
             'cv' => 'required|mimes:pdf|max:3024',
             'ijazah' => 'required|mimes:pdf|max:3024',
             'pas_foto' => 'required|mimes:jpeg,png,jpg|max:1024',
@@ -96,7 +98,8 @@ class PelamarController extends Controller
                 $pelamar->tanggal_lahir = $request->get('tanggal_lahir');
                 $pelamar->tempat_lahir = $request->get('tempat_lahir');
                 $pelamar->agama = $request->get('agama');
-                $pelamar->alamat = $request->get('alamat');
+                $pelamar->ipk = $request->get('ipk');
+                $pelamar->pengalaman = $request->get('pengalaman');
                 $pelamar->no_telepon = $request->get('no_telepon');
                 $pelamar->jenis_kelamin = $request->get('jenis_kelamin');
                 if ($request->hasFile('cv')) {

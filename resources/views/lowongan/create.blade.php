@@ -47,20 +47,20 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Tanggal Lahir <span
+                                                <label for="">Tempat Lahir <span
                                                         class="text-danger">*</span></label>
-                                                <input type="date" name="tanggal_lahir"
-                                                    value="{{ old('tanggal_lahir') }}" required class="form-control">
+                                                <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}"
+                                                    required class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Tempat Lahir <span
+                                                <label for="">Tanggal Lahir <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}"
-                                                    required class="form-control">
+                                                <input type="date" name="tanggal_lahir"
+                                                    value="{{ old('tanggal_lahir') }}" required class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -111,47 +111,6 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    {{-- @if (Auth::user()->jenis_kelamin == 'Laki-laki')
-                                                        <div class="col-md-6">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="jenis_kelamin" id="jenis_kelamin"
-                                                                    value="{{ Auth::user()->jenis_kelamin }}" checked>
-                                                                <label class="form-check-label" for="jenis_kelamin">
-                                                                    Laki - Laki
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="jenis_kelamin" id="jenis_kelamin">
-                                                                <label class="form-check-label" for="jenis_kelamin">
-                                                                    Perempuan
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @elseif(Auth::user()->jenis_kelamin == 'Perempuan') --}}
-                                                    {{-- <div class="col-md-6">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="jenis_kelamin" id="jenis_kelamin">
-                                                                <label class="form-check-label" for="jenis_kelamin">
-                                                                    Laki - Laki
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="jenis_kelamin" id="jenis_kelamin"
-                                                                    value="{{ Auth::user()->jenis_kelamin }}" checked>
-                                                                <label class="form-check-label" for="jenis_kelamin">
-                                                                    Perempuan
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endif --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -170,6 +129,24 @@
                                                 <label for="">Alamat <span class="text-danger">*</span></label>
                                                 <textarea name="alamat" id="" cols="30" rows="5" required class="form-control">{{ old('alamat') }}</textarea>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="">IPK</label>
+                                                <input type="number" step="0.01" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="">Pengalaman Kerja <span class="text-danger">*</span></label>
+                                            <select name="pengalaman" class="form-control" id="">
+                                                <option value="1">1 Tahun</option>
+                                                <option value="2">2 Tahun</option>
+                                                <option value="3">3 Tahun</option>
+                                                <option value="4">4 Tahun</option>
+                                            </select>
                                         </div>
                                     </div>
 
