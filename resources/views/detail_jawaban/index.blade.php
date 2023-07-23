@@ -10,10 +10,7 @@
                         <div class="float-right">
                             <a href="{{ route('daftar_soal.index', ['id' => $daftarsoal->id_jadwal_tes]) }}"
                                 class="btn btn-danger">Kembali</a>
-                            @if(count($detailJawaban) == 0)
-                            <a href="{{ route('detail_jawaban.tambah', $daftarsoal->id) }}"
-                                class="btn btn-success">Tambah</a>
-                            @endif
+                            <a href="{{ route('daftar_soal.edit', $daftarsoal->id) }}" class="btn btn-warning">Edit</a>
                         </div>
                     </div>
 
@@ -23,11 +20,11 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Jawaban A</th>
-                                        <th class="text-center">Jawaban B</th>
-                                        <th class="text-center">Jawaban C</th>
-                                        <th class="text-center">Jawaban D</th>
-                                        <th class="text-center">Aksi</th>
+                                        <th class="text-center">Jawaban</th>
+                                        <th class="text-center">IsTrue</th>
+                                        <th class="text-center">Urutan</th>
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,14 +32,9 @@
                                         @foreach ($detailJawaban as $data)
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->jawaban_a }}</td>
-                                                <td>{{ $data->jawaban_b }}</td>
-                                                <td>{{ $data->jawaban_c }}</td>
-                                                <td>{{ $data->jawaban_d }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('detail_jawaban.edit', ['id' => $data->id]) }}"
-                                                        class="btn btn-warning">Edit</a>
-                                                </td>
+                                                <td>{{ $data->jawaban }}</td>
+                                                <td>{{ $data->isTrue }}</td>
+                                                <td>{{ $data->urutan }}</td>
                                             </tr>
                                         @endforeach
                                     @else

@@ -21,9 +21,9 @@ class DaftarSoal extends Migration
             $table->foreign('id_jadwal_tes')->references('id')->on('jadwal_tes')->onDelete('cascade');
             $table->bigInteger('id_lowongan')->index()->unsigned()->nullable();
             $table->foreign('id_lowongan')->references('id')->on('lowongan')->onDelete('cascade');
-            $table->string('soal');
-            $table->string('file_soal');
-            $table->integer('bobot_soal');
+            $table->string('soal')->nullable();
+            $table->string('file_soal')->nullable();
+            $table->integer('bobot_soal')->nullable();
             $table->timestamps();
          });
     }

@@ -16,10 +16,7 @@ class DetailJawaban extends Migration
         Schema::create('detail_jawaban', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_daftar_soal')->index()->unsigned()->nullable();
-            $table->string('jawaban_a');
-            $table->string('jawaban_b');
-            $table->string('jawaban_c');
-            $table->string('jawaban_d');
+            $table->string('jawaban');
             $table->boolean('isTrue');
             $table->string('urutan')->nullable();
             $table->timestamps();

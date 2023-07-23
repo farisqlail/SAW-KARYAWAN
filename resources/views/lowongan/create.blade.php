@@ -136,7 +136,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="">IPK</label>
-                                                <input type="number" step="0.01" class="form-control">
+                                                <input type="number" step="0.01" name="ipk" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">

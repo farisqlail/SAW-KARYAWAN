@@ -24,24 +24,24 @@ class DetailJawabanController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $daftarsoal = DaftarSoal::where('id', $id)->first();
-            $detailJawaban = DetailJawaban::where('id_daftar_soal', $daftarsoal->id)->get();
+            $detailJawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
             $pertanyaan = Pertanyaan::all();
 
             return view('detail_jawaban.index', ['detailJawaban' => $detailJawaban, 'daftarsoal' => $daftarsoal, 'pertanyaan' => $pertanyaan]);
         } else if (Auth::user()->role == 'direksi') {
-            $daftarsoal = DaftarSoal::where('id', $id)->get();
-            $detailJawaban = DetailJawaban::where('id_daftar_soal', $daftarsoal->id)->get();
+            $daftarsoal = DaftarSoal::where('id', $id)->first();
+            $detailJawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
             $detailJawaban = DetailJawaban::all();
-            
+
             return view('daftar_soal.index', ['detailJawaban' => $detailJawaban, 'daftarsoal' => $daftarsoal]);
         } else if (Auth::user()->role == 'hrd') {
-            $daftarsoal = DaftarSoal::where('id', $id)->get();
-            $detailJawaban = DetailJawaban::where('id_daftar_soal', $daftarsoal->id)->get();
+            $daftarsoal = DaftarSoal::where('id', $id)->first();
+            $detailJawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
 
             return view('daftar_soal.index', ['detailJawaban' => $detailJawaban, 'daftarsoal' => $daftarsoal]);
         } else if (Auth::user()->role == 'divisi') {
-            $daftarsoal = DaftarSoal::where('id', $id)->get();
-            $detailJawaban = DetailJawaban::where('id_daftar_soal', $daftarsoal->id)->get();
+            $daftarsoal = DaftarSoal::where('id', $id)->first();
+            $detailJawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
 
             return view('daftar_soal.index', ['detailJawaban' => $detailJawaban, 'daftarsoal' => $daftarsoal]);
         } else {
@@ -107,7 +107,7 @@ class DetailJawabanController extends Controller
             $detailJawaban->jawaban_b = $request->get('jawaban_b');
             $detailJawaban->jawaban_c = $request->get('jawaban_c');
             $detailJawaban->jawaban_d = $request->get('jawaban_d');
-            
+
             $detailJawaban->save();
         }
         return redirect()->route('detail_jawaban.index', ['id' => $detailJawaban->id_daftar_soal]);
@@ -135,27 +135,29 @@ class DetailJawabanController extends Controller
         if (Auth::user()->role == 'admin') {
             $daftarsoal = DaftarSoal::where('id', $id)->first();
             $pertanyaan = Pertanyaan::all();
-            $detailjawaban = DetailJawaban::where('id', $id)->get();
+            $detailjawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
 
             return view('detail_jawaban.edit', ['daftarsoal' => $daftarsoal, 'pertanyaan' => $pertanyaan, 'detailjawaban' => $detailjawaban]);
         } else if (Auth::user()->role == 'direksi') {
             $daftarsoal = DaftarSoal::where('id', $id)->first();
             $pertanyaan = Pertanyaan::all();
-            $detailjawaban = DetailJawaban::where('id', $id)->get();
+            $detailjawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
 
             return view('detail_jawaban.edit', ['daftarsoal' => $daftarsoal, 'pertanyaan' => $pertanyaan, 'detailjawaban' => $detailjawaban]);
         } else if (Auth::user()->role == 'hrd') {
             $daftarsoal = DaftarSoal::where('id', $id)->first();
             $pertanyaan = Pertanyaan::all();
-            $detailjawaban = DetailJawaban::where('id', $id)->get();
+            $detailjawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
 
             return view('detail_jawaban.edit', ['daftarsoal' => $daftarsoal, 'pertanyaan' => $pertanyaan, 'detailjawaban' => $detailjawaban]);
         } else if (Auth::user()->role == 'divisi') {
+
             $daftarsoal = DaftarSoal::where('id', $id)->first();
             $pertanyaan = Pertanyaan::all();
-            $detailjawaban = DetailJawaban::where('id', $id)->get();
+            $detailjawaban = DetailJawaban::where('id_daftar_soal', $id)->get();
 
             return view('detail_jawaban.edit', ['daftarsoal' => $daftarsoal, 'pertanyaan' => $pertanyaan, 'detailjawaban' => $detailjawaban]);
+
         } else {
             abort(404);
         }
@@ -188,7 +190,7 @@ class DetailJawabanController extends Controller
             $detailJawaban->jawaban_b = $request->get('jawaban_b');
             $detailJawaban->jawaban_c = $request->get('jawaban_c');
             $detailJawaban->jawaban_d = $request->get('jawaban_d');
-            
+
             $detailJawaban->save();
         }
         return redirect()->route('detail_jawaban.index', ['id' => $detailJawaban->id_daftar_soal]);

@@ -25,4 +25,9 @@ class DaftarSoal extends Model
     {
         return $this->belongsTo(Kriteria::class, 'id_kriteria', 'id');
     }
+
+    public function detail()
+    {
+        return $this->hasMany(DetailJawaban::class, 'id_daftar_soal', 'id');
+    }
 }
