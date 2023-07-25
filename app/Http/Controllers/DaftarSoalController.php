@@ -8,6 +8,8 @@ use App\JadwalTes;
 use App\Kriteria;
 use App\lowongan;
 use App\Pelamar;
+use App\DetailJawaban;
+use App\Pertanyaan;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -90,7 +92,7 @@ class DaftarSoalController extends Controller
             return $data;
         });
 
-        $hasilTes = HasilTes::where('id_soal_tes', $id)->get();
+        $hasilTes = HasilTes::where('id_lowongan', $pelamar->id_lowongan)->get();
 
         return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar, 'hasil_tes' => $hasilTes]);
     }
@@ -102,11 +104,15 @@ class DaftarSoalController extends Controller
      */
     public function create($id)
     {
+
+        $urutan = range('A', 'D');
+
+
         if (Auth::user()->role == 'admin') {
             $jadwaltes = JadwalTes::find($id);
             $kriteria = Kriteria::where('id_lowongan', $jadwaltes->id_lowongan)->where('tampil_di_pelamar', 0)->get();
             $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
-            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes,  'lowongan' => $lowongan, 'kriteria' => $kriteria]);
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'urutan' => $urutan,  'lowongan' => $lowongan, 'kriteria' => $kriteria]);
         } else if (Auth::user()->role == 'direksi') {
             $jadwaltes = JadwalTes::find($id);
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
@@ -115,13 +121,13 @@ class DaftarSoalController extends Controller
             $kriteria = Kriteria::where('id_lowongan', $jadwaltes->id_lowongan)->where('tampil_di_pelamar', 0)->get();
             $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
 
-            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'lowongan' => $lowongan, 'kriteria' => $kriteria]);
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'urutan' => $urutan, 'lowongan' => $lowongan, 'kriteria' => $kriteria]);
         } else if (Auth::user()->role == 'divisi') {
             $jadwaltes = JadwalTes::find($id);
             $kriteria = Kriteria::where('id_lowongan', $jadwaltes->id_lowongan)->where('tampil_di_pelamar', 0)->get();
             $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
-            
-            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'lowongan' => $lowongan, 'kriteria' => $kriteria]);
+
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'urutan' => $urutan, 'lowongan' => $lowongan, 'kriteria' => $kriteria]);
         } else {
             abort(404);
         }
@@ -138,13 +144,17 @@ class DaftarSoalController extends Controller
         $validator = Validator::make(request()->all(), [
             'kriteria' => 'required',
             'soal' => 'required',
-            'file_soal' => "required",
+            'jawaban' => 'required',
+            'isTrue' => 'required'
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator->errors());
         } else {
+
             Alert::success('Berhasil', 'Berhasil menambah soal');
+
+            $urutan = range('A', 'D');
 
             $daftar_soal = new DaftarSoal();
             $daftar_soal->id_jadwal_tes = $request->get('id');
@@ -152,19 +162,24 @@ class DaftarSoalController extends Controller
             $daftar_soal->id_kriteria = $request->get('kriteria');
             $daftar_soal->soal = $request->get('soal');
             $daftar_soal->bobot_soal = 0;
-            if ($request->file('file_soal')) {
-                $file = $request->file('file_soal');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $daftar_soal->file_soal  = $filename;
-                $tujuan_upload = 'upload';
-                $file->move($tujuan_upload, $filename);
-            }
-            
             $daftar_soal->save();
+
+            $jawaban = $request->get('jawaban');
+
+            $isTrue = $request->get('isTrue');
+
+            foreach ($jawaban as $key => $value) {
+
+                $detail = new DetailJawaban();
+                $detail->id_daftar_soal = $daftar_soal->id;
+                $detail->jawaban = $value;
+                $detail->isTrue = $key == $isTrue ? 1 : 0;
+                $detail->urutan = $urutan[$key];
+                $detail->save();
+            }
         }
         return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
     }
-
 
     /**
      * Display the specified resource.
@@ -225,7 +240,9 @@ class DaftarSoalController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'kriteria' => 'required',
-            'soal' => 'required'
+            'soal' => 'required',
+            'jawaban' => 'required',
+            'isTrue' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -237,18 +254,32 @@ class DaftarSoalController extends Controller
             $daftar_soal->id_jadwal_tes = $request->get('id');
             $daftar_soal->id_lowongan = $request->get('id_lowongan');
             $daftar_soal->soal = $request->get('soal');
-            $daftar_soal->bobot_soal = 0;
-            if ($request->file('file_soal')) {
-                $file = $request->file('file_soal');
-                $tujuan_upload = 'upload';
-                File::delete('upload/' . $daftar_soal->file_soal);
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $daftar_soal->file_soal  = $filename;
-                $file->move($tujuan_upload, $filename);
+
+            $daftar_soal->save();
+
+            $urutan = range('A', 'D');
+
+            $jawaban = $request->get('jawaban');
+
+            $isTrue = $request->get('isTrue');
+
+            foreach ($jawaban as $key => $value) {
+
+                $detail = DetailJawaban::where('id_daftar_soal', $daftar_soal->id)->where('urutan', $urutan[$key])->first();
+
+                if($detail){
+
+                    $detail->jawaban = $value;
+                    $detail->isTrue = $key == $isTrue ? 1 : 0;
+                    $detail->save();
+
+                }
+
             }
+
+            return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
         }
-        $daftar_soal->save();
-        return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
+
     }
 
     /**

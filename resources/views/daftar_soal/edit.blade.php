@@ -34,16 +34,37 @@
                                     <input type="text" name="soal" required class="form-control"
                                         value="{{ $daftar_soal->soal }}">
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="bobot">Bobot Soal<span class="text-danger">*</span></label>
-                                    <input type="number" name="bobot" required class="form-control" max="100"
-                                        value="{{ $daftar_soal->bobot_soal }}">
-                                </div> --}}
-                                <div class="form-group">
-                                    <label for="file_soal">File Soal<span class="text-danger">*</span></label>
+
+
+                                @forelse ($daftar_soal->detail as $key => $item)
+                                <div class="row">
+                                    <div class="col-md-8">
+
+                                        <div class="form-group">
+                                            <label for="soal">Jawaban {{ $item->urutan }} <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" required class="form-control" value="{{$item->jawaban}}" name="jawaban[]"
+                                                id="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-check" style="padding-top: 18%">
+                                            <input class="form-check-input" value="{{ $key }}" @if($item->isTrue == 1) checked @endif type="radio"
+                                                name="isTrue" id="isTrue">
+                                            <label class="form-check-label" for="isTrue">
+                                                Is True
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input name="file_soal" class="form-control" type="file" />
-                                <br>
+
+                                @empty
+
+                                @endforelse
+
+
+
                                 <div class="float-right">
                                     <a href="{{ route('daftar_soal.index', ['id' => $daftar_soal->id]) }}"
                                         class="btn btn-danger">Batal</a>

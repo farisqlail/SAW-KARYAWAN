@@ -15,6 +15,8 @@ use App\DaftarSoal;
 use App\JadwalTes;
 use App\lowongan;
 use App\BobotKriteria;
+use App\DetailJawaban;
+use App\JawabanPelamar;
 use Kriteria;
 
 class HasilTesController extends Controller
@@ -42,11 +44,14 @@ class HasilTesController extends Controller
 
     public function detail($id)
     {
-        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal', 'id_soal_tes')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->get();
+        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai')->where('hasil_tes.id_pelamar', $id)->first();
+
+        $jawaban_pelamar = JawabanPelamar::where('id_pelamar',$id)->get();
 
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
             'hasilTes' => $hasilTes,
+            'jawaban_pelamar' => $jawaban_pelamar,
             'pelamar' => $pelamar
         ]);
     }
@@ -81,33 +86,71 @@ class HasilTesController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'jawaban' => 'required',
+            'jawaban' => 'nullable',
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
+
             return back()->withErrors($validator->errors());
         } else {
 
-            Alert::success('Berhasil Upload', 'Jawaban diperiksa terlebih dahulu');
+            $daftarsoal = DaftarSoal::where('id_lowongan', $request->get('id_lowongan'))->get();
+
+            $jawaban = [];
+
+            $nilai = 0;
+
+            $jawaban_benar = 0;
+
+            foreach ($daftarsoal as $key => $value) {
+                $get_jawaban = $request->get('jawaban_'.$value->id);
+
+
+                $detail_jawaban = DetailJawaban::find($get_jawaban);
+
+                if($detail_jawaban){
+                    if($detail_jawaban->isTrue == 1){
+                        $jawaban_benar = $jawaban_benar + 1;
+                    }
+                }
+
+
+                array_push($jawaban, $get_jawaban);
+            }
+
+            if(count($daftarsoal) !== count($jawaban)){
+                return redirect()->back()->withErrors(['Semua jawaban soal wajib diisi']);
+            }
+
+            $total_nilai = ($jawaban_benar / count($daftarsoal)) * 100;
+
+
+            Alert::success('Berhasil Upload', 'Jawaban berhasil di submit');
 
             $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
 
             $hasilTes = new HasilTes();
-            $hasilTes->id_soal_tes = $request->get('id_soal_tes');
             $hasilTes->id_pelamar = $pelamar->id;
             $hasilTes->id_lowongan = $request->get('id_lowongan');
-            if ($request->hasFile('jawaban')) {
-                $file = $request->file('jawaban');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $hasilTes->jawaban = $filename;
-                Storage::putFileAs("public/file/jawaban", $file, $filename);
+            $hasilTes->jawaban = '';
+            $hasilTes->nilai = $total_nilai;
+            $hasilTes->save();
+
+
+            foreach ($daftarsoal as $key => $value) {
+                $get_jawaban = $request->get('jawaban_'.$value->id);
+                $jawaban_pelamar = new JawabanPelamar();
+                $jawaban_pelamar->id_pelamar = $pelamar->id;
+                $jawaban_pelamar->id_detail_jawaban = $get_jawaban;
+                $jawaban_pelamar->id_hasil_tes = $hasilTes->id;
+                $jawaban_pelamar->save();
             }
 
-            $hasilTes->save();
+            return redirect()->back();
+
         }
 
-        return redirect()->back();
+
     }
 
     public function editJawaban($id)

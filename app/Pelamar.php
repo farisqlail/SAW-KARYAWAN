@@ -14,6 +14,8 @@ class Pelamar extends Model
         'tempat_lahir',
         'agama',
         'alamat',
+        'ipk',
+        'pengalaman',
         'no_telepon',
         'jenis_kelamin',
         'cv',

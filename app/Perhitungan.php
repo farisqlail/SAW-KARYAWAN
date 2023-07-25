@@ -91,17 +91,17 @@ class Perhitungan extends Model
     public static function perangkingan($data)
     {
         $sortedData = [];
-    
+
         foreach ($data as $dt) {
             if ($dt['status'] !== 'Ditolak') {
                 $sortedData[] = $dt;
             }
         }
-    
+
         usort($sortedData, function ($a, $b) {
             return $b['hasil_normalisasi'] <=> $a['hasil_normalisasi'];
         });
-    
+
         return $sortedData;
     }
 }

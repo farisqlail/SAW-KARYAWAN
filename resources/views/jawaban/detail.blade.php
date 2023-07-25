@@ -9,13 +9,14 @@
                     <div class="card-header">
                         <h2 class="float-left">Hasil Tes {{ $pelamar->nama_pelamar }}</h2>
                         <div class="float-right">
-                            <button type="button" data-toggle="modal" data-target="#nilaiSemuaJawaban" class="btn btn-primary">Nilai Semua Jawaban</button>
+                           
                             <a href="{{ route('jawaban.index', ['id' => $pelamar->id_lowongan]) }}"
                                 class="btn btn-danger">Kembali</a>
                         </div>
                     </div>
 
                     <div class="card-body">
+                        <h3>Nilai : {{$hasilTes->nilai}}</h3>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -23,34 +24,19 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Soal Tes</th>
                                         <th class="text-center">Jawaban</th>
-                                        <th class="text-center">Nilai</th>
-                                        <th class="text-center" style="width:40%">Aksi</th>
+                                        <th class="text-center">Hasil</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (!empty($hasilTes))
-                                        @foreach ($hasilTes as $data)
+                                    @if (!empty($jawaban_pelamar))
+                                        @foreach ($jawaban_pelamar as $data)
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->soal }}</td>
-                                                <td align="center">
-                                                    <a href="{{ asset('storage/file/jawaban/' . $data->jawaban) }}"
-                                                        target="blank" class="btn btn-primary" download><i
-                                                            class="fas fa-download"></i> &nbsp;Unduh Jawaban</a>
-                                                </td>
-                                                <td class="text-center">
-                                                    @if (!empty($data->nilai))
-                                                        {{ $data->nilai }}
-                                                    @else
-                                                        0
-                                                    @endif
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="#" data-id="{{ $data->id_soal_tes }}"
-                                                        data-url="{{ route('jawaban.nilai.update', [$data->id]) }}"
-                                                        class="btn btn-info btnNilai">Nilai Jawaban</a>
-                                                </td>
+                                                <td>{{$data->detail_jawaban->daftarSoal->soal}}</td>
+
+                                                <td>{{$data->detail_jawaban->jawaban}}</td>
+                                                <td>{{$data->detail_jawaban->isTrue ? 'Benar' : 'Salah'}}</td>
                                             </tr>
                                         @endforeach
                                     @else
@@ -68,72 +54,7 @@
     </div>
 
 
-    <div class="modal fade" id="nilaiSemuaJawaban" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nilai Semua Jawaban
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form enctype="multipart/form-data" id="formNilai"
-                        action="{{ route('jawaban.nilai.update', [$pelamar->id]) }}" method="POST" class="col-md-12"
-                        id="form-nilaiSemuaJawaban">
-                        @csrf
-                        {{ method_field('PUT') }}
 
-                        <input type="hidden" name="status" value="semua">
-
-                        <div class="form-group">
-                            <label for="nilai">Nilai<span class="text-danger">*</span></label>
-                            <input type="number" name="nilai" class="form-control" min="0" max="100"
-                                required>
-                        </div>
-                        <div class="modal-footer" style="border:none;">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Nilai</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="nilaiJawaban" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nilai Jawaban
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form enctype="multipart/form-data" id="formNilai"
-                        action="{{ route('jawaban.nilai.update', [$data->id]) }}" method="POST" class="col-md-12"
-                        id="form-nilaiJawaban">
-                        @csrf
-                        {{ method_field('PUT') }}
-
-                        <div class="form-group">
-                            <label for="nilai">Nilai<span class="text-danger">*</span></label>
-                            <input type="number" name="nilai" id="nilai" class="form-control" min="0" max="100"
-                                required>
-                        </div>
-                        <div class="modal-footer" style="border:none;">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Nilai</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endsection
 @section('script')

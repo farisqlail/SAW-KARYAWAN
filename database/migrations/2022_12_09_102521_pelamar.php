@@ -24,6 +24,8 @@ class Pelamar extends Migration
             $table->string('tempat_lahir');
             $table->string('agama');
             $table->text('alamat');
+            $table->string('ipk');
+            $table->float('pengalaman');
             $table->string('no_telepon');
             $table->string('jenis_kelamin');
             $table->string('cv');
