@@ -36,11 +36,10 @@
                                                 <td>{{ $data->posisi_lowongan }}</td>
 
                                                 <td class="text-center">
-                                                    <a href="{{ route('jawaban.detail', $data) }}"
+                                                    <a href="{{ route('jawaban.detail', $data->id) }}"
                                                         class="btn btn-success">Detail Jawaban</a>
 
-                                                    {{-- <a href="{{ route('jawaban.nilai', $data->id) }}"
-                            data-toggle="modal" data-target="#nilaiJawaban{{ $data->id }}" class="btn btn-info">Nilai Jawaban</a> --}}
+                                                  
                                                 </td>
                                             </tr>
                                         @endforeach

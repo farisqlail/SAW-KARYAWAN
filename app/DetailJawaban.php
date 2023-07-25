@@ -15,4 +15,9 @@ class DetailJawaban extends Model
     {
         return $this->belongsTo(DaftarSoal::class, 'id_daftar_soal','id');
     }
+
+    public function jawaban()
+    {
+        return $this->hasMany(JawabanPelamar::class, 'id_detail_jawaban', 'id');
+    }
 }

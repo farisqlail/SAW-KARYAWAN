@@ -11,6 +11,8 @@
                     </div>
 
                     <div class="card-body">
+
+                        @include('alert')
                         <div class="row">
                             <form enctype="multipart/form-data" action="{{ route('daftar_soal.simpan') }}" method="POST"
                                 class="col-md-12">

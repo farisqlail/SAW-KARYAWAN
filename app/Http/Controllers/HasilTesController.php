@@ -44,11 +44,14 @@ class HasilTesController extends Controller
 
     public function detail($id)
     {
-        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai', 'daftar_soal.soal', 'id_soal_tes')->join('daftar_soal', 'daftar_soal.id', '=', 'hasil_tes.id_soal_tes')->where('hasil_tes.id_pelamar', $id)->get();
+        $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai')->where('hasil_tes.id_pelamar', $id)->first();
+
+        $jawaban_pelamar = JawabanPelamar::where('id_pelamar',$id)->get();
 
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
             'hasilTes' => $hasilTes,
+            'jawaban_pelamar' => $jawaban_pelamar,
             'pelamar' => $pelamar
         ]);
     }
@@ -122,7 +125,7 @@ class HasilTesController extends Controller
             $total_nilai = ($jawaban_benar / count($daftarsoal)) * 100;
 
 
-            Alert::success('Berhasil Upload', 'Jawaban diperiksa terlebih dahulu');
+            Alert::success('Berhasil Upload', 'Jawaban berhasil di submit');
 
             $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
 
@@ -136,21 +139,10 @@ class HasilTesController extends Controller
 
             foreach ($daftarsoal as $key => $value) {
                 $get_jawaban = $request->get('jawaban_'.$value->id);
-
-                $detail_jawaban = DetailJawaban::find($get_jawaban);
-
-                $nilai_jawaban = 0;
-
-                if($detail_jawaban){
-                    if($detail_jawaban->isTrue == 1){
-                        $nilai_jawaban = 10;
-                    }
-                }
-
                 $jawaban_pelamar = new JawabanPelamar();
                 $jawaban_pelamar->id_pelamar = $pelamar->id;
                 $jawaban_pelamar->id_detail_jawaban = $get_jawaban;
-                $jawaban_pelamar->nilai_jawaban = $nilai_jawaban;
+                $jawaban_pelamar->id_hasil_tes = $hasilTes->id;
                 $jawaban_pelamar->save();
             }
 

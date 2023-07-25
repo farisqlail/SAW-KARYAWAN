@@ -17,7 +17,7 @@ class JawabanPelamar extends Migration
             $table->id();
             $table->bigInteger('id_pelamar')->index()->unsigned()->nullable();
             $table->bigInteger('id_detail_jawaban')->index()->unsigned()->nullable();
-            $table->bigInteger('nilai_jawaban');
+            $table->bigInteger('id_hasil_tes')->index()->unsigned()->nullable();
             $table->timestamps();
          });
     }
