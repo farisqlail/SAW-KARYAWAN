@@ -131,7 +131,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    {{-- 
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
@@ -148,7 +148,7 @@
                                                 <option value="4">4 Tahun</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                     <div class="row mt-3">
@@ -160,21 +160,44 @@
                                                     <div class="form-group">
                                                         <label for="kriteria">{{ $kt->nama_kriteria }} <span
                                                                 class="text-danger">*</span></label>
-                                                        {{-- <select name="kriteria[]" required class="form-control">
-                                                            <option value="">-- Pilih
-                                                                {{ $kt->nama_kriteria }}--
-                                                            </option>
-                                                            @foreach ($bobot_kriteria as $bobot)
-                                                                @if ($kt->id == $bobot->id_kriteria)
-                                                                    <option @if (old('kriteria')) @if (old('kriteria')[$key] == $bobot->id) selected @endif @endif value="{{ $bobot->id }}">
-                                                                        {{ $bobot->nama_bobot }}</option>
-                                                                @else
-                                                                @endif
-                                                            @endforeach
-                                                        </select> --}}
-                                                        <input type="text" name="kriteria[]" id="kriteria"
-                                                        @if (old('kriteria')) value="{{ old('kriteria')[$key] }}"  @endif  required
-                                                            class="form-control">
+                                                        {{-- @if ($kt->nama_kriteria == 'PENGALAMAN')
+                                                            <select name="kriteria[]" required class="form-control">
+                                                                <option value="">-- Pilih
+                                                                    {{ $kt->nama_kriteria }}--
+                                                                </option>
+                                                                @foreach ($bobot_kriteria as $bobot)
+                                                                    @if ($kt->id == $bobot->id_kriteria)
+                                                                        <option
+                                                                            @if (old('kriteria')) @if (old('kriteria')[$key] == $bobot->id) selected @endif
+                                                                            @endif
+                                                                            value="{{ $bobot->nilai_bobot }}">
+                                                                            {{ $bobot->nama_bobot }}</option>
+                                                                    @else
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        @else --}}
+                                                        {{-- <input type="text" name="kriteria[]" id="kriteria"
+                                                                @if (old('kriteria')) value="{{ old('kriteria')[$key] }}" @endif
+                                                                required class="form-control"> --}}
+                                                        {{-- @endif --}}
+                                                        @if ($kt->nama_kriteria === 'PENGALAMAN')
+                                                            <select name="kriteria[]" id="kriteria" required
+                                                                class="form-control">
+                                                                @foreach ($bobot_kriteria as $option)
+                                                                    @if ($kt->id == $option->id_kriteria)
+                                                                        <option value="{{ $option->nilai_awal }}"
+                                                                            @if (old('kriteria')) @if (old('kriteria')[$key] == $option->id) selected @endif
+                                                                            @endif>
+                                                                            {{ $option->nama_bobot }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        @else
+                                                            <input type="text" name="kriteria[]" id="kriteria"
+                                                                @if (old('kriteria')) value="{{ old('kriteria')[$key] }}" @endif
+                                                                required class="form-control">
+                                                        @endif
                                                     </div>
                                                 @endforeach
                                             </div>

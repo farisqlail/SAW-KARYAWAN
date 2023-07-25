@@ -26,4 +26,8 @@ class HasilTes extends Model
     {
         return $this->hasMany(JawabanPelamar::class, 'id_hasil_tes', 'id');
     }
+    public function bobot_kriteria()
+    {
+        return $this->belongsTo(BobotKriteria::class, 'id_kriteria', 'id');
+    }
 }

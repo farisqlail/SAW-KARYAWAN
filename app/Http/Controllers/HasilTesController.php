@@ -17,7 +17,8 @@ use App\lowongan;
 use App\BobotKriteria;
 use App\DetailJawaban;
 use App\JawabanPelamar;
-use Kriteria;
+use App\Kriteria;
+use App\NilaiAlternatif;
 
 class HasilTesController extends Controller
 {
@@ -121,19 +122,34 @@ class HasilTesController extends Controller
             if(count($daftarsoal) !== count($jawaban)){
                 return redirect()->back()->withErrors(['Semua jawaban soal wajib diisi']);
             }
-
-            $total_nilai = ($jawaban_benar / count($daftarsoal)) * 100;
-
-
+            $daftarsoalKrit = DaftarSoal::where('id_lowongan', $request->get('id_lowongan'))->first();
+            $kriteria       = Kriteria::where('id_lowongan', $request->get('id_lowongan'))->where('id', $daftarsoalKrit->id_kriteria)->first();
+            
+            $total_nilai    = ($jawaban_benar / count($daftarsoal)) * 100;
+            $cek            = BobotKriteria::where('id_kriteria', $kriteria->id)->where('nilai_akhir','>=', $total_nilai)->first();
+            
+            // dd($cek);
+            
             Alert::success('Berhasil Upload', 'Jawaban berhasil di submit');
 
             $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
+            Pelamar::where('id_user', auth()->user()->id)->update(['nilai_tes' => number_format($total_nilai)]);
+
+            $nilaialternatif                    = new NilaiAlternatif();
+            $nilaialternatif->id_pelamar        = $pelamar->id;
+            $nilaialternatif->id_bobot_kriteria = $cek->id;
+            $nilaialternatif->nilai             = $total_nilai;
+            $nilaialternatif->save();
+
+            
+
 
             $hasilTes = new HasilTes();
-            $hasilTes->id_pelamar = $pelamar->id;
-            $hasilTes->id_lowongan = $request->get('id_lowongan');
-            $hasilTes->jawaban = '';
-            $hasilTes->nilai = $total_nilai;
+            $hasilTes->id_pelamar           = $pelamar->id;
+            $hasilTes->id_lowongan          = $request->get('id_lowongan');
+            $hasilTes->id_bobot_kriteria    = $cek->id;
+            $hasilTes->jawaban              = '';
+            $hasilTes->nilai                = $total_nilai;
             $hasilTes->save();
 
 

@@ -14,7 +14,7 @@
 
             <div class="card-body">
 
-                @if (count($hasil_tes) === 0)
+                @if ($pelamar->nilai_tes == null)
                     <div class="tes">
 
                         @foreach ($daftarsoal as $key => $item)

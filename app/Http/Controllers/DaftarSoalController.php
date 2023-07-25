@@ -10,6 +10,7 @@ use App\lowongan;
 use App\Pelamar;
 use App\DetailJawaban;
 use App\Pertanyaan;
+use App\BobotKriteria;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -72,18 +73,26 @@ class DaftarSoalController extends Controller
         $pelamarGet = $pelamar->id;
         $jadwaltes  = JadwalTes::find($id);
 
-        $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
-            return $q->where('id_pelamar', $pelamarGet);
-        }])->get();
+        $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)
+            ->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+                return $q->where('id_pelamar', $pelamarGet);
+            }])
+            // ->with('bobot_kriteria') // Load the 'bobot_kriteria' relationship
+            ->get();
 
         if ($daftarsoal->isEmpty()) {
-            $daftarsoal = $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
-                $q->where('id_pelamar', $pelamarGet);
-            }])->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
-                $q->where('id_pelamar', $pelamarGet);
-            })->with(['hasil_tes' => function ($q) use ($pelamarGet) {
-                $q->where('id_pelamar', $pelamarGet);
-            }])->get();
+            $daftarsoal = DaftarSoal::where('id_jadwal_tes', $id)
+                ->withCount(['hasil_tes' => function ($q) use ($pelamarGet) {
+                    $q->where('id_pelamar', $pelamarGet);
+                }])
+                ->whereHas('hasil_tes', function ($q) use ($pelamarGet) {
+                    $q->where('id_pelamar', $pelamarGet);
+                })
+                ->with(['hasil_tes' => function ($q) use ($pelamarGet) {
+                    $q->where('id_pelamar', $pelamarGet);
+                }])
+                // ->with('bobot_kriteria') // Load the 'bobot_kriteria' relationship
+                ->get();
         }
 
         $daftarsoal = tap($daftarsoal)->transform(function ($data) use ($pelamarGet) {
@@ -92,7 +101,7 @@ class DaftarSoalController extends Controller
             return $data;
         });
 
-        $hasilTes = HasilTes::where('id_lowongan', $pelamar->id_lowongan)->get();
+        $hasilTes       = HasilTes::where('id_lowongan', $pelamar->id_lowongan)->get();
 
         return view('daftar_soal.home', ['daftarsoal' => $daftarsoal, 'jadwaltes' => $jadwaltes, 'pelamarGet' => $pelamarGet, 'pelamar' => $pelamar, 'hasil_tes' => $hasilTes]);
     }
@@ -111,8 +120,10 @@ class DaftarSoalController extends Controller
         if (Auth::user()->role == 'admin') {
             $jadwaltes = JadwalTes::find($id);
             $kriteria = Kriteria::where('id_lowongan', $jadwaltes->id_lowongan)->where('tampil_di_pelamar', 0)->get();
+            $bobotkriteria = BobotKriteria::all();
             $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
-            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'urutan' => $urutan,  'lowongan' => $lowongan, 'kriteria' => $kriteria]);
+
+            return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'urutan' => $urutan,  'lowongan' => $lowongan, 'kriteria' => $kriteria, 'bobotkriteria' => $bobotkriteria]);
         } else if (Auth::user()->role == 'direksi') {
             $jadwaltes = JadwalTes::find($id);
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes]);
@@ -267,19 +278,16 @@ class DaftarSoalController extends Controller
 
                 $detail = DetailJawaban::where('id_daftar_soal', $daftar_soal->id)->where('urutan', $urutan[$key])->first();
 
-                if($detail){
+                if ($detail) {
 
                     $detail->jawaban = $value;
                     $detail->isTrue = $key == $isTrue ? 1 : 0;
                     $detail->save();
-
                 }
-
             }
 
             return redirect()->route('daftar_soal.index', ['id' => $daftar_soal->id_jadwal_tes]);
         }
-
     }
 
     /**
