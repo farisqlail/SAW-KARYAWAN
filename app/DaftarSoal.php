@@ -30,4 +30,8 @@ class DaftarSoal extends Model
     {
         return $this->hasMany(DetailJawaban::class, 'id_daftar_soal', 'id');
     }
+    public function bobot_kriteria()
+    {
+        return $this->belongsTo(BobotKriteria::class, 'id_kriteria', 'id');
+    }
 }

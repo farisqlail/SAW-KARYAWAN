@@ -19,7 +19,8 @@ class Perhitungan extends Model
 
             foreach ($pelamar->nilai_alternatif as $key => $alternatif) {
 
-                if ($alternatif->bobot_kriteria->kriteria->atribut_kriteria == 'benefit') {
+                $kriteria = optional($alternatif->bobot_kriteria)->kriteria;
+                if ($kriteria && $kriteria->atribut_kriteria == 'benefit') {
                     $max = BobotKriteria::join('nilai_alternatif', 'nilai_alternatif.id_bobot_kriteria', 'bobot_kriteria.id')->where('id_kriteria', $alternatif->bobot_kriteria->id_kriteria)->max('jumlah_bobot');
                     $hitung = $alternatif->bobot_kriteria->jumlah_bobot / $max;
                 } else {
@@ -38,7 +39,8 @@ class Perhitungan extends Model
 
             foreach ($pelamar->hasil_tes as $key => $hasil_tes) {
 
-                if (!empty($hasil_tes->id_bobot_kriteria)) {
+                $kriteria = optional($hasil_tes->daftar_soal)->kriteria;
+                if ($kriteria && $kriteria->atribut_kriteria == 'benefit') {
                     if ($hasil_tes->daftar_soal->kriteria->atribut_kriteria == 'benefit') {
                         $max = HasilTes::where('id_soal_tes', $hasil_tes->id_soal_tes)->where('id_lowongan', $id_lowongan)->max('bobot');
 
@@ -74,6 +76,7 @@ class Perhitungan extends Model
 
             $arr[] = $x;
         }
+        // dd($arr);
 
         return $arr;
     }
