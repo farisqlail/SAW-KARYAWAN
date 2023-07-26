@@ -20,6 +20,7 @@ class LowonganSeeder extends Seeder
                 'id_user' => 4,
                 'berlaku_sampai' => Carbon::create('2023', '12', '12'),
                 'status_approve' => 'selesai',
+                'status_lowongan' => 'Seleksi 1',
                 'deskripsi_pekerjaan' => 'Fungsi
 
             Melakukan proyek perbaikan, pembaharuan dan/atau pengembangan baru aplikasi/sistem teknologi yang lebih memadai sesuai dengan kebutuhan User dan/atau Perusahaan.
@@ -49,6 +50,7 @@ class LowonganSeeder extends Seeder
                 'id_user' => 4,
                 'berlaku_sampai' => Carbon::create('2023', '12', '12'),
                 'status_approve' => 'selesai',
+                'status_lowongan' => 'Seleksi 1',
                 'deskripsi_pekerjaan' => 'Bertanggung jawab atas pencatatan & penyimpanan transaksi keuangan perusahaan serta penginputan data.
                 Mengecek kesesuaian antara transaksi keuangan dengan dokumen pendukung.
                 Melakukan perhitungan pajak dan pelaporannya (pph sewa, PPh 21, PPh 23, PPh 25 dan PPN, PPh badan dan perorangan).',
