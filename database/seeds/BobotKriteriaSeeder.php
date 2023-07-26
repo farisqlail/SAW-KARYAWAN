@@ -331,35 +331,35 @@ class BobotKriteriaSeeder extends Seeder
         // akuntansi
         $C9 = [
             [
-                'id_kriteria' => 8,
+                'id_kriteria' => 9,
                 'nama_bobot' => 'IPK 0 - 2.29',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '0',
                 'nilai_akhir' => '2.29'
             ],
             [
-                'id_kriteria' => 8,
+                'id_kriteria' => 9,
                 'nama_bobot' => 'IPK 2.3 - 2.8',
                 'jumlah_bobot' => 2,
                 'nilai_awal' => '2.3',
                 'nilai_akhir' => '2.8'
             ],
             [
-                'id_kriteria' => 8,
+                'id_kriteria' => 9,
                 'nama_bobot' => 'IPK 2.81 - 3',
                 'jumlah_bobot' => 3,
                 'nilai_awal' => '2.81',
                 'nilai_akhir' => '3'
             ],
             [
-                'id_kriteria' => 8,
+                'id_kriteria' => 9,
                 'nama_bobot' => 'IPK 3.01 - 3.4',
                 'jumlah_bobot' => 4,
                 'nilai_awal' => '3.01',
                 'nilai_akhir' => '3.4'
             ],
             [
-                'id_kriteria' => 8,
+                'id_kriteria' => 9,
                 'nama_bobot' => 'IPK 3.41 - 4',
                 'jumlah_bobot' => 5,
                 'nilai_awal' => '3.41',
@@ -371,35 +371,35 @@ class BobotKriteriaSeeder extends Seeder
 
         $C10 = [
             [
-                'id_kriteria' => 9,
+                'id_kriteria' => 10,
                 'nama_bobot' => 'USIA 27',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '27',
                 'nilai_akhir' => '27'
             ],
             [
-                'id_kriteria' => 9,
+                'id_kriteria' => 10,
                 'nama_bobot' => 'USIA 25 - 26',
                 'jumlah_bobot' => 2,
                 'nilai_awal' => '25',
                 'nilai_akhir' => '26'
             ],
             [
-                'id_kriteria' => 9,
+                'id_kriteria' => 10,
                 'nama_bobot' => 'USIA 23 - 24',
                 'jumlah_bobot' => 3,
                 'nilai_awal' => '23',
                 'nilai_akhir' => '24'
             ],
             [
-                'id_kriteria' => 9,
+                'id_kriteria' => 10,
                 'nama_bobot' => 'USIA 21 - 22',
                 'jumlah_bobot' => 4,
                 'nilai_awal' => '21',
                 'nilai_akhir' => '22'
             ],
             [
-                'id_kriteria' => 9,
+                'id_kriteria' => 10,
                 'nama_bobot' => 'USIA 18 - 20',
                 'jumlah_bobot' => 5,
                 'nilai_awal' => '18',
@@ -411,35 +411,35 @@ class BobotKriteriaSeeder extends Seeder
 
         $C11 = [
             [
-                'id_kriteria' => 10,
+                'id_kriteria' => 11,
                 'nama_bobot' => 'PENGALAMAN 0 - 1 TAHUN',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '0',
                 'nilai_akhir' => '1'
             ],
             [
-                'id_kriteria' => 10,
+                'id_kriteria' => 11,
                 'nama_bobot' => 'PENGALAMAN 2 - 3 TAHUN',
                 'jumlah_bobot' => 2,
                 'nilai_awal' => '2',
                 'nilai_akhir' => '3'
             ],
             [
-                'id_kriteria' => 10,
+                'id_kriteria' => 11,
                 'nama_bobot' => 'PENGALAMAN 4 - 5 TAHUN',
                 'jumlah_bobot' => 3,
                 'nilai_awal' => '4',
                 'nilai_akhir' => '5'
             ],
             [
-                'id_kriteria' => 10,
+                'id_kriteria' => 11,
                 'nama_bobot' => 'PENGALAMAN 6 - 7 TAHUN',
                 'jumlah_bobot' => 4,
                 'nilai_awal' => '6',
                 'nilai_akhir' => '7'
             ],
             [
-                'id_kriteria' => 10,
+                'id_kriteria' => 11,
                 'nama_bobot' => 'PENGALAMAN 8 - 9 TAHUN',
                 'jumlah_bobot' => 5,
                 'nilai_awal' => '8',
@@ -451,35 +451,35 @@ class BobotKriteriaSeeder extends Seeder
 
         $C12 = [
             [
-                'id_kriteria' => 11,
+                'id_kriteria' => 12,
                 'nama_bobot' => 'Expert dalam menggunakan Excel 0 - 60',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '0',
                 'nilai_akhir' => '60'
             ],
             [
-                'id_kriteria' => 11,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Expert dalam menggunakan Excel 61 - 70',
                 'jumlah_bobot' => 2,
                 'nilai_awal' => '61',
                 'nilai_akhir' => '70'
             ],
             [
-                'id_kriteria' => 11,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Expert dalam menggunakan Excel 71 - 80',
                 'jumlah_bobot' => 3,
                 'nilai_awal' => '71',
                 'nilai_akhir' => '80'
             ],
             [
-                'id_kriteria' => 11,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Expert dalam menggunakan Excel 81 - 90',
                 'jumlah_bobot' => 4,
                 'nilai_awal' => '81',
                 'nilai_akhir' => '90'
             ],
             [
-                'id_kriteria' => 11,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Expert dalam menggunakan Excel 91 - 100',
                 'jumlah_bobot' => 5,
                 'nilai_awal' => '91',
@@ -491,35 +491,35 @@ class BobotKriteriaSeeder extends Seeder
 
         $C13 = [
             [
-                'id_kriteria' => 12,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Paham Pembuatan Laporan Keuangan 0 - 60',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '0',
                 'nilai_akhir' => '60'
             ],
             [
-                'id_kriteria' => 12,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Paham Pembuatan Laporan Keuangan 61 - 70',
                 'jumlah_bobot' => 2,
                 'nilai_awal' => '61',
                 'nilai_akhir' => '70'
             ],
             [
-                'id_kriteria' => 12,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Paham Pembuatan Laporan Keuangan 71 - 80',
                 'jumlah_bobot' => 3,
                 'nilai_awal' => '71',
                 'nilai_akhir' => '80'
             ],
             [
-                'id_kriteria' => 12,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Paham Pembuatan Laporan Keuangan 81 - 90',
                 'jumlah_bobot' => 4,
                 'nilai_awal' => '81',
                 'nilai_akhir' => '90'
             ],
             [
-                'id_kriteria' => 12,
+                'id_kriteria' => 13,
                 'nama_bobot' => 'Paham Pembuatan Laporan Keuangan 91 - 100',
                 'jumlah_bobot' => 5,
                 'nilai_awal' => '91',
@@ -531,35 +531,35 @@ class BobotKriteriaSeeder extends Seeder
 
         $C14 = [
             [
-                'id_kriteria' => 13,
+                'id_kriteria' => 14,
                 'nama_bobot' => 'Paham Software Keuangan 0 - 60',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '0',
                 'nilai_akhir' => '60'
             ],
             [
-                'id_kriteria' => 13,
+                'id_kriteria' => 14,
                 'nama_bobot' => 'Paham Software Keuangan 61 - 70',
                 'jumlah_bobot' => 2,
                 'nilai_awal' => '61',
                 'nilai_akhir' => '70'
             ],
             [
-                'id_kriteria' => 13,
+                'id_kriteria' => 14,
                 'nama_bobot' => 'Paham Software Keuangan 71 - 80',
                 'jumlah_bobot' => 3,
                 'nilai_awal' => '71',
                 'nilai_akhir' => '80'
             ],
             [
-                'id_kriteria' => 13,
+                'id_kriteria' => 14,
                 'nama_bobot' => 'Paham Software Keuangan 81 - 90',
                 'jumlah_bobot' => 4,
                 'nilai_awal' => '81',
                 'nilai_akhir' => '90'
             ],
             [
-                'id_kriteria' => 13,
+                'id_kriteria' => 14,
                 'nama_bobot' => 'Paham Software Keuangan 91 - 100',
                 'jumlah_bobot' => 5,
                 'nilai_awal' => '91',
@@ -571,35 +571,35 @@ class BobotKriteriaSeeder extends Seeder
 
         $C15 = [
             [
-                'id_kriteria' => 14,
+                'id_kriteria' => 15,
                 'nama_bobot' => 'SOAL Akuntansi 0 - 60',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '0',
                 'nilai_akhir' => '60'
             ],
             [
-                'id_kriteria' => 14,
+                'id_kriteria' => 15,
                 'nama_bobot' => 'SOAL Akuntansi 61 - 70',
                 'jumlah_bobot' => 2,
                 'nilai_awal' => '61',
                 'nilai_akhir' => '70'
             ],
             [
-                'id_kriteria' => 14,
+                'id_kriteria' => 15,
                 'nama_bobot' => 'SOAL Akuntansi 71 - 80',
                 'jumlah_bobot' => 3,
                 'nilai_awal' => '71',
                 'nilai_akhir' => '80'
             ],
             [
-                'id_kriteria' => 14,
+                'id_kriteria' => 15,
                 'nama_bobot' => 'SOAL Akuntansi 81 - 90',
                 'jumlah_bobot' => 4,
                 'nilai_awal' => '81',
                 'nilai_akhir' => '90'
             ],
             [
-                'id_kriteria' => 14,
+                'id_kriteria' => 15,
                 'nama_bobot' => 'SOAL Akuntansi 91 - 100',
                 'jumlah_bobot' => 5,
                 'nilai_awal' => '91',
