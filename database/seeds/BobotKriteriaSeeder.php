@@ -293,10 +293,43 @@ class BobotKriteriaSeeder extends Seeder
         ];
 
         BobotKriteria::insert($C7);
+
+        $C8 = [
+            [
+                'id_kriteria' => 8,
+                'nama_bobot' => 'Tidak dapat disarankan',
+                'jumlah_bobot' => 1,
+                'nilai_awal' => '0',
+                'nilai_akhir' => '70'
+            ],
+            [
+                'id_kriteria' => 8,
+                'nama_bobot' => 'Kurang dapat disarankan',
+                'jumlah_bobot' => 2,
+                'nilai_awal' => '71',
+                'nilai_akhir' => '80'
+            ],
+            [
+                'id_kriteria' => 8,
+                'nama_bobot' => 'Cukup dapat disarankan',
+                'jumlah_bobot' => 3,
+                'nilai_awal' => '81',
+                'nilai_akhir' => '90'
+            ],
+            [
+                'id_kriteria' => 8,
+                'nama_bobot' => 'Dapat disarankan',
+                'jumlah_bobot' => 4,
+                'nilai_awal' => '91',
+                'nilai_akhir' => '100'
+            ],
+        ];
+
+        BobotKriteria::insert($C8);
         //end programmer
 
         // akuntansi
-        $C8 = [
+        $C9 = [
             [
                 'id_kriteria' => 8,
                 'nama_bobot' => 'IPK 0 - 2.29',
@@ -334,9 +367,9 @@ class BobotKriteriaSeeder extends Seeder
             ],
         ];
 
-        BobotKriteria::insert($C8);
+        BobotKriteria::insert($C9);
 
-        $C9 = [
+        $C10 = [
             [
                 'id_kriteria' => 9,
                 'nama_bobot' => 'USIA 27',
@@ -374,9 +407,9 @@ class BobotKriteriaSeeder extends Seeder
             ],
         ];
 
-        BobotKriteria::insert($C9);
+        BobotKriteria::insert($C10);
 
-        $C10 = [
+        $C11 = [
             [
                 'id_kriteria' => 10,
                 'nama_bobot' => 'PENGALAMAN 0 - 1 TAHUN',
@@ -414,9 +447,9 @@ class BobotKriteriaSeeder extends Seeder
             ],
         ];
 
-        BobotKriteria::insert($C10);
+        BobotKriteria::insert($C11);
 
-        $C11 = [
+        $C12 = [
             [
                 'id_kriteria' => 11,
                 'nama_bobot' => 'Expert dalam menggunakan Excel 0 - 60',
@@ -454,9 +487,9 @@ class BobotKriteriaSeeder extends Seeder
             ],
         ];
 
-        BobotKriteria::insert($C11);
+        BobotKriteria::insert($C12);
 
-        $C12 = [
+        $C13 = [
             [
                 'id_kriteria' => 12,
                 'nama_bobot' => 'Paham Pembuatan Laporan Keuangan 0 - 60',
@@ -494,9 +527,9 @@ class BobotKriteriaSeeder extends Seeder
             ],
         ];
 
-        BobotKriteria::insert($C12);
+        BobotKriteria::insert($C13);
 
-        $C13 = [
+        $C14 = [
             [
                 'id_kriteria' => 13,
                 'nama_bobot' => 'Paham Software Keuangan 0 - 60',
@@ -534,9 +567,9 @@ class BobotKriteriaSeeder extends Seeder
             ],
         ];
 
-        BobotKriteria::insert($C13);
+        BobotKriteria::insert($C14);
 
-        $C14 = [
+        $C15 = [
             [
                 'id_kriteria' => 14,
                 'nama_bobot' => 'SOAL Akuntansi 0 - 60',
@@ -574,7 +607,7 @@ class BobotKriteriaSeeder extends Seeder
             ],
         ];
 
-        BobotKriteria::insert($C14);
+        BobotKriteria::insert($C15);
         //end akuntansi
 
         

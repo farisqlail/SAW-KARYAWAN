@@ -116,11 +116,13 @@ class DaftarSoalController extends Controller
 
         $urutan = range('A', 'D');
 
-
         if (Auth::user()->role == 'admin') {
             $jadwaltes = JadwalTes::find($id);
-            $kriteria = Kriteria::where('id_lowongan', $jadwaltes->id_lowongan)->where('tampil_di_pelamar', 0)->get();
-            $bobotkriteria = BobotKriteria::all();
+            $kriteria = Kriteria::where('id_lowongan', $jadwaltes->id_lowongan)
+                ->where('tampil_di_pelamar', 0)
+                ->where('nama_kriteria', '!=', 'PSIKOTES')
+                ->get();
+            $bobotkriteria = BobotKriteria::where('nama_bobot', '!=', 'PSIKOTES')->get();
             $lowongan = Lowongan::where('id', $jadwaltes->id_lowongan)->firstOrFail();
 
             return view('daftar_soal.tambah', ['jadwaltes' => $jadwaltes, 'urutan' => $urutan,  'lowongan' => $lowongan, 'kriteria' => $kriteria, 'bobotkriteria' => $bobotkriteria]);
