@@ -153,34 +153,13 @@
 
                                     <div class="row mt-3">
                                         <div class="col-md-12">
-                                            <div class="form-group">
-                                                @foreach ($kriteria as $key => $kt)
+                                            @foreach ($kriteria as $key => $kt)
+                                                <div class="form-group">
                                                     <input type="hidden" name="kriteria_id[]"
                                                         value="{{ $kt->id }}">
                                                     <div class="form-group">
                                                         <label for="kriteria">{{ $kt->nama_kriteria }} <span
                                                                 class="text-danger">*</span></label>
-                                                        {{-- @if ($kt->nama_kriteria == 'PENGALAMAN')
-                                                            <select name="kriteria[]" required class="form-control">
-                                                                <option value="">-- Pilih
-                                                                    {{ $kt->nama_kriteria }}--
-                                                                </option>
-                                                                @foreach ($bobot_kriteria as $bobot)
-                                                                    @if ($kt->id == $bobot->id_kriteria)
-                                                                        <option
-                                                                            @if (old('kriteria')) @if (old('kriteria')[$key] == $bobot->id) selected @endif
-                                                                            @endif
-                                                                            value="{{ $bobot->nilai_bobot }}">
-                                                                            {{ $bobot->nama_bobot }}</option>
-                                                                    @else
-                                                                    @endif
-                                                                @endforeach
-                                                            </select>
-                                                        @else --}}
-                                                        {{-- <input type="text" name="kriteria[]" id="kriteria"
-                                                                @if (old('kriteria')) value="{{ old('kriteria')[$key] }}" @endif
-                                                                required class="form-control"> --}}
-                                                        {{-- @endif --}}
                                                         @if ($kt->nama_kriteria === 'PENGALAMAN')
                                                             <select name="kriteria[]" id="kriteria" required
                                                                 class="form-control">
@@ -199,8 +178,8 @@
                                                                 required class="form-control">
                                                         @endif
                                                     </div>
-                                                @endforeach
-                                            </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
 

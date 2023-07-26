@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call(LowonganSeeder::class);
         $this->call(KriteriaSeeder::class);
         $this->call(BobotKriteriaSeeder::class);
+        $this->call(JadwalTesSeeder::class);
+        $this->call(PelamarSeeder::class);
+        $this->call(NilaiAlternatifSeeder::class);
+        $this->call(DaftarSoalSeeder::class);
+        $this->call(DetailJawabanSeeder::class);
     }
 }
