@@ -106,72 +106,111 @@ class HasilTesController extends Controller
             return back()->withErrors($validator->errors());
         } else {
 
-            $daftarsoal = DaftarSoal::where('id_lowongan', $request->get('id_lowongan'))->get();
+            DB::beginTransaction();
+            try {
+                $daftarsoal = DaftarSoal::where('id_lowongan', $request->get('id_lowongan'))->get();
 
-            $jawaban = [];
+                $jawaban = [];
 
-            $nilai = 0;
+                $nilai = 0;
 
-            $jawaban_benar = 0;
+                $jawaban_benar = 0;
 
-            foreach ($daftarsoal as $key => $value) {
-                $get_jawaban = $request->get('jawaban_' . $value->id);
+                $arr = [];
+
+                $check = [];
+
+                foreach ($daftarsoal as $key => $value) {
+                    $get_jawaban = $request->get('jawaban_' . $value->id);
 
 
-                $detail_jawaban = DetailJawaban::find($get_jawaban);
+                    $detail_jawaban = DetailJawaban::find($get_jawaban);
 
-                if ($detail_jawaban) {
-                    if ($detail_jawaban->isTrue == 1) {
-                        $jawaban_benar = $jawaban_benar + 1;
+                    if ($detail_jawaban) {
+
+
+                        if (isset($check[$key])) {
+
+                            if (!in_array($detail_jawaban->daftarSoal->id_kriteria, $check)) {
+
+                                if ($detail_jawaban->isTrue == 1) {
+                                    array_push($arr, $detail_jawaban->daftarSoal->id_kriteria);
+                                }
+                                array_push($check, $detail_jawaban->daftarSoal->id_kriteria);
+                            } else {
+                                if ($detail_jawaban->isTrue == 1) {
+                                    array_push($arr, $detail_jawaban->daftarSoal->id_kriteria);
+                                }
+                            }
+                        } else {
+
+                            if ($detail_jawaban->isTrue == 1) {
+                                // $jawaban_benar = $jawaban_benar + 1;
+
+                                array_push($arr, $detail_jawaban->daftarSoal->id_kriteria);
+                            }
+
+
+                            array_push($check, $detail_jawaban->daftarSoal->id_kriteria);
+                        }
                     }
+
+
+                    array_push($jawaban, $get_jawaban);
+                }
+
+                $remove_arr = array_unique($arr);
+
+                if (count($daftarsoal) !== count($jawaban)) {
+                    return redirect()->back()->withErrors(['Semua jawaban soal wajib diisi']);
+                }
+
+                $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
+
+
+                foreach ($remove_arr as $key => $value) {
+                    $daftarsoalKrit = DaftarSoal::where('id_lowongan', $request->get('id_lowongan'))->where('id_kriteria', $value)->count();
+                    $kriteria       = Kriteria::where('id_lowongan', $request->get('id_lowongan'))->where('id', $value)->first();
+
+                    $total_nilai    = ($this->hitungJawabanBenar($arr, $value) / $daftarsoalKrit) * 100;
+                    $cek            = BobotKriteria::where('id_kriteria', $kriteria->id)->where('nilai_akhir', '>=', $total_nilai)->first();
+
+                    Pelamar::where('id_user', auth()->user()->id)->update(['nilai_tes' => number_format($total_nilai)]);
+
+                    $nilaialternatif                    = new NilaiAlternatif();
+                    $nilaialternatif->id_pelamar        = $pelamar->id;
+                    $nilaialternatif->id_bobot_kriteria = $cek->id;
+                    $nilaialternatif->nilai             = $total_nilai;
+                    $nilaialternatif->save();
+                }
+
+                Alert::success('Berhasil Upload', 'Jawaban berhasil di submit');
+
+                $hasilTes = new HasilTes();
+                $hasilTes->id_pelamar           = $pelamar->id;
+                $hasilTes->id_lowongan          = $request->get('id_lowongan');
+                $hasilTes->id_bobot_kriteria    = $cek->id;
+                $hasilTes->jawaban              = '';
+                $hasilTes->nilai                = $total_nilai;
+                $hasilTes->save();
+
+
+                foreach ($daftarsoal as $key => $value) {
+                    $get_jawaban = $request->get('jawaban_' . $value->id);
+                    $jawaban_pelamar = new JawabanPelamar();
+                    $jawaban_pelamar->id_pelamar = $pelamar->id;
+                    $jawaban_pelamar->id_detail_jawaban = $get_jawaban;
+                    $jawaban_pelamar->id_hasil_tes = $hasilTes->id;
+                    $jawaban_pelamar->save();
                 }
 
 
-                array_push($jawaban, $get_jawaban);
+                DB::commit();
+                return redirect()->back();
+            } catch (\Exception $th) {
+                DB::rollBack();
+                dd($th);
             }
-
-            if (count($daftarsoal) !== count($jawaban)) {
-                return redirect()->back()->withErrors(['Semua jawaban soal wajib diisi']);
-            }
-            $daftarsoalKrit = DaftarSoal::where('id_lowongan', $request->get('id_lowongan'))->first();
-            $kriteria       = Kriteria::where('id_lowongan', $request->get('id_lowongan'))->where('id', $daftarsoalKrit->id_kriteria)->first();
-
-            $total_nilai    = ($jawaban_benar / count($daftarsoal)) * 100;
-            $cek            = BobotKriteria::where('id_kriteria', $kriteria->id)->where('nilai_akhir', '>=', $total_nilai)->first();
-
-            // dd($cek);
-
-            Alert::success('Berhasil Upload', 'Jawaban berhasil di submit');
-
-            $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
-            Pelamar::where('id_user', auth()->user()->id)->update(['nilai_tes' => number_format($total_nilai)]);
-
-            $nilaialternatif                    = new NilaiAlternatif();
-            $nilaialternatif->id_pelamar        = $pelamar->id;
-            $nilaialternatif->id_bobot_kriteria = $cek->id;
-            $nilaialternatif->nilai             = $total_nilai;
-            $nilaialternatif->save();
-
-
-            $hasilTes = new HasilTes();
-            $hasilTes->id_pelamar           = $pelamar->id;
-            $hasilTes->id_lowongan          = $request->get('id_lowongan');
-            $hasilTes->id_bobot_kriteria    = $cek->id;
-            $hasilTes->jawaban              = '';
-            $hasilTes->nilai                = $total_nilai;
-            $hasilTes->save();
-
-
-            foreach ($daftarsoal as $key => $value) {
-                $get_jawaban = $request->get('jawaban_' . $value->id);
-                $jawaban_pelamar = new JawabanPelamar();
-                $jawaban_pelamar->id_pelamar = $pelamar->id;
-                $jawaban_pelamar->id_detail_jawaban = $get_jawaban;
-                $jawaban_pelamar->id_hasil_tes = $hasilTes->id;
-                $jawaban_pelamar->save();
-            }
-
-            return redirect()->back();
         }
     }
 
@@ -399,10 +438,22 @@ class HasilTesController extends Controller
         $nilaialternatif->id_bobot_kriteria = $cek->id;
         $nilaialternatif->nilai             = $request->get('nilai');
         $nilaialternatif->save();
-        
+
         Pelamar::where('id', $id)->update(['keterangan_psikotes' => $request->get('keterangan')]);
         Alert::success('Berhasil Upload', 'Berhasil input nilai psikotes');
 
         return redirect()->back();
+    }
+
+    public function hitungJawabanBenar($arr, $jawaban)
+    {
+        $jawaban_benar = 0;
+        foreach ($arr as $key => $value) {
+            if ($value == $jawaban) {
+                $jawaban_benar = $jawaban_benar + 1;
+            }
+        }
+
+        return $jawaban_benar;
     }
 }
