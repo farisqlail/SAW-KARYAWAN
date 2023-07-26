@@ -35,6 +35,7 @@ class Pelamar extends Migration
             $table->string('status_wawancara')->nullable();
             $table->string('hasil_wawancara')->nullable();
             $table->string('status_dokumen')->nullable();
+            $table->string('keterangan_psikotes')->nullable();
             $table->integer('nilai_tes')->nullable();
             $table->timestamps();
          });

@@ -36,10 +36,16 @@ class HasilTesController extends Controller
             ->groupBy('pelamar.id', 'nama_pelamar', 'posisi_lowongan')
             ->get();
         $lowongan = lowongan::where('id', $id)->first();
+        $kriteria = Kriteria::where('id_lowongan', $id)
+            ->where('tampil_di_pelamar', 0)
+            ->where('nama_kriteria', 'PSIKOTES')
+            ->get();
+        // dd($kriteria);
 
         return view('jawaban.index', [
             'pelamar' => $pelamar,
-            'lowongan' => $lowongan
+            'lowongan' => $lowongan,
+            'kriteria' => $kriteria
         ]);
     }
 
@@ -47,13 +53,18 @@ class HasilTesController extends Controller
     {
         $hasilTes = HasilTes::select('hasil_tes.id', 'hasil_tes.jawaban', 'hasil_tes.nilai')->where('hasil_tes.id_pelamar', $id)->first();
 
-        $jawaban_pelamar = JawabanPelamar::where('id_pelamar',$id)->get();
+        $jawaban_pelamar = JawabanPelamar::where('id_pelamar', $id)->get();
+        $pelamar = Pelamar::where('id', $id)->first();
+        $kriteria = Kriteria::where('id_lowongan', $pelamar->id_lowongan)
+            ->where('nama_kriteria', 'PSIKOTES')
+            ->first();
 
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
             'hasilTes' => $hasilTes,
             'jawaban_pelamar' => $jawaban_pelamar,
-            'pelamar' => $pelamar
+            'pelamar' => $pelamar,
+            'kriteria' => $kriteria
         ]);
     }
 
@@ -104,13 +115,13 @@ class HasilTesController extends Controller
             $jawaban_benar = 0;
 
             foreach ($daftarsoal as $key => $value) {
-                $get_jawaban = $request->get('jawaban_'.$value->id);
+                $get_jawaban = $request->get('jawaban_' . $value->id);
 
 
                 $detail_jawaban = DetailJawaban::find($get_jawaban);
 
-                if($detail_jawaban){
-                    if($detail_jawaban->isTrue == 1){
+                if ($detail_jawaban) {
+                    if ($detail_jawaban->isTrue == 1) {
                         $jawaban_benar = $jawaban_benar + 1;
                     }
                 }
@@ -119,17 +130,17 @@ class HasilTesController extends Controller
                 array_push($jawaban, $get_jawaban);
             }
 
-            if(count($daftarsoal) !== count($jawaban)){
+            if (count($daftarsoal) !== count($jawaban)) {
                 return redirect()->back()->withErrors(['Semua jawaban soal wajib diisi']);
             }
             $daftarsoalKrit = DaftarSoal::where('id_lowongan', $request->get('id_lowongan'))->first();
             $kriteria       = Kriteria::where('id_lowongan', $request->get('id_lowongan'))->where('id', $daftarsoalKrit->id_kriteria)->first();
-            
+
             $total_nilai    = ($jawaban_benar / count($daftarsoal)) * 100;
-            $cek            = BobotKriteria::where('id_kriteria', $kriteria->id)->where('nilai_akhir','>=', $total_nilai)->first();
-            
+            $cek            = BobotKriteria::where('id_kriteria', $kriteria->id)->where('nilai_akhir', '>=', $total_nilai)->first();
+
             // dd($cek);
-            
+
             Alert::success('Berhasil Upload', 'Jawaban berhasil di submit');
 
             $pelamar = Pelamar::where('id_lowongan', $request->get('id_lowongan'))->where('id_user', auth()->user()->id)->firstOrFail();
@@ -140,8 +151,6 @@ class HasilTesController extends Controller
             $nilaialternatif->id_bobot_kriteria = $cek->id;
             $nilaialternatif->nilai             = $total_nilai;
             $nilaialternatif->save();
-
-            
 
 
             $hasilTes = new HasilTes();
@@ -154,7 +163,7 @@ class HasilTesController extends Controller
 
 
             foreach ($daftarsoal as $key => $value) {
-                $get_jawaban = $request->get('jawaban_'.$value->id);
+                $get_jawaban = $request->get('jawaban_' . $value->id);
                 $jawaban_pelamar = new JawabanPelamar();
                 $jawaban_pelamar->id_pelamar = $pelamar->id;
                 $jawaban_pelamar->id_detail_jawaban = $get_jawaban;
@@ -163,10 +172,7 @@ class HasilTesController extends Controller
             }
 
             return redirect()->back();
-
         }
-
-
     }
 
     public function editJawaban($id)
@@ -378,5 +384,25 @@ class HasilTesController extends Controller
         } else {
             return false;
         }
+    }
+
+    public function psikotesStore(Request $request, $id)
+    {
+        $cek = BobotKriteria::where('id_kriteria', $request->get('id_kriteria'))
+            ->where('nilai_awal', '<=', floatval($request->get('nilai')))
+            ->where('nilai_akhir', '>=', floatval($request->get('nilai')))
+            ->first();
+        // dd($id);
+
+        $nilaialternatif                    = new NilaiAlternatif();
+        $nilaialternatif->id_pelamar        = $id;
+        $nilaialternatif->id_bobot_kriteria = $cek->id;
+        $nilaialternatif->nilai             = $request->get('nilai');
+        $nilaialternatif->save();
+        
+        Pelamar::where('id', $id)->update(['keterangan_psikotes' => $request->get('keterangan')]);
+        Alert::success('Berhasil Upload', 'Berhasil input nilai psikotes');
+
+        return redirect()->back();
     }
 }

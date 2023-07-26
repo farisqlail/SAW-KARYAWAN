@@ -11,7 +11,6 @@
                         <h2 class="float-left">Hasil Tes Posisi {{ $lowongan->posisi_lowongan }}</h2>
                         <div class="float-right">
                             <a href="{{ route('jadwal_tes.index') }}" class="btn btn-danger">Kembali</a>
-
                         </div>
                     </div>
 
@@ -39,7 +38,7 @@
                                                     <a href="{{ route('jawaban.detail', $data->id) }}"
                                                         class="btn btn-success">Detail Jawaban</a>
 
-                                                  
+
                                                 </td>
                                             </tr>
                                         @endforeach

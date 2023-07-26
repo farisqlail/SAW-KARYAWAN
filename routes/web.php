@@ -108,6 +108,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/nilai-jawaban/{id}', 'HasilTesController@updateNilai')->name('jawaban.nilai.update');
         Route::get('/jawaban/edit/{id}', 'HasilTesController@editJawaban')->name('jawaban.edit');
         Route::patch('/jawaban/edit/{id}', 'HasilTesController@updateJawaban')->name('jawaban.update');
+        Route::post('/jawaban/detail/psikotes/{id}', 'HasilTesController@psikotesStore')->name('jawaban.nilaipsikotes');
     });
 
     Route::prefix('/pelamar')->group(function () {

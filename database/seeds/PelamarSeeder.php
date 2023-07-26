@@ -31,7 +31,8 @@ class PelamarSeeder extends Seeder
             'status_wawancara' => null,
             'hasil_wawancara' => null,
             'status_dokumen' => 'Dokumen Valid',
-            'nilai_tes' => null
+            'keterangan_psikotes' => null,
+            'nilai_tes' => null,
         ]);
     }
 }
