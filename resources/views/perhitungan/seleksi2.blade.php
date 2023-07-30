@@ -46,6 +46,40 @@
             <div class="col-md-12 card-deck mt-4">
                 <div class="card">
                     <div class="card-header">
+                        <h3 class="float-left">Kriteria Lowongan {{ $low->posisi_lowongan }}</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        {{-- <th class="text-center">Nama Pelamar</th>
+                                        @foreach ($kriteria as $krit)
+                                            <th class="text-center">{{ $krit->nama_kriteria }}</th>
+                                        @endforeach --}}
+                                        <th>Nama Kriteria</th>
+                                        <th>Bobot Kriteria</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($kriteria as $item)
+                                        <tr>
+                                            <td>{{ $item->nama_kriteria }}</td>
+                                            <td>{{ $item->bobot_preferensi }}%</td>
+                                        </tr>
+                                    @empty
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 card-deck mt-4">
+                <div class="card">
+                    <div class="card-header">
                         <h3 class="float-left">Normalisasi</h3>
                     </div>
 
@@ -121,7 +155,7 @@
                                                     method="post">
                                                     {{ csrf_field() }}
 
-                                                    <input type="hidden" name="id_lowongan" value="{{$low->id}}">
+                                                    <input type="hidden" name="id_lowongan" value="{{ $low->id }}">
 
                                                     <a href="{{ route('seleksi.detail', $data['id_pelamar']) }}"
                                                         class="btn btn-info">Lihat Detail</a>

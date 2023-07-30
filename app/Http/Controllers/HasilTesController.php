@@ -58,13 +58,15 @@ class HasilTesController extends Controller
         $kriteria = Kriteria::where('id_lowongan', $pelamar->id_lowongan)
             ->where('nama_kriteria', 'PSIKOTES')
             ->first();
+        $nilaialternatif = NilaiAlternatif::where('id_pelamar', $id)->get();
 
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [
             'hasilTes' => $hasilTes,
             'jawaban_pelamar' => $jawaban_pelamar,
             'pelamar' => $pelamar,
-            'kriteria' => $kriteria
+            'kriteria' => $kriteria,
+            'nilaialternatif' => $nilaialternatif
         ]);
     }
 

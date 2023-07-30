@@ -36,12 +36,12 @@ class NilaiAlternatifSeeder extends Seeder
                 ],
                 [
                     'id_pelamar' => 2,
-                    'id_bobot_kriteria' => 7,
-                    'nilai' => (float) 25,
+                    'id_bobot_kriteria' => 8,
+                    'nilai' => (float) 23,
                 ],
                 [
                     'id_pelamar' => 2,
-                    'id_bobot_kriteria' => 3,
+                    'id_bobot_kriteria' => 13,
                     'nilai' => (float) 4,
                 ],
 
