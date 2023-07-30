@@ -300,26 +300,33 @@ class BobotKriteriaSeeder extends Seeder
                 'nama_bobot' => 'Tidak dapat disarankan',
                 'jumlah_bobot' => 1,
                 'nilai_awal' => '0',
-                'nilai_akhir' => '70'
+                'nilai_akhir' => '60'
             ],
             [
                 'id_kriteria' => 8,
                 'nama_bobot' => 'Kurang dapat disarankan',
                 'jumlah_bobot' => 2,
-                'nilai_awal' => '71',
-                'nilai_akhir' => '80'
+                'nilai_awal' => '61',
+                'nilai_akhir' => '70'
             ],
             [
                 'id_kriteria' => 8,
                 'nama_bobot' => 'Cukup dapat disarankan',
                 'jumlah_bobot' => 3,
+                'nilai_awal' => '71',
+                'nilai_akhir' => '80'
+            ],
+            [
+                'id_kriteria' => 8,
+                'nama_bobot' => 'Dapat disarankan',
+                'jumlah_bobot' => 4,
                 'nilai_awal' => '81',
                 'nilai_akhir' => '90'
             ],
             [
                 'id_kriteria' => 8,
                 'nama_bobot' => 'Dapat disarankan',
-                'jumlah_bobot' => 4,
+                'jumlah_bobot' => 5,
                 'nilai_awal' => '91',
                 'nilai_akhir' => '100'
             ],

@@ -168,7 +168,6 @@
                                                                 <option value="{{ $option->nilai_awal }}"
                                                                     @if (old('kriteria')) @if (old('kriteria')[$key] == $option->id) selected @endif
                                                                     @endif>
-                                                                    {{$option}}
                                                                             {{ $option->nama_bobot }}</option>
                                                                     @endif
                                                                 @endforeach
