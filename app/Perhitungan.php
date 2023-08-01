@@ -30,6 +30,7 @@ class Perhitungan extends Model
 
                 $y['nama_bobot_kriteria'] = $alternatif->bobot_kriteria->nama_bobot;
                 $y['id_bobot_kriteria'] = $alternatif->bobot_kriteria->id;
+                $y['id_kriteria'] = $alternatif->bobot_kriteria->id_kriteria;
                 $y['id_alternatif'] = $alternatif->id;
                 $y['hitung'] = $hitung;
                 $y['normalisasi'] = $hitung * ($alternatif->bobot_kriteria->kriteria->bobot_preferensi / 100);
@@ -58,6 +59,7 @@ class Perhitungan extends Model
 
                     $y['nama_bobot_kriteria'] = $bobot_kriteria->nama_bobot;
                     $y['id_bobot_kriteria'] = $bobot_kriteria->id;
+                    $y['id_kriteria'] = $alternatif->bobot_kriteria->id_kriteria;
                     $y['id_alternatif'] = $alternatif->id;
                     $y['hitung'] = $hitung;
                     $y['normalisasi'] = $hitung * ($hasil_tes->daftar_soal->kriteria->bobot_preferensi / 100);
