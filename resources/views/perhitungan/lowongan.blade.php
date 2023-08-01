@@ -52,9 +52,11 @@
                                                     @if ($data->status_lowongan == 'Seleksi 2')
                                                         {{-- <a href="{{ route('perhitungan.index', $data) }}"
                                                             class="btn btn-sm btn-info">Seleksi 1</a> --}}
-                                                        @if ($data->status_lowongan == 'Seleksi 2')
+                                                        @if ($data->status_lowongan == 'Seleksi 2' && $data->seleksi2)
                                                             <a href="{{ Route('perhitungan.dua', $data) }}"
                                                                 class="btn btn-sm btn-success">Seleksi 2</a>
+                                                        @else
+                                                            <button disabled="disabled"  class="btn btn-sm btn-success">Seleksi 2</button>
                                                         @endif
 
                                                         @if (\Carbon\Carbon::parse($data->durasi_tes) < \Carbon\Carbon::now() && $data->status_lowongan == 'Seleksi 2')

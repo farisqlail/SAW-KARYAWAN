@@ -355,6 +355,16 @@ class PerhitunganController extends Controller
     public function lowongan()
     {
         $jadwalTes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')->get();
+
+        $jadwalTes = tap($jadwalTes)->transform(function ($data) {
+
+            $seleksi2 = HasilTes::where('id_lowongan', $data->id_lowongan)->count();
+
+            $data->seleksi2 = $seleksi2 > 0 ? true : false;
+
+            return $data;
+        });
+
         return view('perhitungan.lowongan', ['jadwalTes' => $jadwalTes]);
     }
 
