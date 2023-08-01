@@ -58,7 +58,17 @@ class HasilTesController extends Controller
         $kriteria = Kriteria::where('id_lowongan', $pelamar->id_lowongan)
             ->where('nama_kriteria', 'PSIKOTES')
             ->first();
-        $nilaialternatif = NilaiAlternatif::where('id_pelamar', $id)->get();
+        $nilaialternatif = NilaiAlternatif::join('pelamar','pelamar.id','nilai_alternatif.id_pelamar')
+        ->where('id_lowongan',$pelamar->id_lowongan)->where('id_pelamar', $id)->get();
+
+        $nilaialternatif = tap($nilaialternatif)->transform(function($data){
+            if($data->bobot_kriteria->kriteria->tampil_di_pelamar == 0){
+                return $data;
+            }
+        });
+
+        $nilaialternatif = $nilaialternatif->filter();
+
 
         $pelamar = Pelamar::where('id', $id)->first();
         return view('jawaban.detail', [

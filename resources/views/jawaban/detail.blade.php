@@ -56,6 +56,55 @@
                         </div>
                     </div>
                 </div>
+
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="float-left">Jawaban Setiap Kriteria</h2>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Kriteria</th>
+                                        <th class="text-center">Nilai</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @forelse ($nilaialternatif as $item)
+                                        <tr class="text-center">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->bobot_kriteria->kriteria->nama_kriteria }}</td>
+
+                                            <td>{{ $item->nilai }}</td>
+
+                                        </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                    @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
