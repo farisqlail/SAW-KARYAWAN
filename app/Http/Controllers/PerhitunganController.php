@@ -287,9 +287,9 @@ class PerhitunganController extends Controller
                 return view('perhitungan.seleksi2', [
                     'kriteria'      => $kriteria,
                     'alternatif'    => $alternatif,
-                    'perhitungan' => $perhitungan,
-                    'perangkingan' => $perangkingan,
-                    'low'   => $low
+                    'perhitungan'   => $perhitungan,
+                    'perangkingan'  => $perangkingan,
+                    'low'           => $low
                 ]);
             }
         } else if (Auth::user()->role == 'direksi') {

@@ -12,9 +12,12 @@
 
                             <a href="{{ route('jawaban.index', ['id' => $pelamar->id_lowongan]) }}"
                                 class="btn btn-danger">Kembali</a>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Nilai Psikotes
-                            </button>
+                            @if ($pelamar->keterangan_psikotes === null)
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    Nilai Psikotes
+                                </button>
+                            @endif
                         </div>
                     </div>
 
@@ -34,6 +37,7 @@
                                 <tbody>
                                     @if (!empty($jawaban_pelamar))
                                         @foreach ($jawaban_pelamar as $data)
+                                            {{-- {{$nilaialternatif}} --}}
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->detail_jawaban->daftarSoal->soal }}</td>
@@ -69,15 +73,16 @@
                 <form method="POST" action="{{ route('jawaban.nilaipsikotes', $pelamar->id) }}">
                     @csrf
                     <input type="text" name="id_kriteria" value="{{ $kriteria->id }}" hidden>
-                    <input type="text" name="id_pelamar" value="{{$pelamar->id}}" hidden>
+                    <input type="text" name="id_pelamar" value="{{ $pelamar->id }}" hidden>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Nilai</label>
                             <select name="nilai" class="form-control" id="">
-                                <option value="95">Dapat disarankan</option>
-                                <option value="85">Cukup dapat disarankan</option>
-                                <option value="75">Kurang dapat disarankan</option>
-                                <option value="65">Tidak dapat disarankan</option>
+                                <option value="95">Sangat dapat disarankan</option>
+                                <option value="85">Dapat disarankan</option>
+                                <option value="75">Cukup dapat disarankan</option>
+                                <option value="65">Kurang dapat disarankan</option>
+                                <option value="50">Tidak dapat disarankan</option>
                             </select>
                         </div>
 

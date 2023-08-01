@@ -117,7 +117,7 @@ class PelamarController extends Controller
                     $pelamar->pas_foto = $filename;
                     Storage::putFileAs("public/images/pas_foto", $file, $filename);
                 }
-
+                
                 $pelamar->save();
 
                 $kriteria_id = $request->get('kriteria_id');

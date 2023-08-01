@@ -160,14 +160,14 @@
                                                     <div class="form-group">
                                                         <label for="kriteria">{{ $kt->nama_kriteria }} <span
                                                                 class="text-danger">*</span></label>
-                                                        @if ($kt->nama_kriteria === 'PENGALAMAN')
-                                                            <select name="kriteria[]" id="kriteria" required
+                                                                @if ($kt->nama_kriteria === 'PENGALAMAN')
+                                                                <select name="kriteria[]" id="kriteria" required
                                                                 class="form-control">
                                                                 @foreach ($bobot_kriteria as $option)
-                                                                    @if ($kt->id == $option->id_kriteria)
-                                                                        <option value="{{ $option->nilai_awal }}"
-                                                                            @if (old('kriteria')) @if (old('kriteria')[$key] == $option->id) selected @endif
-                                                                            @endif>
+                                                                @if ($kt->id == $option->id_kriteria)
+                                                                <option value="{{ $option->nilai_awal }}"
+                                                                    @if (old('kriteria')) @if (old('kriteria')[$key] == $option->id) selected @endif
+                                                                    @endif>
                                                                             {{ $option->nama_bobot }}</option>
                                                                     @endif
                                                                 @endforeach
