@@ -20,13 +20,13 @@ class LowonganController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $lowongan = lowongan::all();
+            $lowongan = Lowongan::where('periode', '!=', 'tutup')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'direksi') {
-            $lowongan = lowongan::all();
+            $lowongan = Lowongan::where('periode', '!=', 'tutup')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'hrd') {
-            $lowongan = lowongan::all();
+            $lowongan = Lowongan::where('periode', '!=', 'tutup')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'divisi') {
             $divisi = auth()->user()->division_name;
@@ -35,6 +35,13 @@ class LowonganController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    public function periodeIndex()
+    {   
+        $lowongan = Lowongan::where('periode', '=', 'tutup')->get();
+
+        return view('lowongan.periode-index', ['lowongan' => $lowongan]);
     }
 
     public function search(Request $request)
@@ -53,7 +60,7 @@ class LowonganController extends Controller
 
     public function home()
     {
-        $lowongan = lowongan::where('status_approve', 'selesai')->orderBy('id', 'desc')->get();
+        $lowongan = lowongan::where('status_approve', 'selesai')->where('periode', '!==', 'tutup')->orderBy('id', 'desc')->get();
         $pelamar = Pelamar::all();
 
         return view('lowongan.home', compact('lowongan', 'pelamar'));
@@ -249,6 +256,16 @@ class LowonganController extends Controller
 
             return redirect()->route('lowongan.index');
         }
+    }
+
+    public function periode()
+    {
+        $lowonganIds = Lowongan::where('periode', '=', 'buka')->pluck('id')->toArray();
+
+        Lowongan::whereIn('id', $lowonganIds)->update(['periode' => 'tutup']);
+    
+        Alert::success('Berhasil', 'Data lowongan berhasil ditutup periodenya');
+        return redirect()->route('lowongan.index');
     }
 
     /**

@@ -42,7 +42,7 @@ class LowonganSeeder extends Seeder
                 Kemampuan kemandirian dalam melakukan pekerjaannya
                 Kemampuan berkoordinasi dan bersosialisasi
                 Penempatan : Jakarta - HO',
-
+                'periode' => 'buka'
             ],
             [
                 'posisi_lowongan' => 'Akuntansi',
@@ -61,6 +61,7 @@ class LowonganSeeder extends Seeder
                 •	Melakukan tutup buku akhir bulan, akhir tahun dan filling dokumen.
                 •	Menyiapkan dokumen yang dibutuhkan dalam audit laporan keuangan.
                 •	Bertanggung jawab kepada manajer akuntansi dan melaporkan apa yang dikerjakan kepada atasan.',
+                'periode' => 'buka'
 
             ],
         ]);

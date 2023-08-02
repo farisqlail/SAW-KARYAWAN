@@ -11,6 +11,7 @@
                         <h2 class="float-left">Lowongan</h2>
                         <div class="float-right">
                             @if (Auth::user()->role == 'admin')
+                                <a href="{{ route('lowongan.tutup-periode') }}" class="btn btn-danger">Tutup Periode</a>
                                 <a href="{{ route('lowongan.tambah') }}" class="btn btn-success">Tambah</a>
                             @elseif (Auth::user()->role == 'divisi')
                                 <a href="{{ route('lowongan.tambah') }}" class="btn btn-success">Tambah</a>
