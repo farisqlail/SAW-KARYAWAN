@@ -15,6 +15,8 @@
                                 <a href="{{ route('lowongan.tambah') }}" class="btn btn-success">Tambah</a>
                             @elseif (Auth::user()->role == 'divisi')
                                 <a href="{{ route('lowongan.tambah') }}" class="btn btn-success">Tambah</a>
+                            @elseif(Auth::user()->role == 'direksi')
+                                <a href="{{ route('lowongan.tutup-periode') }}" class="btn btn-danger">Tutup Periode</a>
                             @endif
 
                         </div>

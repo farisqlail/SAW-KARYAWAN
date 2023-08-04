@@ -115,8 +115,8 @@
                 <i class="fas fa-user-tie"></i>
                 <span>Lowongan</span></a>
         </li>
-         <li class="nav-item {{ 'periode' == request()->segment(1) ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('lowongan.periode.index') }}">
+        <li class="nav-item {{ 'periode' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('lowongan.index.periode') }}">
                 <i class="fas fa-user-tie"></i>
                 <span>Periode Lowongan</span></a>
         </li>
@@ -151,7 +151,7 @@
                 <i class="fas fa-user-tie"></i>
                 <span>Lowongan</span></a>
         </li>
-         <li class="nav-item {{ 'periode' == request()->segment(1) ? 'active' : '' }}">
+        <li class="nav-item {{ 'periode' == request()->segment(1) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('lowongan.periode.index') }}">
                 <i class="fas fa-user-tie"></i>
                 <span>Periode Lowongan</span></a>
