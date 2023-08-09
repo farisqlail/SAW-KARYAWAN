@@ -151,11 +151,11 @@
                 <i class="fas fa-user-tie"></i>
                 <span>Lowongan</span></a>
         </li>
-        <li class="nav-item {{ 'periode' == request()->segment(1) ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('lowongan.periode.index') }}">
+        {{-- <li class="nav-item {{ 'periode' == request()->segment(1) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('lowongan.index.periode') }}">
                 <i class="fas fa-user-tie"></i>
                 <span>Periode Lowongan</span></a>
-        </li>
+        </li> --}}
         <li class="nav-item {{ 'jadwal_tes' == request()->segment(1) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('jadwal_tes.index') }}">
                 <i class="fas fa-clock"></i>

@@ -27,7 +27,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td class="text-center">{{ $data->posisi_lowongan }}</td>
-                                                <td class="text-center">{{\Carbon\Carbon::parse($data->created_at)->format('Y-m-d')}} - {!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
+                                                <td class="text-center">{{ $data->periode }}</td>
                                             </tr>
                                         @endforeach
                                     @else

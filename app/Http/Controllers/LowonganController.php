@@ -20,13 +20,13 @@ class LowonganController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $lowongan = Lowongan::where('periode', '!=', 'tutup')->get();
+            $lowongan = Lowongan::whereNull('periode')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'direksi') {
-            $lowongan = Lowongan::where('periode', '!=', 'tutup')->get();
+            $lowongan = Lowongan::whereNull('periode')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'hrd') {
-            $lowongan = Lowongan::where('periode', '!=', 'tutup')->get();
+            $lowongan = Lowongan::whereNull('periode')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'divisi') {
             $divisi = auth()->user()->division_name;
@@ -38,8 +38,8 @@ class LowonganController extends Controller
     }
 
     public function periodeIndex()
-    {   
-        $lowongan = Lowongan::where('periode', '=', 'tutup')->get();
+    {
+        $lowongan = Lowongan::whereNotNull('periode')->get();
 
         return view('lowongan.periode-index', ['lowongan' => $lowongan]);
     }
@@ -260,12 +260,22 @@ class LowonganController extends Controller
 
     public function periode()
     {
-        $lowonganIds = Lowongan::where('periode', '=', 'buka')->pluck('id')->toArray();
+        $lowonganIds = Lowongan::whereNull('periode')->pluck('id')->toArray();
+        $lowongan = Lowongan::whereNotNull('periode')->latest()->first();
+        // $lastRecord = $lowongan->last();
 
-        Lowongan::whereIn('id', $lowonganIds)->update(['periode' => 'tutup']);
-    
-        Alert::success('Berhasil', 'Data lowongan berhasil ditutup periodenya');
-        return redirect()->route('lowongan.index');
+        $text = $lowongan->periode;
+        $parts = explode(" ", $text); // Memisahkan string menjadi array
+        $number = end($parts); // Mengambil elemen terakhir dari array
+        $loop = (int) $number + 1;
+        
+        for ($i = $loop; $i < 1000; $i++) {
+            $periode = "Periode " . $i;
+            Lowongan::whereIn('id', $lowonganIds)->update(['periode' => $periode]);
+
+            Alert::success('Berhasil', 'Data lowongan berhasil ditutup periodenya');
+            return redirect()->route('lowongan.index');
+        }
     }
 
     /**

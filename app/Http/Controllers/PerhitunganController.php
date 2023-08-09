@@ -354,7 +354,7 @@ class PerhitunganController extends Controller
 
     public function lowongan()
     {
-        $jadwalTes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')->where('periode', '!==', 'tutup')->get();
+        $jadwalTes = JadwalTes::join('lowongan', 'lowongan.id', '=', 'jadwal_tes.id_lowongan')->get();
 
         $jadwalTes = tap($jadwalTes)->transform(function ($data) {
 
