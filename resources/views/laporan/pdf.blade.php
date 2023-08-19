@@ -16,9 +16,7 @@
     </style>
     <center>
         <h5>Laporan Data Pelamar Lolos Seleksi</h5>
-        <h6>Lowongan : {{ $lowongan }}</h6>
-        <h6>Kategori : {{ $kategori }}</h6>
-        <h6>{{ $periode_awal }} - {{ $periode_akhir }}</h6>
+        <h6>{{ $periode }}</h6>
 
     </center>
 
@@ -30,6 +28,9 @@
                 <th>Nama</th>
                 <th>Tgl Lahir</th>
                 <th>No Telp</th>
+                <th>Peringkat</th>
+                <th>Nilai Akhir</th>
+                <th>Status Wawancara</th>
 
             </tr>
         </thead>
@@ -37,10 +38,14 @@
             @forelse ($pelamar as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->lowongan->posisi_lowongan }}</td>
+                    <td>{{ $item->posisi_lowongan }}</td>
                     <td>{{ $item->nama_pelamar }}</td>
                     <td>{{ $item->tanggal_lahir }}</td>
                     <td>{{ $item->no_telepon }}</td>
+                    <td>{{ $item->rangked }}</td>
+                    <td>{{ $item->nilai_akhir }}</td>
+                    <td>{{ $item->status_wawancara }}</td>
+
                 </tr>
             @empty
             @endforelse

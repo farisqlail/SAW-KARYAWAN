@@ -17,54 +17,34 @@ class LaporanController extends Controller
     public function index(Request $request)
     {
 
-        $periode_awal = $request->get('periode_awal');
-
-        $periode_akhir = $request->get('periode_akhir');
-
-        $lowongan = $request->get('lowongan');
-
-        $kategori = $request->get('kategori');
+        $periode = $request->get('periode');
 
         $status = $request->get('status');
 
-        $pelamar = [];
+        if ($periode) {
+            $pelamar = Pelamar::join('lowongan', 'pelamar.id_lowongan', '=', 'lowongan.id')
+                      ->where('lowongan.periode', $periode)
+                      ->where('pelamar.seleksi_dua', 'Diterima')
+                      ->orderBy('pelamar.rangked', 'asc')
+                      ->get();
 
-        if ($periode_akhir && $periode_awal && $lowongan && $kategori) {
-
-            $pelamar = Pelamar::query();
-
-            if ($kategori == 'Seleksi 1') {
-                $pelamar->where('status_dokumen', 'Dokumen Valid');
-            } elseif ($kategori == 'Seleksi 2') {
-                $pelamar->where('seleksi_dua', 'Diterima');
-            } else {
-                $pelamar->where('status_wawancara', 'Diterima');
+            if ($status == 'cetak') {
+    
+                // $lowongan = lowongan::findOrFail($lowongan);
+    
+                $pdf = PDF::loadview('laporan.pdf', [
+                    'pelamar' => $pelamar,
+                    'periode' => $periode
+                ]);
+    
+                return $pdf->stream('laporan-pelamar-pdf');
             }
-
-            $pelamar = $pelamar->where('id_lowongan', $lowongan)->whereHas('lowongan', function ($q) use ($periode_awal, $periode_akhir) {
-                return $q->whereDate('berlaku_sampai', '>=', $periode_awal)->whereDate('berlaku_sampai', '<=', $periode_akhir);
-            })->get();
+    
+            $lowongan = lowongan::all();
+    
+            return view('laporan.index', ['lowongan' => $lowongan, 'pelamar' => $pelamar, 'periode' => $periode]);
         }
 
-
-        if ($status == 'cetak') {
-
-            $lowongan = lowongan::findOrFail($lowongan);
-
-            $pdf = PDF::loadview('laporan.pdf', [
-                'pelamar' => $pelamar,
-                'periode_awal' => $periode_awal,
-                'periode_akhir' => $periode_akhir,
-                'kategori' => $kategori,
-                'lowongan' => $lowongan->posisi_lowongan
-            ]);
-            
-            return $pdf->stream('laporan-pelamar-pdf');
-        }
-
-        $lowongan = lowongan::all();
-
-        return view('laporan.index', ['lowongan' => $lowongan, 'pelamar' => $pelamar]);
     }
 
     /**

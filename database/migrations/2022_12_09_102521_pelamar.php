@@ -37,6 +37,8 @@ class Pelamar extends Migration
             $table->string('status_dokumen')->nullable();
             $table->string('keterangan_psikotes')->nullable();
             $table->integer('nilai_tes')->nullable();
+            $table->string('rangked')->nullable();
+            $table->integer('nilai_akhir')->nullable();
             $table->timestamps();
          });
     }

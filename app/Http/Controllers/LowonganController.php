@@ -20,13 +20,13 @@ class LowonganController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $lowongan = Lowongan::whereNull('periode')->get();
+            $lowongan = Lowongan::where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'direksi') {
-            $lowongan = Lowongan::whereNull('periode')->get();
+            $lowongan = Lowongan::where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'hrd') {
-            $lowongan = Lowongan::whereNull('periode')->get();
+            $lowongan = Lowongan::where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'divisi') {
             $divisi = auth()->user()->division_name;
@@ -39,7 +39,7 @@ class LowonganController extends Controller
 
     public function periodeIndex()
     {
-        $lowongan = Lowongan::whereNotNull('periode')->get();
+        $lowongan = Lowongan::where('periode', '!=', 'buka')->get();
 
         return view('lowongan.periode-index', ['lowongan' => $lowongan]);
     }
@@ -260,8 +260,8 @@ class LowonganController extends Controller
 
     public function periode()
     {
-        $lowonganIds = Lowongan::whereNull('periode')->pluck('id')->toArray();
-        $lowongan = Lowongan::whereNotNull('periode')->latest()->first();
+        $lowonganIds = Lowongan::where('periode', 'buka')->pluck('id')->toArray();
+        $lowongan = Lowongan::where('periode', 'buka')->latest()->first();
         // $lastRecord = $lowongan->last();
 
         $text = $lowongan->periode;

@@ -161,13 +161,27 @@
                                                         class="btn btn-info">Lihat Detail</a>
 
                                                     @if ($data['status'] == null)
-                                                        <input type="submit" name="submit"
-                                                            href="{{ route('pelamar.seleksi.dua', ['id' => $data['id_pelamar']]) }}"
-                                                            class="btn btn-success" value="Terima">
+                                                        {{-- <input type="submit" name="submit"
+                                                            href="{{ route('pelamar.seleksi.dua', [
+                                                                'id' => $data['id_pelamar']
+                                                                ]) }}"
+                                                            class="btn btn-success" value="Terima"> --}}
+                                                        <form method="post"
+                                                            action="{{ route('pelamar.seleksi.dua', ['id' => $data['id_pelamar']]) }}">
+                                                            @csrf
+                                                            <!-- Ini diperlukan jika Anda menggunakan Laravel untuk melindungi formulir dari serangan CSRF -->
 
-                                                        <input type="submit" name="submit"
-                                                            href="{{ route('pelamar.seleksi.dua', ['id' => $data['id_pelamar']]) }}"
-                                                            class="btn btn-danger" value="Tolak">
+                                                            <!-- Contoh pengisian nilai array -->
+                                                            <input type="hidden" name="rangked"
+                                                                value="{{ $loop->iteration }}">
+                                                            <input type="hidden" name="nilai_akhir"
+                                                                value="{{ round($data['hasil_normalisasi'] * 100) }}">
+
+                                                            <input type="submit" name="submit" class="btn btn-success"
+                                                                value="Terima">
+                                                            <input type="submit" name="submit"
+                                                                class="btn btn-danger" value="Tolak">
+                                                        </form>
                                                     @endif
                                                 </form>
                                             </td>

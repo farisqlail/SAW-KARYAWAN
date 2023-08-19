@@ -29,6 +29,7 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Posisi Lowongan</th>
+                                        <th class="text-center">Tanggal Buat</th>
                                         <th class="text-center">Berlaku Sampai</th>
                                         <th class="text-center">Status Lowongan</th>
                                         <th class="text-center">Status Approve</th>
@@ -50,6 +51,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }}</td>
                                                 <td>{!! \Illuminate\Support\Str::limit($data->berlaku_sampai, 30) !!}</td>
                                                 <td align="center">
                                                     @if ($data->berlaku_sampai > date('Y-m-d') && $data->status_lowongan == null)
