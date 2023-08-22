@@ -30,7 +30,7 @@ class LowonganController extends Controller
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'divisi') {
             $divisi = auth()->user()->division_name;
-            $lowongan = lowongan::where('divisi', $divisi)->get();
+            $lowongan = lowongan::where('divisi', $divisi)->where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else {
             abort(404);
