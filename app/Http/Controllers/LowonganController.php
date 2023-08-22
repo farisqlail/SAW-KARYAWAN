@@ -20,21 +20,28 @@ class LowonganController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $lowongan = lowongan::all();
+            $lowongan = Lowongan::where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'direksi') {
-            $lowongan = lowongan::all();
+            $lowongan = Lowongan::where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'hrd') {
-            $lowongan = lowongan::all();
+            $lowongan = Lowongan::where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else if (Auth::user()->role == 'divisi') {
             $divisi = auth()->user()->division_name;
-            $lowongan = lowongan::where('divisi', $divisi)->get();
+            $lowongan = lowongan::where('divisi', $divisi)->where('periode', 'buka')->get();
             return view('lowongan.index', ['lowongan' => $lowongan]);
         } else {
             abort(404);
         }
+    }
+
+    public function periodeIndex()
+    {
+        $lowongan = Lowongan::where('periode', '!=', 'buka')->get();
+
+        return view('lowongan.periode-index', ['lowongan' => $lowongan]);
     }
 
     public function search(Request $request)
@@ -53,7 +60,7 @@ class LowonganController extends Controller
 
     public function home()
     {
-        $lowongan = lowongan::where('status_approve', 'selesai')->orderBy('id', 'desc')->get();
+        $lowongan = lowongan::where('status_approve', 'selesai')->where('periode', '!==', 'tutup')->orderBy('id', 'desc')->get();
         $pelamar = Pelamar::all();
 
         return view('lowongan.home', compact('lowongan', 'pelamar'));
@@ -247,6 +254,26 @@ class LowonganController extends Controller
 
             $lowongan->save();
 
+            return redirect()->route('lowongan.index');
+        }
+    }
+
+    public function periode()
+    {
+        $lowonganIds = Lowongan::where('periode', 'buka')->pluck('id')->toArray();
+        $lowongan = Lowongan::where('periode', 'buka')->latest()->first();
+        // $lastRecord = $lowongan->last();
+
+        $text = $lowongan->periode;
+        $parts = explode(" ", $text); // Memisahkan string menjadi array
+        $number = end($parts); // Mengambil elemen terakhir dari array
+        $loop = (int) $number + 1;
+        
+        for ($i = $loop; $i < 1000; $i++) {
+            $periode = "Periode " . $i;
+            Lowongan::whereIn('id', $lowonganIds)->update(['periode' => $periode]);
+
+            Alert::success('Berhasil', 'Data lowongan berhasil ditutup periodenya');
             return redirect()->route('lowongan.index');
         }
     }

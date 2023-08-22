@@ -186,7 +186,7 @@ class HasilTesController extends Controller
 
                     $total_nilai    = ($this->hitungJawabanBenar($arr, $value) / $daftarsoalKrit) * 100;
                     $cek            = BobotKriteria::where('id_kriteria', $kriteria->id)->where('nilai_akhir', '>=', $total_nilai)->first();
-
+                    
                     Pelamar::where('id_user', auth()->user()->id)->update(['nilai_tes' => number_format($total_nilai)]);
 
                     $nilaialternatif                    = new NilaiAlternatif();

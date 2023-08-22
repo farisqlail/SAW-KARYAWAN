@@ -17,6 +17,8 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Nama</th>
+                                        <th class="text-center">Peringkat</th>
+                                        <th class="text-center">Nilai Akhir</th>
                                         <th align="center">Posisi Lowongan</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
@@ -27,10 +29,13 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->nama_pelamar }}</td>
+                                                <td align="center">{{ $data->rangked }}</td>
+                                                <td align="center">{{ $data->nilai_akhir }}</td>
                                                 <td>{{ $data->posisi_lowongan }}</td>
-                                                <td align="center">
-                                                    <a href="{{ route('hasil.wawancara', $data->id) }}" class="btn btn-sm btn-success">Hasil</a>
-                                                </td>
+                                                    <td align="center">
+                                                        <a href="{{ route('hasil.wawancara', $data->id) }}"
+                                                            class="btn btn-sm btn-success">Hasil</a>
+                                                    </td>
                                             </tr>
                                         @endforeach
                                     @else

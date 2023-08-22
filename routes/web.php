@@ -28,12 +28,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //LOWONGAN
+    Route::get('/periode/admin', 'LowonganController@periodeIndex')->name('lowongan.index.periode');
     Route::prefix('/lowongan')->group(function () {
 
 
         Route::get('/admin', 'LowonganController@index')->name('lowongan.index');
 
         Route::get('/tambah', 'LowonganController@create')->name('lowongan.tambah');
+        Route::get('/tutup-periode', 'LowonganController@periode')->name('lowongan.tutup-periode');
 
         Route::get('/detail/lowongan/{id}', 'LowonganController@detailAdmin')->name('lowongan.detailAdmin');
         Route::post('/tambah', 'LowonganController@store')->name('lowongan.simpan');

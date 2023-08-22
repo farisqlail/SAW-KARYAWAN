@@ -327,7 +327,9 @@ class PelamarController extends Controller
 
             $data = Pelamar::findOrFail($id);
             // dd($pelamar->lowongan->posisi_lowongan);
-            $data->seleksi_dua = 'Diterima';
+            $data->seleksi_dua  = 'Diterima';
+            $data->rangked      = $request->get('rangked');
+            $data->nilai_akhir  = $request->get('nilai_akhir');
 
             $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
             $beautymail->send('email.lolos2', ['data' => $data], function ($message) use ($data) {
@@ -367,11 +369,12 @@ class PelamarController extends Controller
 
     public function wawancara($id)
     {
-        $pelamar = Pelamar::select('pelamar.id', 'pelamar.id_lowongan', 'pelamar.nama_pelamar', 'lowongan.posisi_lowongan')
+        $pelamar = Pelamar::select('pelamar.id', 'pelamar.id_lowongan', 'pelamar.nama_pelamar', 'pelamar.rangked', 'pelamar.nilai_akhir', 'lowongan.posisi_lowongan')
             ->join('lowongan', 'lowongan.id', '=', 'pelamar.id_lowongan')
             ->where('seleksi_dua', 'Diterima')
             ->where('lowongan.id', $id)
-            ->groupBy('id', 'id_lowongan', 'nama_pelamar', 'posisi_lowongan')
+            ->groupBy('id', 'id_lowongan', 'nama_pelamar', 'rangked', 'nilai_akhir', 'posisi_lowongan')
+            ->orderBy('rangked', 'asc')
             ->get();
 
         return view('perhitungan.wawancara', [

@@ -24,6 +24,7 @@ class Lowongan extends Migration
             $table->string('status_lowongan')->nullable();
             $table->string('status_approve')->nullable();
             $table->string('divisi')->nullable();
+            $table->string('periode')->nullable();
             $table->timestamps();
          });
     }

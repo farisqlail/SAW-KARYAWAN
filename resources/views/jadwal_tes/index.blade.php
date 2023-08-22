@@ -53,17 +53,15 @@
                                                             class="btn btn-sm btn-info">Nilai</a>
                                                         <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id]) }}"
                                                             class="btn btn-sm btn-warning">Edit</a>
-                                                        <a href="{{ route('jadwal_tes.notif', $data->id) }}"
-                                                            class="btn btn-sm btn-info">Beri Notif</a>
                                                         <a href="#" class="btn btn-sm btn-danger delete"
                                                             data-id="{{ $data->id }}">Hapus</a>
                                                     </td>
                                                 @elseif(Auth::user()->role == 'hrd')
                                                     <td class="text-center">
+                                                        <a href="{{ route('jawaban.index', $data->id) }}"
+                                                            class="btn btn-sm btn-info">Nilai Psikotes</a>
                                                         <a href="{{ route('jadwal_tes.ubah', ['id' => $data->id]) }}"
                                                             class="btn btn-sm btn-warning">Edit</a>
-                                                        <a href="{{ route('jadwal_tes.notif', $data->id) }}"
-                                                            class="btn btn-sm btn-info">Beri Notif</a>
                                                         <a href="#" class="btn btn-sm btn-danger delete"
                                                             data-id="{{ $data->id }}">Hapus</a>
                                                     </td>
